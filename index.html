@@ -217,9 +217,9 @@
   /* Front */
   .flip-front img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
   .flip-front .flip-label{position:absolute;bottom:0;left:0;right:0;padding:14px 18px 16px;background:linear-gradient(transparent,rgba(0,0,0,.88))}
-  .flip-front .flip-num{font-size:9px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--orange);display:block;margin-bottom:4px}
+  .flip-front .flip-num{font-size:11px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--orange);display:block;margin-bottom:4px}
   .flip-front .flip-title{font-size:clamp(18px,2.2vw,26px);font-weight:900;text-transform:uppercase;letter-spacing:-.01em;line-height:1;color:#fff;display:block}
-  .flip-front .flip-hint{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.45);display:block;margin-top:6px}
+  .flip-front .flip-hint{font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.72);display:block;margin-top:6px}
   /* Back */
   .flip-back .flip-num{font-size:9px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--orange);margin-bottom:8px}
   .flip-back .flip-title{font-size:clamp(16px,2vw,22px);font-weight:900;text-transform:uppercase;letter-spacing:-.01em;line-height:1;margin-bottom:16px}
@@ -296,7 +296,7 @@
       <p class="sub">Two decades inside school systems and transformation work. Eight live brands and counting. One book. One framework. A universe built by someone who lived the problem first.</p>
       <div class="splash-cta-row">
         <a class="cta" href="book.html">Book Sean</a>
-        <a class="cta-ghost" href="speaker.html"><span style="display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:var(--orange)"><svg width="11" height="11" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 0L12 7L0 14V0Z" fill="#0d0d0d"/></svg></span>Watch the speaker reel</a>
+        <button id="reel-open" class="cta-ghost" style="background:none;border:1px solid var(--text-30)" aria-label="Watch the speaker reel" aria-haspopup="dialog"><span style="display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:var(--orange)"><svg width="11" height="11" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 0L12 7L0 14V0Z" fill="#0d0d0d"/></svg></span>Watch the speaker reel</button>
       </div>
     </div>
     <div class="splash-character" style="padding-top:16px">
@@ -423,7 +423,7 @@
 <section class="spread" id="contact">
   <div class="grid booking-spread">
     <article class="panel booking-fig">
-      <div class="cap tl">Book<span class="dot">.</span></div>
+      <div class="cap tl">Book Sean<span class="dot">.</span></div>
       <div class="halftone faint"></div>
       <img class="lesa-svg" src="assets/poses/lesaruss-k12-hero.png?v=2" alt="LESARUSS, the K-12 education guide." width="380" height="507">
     </article>
@@ -454,7 +454,7 @@
     <div class="foot-links">
       <a href="talents.html">Talents</a>
       <a href="speaker.html">Speaker + Host</a>
-      <a href="book.html">Book</a>
+      <a href="book.html">Book Sean</a>
     </div>
     <span>&copy; 2026<span class="dot">.</span> A LESARUSS production.</span>
   </div>
@@ -477,6 +477,29 @@
       if (e.key === "Enter" || e.key === " ") { e.preventDefault(); card.classList.toggle("flipped"); }
     });
   });
+  // Speaker reel lightbox
+  const reelOpen = document.getElementById('reel-open');
+  const reelLb = document.getElementById('reel-lb');
+  const reelClose = document.getElementById('reel-close');
+  const reelIframe = document.getElementById('reel-iframe');
+  if (reelOpen) {
+    reelOpen.addEventListener('click', () => {
+      reelIframe.src = 'https://player.vimeo.com/video/1042825400?autoplay=1&color=F69820&title=0&byline=0&portrait=0';
+      reelLb.style.display = 'flex';
+      reelClose.focus();
+    });
+  }
+  if (reelClose) {
+    reelClose.addEventListener('click', () => {
+      reelLb.style.display = 'none';
+      reelIframe.src = '';
+    });
+  }
+  if (reelLb) {
+    reelLb.addEventListener('click', e => { if (e.target === reelLb) { reelLb.style.display = 'none'; reelIframe.src = ''; } });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && reelLb.style.display === 'flex') { reelLb.style.display = 'none'; reelIframe.src = ''; } });
+  }
+
   const words = ["Blueprint.", "Brands.", "Systems.", "Universes."];
   let i = 0;
   const el = document.getElementById("cycle");
@@ -485,5 +508,12 @@
     setInterval(() => { i = (i + 1) % words.length; el.style.opacity = 0; setTimeout(() => { el.textContent = words[i]; el.style.opacity = 1; }, 240); }, 2600);
   }
 </script>
+<!-- Speaker reel lightbox -->
+<div id="reel-lb" role="dialog" aria-modal="true" aria-label="Speaker Reel" style="display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.92);align-items:center;justify-content:center">
+  <button id="reel-close" aria-label="Close video" style="position:absolute;top:20px;right:28px;background:none;border:none;color:#ffffff;font-size:32px;cursor:pointer;font-family:inherit;line-height:1;padding:4px 8px">&times;</button>
+  <div style="width:90%;max-width:960px;aspect-ratio:16/9;position:relative">
+    <iframe id="reel-iframe" src="" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:none" title="Sean A. Russell — Speaker Reel"></iframe>
+  </div>
+</div>
 </body>
 </html>

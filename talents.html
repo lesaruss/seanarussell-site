@@ -131,6 +131,28 @@
   .foot-links{display:flex;gap:24px;font-weight:700;text-transform:uppercase;letter-spacing:.16em;font-size:10px}
   .foot-links a:hover{color:var(--orange)}
 
+  /* ---- Flip cards ---- */
+  .flip-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gutter);margin-top:28px}
+  .flip-card{perspective:1200px;height:440px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+  .flip-inner{position:relative;width:100%;height:100%;transition:transform .55s cubic-bezier(.4,0,.2,1);transform-style:preserve-3d}
+  .flip-card.flipped .flip-inner{transform:rotateY(180deg)}
+  .flip-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border:var(--panel-line-w) solid var(--panel-line);overflow:hidden}
+  .flip-front{background:var(--surface)}
+  .flip-back{background:var(--bg);transform:rotateY(180deg);display:flex;flex-direction:column;padding:28px 24px}
+  .flip-front img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
+  .flip-front .flip-label{position:absolute;bottom:0;left:0;right:0;padding:14px 18px 16px;background:linear-gradient(transparent,rgba(0,0,0,.88))}
+  .flip-front .flip-num{font-size:11px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--orange);display:block;margin-bottom:4px}
+  .flip-front .flip-title{font-size:clamp(18px,2.2vw,26px);font-weight:900;text-transform:uppercase;letter-spacing:-.01em;line-height:1;color:#fff;display:block}
+  .flip-front .flip-hint{font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.72);display:block;margin-top:6px}
+  .flip-back .flip-num{font-size:9px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--orange);margin-bottom:8px}
+  .flip-back .flip-title{font-size:clamp(16px,2vw,22px);font-weight:900;text-transform:uppercase;letter-spacing:-.01em;line-height:1;margin-bottom:16px}
+  .flip-back .flip-desc{font-size:13px;line-height:1.8;color:var(--text-75);flex:1;margin-bottom:22px}
+  .flip-back .flip-cta{display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.14em;color:#0d0d0d;background:var(--orange);padding:12px 24px;border:none;cursor:pointer;font-family:inherit;text-decoration:none;transition:background .18s,color .18s}
+  .flip-back .flip-cta:hover{background:var(--text);color:var(--bg)}
+  .flip-back .flip-back-hint{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--text-30);margin-top:12px}
+  @media (max-width:980px){.flip-grid{grid-template-columns:repeat(2,1fr)}.flip-card{height:400px}}
+  @media (max-width:560px){.flip-grid{grid-template-columns:1fr 1fr}.flip-card{height:360px}}
+
   @media (max-width:1100px){.talent-grid{grid-template-columns:repeat(3,1fr)}}
   @media (max-width:980px){
     .page-hero{grid-template-columns:1fr}
@@ -197,39 +219,87 @@
     <p class="eyebrow">The full list<span class="dot">.</span></p>
     <h2>Five talents<span class="dot">.</span></h2>
     <p>Each one built from lived experience. Every door leads deeper into the same universe.</p>
-    <div class="talent-grid">
+    <div class="flip-grid" role="list">
 
-      <a href="author.html" class="talent-card">
-        <span class="t-watermark">01</span>
-        <p class="t-num">Talent 01</p>
-        <h3 class="t-name">Author<span class="dot">.</span></h3>
-        <p class="t-desc">Pre-Vegans is on the shelf. From Blur to Blueprint and the LESARUSS field guide are next. Every book is a system made readable.</p>
-        <span class="t-cta">Open</span>
-      </a>
+      <div class="flip-card" role="listitem" aria-label="Author — click to learn more" tabindex="0">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">
+            <img src="assets/poses/lesaruss-author-hero.png?v=2" alt="Sean A. Russell as Author" width="300" height="400">
+            <div class="flip-label">
+              <span class="flip-num">Talent 01</span>
+              <span class="flip-title">Author.</span>
+              <span class="flip-hint">Tap to read more</span>
+            </div>
+          </div>
+          <div class="flip-face flip-back">
+            <p class="flip-num">Talent 01</p>
+            <p class="flip-title">Author.</p>
+            <p class="flip-desc">Pre-Vegans is on the shelf. From Blur to Blueprint and the LESARUSS field guide are next. Every book is a system made readable.</p>
+            <a href="author.html" class="flip-cta">Open the chapter</a>
+            <span class="flip-back-hint">Tap to flip back</span>
+          </div>
+        </div>
+      </div>
 
-      <a href="producer.html" class="talent-card">
-        <span class="t-watermark">02</span>
-        <p class="t-num">Talent 02</p>
-        <h3 class="t-name">Producer<span class="dot">.</span></h3>
-        <p class="t-desc">Eight brands, eight sports and entertainment productions, sixteen skills. The full build log behind the LESARUSS universe.</p>
-        <span class="t-cta">Open</span>
-      </a>
+      <div class="flip-card" role="listitem" aria-label="Producer — click to learn more" tabindex="0">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">
+            <img src="assets/poses/lesaruss-producer-hero.png?v=2" alt="Sean A. Russell as Producer" width="300" height="400">
+            <div class="flip-label">
+              <span class="flip-num">Talent 02</span>
+              <span class="flip-title">Producer.</span>
+              <span class="flip-hint">Tap to read more</span>
+            </div>
+          </div>
+          <div class="flip-face flip-back">
+            <p class="flip-num">Talent 02</p>
+            <p class="flip-title">Producer.</p>
+            <p class="flip-desc">Eight brands, eight sports and entertainment productions, sixteen skills. The full build log behind the LESARUSS universe.</p>
+            <a href="producer.html" class="flip-cta">Open the chapter</a>
+            <span class="flip-back-hint">Tap to flip back</span>
+          </div>
+        </div>
+      </div>
 
-      <a href="speaker.html" class="talent-card">
-        <span class="t-watermark">03</span>
-        <p class="t-num">Talent 03</p>
-        <h3 class="t-name">Speaker + Host<span class="dot">.</span></h3>
-        <p class="t-desc">Keynotes, panels, festivals, and live events. You get the platform, the community, and the promotion, not just the person on stage.</p>
-        <span class="t-cta">Open</span>
-      </a>
+      <div class="flip-card" role="listitem" aria-label="Speaker and Host — click to learn more" tabindex="0">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">
+            <img src="assets/poses/lesaruss-speaker-hero.png?v=2" alt="Sean A. Russell as Speaker and Host" width="300" height="400">
+            <div class="flip-label">
+              <span class="flip-num">Talent 03</span>
+              <span class="flip-title">Speaker + Host.</span>
+              <span class="flip-hint">Tap to read more</span>
+            </div>
+          </div>
+          <div class="flip-face flip-back">
+            <p class="flip-num">Talent 03</p>
+            <p class="flip-title">Speaker + Host.</p>
+            <p class="flip-desc">Keynotes, panels, festivals, and live events. You get the platform, the community, and the promotion, not just the person on stage.</p>
+            <a href="speaker.html" class="flip-cta">Open the chapter</a>
+            <span class="flip-back-hint">Tap to flip back</span>
+          </div>
+        </div>
+      </div>
 
-      <a href="actor.html" class="talent-card">
-        <span class="t-watermark">04</span>
-        <p class="t-num">Talent 04</p>
-        <h3 class="t-name">On Camera<span class="dot">.</span></h3>
-        <p class="t-desc">On-screen presence across documentary, commercial, and branded content. Comfortable in the lens. Built for it.</p>
-        <span class="t-cta">Open</span>
-      </a>
+      <div class="flip-card" role="listitem" aria-label="On Camera — click to learn more" tabindex="0">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">
+            <img src="assets/poses/lesaruss-actor-hero.png?v=2" alt="Sean A. Russell, On Camera" width="300" height="400">
+            <div class="flip-label">
+              <span class="flip-num">Talent 04</span>
+              <span class="flip-title">On Camera.</span>
+              <span class="flip-hint">Tap to read more</span>
+            </div>
+          </div>
+          <div class="flip-face flip-back">
+            <p class="flip-num">Talent 04</p>
+            <p class="flip-title">On Camera.</p>
+            <p class="flip-desc">On-screen presence across documentary, commercial, and branded content. Comfortable in the lens. Built for it.</p>
+            <a href="actor.html" class="flip-cta">Open the chapter</a>
+            <span class="flip-back-hint">Tap to flip back</span>
+          </div>
+        </div>
+      </div>
 
     </div>
   </article>
@@ -282,6 +352,17 @@
     btn.addEventListener("click", () => {
       const expanded = btn.getAttribute("aria-expanded") === "true";
       btn.setAttribute("aria-expanded", String(!expanded));
+    });
+  });
+  // Flip cards
+  document.querySelectorAll(".flip-card").forEach(card => {
+    card.addEventListener("click", e => {
+      if (e.target.closest(".flip-cta")) return;
+      card.classList.toggle("flipped");
+      card.setAttribute("aria-expanded", card.classList.contains("flipped"));
+    });
+    card.addEventListener("keydown", e => {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); card.classList.toggle("flipped"); }
     });
   });
 </script>
