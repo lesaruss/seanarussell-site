@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Speaker. Sean A. Russell.</title>
+<title>Speaker + Host. Sean A. Russell.</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&display=swap" rel="stylesheet">
@@ -36,11 +36,13 @@
   @media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
   .dot{color:var(--orange);display:inline-block;animation:dotPulse 2s ease-in-out infinite}
   @keyframes dotPulse{0%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(1.3)}100%{opacity:1;transform:scale(1)}}
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 
+  /* NAV */
   .nav{position:fixed;top:0;left:0;right:0;z-index:200;height:62px;display:flex;align-items:center;padding:0 28px;background:var(--nav-bg);border-bottom:1px solid var(--border);backdrop-filter:blur(10px)}
   .nav-brand{font-size:17px;font-weight:900;text-transform:uppercase;letter-spacing:.05em;flex-shrink:0;margin-right:36px}
   .nav-links{display:flex;align-items:center;gap:4px;flex:1}
-  .nav-link{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.13em;color:var(--text-50);padding:6px 12px;background:none;border:none;cursor:pointer;transition:color .18s;white-space:nowrap;flex-shrink:0}
+  .nav-link{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.13em;color:var(--text-50);padding:6px 12px;background:none;border:none;cursor:pointer;transition:color .18s;white-space:nowrap;flex-shrink:0;text-decoration:none}
   .nav-link:hover{color:var(--text)}
   .nav-link.active{color:var(--orange)}
   .nav-toggle{width:36px;height:36px;border-radius:50%;background:rgba(127,127,127,0.12);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text);flex-shrink:0;margin-right:10px}
@@ -49,7 +51,7 @@
   .nav-toggle .icon-moon{display:block}
   html[data-theme="light"] .nav-toggle .icon-sun{display:block}
   html[data-theme="light"] .nav-toggle .icon-moon{display:none}
-  .nav-enter{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.14em;color:#0d0d0d;background:var(--orange);padding:9px 20px;border:none;cursor:pointer;flex-shrink:0}
+  .nav-enter{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.14em;color:#0d0d0d;background:var(--orange);padding:9px 20px;border:none;cursor:pointer;flex-shrink:0;text-decoration:none;display:inline-block}
   .nav-enter:hover{background:var(--text);color:var(--bg)}
   /* Talents dropdown */
   .nav-dropdown{position:relative;display:inline-flex;align-items:center}
@@ -58,217 +60,595 @@
   .nav-dropdown-trigger.active{color:var(--orange)}
   .nav-dropdown-trigger .chevron{font-size:9px;line-height:1;transition:transform .18s;display:inline-block}
   .nav-dropdown:hover .chevron{transform:rotate(180deg)}
-  .nav-dropdown-menu{position:absolute;top:100%;left:0;background:var(--nav-bg);border:1px solid var(--border);backdrop-filter:blur(10px);min-width:150px;padding:4px 0 6px;display:none;z-index:300}
+  .nav-dropdown-menu{position:absolute;top:100%;left:0;background:var(--nav-bg);border:1px solid var(--border);backdrop-filter:blur(10px);min-width:160px;padding:4px 0 6px;display:none;z-index:300}
   .nav-dropdown:hover .nav-dropdown-menu,.nav-dropdown:focus-within .nav-dropdown-menu{display:block}
-  .nav-dropdown-item{display:block;padding:9px 16px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.13em;color:var(--text-50);transition:color .15s}
+  .nav-dropdown-item{display:block;padding:9px 16px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.13em;color:var(--text-50);transition:color .15s;text-decoration:none}
   .nav-dropdown-item:hover{color:var(--orange)}
   .nav-dropdown-item.active{color:var(--orange)}
 
+  /* ISSUE BAR */
   .issue-bar{position:relative;display:flex;align-items:center;gap:18px;padding:10px 28px;border-bottom:1px solid var(--border);font-size:10px;font-weight:800;letter-spacing:.32em;text-transform:uppercase;color:var(--text-50);margin-top:62px}
-  .issue-bar .red{width:8px;height:8px;border-radius:50%;background:var(--orange);animation:dotPulse 2s ease-in-out infinite}
-  .issue-bar span.title{color:var(--text)}
-  .issue-bar .right{margin-left:auto;color:var(--text-30)}
+  .issue-bar .pulse{width:8px;height:8px;border-radius:50%;background:var(--orange);flex-shrink:0;animation:dotPulse 2s ease-in-out infinite}
+  .issue-bar .ib-title{color:var(--text)}
+  .issue-bar .ib-right{margin-left:auto;color:var(--text-30)}
 
+  /* LAYOUT */
   .spread{padding:var(--gutter);max-width:1280px;margin:0 auto}
-  .spread + .spread{padding-top:0}
+  .spread+.spread{padding-top:0}
   .panel{position:relative;background:var(--bg);border:var(--panel-line-w) solid var(--panel-line);overflow:hidden}
   .grid{display:grid;gap:var(--gutter)}
-
-  .cap{position:absolute;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--text);background:var(--bg);padding:8px 12px;border:var(--panel-line-w) solid var(--panel-line);z-index:5;line-height:1.5;max-width:280px}
+  .cap{position:absolute;font-size:10px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--text);background:var(--bg);padding:8px 12px;border:var(--panel-line-w) solid var(--panel-line);z-index:5;line-height:1.5;max-width:280px}
   .cap.tl{top:-1px;left:-1px}
   .cap.tl-inset{top:14px;left:14px}
-  .pose-tag{position:absolute;bottom:14px;right:14px;font-size:9px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--orange);background:rgba(13,13,13,.78);padding:6px 9px;border:1px solid var(--orange);z-index:6}
-  html[data-theme="light"] .pose-tag{background:#0d0d0d;color:var(--orange)}
-
-  .halftone{position:absolute;inset:0;opacity:.16;pointer-events:none;background-image:radial-gradient(var(--orange) 1.4px, transparent 1.6px);background-size:14px 14px}
+  .halftone{position:absolute;inset:0;opacity:.16;pointer-events:none;background-image:radial-gradient(var(--orange) 1.4px,transparent 1.6px);background-size:14px 14px}
   .halftone.faint{opacity:.08}
-
   .eyebrow{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.32em;color:var(--orange);margin-bottom:22px}
+  html[data-theme="light"] .eyebrow{color:#875000}
 
-  .page-hero{display:grid;grid-template-columns:minmax(0,1fr) 460px;min-height:520px;align-items:end}
+  /* HERO */
+  .page-hero{display:grid;grid-template-columns:minmax(0,1fr) 460px;min-height:560px;align-items:end}
   .page-hero-copy{padding:64px 56px;min-width:0}
-  .page-hero h1{font-size:clamp(48px,7vw,88px);font-weight:900;text-transform:uppercase;letter-spacing:-.03em;line-height:.95;margin:14px 0 18px;overflow-wrap:break-word}
+  .page-hero h1{font-size:clamp(44px,7vw,88px);font-weight:900;text-transform:uppercase;letter-spacing:-.03em;line-height:.92;margin:14px 0 18px;overflow-wrap:break-word}
   .page-hero h1 em{font-style:normal;color:var(--orange)}
-  .page-hero .lede{font-size:15px;line-height:1.85;color:var(--text-75);max-width:480px;margin-bottom:24px}
+  .page-hero .lede{font-size:15px;line-height:1.85;color:var(--text-75);max-width:500px;margin-bottom:10px}
+  .page-hero .lede-strong{font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--text);margin-top:20px;max-width:460px;line-height:1.6}
   .page-hero-character{position:relative;height:100%;min-height:480px;display:flex;align-items:flex-end;justify-content:center;border-left:var(--panel-line-w) solid var(--panel-line)}
-  .page-hero-character .lesa-svg{width:360px;max-width:360px;height:auto;flex-shrink:0}
+  .page-hero-character img{width:360px;max-width:360px;height:auto;flex-shrink:0;position:relative;z-index:1}
   .page-hero-character::before{content:"";position:absolute;left:50%;bottom:24px;transform:translateX(-50%);width:300px;height:300px;border:1px solid var(--text-30);border-radius:50%;opacity:.5;z-index:0}
 
-  .poster-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:var(--gutter)}
-  .poster{position:relative;background:var(--surface);border:var(--panel-line-w) solid var(--panel-line);min-height:240px;display:flex;flex-direction:column;justify-content:space-between;padding:20px;overflow:hidden}
-  .poster .art{position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);font-size:80px;font-weight:900;letter-spacing:-.06em;line-height:.85;color:var(--text);opacity:.06;text-align:center}
-  .poster .cat{font-size:9px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--orange);position:relative;z-index:2}
-  .poster .nm{font-size:18px;font-weight:900;text-transform:uppercase;letter-spacing:.02em;line-height:1;position:relative;z-index:2}
-  .poster .tg{font-size:11px;font-weight:400;color:var(--text-75);line-height:1.5;position:relative;z-index:2}
+  /* INFRASTRUCTURE PILLARS */
+  .infra-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gutter);margin-top:14px}
+  .infra-card{position:relative;padding:28px 22px 24px;border:var(--panel-line-w) solid var(--panel-line);background:var(--bg);display:flex;flex-direction:column;gap:10px;overflow:hidden}
+  .infra-card .i-num{font-size:9px;font-weight:800;letter-spacing:.22em;color:var(--orange);text-transform:uppercase}
+  html[data-theme="light"] .infra-card .i-num{color:#875000}
+  .infra-card .i-nm{font-size:16px;font-weight:900;text-transform:uppercase;letter-spacing:.01em;line-height:1;color:var(--text)}
+  .infra-card .i-ds{font-size:12px;font-weight:400;color:var(--text-75);line-height:1.65;margin-top:4px;position:relative;z-index:1}
+  .infra-card .i-bg{position:absolute;right:-8px;top:50%;transform:translateY(-50%);font-size:96px;font-weight:900;color:var(--text);opacity:.04;pointer-events:none;line-height:1;user-select:none;z-index:0}
 
-  .reel-spread{grid-template-columns:1.05fr 1fr;gap:var(--gutter)}
-  .panel.reel-fig{aspect-ratio:1;display:flex;align-items:flex-end;justify-content:center;padding:24px}
-  .panel.reel-fig .lesa-svg{width:88%;max-width:340px}
-  .panel.reel-frame{aspect-ratio:1;background:linear-gradient(135deg,#0d0d0d 0%,#1a1a1a 100%);position:relative;display:flex;align-items:center;justify-content:center}
-  .panel.reel-frame::after{content:"";position:absolute;left:50%;top:50%;width:62%;height:62%;border-radius:50%;border:1px solid rgba(255,255,255,.3);transform:translate(-50%,-50%)}
-  .play-btn{width:84px;height:84px;border-radius:50%;background:var(--orange);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;position:relative;z-index:2}
-  .play-btn svg{width:30px;height:30px}
-  .panel.reel-frame .label{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);font-size:11px;font-weight:800;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,255,255,.55);z-index:2}
+  /* COPY PANELS */
+  .panel.copy{padding:48px}
+  .panel.copy h2{font-size:clamp(28px,4vw,48px);font-weight:900;text-transform:uppercase;letter-spacing:-.02em;line-height:.97;margin:8px 0 20px}
+  .panel.copy p{font-size:14px;line-height:1.85;color:var(--text-75);margin-bottom:18px;max-width:700px}
 
-  .booking-spread{grid-template-columns:1fr 1.1fr;gap:var(--gutter)}
-  .panel.booking-fig{display:flex;align-items:flex-end;justify-content:center;padding:0;min-height:620px;position:relative;overflow:hidden}
-  .panel.booking-fig .lesa-svg{width:100%;max-width:560px;height:auto;display:block;object-fit:contain;object-position:center bottom}
+  /* ROOMS */
+  .rooms-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gutter);margin-top:14px}
+  .room-card{padding:22px 20px;border:var(--panel-line-w) solid var(--panel-line);background:var(--bg);min-height:160px;display:flex;flex-direction:column;gap:8px}
+  .room-card .r-num{font-size:9px;font-weight:800;letter-spacing:.22em;color:var(--orange);text-transform:uppercase}
+  html[data-theme="light"] .room-card .r-num{color:#875000}
+  .room-card .r-nm{font-size:15px;font-weight:900;text-transform:uppercase;letter-spacing:0;line-height:1.05;color:var(--text)}
+  .room-card .r-ds{font-size:12px;font-weight:400;color:var(--text-75);line-height:1.6;margin-top:6px}
+
+  /* HOSTING BEATS */
+  .beats{list-style:none;padding:0;margin:18px 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+  .beats li{padding:20px;border:1px solid var(--border)}
+  .beats li .b-num{font-size:10px;font-weight:800;letter-spacing:.22em;color:var(--orange);text-transform:uppercase;display:block;margin-bottom:6px}
+  html[data-theme="light"] .beats li .b-num{color:#875000}
+  .beats li .b-nm{font-size:14px;font-weight:900;text-transform:uppercase;letter-spacing:.02em;display:block;margin-bottom:8px;color:var(--text)}
+  .beats li .b-ds{font-size:12px;line-height:1.6;color:var(--text-75)}
+
+  /* PORTFOLIO FILTER */
+  .portfolio-controls{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:28px 0 20px;flex-wrap:wrap}
+  .filter-tabs{display:flex;gap:6px;flex-wrap:wrap}
+  .filter-tab{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.18em;padding:8px 16px;border:1.5px solid var(--border);background:transparent;color:var(--text-50);cursor:pointer;transition:all .15s;font-family:inherit}
+  .filter-tab:hover{color:var(--text);border-color:var(--text)}
+  .filter-tab.active{color:var(--orange);border-color:var(--orange);background:rgba(246,152,32,.08)}
+  html[data-theme="light"] .filter-tab.active{color:#875000;border-color:#875000;background:rgba(135,80,0,.08)}
+
+  /* FLIP CARD GRID */
+  .flip-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gutter)}
+  .flip-card{height:280px;cursor:pointer;perspective:1200px}
+  .flip-card:focus-visible{outline:3px solid var(--orange);outline-offset:3px}
+  .flip-inner{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.4,0,.2,1)}
+  .flip-card.flipped .flip-inner{transform:rotateY(180deg)}
+  .flip-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border:var(--panel-line-w) solid var(--panel-line);display:flex;flex-direction:column;overflow:hidden}
+  .flip-front{align-items:center;justify-content:flex-start;background:var(--surface)}
+  .flip-back{transform:rotateY(180deg);background:var(--surface);padding:20px;justify-content:space-between}
+  .flip-front-cat{font-size:8px;font-weight:800;text-transform:uppercase;letter-spacing:.22em;color:var(--orange);padding:10px 12px;width:100%;border-bottom:1px solid var(--border)}
+  html[data-theme="light"] .flip-front-cat{color:#875000}
+  .flip-logo-area{flex:1;display:flex;align-items:center;justify-content:center;padding:16px 20px;width:100%;overflow:hidden}
+  .flip-logo-text{font-size:26px;font-weight:900;text-transform:uppercase;letter-spacing:-.02em;line-height:1;text-align:center;color:var(--text)}
+  .flip-front-title{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.2em;color:var(--text-50);padding:10px 12px;border-top:1px solid var(--border);width:100%;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .flip-front-hint{font-size:8px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--text-50);padding:0 12px 10px;width:100%;display:flex;align-items:center;gap:5px}
+  .flip-front-hint svg{flex-shrink:0;opacity:.5}
+  .flip-back-top{flex:1;min-height:0;overflow:hidden}
+  .flip-back-cat{font-size:9px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--orange);margin-bottom:6px}
+  html[data-theme="light"] .flip-back-cat{color:#875000}
+  .flip-back-title{font-size:16px;font-weight:900;text-transform:uppercase;letter-spacing:.01em;line-height:1.1;margin-bottom:8px;color:var(--text)}
+  .flip-back-tag{font-size:11px;color:var(--text-75);line-height:1.6;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  .flip-soon{font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--text-50);margin-top:12px;display:inline-block}
+  .no-results{grid-column:1 / -1;text-align:center;padding:48px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.22em;color:var(--text-30)}
+  .load-more-wrap{text-align:center;margin-top:20px}
+  .load-more-btn{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.18em;color:var(--text);background:none;border:1.5px solid var(--panel-line);padding:12px 36px;cursor:pointer;font-family:inherit;transition:border-color .15s,color .15s}
+  .load-more-btn:hover{border-color:var(--orange);color:var(--orange)}
+  .load-more-btn:focus-visible{outline:3px solid var(--orange);outline-offset:3px}
+
+  /* PACKAGES */
+  .pkg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gutter);margin-top:14px}
+  .pkg-card{padding:32px 26px 28px;border:var(--panel-line-w) solid var(--panel-line);background:var(--bg);display:flex;flex-direction:column;gap:12px}
+  .pkg-card.featured{border-color:var(--orange);border-width:2px}
+  .pkg-card .pk-eyebrow{font-size:9px;font-weight:800;letter-spacing:.28em;text-transform:uppercase;color:var(--orange)}
+  html[data-theme="light"] .pkg-card .pk-eyebrow{color:#875000}
+  .pkg-card.featured .pk-eyebrow::after{content:" / MOST REQUESTED";color:var(--text-30)}
+  .pkg-card .pk-nm{font-size:20px;font-weight:900;text-transform:uppercase;letter-spacing:0;line-height:1.05;color:var(--text)}
+  .pkg-card .pk-ds{font-size:13px;font-weight:400;color:var(--text-75);line-height:1.7}
+  .pkg-card .pk-list{margin-top:8px;display:flex;flex-direction:column;gap:7px}
+  .pkg-card .pk-list span{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--text-50);padding-left:16px;position:relative;line-height:1.5}
+  .pkg-card .pk-list span::before{content:"";position:absolute;left:0;top:6px;width:6px;height:6px;border-radius:50%;background:var(--orange)}
+  .pkg-card .pk-cta{margin-top:auto;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.14em;color:var(--orange);border-top:1px solid var(--border);padding-top:18px;display:block}
+  .pkg-card .pk-cta:hover{color:var(--text)}
+  html[data-theme="light"] .pkg-card .pk-cta{color:#875000}
+  html[data-theme="light"] .pkg-card .pk-cta:hover{color:var(--text)}
+
+  /* BOOKING */
+  .booking-spread{grid-template-columns:1fr 1.1fr}
+  .panel.booking-fig{display:flex;align-items:flex-end;justify-content:center;padding:0;min-height:620px}
+  .panel.booking-fig img{width:100%;max-width:560px;height:auto;display:block;object-fit:contain;object-position:center bottom}
   .panel.booking-form{padding:48px}
-  .panel.booking-form h2{font-size:clamp(36px,5.4vw,68px);font-weight:900;text-transform:uppercase;letter-spacing:-.03em;line-height:.95;margin:14px 0 24px}
+  .panel.booking-form h2{font-size:clamp(36px,5.4vw,64px);font-weight:900;text-transform:uppercase;letter-spacing:-.03em;line-height:.95;margin:14px 0 24px}
   .panel.booking-form .pre{font-size:14px;color:var(--text-75);line-height:1.75;margin-bottom:30px;max-width:440px}
   .form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
-  .form input,.form select,.form textarea{width:100%;padding:14px 16px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:inherit;font-size:13px;letter-spacing:.02em}
+  .form input,.form select,.form textarea{width:100%;padding:14px 16px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:inherit;font-size:16px;letter-spacing:.02em}
   .form input::placeholder,.form textarea::placeholder{color:var(--text-50)}
+  .form select{appearance:none;cursor:pointer}
+  .form select option{background:var(--bg)}
   .form textarea{min-height:120px;resize:vertical;margin-bottom:14px}
   .form .submit{width:100%;background:var(--orange);color:#0d0d0d;border:none;padding:16px;font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.14em;cursor:pointer}
-  .form .submit:hover{background:var(--text)}
+  .form .submit:hover{background:var(--text);color:var(--bg)}
 
-  .panel.copy{padding:48px}
-  .panel.copy h2{font-size:clamp(28px,4vw,42px);font-weight:900;text-transform:uppercase;letter-spacing:-.02em;line-height:1;margin:8px 0 18px}
-  .panel.copy p{font-size:14px;line-height:1.85;color:var(--text-75);margin-bottom:18px;max-width:680px}
-
-  .speak-rooms{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gutter);margin-top:14px}
-  .room-card{position:relative;padding:22px 20px;border:var(--panel-line-w) solid var(--panel-line);background:var(--bg);min-height:160px;display:flex;flex-direction:column;gap:8px}
-  .room-card .skill-num{font-size:9px;font-weight:800;letter-spacing:.22em;color:var(--orange)}
-  .room-card .skill-nm{font-size:15px;font-weight:900;text-transform:uppercase;letter-spacing:0;line-height:1.05;color:var(--text)}
-  .room-card .room-ds{font-size:12px;font-weight:400;color:var(--text-75);line-height:1.6;margin-top:6px}
-  @media (max-width:980px){
-    .speak-rooms{grid-template-columns:1fr}
-    .poster-grid{grid-template-columns:repeat(2,1fr)}
-  }
+  /* FOOTER */
   footer{padding:36px 28px;border-top:1px solid var(--border);background:var(--bg);margin-top:var(--gutter)}
   .foot-inner{max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:18px;font-size:11px;color:var(--text-50)}
   .foot-wm{font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:.05em;color:var(--text-50)}
   .foot-links{display:flex;gap:24px;font-weight:700;text-transform:uppercase;letter-spacing:.16em;font-size:10px}
   .foot-links a:hover{color:var(--orange)}
 
+  /* RESPONSIVE */
+  @media (max-width:1100px){
+    .infra-grid{grid-template-columns:repeat(2,1fr)}
+    .pkg-grid{grid-template-columns:1fr}
+    .flip-grid{grid-template-columns:repeat(2,1fr)}
+  }
   @media (max-width:980px){
     .page-hero{grid-template-columns:1fr}
     .page-hero-copy{padding:48px 28px}
     .page-hero-character{border-left:none;border-top:var(--panel-line-w) solid var(--panel-line);min-height:440px}
-    .page-hero-character .lesa-svg{width:280px;max-width:280px}
-    .reel-spread,.booking-spread{grid-template-columns:1fr}
-    .panel.booking-fig{min-height:520px}
-    .panel.booking-fig .lesa-svg{max-width:440px}
+    .page-hero-character img{width:280px;max-width:280px}
+    .rooms-grid{grid-template-columns:1fr}
+    .booking-spread{grid-template-columns:1fr}
+    .panel.booking-fig{min-height:400px}
+    .panel.booking-fig img{max-width:400px}
     .nav-links{display:none}
     .panel.copy{padding:28px}
     .panel.booking-form{padding:28px}
+    .infra-grid{grid-template-columns:1fr 1fr}
+  }
+  @media (max-width:600px){
+    .infra-grid{grid-template-columns:1fr}
+    .form-row{grid-template-columns:1fr}
+    .flip-grid{grid-template-columns:repeat(2,1fr)}
+    .flip-card{height:240px}
   }
 </style>
 </head>
 <body>
+
 <header class="nav">
   <a class="nav-brand" href="index.html">Sean A. Russell<span class="dot">.</span></a>
-  <nav class="nav-links" aria-label="Primary">
+  <nav class="nav-links" aria-label="Primary navigation">
     <div class="nav-dropdown">
       <button class="nav-dropdown-trigger active" aria-haspopup="true" aria-expanded="false">Talents <span class="chevron" aria-hidden="true">&#9662;</span></button>
       <div class="nav-dropdown-menu" role="menu">
         <a class="nav-dropdown-item" href="author.html" role="menuitem">Author</a>
         <a class="nav-dropdown-item" href="producer.html" role="menuitem">Producer</a>
-        <a class="nav-dropdown-item active" href="speaker.html" role="menuitem">Speaker</a>
+        <a class="nav-dropdown-item active" href="speaker.html" role="menuitem" aria-current="page">Speaker + Host</a>
         <a class="nav-dropdown-item" href="actor.html" role="menuitem">On Camera</a>
-        <a class="nav-dropdown-item" href="host.html" role="menuitem">Host</a>
       </div>
     </div>
     <a class="nav-link" href="experience.html">Experience</a>
     <a class="nav-link" href="consultant.html">Consultant</a>
-    <a class="nav-link" href="book.html">Book</a>
   </nav>
-  <button class="nav-toggle" aria-label="Toggle theme">
-    <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-    <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+  <button class="nav-toggle" aria-label="Toggle color theme">
+    <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
   </button>
-  <a class="nav-enter" href="book.html">Book Sean</a>
+  <a class="nav-enter" href="#contact">Book Sean</a>
 </header>
-<div class="issue-bar">
-  <span class="red"></span>
-  <span class="title">Issue 01</span>
-  <span>Speaker</span>
-  <span class="right">Page 05 . Speaker</span>
+
+<div class="issue-bar" aria-hidden="true">
+  <span class="pulse"></span>
+  <span class="ib-title">Issue 01</span>
+  <span>Speaker + Host</span>
+  <span class="ib-right">Page 05 . Speaker + Host</span>
 </div>
+
+<!-- HERO -->
 <section class="spread">
   <article class="panel">
-    <div class="cap tl-inset">Speaker<span class="dot">.</span></div>
-    <div class="halftone faint"></div>
+    <div class="cap tl-inset" aria-hidden="true">Speaker + Host<span class="dot">.</span></div>
+    <div class="halftone faint" aria-hidden="true"></div>
     <div class="page-hero">
       <div class="page-hero-copy">
-        <p class="eyebrow">Speaker<span class="dot">.</span></p>
-        <h1>Walk into<br>the <em>room</em><span class="dot">.</span></h1>
-        <p class="lede">Keynotes, panels, conferences, private events. Six topic rooms. Europe summer 2026. World tour coming soon. Booking calendar opens with the public launch.</p>
+        <h1>You're not<br>booking a<br><em>speaker</em><span class="dot">.</span></h1>
+        <p class="lede">You're bringing in infrastructure. A platform. One of the largest Vegan communities being built on the planet right now. And an operator who has done this at every scale.</p>
+        <p class="lede-strong">Your audience gets access to something that outlasts the event<span class="dot">.</span></p>
       </div>
       <div class="page-hero-character">
-        <img class="lesa-svg" src="assets/poses/lesaruss-speaker-hero.png?v=2" alt="Sean A. Russell, speaker." width="360" height="480">
+        <img src="assets/poses/lesaruss-speaker-hero.png?v=2" alt="Sean A. Russell, speaker and host." width="360" height="480">
       </div>
     </div>
   </article>
 </section>
+
+<!-- WHAT YOU'RE GETTING -->
 <section class="spread">
   <article class="panel copy">
-    <div class="cap tl">Topics<span class="dot">.</span></div>
+    <div class="cap tl" aria-hidden="true">The offer<span class="dot">.</span></div>
+    <p class="eyebrow">What you're actually getting</p>
+    <h2>More than a speaker<span class="dot">.</span></h2>
+    <p>Every booking brings the full machine. No one else in this space can offer all four of these in the same conversation.</p>
+    <div class="infra-grid">
+      <div class="infra-card">
+        <span class="i-bg" aria-hidden="true">P</span>
+        <span class="i-num">01</span>
+        <span class="i-nm">The platform<span class="dot">.</span></span>
+        <p class="i-ds">LESARUSS is a live operating system, not a personal brand. When you book Sean, the infrastructure he has spent years building comes with him. Your audience gets a door into something real.</p>
+      </div>
+      <div class="infra-card">
+        <span class="i-bg" aria-hidden="true">C</span>
+        <span class="i-num">02</span>
+        <span class="i-nm">The community<span class="dot">.</span></span>
+        <p class="i-ds">Vegans Explore is one of the largest Vegan communities in active development right now. Your event is not a stop on a tour. It is an entry point for your audience into a network that compounds.</p>
+      </div>
+      <div class="infra-card">
+        <span class="i-bg" aria-hidden="true">M</span>
+        <span class="i-num">03</span>
+        <span class="i-nm">The promotion<span class="dot">.</span></span>
+        <p class="i-ds">Your event gets promoted to Sean's audience before, during, and after. That reach is not a favor. It is built into the engagement. The story of your event lives past closing night.</p>
+      </div>
+      <div class="infra-card">
+        <span class="i-bg" aria-hidden="true">X</span>
+        <span class="i-num">04</span>
+        <span class="i-nm">The production<span class="dot">.</span></span>
+        <p class="i-ds">One discovery call. A run-of-show drafted within a week. The LESARUSS team can show up with full production support, or Sean shows up solo. Either way, the room is held.</p>
+      </div>
+    </div>
+  </article>
+</section>
+
+<!-- SPEAKING TOPICS -->
+<section class="spread">
+  <article class="panel copy">
+    <div class="cap tl" aria-hidden="true">Topics<span class="dot">.</span></div>
     <p class="eyebrow">What Sean talks about</p>
     <h2>Six rooms<span class="dot">.</span></h2>
     <p>Same operating system underneath every talk. Different rooms, different pull-quotes, one architect.</p>
-    <div class="speak-rooms">
-      <div class="room-card"><span class="skill-num">01</span><span class="skill-nm">From Blur to Blueprint<span class="dot">.</span></span><span class="room-ds">The keynote. Origin story plus the system that came out of it. Best for founders, builders, mixed audiences.</span></div>
-      <div class="room-card"><span class="skill-num">02</span><span class="skill-nm">Movement architecture<span class="dot">.</span></span><span class="room-ds">How communities, brands, and movements actually scale. For creators, marketers, and brand teams.</span></div>
-      <div class="room-card"><span class="skill-num">03</span><span class="skill-nm">K-12 transformation<span class="dot">.</span></span><span class="room-ds">Twenty years inside school systems. For superintendents, district leaders, edtech operators.</span></div>
-      <div class="room-card"><span class="skill-num">04</span><span class="skill-nm">Vegan community building<span class="dot">.</span></span><span class="room-ds">Vegans Explore as a case study. For nonprofits, festivals, and food brands.</span></div>
-      <div class="room-card"><span class="skill-num">05</span><span class="skill-nm">AI as operating system<span class="dot">.</span></span><span class="room-ds">LESARUSS as the proof. How small teams can run multi-brand portfolios with AI underneath.</span></div>
-      <div class="room-card"><span class="skill-num">06</span><span class="skill-nm">Custom topic<span class="dot">.</span></span><span class="room-ds">Built for the audience. Send the brief and the outcome and Sean will draft a tailored room.</span></div>
+    <div class="rooms-grid">
+      <div class="room-card">
+        <span class="r-num">01</span>
+        <span class="r-nm">From Blur to Blueprint<span class="dot">.</span></span>
+        <span class="r-ds">The keynote. Origin story plus the system that came out of it. Best for founders, builders, and mixed audiences.</span>
+      </div>
+      <div class="room-card">
+        <span class="r-num">02</span>
+        <span class="r-nm">Movement architecture<span class="dot">.</span></span>
+        <span class="r-ds">How communities, brands, and movements actually scale. For creators, marketers, and brand teams.</span>
+      </div>
+      <div class="room-card">
+        <span class="r-num">03</span>
+        <span class="r-nm">K-12 transformation<span class="dot">.</span></span>
+        <span class="r-ds">Twenty years inside school systems. For superintendents, district leaders, and edtech operators.</span>
+      </div>
+      <div class="room-card">
+        <span class="r-num">04</span>
+        <span class="r-nm">Vegan community building<span class="dot">.</span></span>
+        <span class="r-ds">Vegans Explore as a case study. For nonprofits, festivals, and food brands building a lasting community.</span>
+      </div>
+      <div class="room-card">
+        <span class="r-num">05</span>
+        <span class="r-nm">AI as operating system<span class="dot">.</span></span>
+        <span class="r-ds">LESARUSS as the proof. How small teams run multi-brand portfolios with AI underneath.</span>
+      </div>
+      <div class="room-card">
+        <span class="r-num">06</span>
+        <span class="r-nm">Custom topic<span class="dot">.</span></span>
+        <span class="r-ds">Built for your audience. Send the brief and the outcome and Sean will draft a tailored room.</span>
+      </div>
     </div>
   </article>
 </section>
 
+<!-- HOSTING -->
 <section class="spread">
   <article class="panel copy">
-    <div class="cap tl">Tour<span class="dot">.</span></div>
-    <p class="eyebrow">2026</p>
-    <h2>Europe anchor<span class="dot">.</span> World tour <em style="font-style:normal;color:var(--orange)">coming soon</em><span class="dot">.</span></h2>
-    <p>Europe in summer 2026 anchors the first paid engagements. World tour follows through fall and winter, self-funded through speaking fees. Booking calendar opens with the public launch on July 1, 2026.</p>
+    <h2>Conductor<span class="dot">.</span> Guide<span class="dot">.</span></h2>
+    <p>Hosting is its own craft. Half conductor, half guide, half stand-up. Sean has hosted festivals, panels, awards, podcasts, and live community events at every scale.</p>
+    <ul class="beats">
+      <li>
+        <span class="b-num">01</span>
+        <span class="b-nm">Festivals<span class="dot">.</span></span>
+        <span class="b-ds">Multi-day, multi-stage. Vegans Explore tour included. Comfortable on outdoor mainstage and intimate side rooms.</span>
+      </li>
+      <li>
+        <span class="b-num">02</span>
+        <span class="b-nm">Conferences and panels<span class="dot">.</span></span>
+        <span class="b-ds">Moderating, MC, panel host. Tech, education, community, and brand events.</span>
+      </li>
+      <li>
+        <span class="b-num">03</span>
+        <span class="b-nm">Awards and ceremonies<span class="dot">.</span></span>
+        <span class="b-ds">Scripted segments plus live banter. Production-friendly. Hits the cue.</span>
+      </li>
+      <li>
+        <span class="b-num">04</span>
+        <span class="b-nm">Live podcasts<span class="dot">.</span></span>
+        <span class="b-ds">In-studio or stage-cast. Long-form interviews. Pre-show and post-show production included.</span>
+      </li>
+    </ul>
   </article>
 </section>
 
+<!-- STAGE CREDITS -->
+<section class="spread">
+  <article class="panel copy">
+    <h2>On stage<span class="dot">.</span></h2>
+    <p>Festivals, expos, summits, community gatherings. Every scale, every room. Click any tile to see details.</p>
+
+    <div class="portfolio-controls">
+      <div class="filter-tabs" role="group" aria-label="Filter by event type">
+        <button class="filter-tab active" data-filter="all">All</button>
+        <button class="filter-tab" data-filter="festival">Festival</button>
+        <button class="filter-tab" data-filter="community">Community</button>
+      </div>
+    </div>
+
+    <div class="flip-grid" id="flip-grid" role="list" aria-label="Stage credits"></div>
+
+    <div class="load-more-wrap" id="load-more-wrap" hidden>
+      <button class="load-more-btn" id="load-more-btn">Load more</button>
+    </div>
+  </article>
+</section>
+
+<!-- PACKAGES -->
+<section class="spread">
+  <article class="panel copy">
+    <div class="cap tl" aria-hidden="true">Packages<span class="dot">.</span></div>
+    <p class="eyebrow">What a partnership looks like</p>
+    <h2>Three ways in<span class="dot">.</span></h2>
+    <p>These are starting frameworks. Every engagement is built around the actual event. Send the brief and the real scope gets built around you.</p>
+    <div class="pkg-grid">
+
+      <div class="pkg-card">
+        <span class="pk-eyebrow">Stage</span>
+        <span class="pk-nm">Speaker or Host<span class="dot">.</span></span>
+        <p class="pk-ds">Sean on stage. Keynote, panel, or full-event host. Includes one discovery call, a run-of-show draft, and day-of presence.</p>
+        <div class="pk-list" aria-label="What's included">
+          <span>Keynote or hosting session</span>
+          <span>Run-of-show draft</span>
+          <span>Promotion to Sean's audience</span>
+        </div>
+        <a class="pk-cta" href="#contact">Inquire to discuss scope</a>
+      </div>
+
+      <div class="pkg-card featured">
+        <span class="pk-eyebrow">Stage + Community</span>
+        <span class="pk-nm">Activation included<span class="dot">.</span></span>
+        <p class="pk-ds">Everything in Stage, plus your audience gets membership access to the Vegans Explore community. Every attendee leaves with a door into something that lasts past closing night.</p>
+        <div class="pk-list" aria-label="What's included">
+          <span>Keynote or hosting session</span>
+          <span>Run-of-show draft</span>
+          <span>Audience membership activation</span>
+          <span>Promotion and post-event coverage</span>
+        </div>
+        <a class="pk-cta" href="#contact">Inquire to discuss scope</a>
+      </div>
+
+      <div class="pkg-card">
+        <span class="pk-eyebrow">Full Partnership</span>
+        <span class="pk-nm">Platform + Production<span class="dot">.</span></span>
+        <p class="pk-ds">The full machine. Speaking or hosting, community activation, LESARUSS team production support, promotion pipeline, and a co-branded event presence. Built for festivals and multi-day productions.</p>
+        <div class="pk-list" aria-label="What's included">
+          <span>Keynote, hosting, or both</span>
+          <span>LESARUSS team on production</span>
+          <span>Audience community activation</span>
+          <span>Full promotion pipeline</span>
+          <span>Co-branded event presence</span>
+        </div>
+        <a class="pk-cta" href="#contact">Custom scope, inquire to start</a>
+      </div>
+
+    </div>
+  </article>
+</section>
+
+<!-- BOOKING FORM -->
 <section class="spread" id="contact">
   <div class="grid booking-spread">
     <article class="panel booking-fig">
-      <div class="cap tl">Book<span class="dot">.</span></div>
-      <div class="halftone faint"></div>
-      <img class="lesa-svg" src="assets/poses/lesaruss-k12-hero.png?v=2" alt="LESARUSS, the K-12 education guide." width="380" height="507">
+      <div class="cap tl" aria-hidden="true">Book<span class="dot">.</span></div>
+      <div class="halftone faint" aria-hidden="true"></div>
+      <img src="assets/poses/lesaruss-k12-hero.png?v=2" alt="" width="380" height="507" role="presentation">
     </article>
     <article class="panel booking-form">
-      <p class="eyebrow">Speaking brief<span class="dot">.</span></p>
+      <p class="eyebrow">The brief<span class="dot">.</span></p>
       <h2>Tell me<br>about<br>the room<span class="dot">.</span></h2>
-      <p class="pre">Send the audience, the outcome, and the budget range. Reply within 48 hours.</p>
-      <form class="form" onsubmit="event.preventDefault();alert('Mockup form');">
+      <p class="pre">Speaker, host, or both. Send the audience, the outcome, and the budget range. Reply within 48 hours.</p>
+      <form class="form" onsubmit="event.preventDefault();alert('Form submission coming at launch.');" aria-label="Booking inquiry" novalidate>
         <div class="form-row">
-          <input type="text" placeholder="Your name" required>
-          <input type="email" placeholder="Email" required>
+          <div>
+            <label for="f-name" class="sr-only">Your name</label>
+            <input id="f-name" type="text" placeholder="Your name" required autocomplete="name">
+          </div>
+          <div>
+            <label for="f-email" class="sr-only">Email address</label>
+            <input id="f-email" type="email" placeholder="Email" required autocomplete="email">
+          </div>
         </div>
         <div class="form-row">
-          <input type="text" placeholder="Organization">
-          <select><option>Event type</option><option>Keynote</option><option>Panel</option><option>Workshop</option><option>Conference</option><option>Private event</option><option>Other</option></select>
+          <div>
+            <label for="f-org" class="sr-only">Organization</label>
+            <input id="f-org" type="text" placeholder="Organization" autocomplete="organization">
+          </div>
+          <div>
+            <label for="f-type" class="sr-only">Engagement type</label>
+            <select id="f-type">
+              <option value="">Engagement type</option>
+              <optgroup label="Speaking">
+                <option>Keynote</option>
+                <option>Panel</option>
+                <option>Workshop</option>
+                <option>Conference</option>
+              </optgroup>
+              <optgroup label="Hosting">
+                <option>Festival host</option>
+                <option>Conference / panel MC</option>
+                <option>Awards / ceremony</option>
+                <option>Live podcast</option>
+              </optgroup>
+              <option>Speaker + Host</option>
+              <option>Full partnership</option>
+              <option>Other</option>
+            </select>
+          </div>
         </div>
-        <input type="text" placeholder="Event date or window" style="margin-bottom:10px">
-        <textarea placeholder="The audience, the outcome, the budget range. In your words."></textarea>
+        <label for="f-date" class="sr-only">Event date or window</label>
+        <input id="f-date" type="text" placeholder="Event date or window" style="margin-bottom:10px" autocomplete="off">
+        <label for="f-brief" class="sr-only">Brief: audience, outcome, budget</label>
+        <textarea id="f-brief" placeholder="The audience, the outcome, the budget range. In your words." required></textarea>
         <button type="submit" class="submit">Send the brief</button>
       </form>
     </article>
   </div>
 </section>
+
 <footer>
   <div class="foot-inner">
     <a class="foot-wm" href="index.html">Sean A. Russell<span class="dot">.</span></a>
-    <div class="foot-links">
+    <nav class="foot-links" aria-label="Footer navigation">
       <a href="author.html">Author</a>
-      <a href="speaker.html">Speaker</a>
+      <a href="speaker.html">Speaker + Host</a>
       <a href="book.html">Book</a>
-    </div>
-    <span>&#169; 2026<span class="dot">.</span> A LESARUSS production.</span>
+    </nav>
+    <span>&copy; 2026<span class="dot">.</span> A LESARUSS production.</span>
   </div>
 </footer>
+
 <script>
+  // Theme toggle
   const tg = document.querySelector(".nav-toggle");
-  if (tg) tg.addEventListener("click", () => { const h = document.documentElement; h.dataset.theme = h.dataset.theme === "light" ? "dark" : "light"; });
+  if (tg) tg.addEventListener("click", () => {
+    const h = document.documentElement;
+    h.dataset.theme = h.dataset.theme === "light" ? "dark" : "light";
+  });
+
+  // Stage credits data
+  const EVENTS = [
+    { title:"SoFlo Vegans EXPO",             abbr:"VE", cat:"festival",  catLabel:"Festival",  desc:"Annual expo. Multi-stage. Community and vendor-facing." },
+    { title:"SoFlo Vegans TALK",             abbr:"VT", cat:"community", catLabel:"Community", desc:"Live-audience long-form. Intimate speaker format." },
+    { title:"SoFlo Vegans UNITE",            abbr:"VU", cat:"community", catLabel:"Community", desc:"Community rally and mixer. South Florida network." },
+    { title:"Georgia VegFest",               abbr:"GV", cat:"festival",  catLabel:"Festival",  desc:"Regional festival. Featured host and stage MC." },
+    { title:"Sarasota VegFest",              abbr:"SV", cat:"festival",  catLabel:"Festival",  desc:"Regional festival. Stage host and emcee." },
+    { title:"SEED Summit",                   abbr:"SS", cat:"festival",  catLabel:"Festival",  desc:"Leadership and entrepreneurship. Moderated panels." },
+    { title:"Tasting Village",               abbr:"TV", cat:"festival",  catLabel:"Festival",  desc:"Culinary showcase. Stage host and event MC." },
+    { title:"Vegan Health + Fitness Expo",   abbr:"VH", cat:"festival",  catLabel:"Festival",  desc:"Health, wellness, and fitness. Broad community audience." },
+    { title:"Vegan Block Party",             abbr:"VB", cat:"festival",  catLabel:"Festival",  desc:"Outdoor community event. All-ages, high energy." }
+  ];
+
+  const INITIAL_SHOW = 8;
+  let activeFilter = "all";
+  let allShown = false;
+
+  function filtered() {
+    return EVENTS.filter(e => activeFilter === "all" || e.cat === activeFilter);
+  }
+
+  function renderGrid() {
+    const grid   = document.getElementById("flip-grid");
+    const lmWrap = document.getElementById("load-more-wrap");
+    const data   = filtered();
+    grid.innerHTML = "";
+
+    if (!data.length) {
+      grid.innerHTML = '<div class="no-results" role="status" aria-live="polite">No events match that filter.</div>';
+      lmWrap.hidden = true;
+      return;
+    }
+
+    const showCount = allShown ? data.length : Math.min(INITIAL_SHOW, data.length);
+
+    data.forEach((ev, i) => {
+      const card = document.createElement("div");
+      card.className = "flip-card";
+      card.setAttribute("role", "listitem");
+      card.setAttribute("tabindex", "0");
+      card.setAttribute("aria-label", ev.catLabel + ": " + ev.title + ". Press Enter to see details.");
+      if (i >= showCount) card.hidden = true;
+
+      card.innerHTML = `
+        <div class="flip-inner">
+          <div class="flip-face flip-front" aria-hidden="true">
+            <span class="flip-front-cat">${ev.catLabel}</span>
+            <div class="flip-logo-area">
+              <span class="flip-logo-text">${ev.abbr}</span>
+            </div>
+            <span class="flip-front-title">${ev.title}</span>
+            <span class="flip-front-hint">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="15,3 21,3 21,9"/><polyline points="9,21 3,21 3,15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+              flip for details
+            </span>
+          </div>
+          <div class="flip-face flip-back">
+            <div class="flip-back-top">
+              <p class="flip-back-cat">${ev.catLabel}<span class="dot">.</span></p>
+              <p class="flip-back-title">${ev.title}</p>
+              <p class="flip-back-tag">${ev.desc}</p>
+            </div>
+            <span class="flip-soon">Reel coming soon</span>
+          </div>
+        </div>`;
+
+      card.addEventListener("click", () => {
+        card.classList.toggle("flipped");
+        const flipped = card.classList.contains("flipped");
+        card.setAttribute("aria-label",
+          ev.catLabel + ": " + ev.title + ". " +
+          (flipped ? "Press Enter to flip back." : "Press Enter to see details.")
+        );
+      });
+      card.addEventListener("keydown", e => {
+        if ((e.key === "Enter" || e.key === " ") && e.target === card) {
+          e.preventDefault(); card.click();
+        }
+      });
+
+      grid.appendChild(card);
+    });
+
+    lmWrap.hidden = allShown || data.length <= INITIAL_SHOW;
+  }
+
+  // Filter tabs
+  document.querySelectorAll(".filter-tab").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".filter-tab").forEach(b => {
+        b.classList.remove("active");
+        b.removeAttribute("aria-pressed");
+      });
+      btn.classList.add("active");
+      btn.setAttribute("aria-pressed", "true");
+      activeFilter = btn.dataset.filter;
+      allShown = false;
+      renderGrid();
+    });
+  });
+
+  // Load more
+  document.getElementById("load-more-btn").addEventListener("click", () => {
+    allShown = true;
+    renderGrid();
+  });
+
+  renderGrid();
 </script>
 </body>
 </html>

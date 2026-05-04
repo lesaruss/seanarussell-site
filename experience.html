@@ -96,22 +96,57 @@
   .page-hero-character::before{content:"";position:absolute;left:50%;bottom:24px;transform:translateX(-50%);width:300px;height:300px;border:1px solid var(--text-30);border-radius:50%;opacity:.5;z-index:0}
 
   /* Experience rows */
-  .exp-row{display:grid;grid-template-columns:1fr 1.6fr;gap:var(--gutter);align-items:stretch}
-  .exp-text{padding:48px;display:flex;flex-direction:column;justify-content:center;gap:18px}
+  .exp-row{display:grid;grid-template-columns:1fr 1.6fr;gap:0;align-items:stretch;min-height:420px}
+  .exp-text{padding:48px;display:flex;flex-direction:column;justify-content:center;gap:18px;border-right:var(--panel-line-w) solid var(--panel-line)}
   .exp-industry{font-size:10px;font-weight:800;letter-spacing:.32em;text-transform:uppercase;color:var(--orange)}
-  .exp-title{font-size:clamp(28px,4vw,48px);font-weight:900;text-transform:uppercase;letter-spacing:-.02em;line-height:1}
+  .exp-title{font-size:clamp(22px,3vw,38px);font-weight:900;text-transform:uppercase;letter-spacing:-.02em;line-height:1}
   .exp-body{font-size:14px;line-height:1.85;color:var(--text-75);max-width:420px}
-  .exp-video-wrap{position:relative;width:100%}
-  .exp-video-ratio{position:relative;aspect-ratio:16/9;background:#0d0d0d;overflow:hidden}
-  .exp-video-ratio iframe{position:absolute;inset:0;width:100%;height:100%;border:none;display:block}
 
   /* CTA */
   .cta-ghost{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--text-50);cursor:pointer;border:1px solid var(--text-30);padding:13px 22px;background:none;font-family:inherit;transition:color .18s,border-color .18s}
   .cta-ghost:hover{color:var(--text);border-color:var(--text)}
+  .btn-book{display:inline-block;font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.14em;color:#0d0d0d;background:var(--orange);padding:14px 32px;border:none;cursor:pointer;font-family:inherit;text-decoration:none;transition:background .18s,color .18s}
+  .btn-book:hover{background:var(--text);color:var(--bg)}
 
-  .panel.copy{padding:48px}
-  .panel.copy h2{font-size:clamp(28px,4vw,42px);font-weight:900;text-transform:uppercase;letter-spacing:-.02em;line-height:1;margin:8px 0 18px}
-  .panel.copy p{font-size:14px;line-height:1.85;color:var(--text-75);margin-bottom:18px;max-width:680px}
+  /* Stylized video player */
+  .exp-video-wrap{position:relative;width:100%;height:100%}
+  .signal-player{position:relative;width:100%;height:100%;background:#0d0d0d;border:none;border-left:2px solid var(--orange);outline:none;overflow:hidden;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;font-family:inherit}
+  html[data-theme="light"] .signal-player{background:#0a0a0a}
+  .signal-player-inner{position:relative;display:flex;align-items:center;justify-content:center;width:100%;height:100%}
+  /* Pulse rings */
+  .pulse-ring{position:absolute;border-radius:50%;border:1.5px solid var(--orange);opacity:0;animation:signalRing 2.4s ease-out infinite}
+  .pulse-ring:nth-child(1){width:64px;height:64px;animation-delay:0s}
+  .pulse-ring:nth-child(2){width:100px;height:100px;animation-delay:.55s}
+  .pulse-ring:nth-child(3){width:148px;height:148px;animation-delay:1.1s}
+  .pulse-ring:nth-child(4){width:200px;height:200px;animation-delay:1.65s}
+  @keyframes signalRing{0%{opacity:.75;transform:scale(.7)}70%{opacity:.2}100%{opacity:0;transform:scale(1)}}
+  /* Play button center dot */
+  .pulse-center{position:relative;z-index:5;width:52px;height:52px;border-radius:50%;background:var(--orange);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform .2s,box-shadow .2s}
+  .signal-player:hover .pulse-center{transform:scale(1.08);box-shadow:0 0 0 6px rgba(246,152,32,.22)}
+  .pulse-center svg{margin-left:3px}
+  /* Orange corner tags */
+  .player-tag{position:absolute;font-size:9px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--orange);padding:4px 8px;line-height:1.4;z-index:6}
+  .player-tag.bl{bottom:0;left:0;border-top:1.5px solid var(--orange);border-right:1.5px solid var(--orange)}
+  .player-tag.br{bottom:0;right:0;border-top:1.5px solid var(--orange);border-left:1.5px solid var(--orange)}
+
+  /* Video lightbox */
+  .vl-overlay{position:fixed;inset:0;z-index:900;background:rgba(0,0,0,.92);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .22s}
+  .vl-overlay.open{opacity:1;pointer-events:all}
+  .vl-box{position:relative;width:90vw;max-width:960px;aspect-ratio:16/9;border:2px solid var(--orange)}
+  .vl-box iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
+  .vl-close{position:absolute;top:-40px;right:0;font-size:11px;font-weight:900;letter-spacing:.18em;text-transform:uppercase;color:#fff;background:none;border:none;cursor:pointer;font-family:inherit;padding:6px 0}
+
+  /* Booking form panel */
+  .booking-form{padding:48px}
+  .booking-form h2{font-size:clamp(36px,5.4vw,68px);font-weight:900;text-transform:uppercase;letter-spacing:-.03em;line-height:.95;margin:14px 0 24px}
+  .booking-form .pre{font-size:14px;color:var(--text-75);line-height:1.75;margin-bottom:30px;max-width:440px}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+  .form input,.form select,.form textarea{width:100%;padding:14px 16px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:inherit;font-size:16px;letter-spacing:.02em}
+  .form input::placeholder,.form textarea::placeholder{color:var(--text-50)}
+  .form select{color:var(--text-75)}
+  .form textarea{min-height:120px;resize:vertical;margin-bottom:14px}
+  .form .submit{width:100%;background:var(--orange);color:#0d0d0d;border:none;padding:16px;font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.14em;cursor:pointer;font-family:inherit;transition:background .18s}
+  .form .submit:hover{background:var(--text);color:var(--bg)}
 
   footer{padding:36px 28px;border-top:1px solid var(--border);background:var(--bg);margin-top:var(--gutter)}
   .foot-inner{max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:18px;font-size:11px;color:var(--text-50)}
@@ -124,8 +159,12 @@
     .page-hero-copy{padding:48px 28px}
     .page-hero-character{border-left:none;border-top:var(--panel-line-w) solid var(--panel-line);min-height:440px}
     .page-hero-character .lesa-svg{width:280px;max-width:280px}
-    .exp-row{grid-template-columns:1fr}
-    .exp-text{padding:28px}
+    .exp-row{grid-template-columns:1fr;min-height:unset}
+    .exp-text{padding:28px;border-right:none;border-bottom:var(--panel-line-w) solid var(--panel-line)}
+    .exp-video-wrap{height:auto}
+    .signal-player{height:auto;aspect-ratio:16/9;border-left:none;border-top:2px solid var(--orange)}
+    .booking-form{padding:28px}
+    .form-row{grid-template-columns:1fr}
     .nav-links{display:none}
   }
 </style>
@@ -139,14 +178,12 @@
       <div class="nav-dropdown-menu" role="menu">
         <a class="nav-dropdown-item" href="author.html" role="menuitem">Author</a>
         <a class="nav-dropdown-item" href="producer.html" role="menuitem">Producer</a>
-        <a class="nav-dropdown-item" href="speaker.html" role="menuitem">Speaker</a>
+        <a class="nav-dropdown-item" href="speaker.html" role="menuitem">Speaker + Host</a>
         <a class="nav-dropdown-item" href="actor.html" role="menuitem">On Camera</a>
-        <a class="nav-dropdown-item" href="host.html" role="menuitem">Host</a>
       </div>
     </div>
     <a class="nav-link active" href="experience.html">Experience</a>
     <a class="nav-link" href="consultant.html">Consultant</a>
-    <a class="nav-link" href="book.html">Book</a>
   </nav>
   <button class="nav-toggle" aria-label="Toggle theme">
     <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
@@ -171,6 +208,7 @@
         <p class="eyebrow">The Work<span class="dot">.</span> By Industry<span class="dot">.</span></p>
         <h1>The <em>work</em><span class="dot">.</span></h1>
         <p class="lede">Two decades across education systems and entertainment. Each vertical is documented here. Watch the work in context.</p>
+        <a class="btn-book" href="booking.html">Book Sean</a>
       </div>
       <div class="page-hero-character">
         <img class="lesa-svg" src="assets/poses/lesaruss-hero.png?v=2" alt="Sean A. Russell." width="360" height="480">
@@ -191,14 +229,20 @@
         <a class="cta-ghost" href="consultant.html">View Consulting Work</a>
       </div>
       <div class="exp-video-wrap">
-        <div class="exp-video-ratio">
-          <iframe
-            src="https://player.vimeo.com/video/1057094472?color=F69820&title=0&byline=0&portrait=0"
-            allow="autoplay; fullscreen; picture-in-picture"
-            allowfullscreen
-            title="Sean A. Russell - Education Experience">
-          </iframe>
-        </div>
+        <button class="signal-player" aria-label="Play education reel"
+             data-vimeo="1057094472" onclick="openVL(this)">
+          <div class="signal-player-inner">
+            <div class="pulse-ring" aria-hidden="true"></div>
+            <div class="pulse-ring" aria-hidden="true"></div>
+            <div class="pulse-ring" aria-hidden="true"></div>
+            <div class="pulse-ring" aria-hidden="true"></div>
+            <div class="pulse-center" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="#0d0d0d"><polygon points="6,4 20,12 6,20"/></svg>
+            </div>
+          </div>
+          <span class="player-tag bl" aria-hidden="true">Education Reel</span>
+          <span class="player-tag br" aria-hidden="true">Play</span>
+        </button>
       </div>
     </div>
   </article>
@@ -216,27 +260,53 @@
         <a class="cta-ghost" href="actor.html">View On-Camera Credits</a>
       </div>
       <div class="exp-video-wrap">
-        <div class="exp-video-ratio">
-          <iframe
-            src="https://player.vimeo.com/video/1042843232?color=F69820&title=0&byline=0&portrait=0"
-            allow="autoplay; fullscreen; picture-in-picture"
-            allowfullscreen
-            title="Sean A. Russell - Entertainment Experience">
-          </iframe>
-        </div>
+        <button class="signal-player" aria-label="Play entertainment reel"
+             data-vimeo="1042843232" onclick="openVL(this)">
+          <div class="signal-player-inner">
+            <div class="pulse-ring" aria-hidden="true"></div>
+            <div class="pulse-ring" aria-hidden="true"></div>
+            <div class="pulse-ring" aria-hidden="true"></div>
+            <div class="pulse-ring" aria-hidden="true"></div>
+            <div class="pulse-center" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="#0d0d0d"><polygon points="6,4 20,12 6,20"/></svg>
+            </div>
+          </div>
+          <span class="player-tag bl" aria-hidden="true">Entertainment Reel</span>
+          <span class="player-tag br" aria-hidden="true">Play</span>
+        </button>
       </div>
     </div>
   </article>
 </section>
 
-<!-- CTA -->
+<!-- Booking form -->
 <section class="spread">
-  <article class="panel copy">
-    <div class="cap tl">Next Step<span class="dot">.</span></div>
-    <p class="eyebrow">Ready to work<span class="dot">.</span></p>
-    <h2>Let's talk<span class="dot">.</span></h2>
-    <p>Bring the brief. Send the audience, the outcome, the vertical. Reply within 48 hours.</p>
-    <a href="booking.html" style="display:inline-block;font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.14em;color:#0d0d0d;background:var(--orange);padding:14px 32px;margin-top:8px;transition:background .18s,color .18s">Book Sean</a>
+  <article class="panel booking-form">
+    <div class="cap tl">Book Sean<span class="dot">.</span></div>
+    <p class="eyebrow">Book Sean<span class="dot">.</span></p>
+    <h2>Tell me<br>about<br>the room<span class="dot">.</span></h2>
+    <p class="pre">Send the audience, the outcome, and the budget range. Reply within 48 hours.</p>
+    <form class="form" onsubmit="event.preventDefault();alert('Form submitted — Sean will be in touch within 48 hours.');">
+      <div class="form-row">
+        <input type="text" id="form-name" name="name" placeholder="Your name" required aria-label="Your name">
+        <input type="email" id="form-email" name="email" placeholder="Email" required aria-label="Email address">
+      </div>
+      <div class="form-row">
+        <input type="text" id="form-org" name="organization" placeholder="Organization" aria-label="Organization">
+        <select id="form-type" name="type" aria-label="Engagement type">
+          <option value="">Engagement type</option>
+          <option>Speaking</option>
+          <option>Consulting</option>
+          <option>Producing</option>
+          <option>Acting</option>
+          <option>Hosting</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <input type="text" id="form-date" name="date" placeholder="Event date or window" style="margin-bottom:10px;width:100%;padding:14px 16px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:inherit;font-size:16px;letter-spacing:.02em" aria-label="Event date or window">
+      <textarea id="form-brief" name="brief" placeholder="The audience, the outcome, the budget range. In your words." aria-label="Brief"></textarea>
+      <button type="submit" class="submit">Send the brief</button>
+    </form>
   </article>
 </section>
 
@@ -245,18 +315,50 @@
     <a class="foot-wm" href="index.html">Sean A. Russell<span class="dot">.</span></a>
     <div class="foot-links">
       <a href="author.html">Author</a>
-      <a href="speaker.html">Speaker</a>
+      <a href="speaker.html">Speaker + Host</a>
       <a href="experience.html">Experience</a>
       <a href="booking.html">Book</a>
     </div>
     <span>&#169; 2026<span class="dot">.</span> A LESARUSS production.</span>
   </div>
 </footer>
+<!-- Video lightbox -->
+<div class="vl-overlay" id="vl" role="dialog" aria-modal="true" aria-label="Video player" onclick="closeVL(event)">
+  <div class="vl-box">
+    <button class="vl-close" onclick="closeVL()" aria-label="Close video">Close X</button>
+    <iframe id="vl-frame" src="" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="Reel"></iframe>
+  </div>
+</div>
+
 <script>
   const tg = document.querySelector(".nav-toggle");
   if (tg) tg.addEventListener("click", () => {
     const h = document.documentElement;
     h.dataset.theme = h.dataset.theme === "light" ? "dark" : "light";
+  });
+
+  function openVL(el) {
+    const id = el.dataset.vimeo;
+    if (!id) return;
+    const overlay = document.getElementById("vl");
+    const frame = document.getElementById("vl-frame");
+    frame.src = "https://player.vimeo.com/video/" + id + "?autoplay=1&color=F69820&title=0&byline=0&portrait=0";
+    overlay.classList.add("open");
+    document.body.style.overflow = "hidden";
+    document.querySelector(".vl-close").focus();
+  }
+
+  function closeVL(e) {
+    if (e && e.target !== e.currentTarget && !e.target.classList.contains("vl-close")) return;
+    const overlay = document.getElementById("vl");
+    const frame = document.getElementById("vl-frame");
+    overlay.classList.remove("open");
+    frame.src = "";
+    document.body.style.overflow = "";
+  }
+
+  document.addEventListener("keydown", function(e) {
+    if (e.key === "Escape") closeVL({ target: document.getElementById("vl"), currentTarget: document.getElementById("vl") });
   });
 </script>
 </body>
