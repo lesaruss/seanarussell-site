@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Press &amp; Media. Sean A. Russell.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0d0d0d;--surface:#111111;--surface2:#161616;
+    --border:rgba(255,255,255,0.07);
+    --text:#ffffff;--text-75:rgba(255,255,255,0.75);--text-50:rgba(255,255,255,0.50);--text-30:rgba(255,255,255,0.30);
+    --orange:#F69820;
+    --panel-line:var(--text);--panel-line-w:1.5px;
+    --gutter:14px;
+    --nav-bg:rgba(13,13,13,0.96);
+  }
+  html[data-theme="light"]{
+    --bg:#ffffff;--surface:#ffffff;--surface2:#fafafa;
+    --border:rgba(0,0,0,0.08);
+    --text:#1a1a1a;--text-75:rgba(26,26,26,0.78);--text-50:rgba(26,26,26,0.55);--text-30:rgba(26,26,26,0.35);
+    --orange:#F69820;
+    --panel-line:#0d0d0d;
+    --nav-bg:rgba(255,255,255,0.96);
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:'Montserrat',Arial,Helvetica,sans-serif;overflow-x:hidden;transition:background .25s ease,color .25s ease}
+  a{text-decoration:none;color:inherit}
+  img,svg{display:block;max-width:100%}
+  button{font-family:inherit}
+  :focus-visible{outline:3px solid var(--orange);outline-offset:3px}
+  @media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
+
+  .dot{color:var(--orange);display:inline-block;margin-left:0.06em;animation:dotPulse 2s ease-in-out infinite}
+  @keyframes dotPulse{0%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(1.3)}100%{opacity:1;transform:scale(1)}}
+
+  /* Nav */
+  .nav{position:fixed;top:0;left:0;right:0;z-index:200;height:62px;display:flex;align-items:center;padding:0 28px;background:var(--nav-bg);border-bottom:1px solid var(--border);backdrop-filter:blur(10px)}
+  .nav-brand{font-size:17px;font-weight:900;text-transform:uppercase;letter-spacing:.05em;flex-shrink:0;margin-right:36px}
+  .nav-links{display:flex;align-items:center;gap:4px;flex:1}
+  .nav-link{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.13em;color:var(--text-50);padding:6px 12px;background:none;border:none;cursor:pointer;transition:color .18s;white-space:nowrap;flex-shrink:0}
+  .nav-link:hover{color:var(--text)}
+  .nav-link.active{color:var(--orange)}
+  .nav-toggle{width:36px;height:36px;border-radius:50%;background:rgba(127,127,127,0.12);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text);flex-shrink:0;margin-right:10px}
+  .nav-toggle:hover{background:rgba(127,127,127,0.22)}
+  .nav-toggle .icon-sun{display:none}
+  .nav-toggle .icon-moon{display:block}
+  html[data-theme="light"] .nav-toggle .icon-sun{display:block}
+  html[data-theme="light"] .nav-toggle .icon-moon{display:none}
+  .nav-enter{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.14em;color:#0d0d0d;background:var(--orange);padding:9px 20px;border:none;cursor:pointer;flex-shrink:0}
+  .nav-enter:hover{background:var(--text);color:var(--bg)}
+  .nav-dropdown{position:relative;display:inline-flex;align-items:center}
+  .nav-dropdown-trigger{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.13em;color:var(--text-50);padding:6px 12px;background:none;border:none;cursor:pointer;display:flex;align-items:center;gap:5px;white-space:nowrap;flex-shrink:0;font-family:inherit;transition:color .18s}
+  .nav-dropdown-trigger:hover,.nav-dropdown:hover .nav-dropdown-trigger{color:var(--text)}
+  .nav-dropdown-menu{position:absolute;top:100%;left:0;background:var(--nav-bg);border:1px solid var(--border);backdrop-filter:blur(10px);min-width:150px;padding:4px 0 6px;display:none;z-index:300}
+  .nav-dropdown:hover .nav-dropdown-menu,.nav-dropdown:focus-within .nav-dropdown-menu{display:block}
+  .nav-dropdown-item{display:block;padding:9px 16px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.13em;color:var(--text-50);transition:color .15s}
+  .nav-dropdown-item:hover{color:var(--orange)}
+  .nav-dropdown-trigger .chevron{font-size:9px;line-height:1;transition:transform .18s;display:inline-block}
+  .nav-dropdown:hover .chevron{transform:rotate(180deg)}
+  @media(max-width:768px){.nav-links{display:none}}
+
+  /* Issue bar */
+  .issue-bar{position:relative;display:flex;align-items:center;gap:18px;padding:10px 28px;border-bottom:1px solid var(--border);font-size:10px;font-weight:800;letter-spacing:.32em;text-transform:uppercase;color:var(--text-50);margin-top:62px}
+  .issue-bar .pulse{width:8px;height:8px;border-radius:50%;background:var(--orange);animation:dotPulse 2s ease-in-out infinite;flex-shrink:0}
+  .issue-bar span.title{color:var(--text)}
+  .issue-bar .right{margin-left:auto;color:var(--text-30)}
+
+  /* Layout */
+  .page-hero{padding:64px 28px 48px;max-width:1280px;margin:0 auto}
+  .page-hero h1{font-size:clamp(48px,7vw,88px);font-weight:900;text-transform:uppercase;letter-spacing:-.03em;line-height:.95;margin:14px 0 18px}
+  .page-hero h1 em{font-style:normal;color:var(--orange)}
+  .page-hero .lede{font-size:15px;line-height:1.85;color:var(--text-75);max-width:520px}
+  .eyebrow{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.32em;color:var(--orange);margin-bottom:22px}
+
+  /* Filter bar */
+  .filter-wrap{padding:0 14px;max-width:1280px;margin:0 auto}
+  .filter-row{display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding:18px 0 0}
+  .year-row{display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding:10px 0 20px;border-bottom:1px solid var(--border)}
+  .filter-label{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--text-50);min-width:32px;margin-right:4px;flex-shrink:0}
+  .f-btn{font-family:inherit;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:6px 13px;border:1.5px solid var(--border);background:transparent;color:var(--text-50);cursor:pointer;transition:all .15s}
+  .f-btn:hover{color:var(--text);border-color:var(--text-30)}
+  .f-btn.on{border-color:var(--text);background:var(--text);color:var(--bg)}
+  .f-btn.on.feat{border-color:var(--orange);background:var(--orange);color:#0d0d0d}
+  .f-div{width:1px;height:24px;background:var(--border);margin:0 2px;flex-shrink:0}
+  .f-count{margin-left:auto;font-size:11px;font-weight:600;color:var(--text-50)}
+  .f-count strong{color:var(--text)}
+
+  /* Grid */
+  .grid-wrap{padding:20px 14px 80px;max-width:1280px;margin:0 auto}
+  #press-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  @media(max-width:960px){#press-grid{grid-template-columns:repeat(3,1fr)}}
+  @media(max-width:640px){#press-grid{grid-template-columns:repeat(2,1fr)}}
+
+  /* Card */
+  .card{aspect-ratio:3/4;perspective:1000px;cursor:pointer;position:relative}
+  .card-inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .5s cubic-bezier(.4,.2,.2,1)}
+  .card:hover .card-inner,.card.flipped .card-inner{transform:rotateY(180deg)}
+  .cf,.cb{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+  .cf{border:var(--panel-line-w) solid var(--panel-line);background:var(--bg);display:flex;flex-direction:column}
+  .cb{transform:rotateY(180deg);background:var(--orange);color:#0d0d0d;border:var(--panel-line-w) solid var(--orange);display:flex;flex-direction:column;padding:16px 14px 14px}
+  .badges{position:absolute;top:0;left:0;right:0;display:flex;align-items:flex-start;justify-content:space-between;padding:8px;z-index:2}
+  .pill{font-size:8px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:3px 7px;border:1px solid;pointer-events:none}
+  .pill-tv{border-color:var(--text);color:var(--text);background:var(--bg)}
+  .pill-print{border-color:var(--text-50);color:var(--text-50);background:var(--bg)}
+  .pill-pod{border-color:var(--orange);color:var(--orange);background:var(--bg)}
+  .ribbon{position:absolute;top:0;right:0;width:0;height:0;border-style:solid;border-width:0 32px 32px 0;border-color:transparent var(--orange) transparent transparent;z-index:1}
+  .logo-zone{flex:1;display:flex;align-items:center;justify-content:center;padding:20px 18px 14px;overflow:hidden;min-height:0}
+  .logo-zone img{width:100%;max-height:100%;object-fit:contain}
+  html:not([data-theme="light"]) .logo-zone img{filter:invert(1) brightness(1.1)}
+  .logo-fb{font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;text-align:center;color:var(--text);line-height:1.35;padding:0 10px;display:none}
+  .cfoot{border-top:1px solid var(--border);padding:10px 12px 12px;display:flex;flex-direction:column;gap:3px}
+  .ctitle{font-size:clamp(9px,1vw,11px);font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:var(--text);line-height:1.25}
+  .cdate{font-size:clamp(8px,.85vw,10px);font-weight:600;color:var(--text-50)}
+  .fhint{position:absolute;bottom:6px;right:8px;font-size:8px;font-weight:600;color:var(--text-30);letter-spacing:.08em;text-transform:uppercase;pointer-events:none}
+  .btitle{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:#0d0d0d;margin-bottom:5px;line-height:1.2}
+  .bsub{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:rgba(0,0,0,.6);margin-bottom:10px;line-height:1.4}
+  .bdesc{font-size:10px;font-weight:400;color:rgba(0,0,0,.8);line-height:1.7;flex:1;overflow:hidden;display:-webkit-box;-webkit-line-clamp:8;-webkit-box-orient:vertical}
+  .bcta{display:block;margin-top:12px;flex-shrink:0;font-size:9px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--orange);background:#0d0d0d;padding:8px 12px;text-decoration:none;text-align:center}
+
+  /* Loading / empty */
+  .state-msg{padding:80px 28px;text-align:center;font-size:13px;font-weight:400;color:var(--text-50)}
+
+  /* Footer */
+  footer{background:var(--surface2);border-top:1px solid var(--border);padding:48px 28px 32px}
+  footer .fw{font-size:18px;font-weight:900;text-transform:uppercase;letter-spacing:.05em;margin-bottom:20px}
+  footer .flinks{display:flex;flex-wrap:wrap;gap:20px;margin-bottom:24px}
+  footer .flink{font-size:11px;font-weight:600;letter-spacing:.10em;text-transform:uppercase;color:var(--text-50)}
+  footer .flink:hover{color:var(--text)}
+  footer .fcopy{font-size:10px;color:var(--text-30)}
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<header class="nav">
+  <a class="nav-brand" href="index.html">Sean A. Russell<span class="dot">.</span></a>
+  <nav class="nav-links" aria-label="Primary">
+    <div class="nav-dropdown">
+      <button class="nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false">Talents <span class="chevron" aria-hidden="true">&#9662;</span></button>
+      <div class="nav-dropdown-menu" role="menu">
+        <a class="nav-dropdown-item" href="author.html" role="menuitem">Author</a>
+        <a class="nav-dropdown-item" href="producer.html" role="menuitem">Producer</a>
+        <a class="nav-dropdown-item" href="speaker.html" role="menuitem">Speaker + Host</a>
+        <a class="nav-dropdown-item" href="actor.html" role="menuitem">On Camera</a>
+      </div>
+    </div>
+    <a class="nav-link" href="experience.html">Experience</a>
+    <a class="nav-link" href="consultant.html">Consultant</a>
+    <a class="nav-link active" href="press.html">Press</a>
+  </nav>
+  <button class="nav-toggle" aria-label="Toggle theme" id="theme-toggle">
+    <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+  </button>
+  <a class="nav-enter" href="booking.html">Book Sean</a>
+</header>
+
+<!-- Issue bar -->
+<div class="issue-bar" aria-hidden="true">
+  <span class="pulse"></span>
+  <span class="title">Press &amp; Media</span>
+  <span>Coverage</span>
+  <span class="right" id="entry-count">Loading...</span>
+</div>
+
+<!-- Hero -->
+<div class="page-hero">
+  <p class="eyebrow">LESARUSS Production House</p>
+  <h1>Press <em>&amp;</em><br>Media<span class="dot">.</span></h1>
+  <p class="lede">Television, print, podcast, and digital coverage of Sean A. Russell spanning 25+ years across South Florida, national networks, and the global Vegan movement.</p>
+</div>
+
+<!-- Filters -->
+<div class="filter-wrap" role="search" aria-label="Filter press coverage">
+  <div class="filter-row">
+    <span class="filter-label" aria-hidden="true">View</span>
+    <button class="f-btn on feat" data-filter="featured" aria-pressed="true">&#9733; Featured</button>
+    <button class="f-btn" data-filter="all" aria-pressed="false">All</button>
+    <div class="f-div" aria-hidden="true"></div>
+    <button class="f-btn" data-filter="television" aria-pressed="false">Television</button>
+    <button class="f-btn" data-filter="print" aria-pressed="false">Print</button>
+    <button class="f-btn" data-filter="podcast" aria-pressed="false">Podcast</button>
+    <span class="f-count" id="result-count" aria-live="polite"><strong>-</strong> results</span>
+  </div>
+  <div class="year-row">
+    <span class="filter-label" aria-hidden="true">Year</span>
+    <button class="f-btn on" data-year="all" aria-pressed="true">All</button>
+    <button class="f-btn" data-year="2025" aria-pressed="false">2025</button>
+    <button class="f-btn" data-year="2024" aria-pressed="false">2024</button>
+    <button class="f-btn" data-year="2023" aria-pressed="false">2023</button>
+    <button class="f-btn" data-year="2022" aria-pressed="false">2022</button>
+    <button class="f-btn" data-year="2021" aria-pressed="false">2021</button>
+    <button class="f-btn" data-year="pre2021" aria-pressed="false">Before 2021</button>
+  </div>
+</div>
+
+<!-- Grid -->
+<div class="grid-wrap">
+  <div id="press-grid" aria-label="Press and media coverage grid">
+    <div class="state-msg" id="loading-msg">Loading coverage...</div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>
+  <div style="max-width:1280px;margin:0 auto">
+    <div class="fw">Sean A. Russell<span class="dot">.</span></div>
+    <div class="flinks">
+      <a href="author.html" class="flink">Author</a>
+      <a href="producer.html" class="flink">Producer</a>
+      <a href="speaker.html" class="flink">Speaker + Host</a>
+      <a href="actor.html" class="flink">On Camera</a>
+      <a href="experience.html" class="flink">Experience</a>
+      <a href="consultant.html" class="flink">Consultant</a>
+      <a href="press.html" class="flink">Press</a>
+      <a href="booking.html" class="flink">Book Sean</a>
+    </div>
+    <p class="fcopy">&copy; 2026 Sean A. Russell. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+const API = 'https://lesaruss.ai/api/press';
+const FEATURED = ['local-10-news','abc-television','deco-drive','nbc-news','miami-new-times-black-voices','sun-sentinel-veg-night-out-2022','delray-magazine','vegworld-magazine','veggies-abroad','plant-powered-athlete','voyagemia-rising-stars','canvas-rebel'];
+const PILL_CLASS = {television:'pill-tv',print:'pill-print',podcast:'pill-pod'};
+const PILL_LABEL = {television:'TV',print:'Print',podcast:'Podcast'};
+
+let ALL = [];
+let activeFilter = 'featured';
+let activeYear = 'all';
+
+function yearBucket(y){
+  if(y>=2025)return'2025';
+  if(y>=2024)return'2024';
+  if(y>=2023)return'2023';
+  if(y>=2022)return'2022';
+  if(y>=2021)return'2021';
+  return'pre2021';
+}
+
+function makeCard(e){
+  const feat = FEATURED.includes(e.id);
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.setAttribute('role','button');
+  card.setAttribute('tabindex','0');
+  card.setAttribute('aria-label',`${e.title}, ${e.date}. Press Enter to flip.`);
+  card.innerHTML = `
+    <div class="card-inner">
+      <div class="cf">
+        <div class="badges"><span class="pill ${PILL_CLASS[e.type]}" aria-hidden="true">${PILL_LABEL[e.type]}</span></div>
+        ${feat?'<div class="ribbon" aria-hidden="true"></div>':''}
+        <div class="logo-zone">
+          <img src="${e.img}" alt="${e.title} logo" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <span class="logo-fb">${e.title}</span>
+        </div>
+        <div class="cfoot">
+          <div class="ctitle">${e.title}</div>
+          <div class="cdate">${e.date}</div>
+        </div>
+        <span class="fhint" aria-hidden="true">Tap to flip</span>
+      </div>
+      <div class="cb" aria-hidden="true">
+        <div class="btitle">${e.title}</div>
+        ${e.subtitle?`<div class="bsub">${e.subtitle}</div>`:''}
+        <div class="bdesc">${e.desc}</div>
+        <a href="${e.href}" target="_blank" rel="noopener noreferrer" class="bcta">Read More &rarr;</a>
+      </div>
+    </div>`;
+  card.addEventListener('click', ev=>{
+    if(ev.target.closest('a'))return;
+    card.classList.toggle('flipped');
+  });
+  card.addEventListener('keydown', ev=>{
+    if(ev.target.closest('a'))return;
+    if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();card.classList.toggle('flipped');}
+    if(ev.key==='Escape')card.classList.remove('flipped');
+  });
+  return card;
+}
+
+function render(){
+  const grid = document.getElementById('press-grid');
+  const filtered = ALL.filter(e=>{
+    const typeOk = activeFilter==='all'?true:activeFilter==='featured'?FEATURED.includes(e.id):e.type===activeFilter;
+    const yearOk = activeYear==='all'||yearBucket(e.year)===activeYear;
+    return typeOk&&yearOk;
+  });
+  grid.innerHTML='';
+  if(filtered.length===0){
+    const msg = document.createElement('div');
+    msg.className='state-msg';
+    msg.textContent = activeFilter==='featured'?'No featured items match the selected filters.':'No results for the selected filters.';
+    grid.appendChild(msg);
+  } else {
+    filtered.forEach(e=>grid.appendChild(makeCard(e)));
+  }
+  const cnt = document.getElementById('result-count');
+  cnt.innerHTML = `<strong>${filtered.length}</strong> result${filtered.length===1?'':'s'}`;
+}
+
+// Filter buttons
+document.querySelectorAll('[data-filter]').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    activeFilter = btn.dataset.filter;
+    document.querySelectorAll('[data-filter]').forEach(b=>{
+      const isFeat = b.dataset.filter==='featured';
+      b.classList.toggle('on', b===btn);
+      b.classList.toggle('feat', b===btn&&isFeat);
+      b.setAttribute('aria-pressed', b===btn?'true':'false');
+    });
+    render();
+  });
+});
+
+document.querySelectorAll('[data-year]').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    activeYear = btn.dataset.year;
+    document.querySelectorAll('[data-year]').forEach(b=>{
+      b.classList.toggle('on', b===btn);
+      b.classList.toggle('feat', false);
+      b.setAttribute('aria-pressed', b===btn?'true':'false');
+    });
+    render();
+  });
+});
+
+// Theme toggle
+document.getElementById('theme-toggle').addEventListener('click',()=>{
+  const h = document.documentElement;
+  h.dataset.theme = h.dataset.theme==='light'?'dark':'light';
+});
+
+// Load data
+fetch(API)
+  .then(r=>{if(!r.ok)throw new Error('fetch failed');return r.json();})
+  .then(data=>{
+    ALL = data;
+    const cnt = document.getElementById('entry-count');
+    cnt.textContent = `${data.length} Features`;
+    render();
+  })
+  .catch(()=>{
+    document.getElementById('press-grid').innerHTML='<div class="state-msg">Coverage could not be loaded. Please try again later.</div>';
+    document.getElementById('entry-count').textContent='';
+  });
+</script>
+</body>
+</html>
