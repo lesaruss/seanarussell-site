@@ -82,18 +82,54 @@
   .page-hero-character .lesa-svg{width:360px;max-width:360px;height:auto;flex-shrink:0}
   .page-hero-character::before{content:"";position:absolute;left:50%;bottom:24px;transform:translateX(-50%);width:300px;height:300px;border:1px solid var(--text-30);border-radius:50%;opacity:.5;z-index:0}
 
-  /* Credits grid */
-  .poster-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:var(--gutter)}
-  .poster{position:relative;background:var(--surface);border:var(--panel-line-w) solid var(--panel-line);min-height:240px;display:flex;flex-direction:column;justify-content:space-between;padding:20px;overflow:hidden;cursor:pointer;transition:border-color .18s,transform .12s}
-  .poster:hover,.poster:focus-visible{border-color:var(--orange);transform:translateY(-2px)}
-  .poster .art{position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);font-size:80px;font-weight:900;letter-spacing:-.06em;line-height:.85;color:var(--text);opacity:.06;text-align:center}
-  .poster .cat{font-size:9px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--orange);position:relative;z-index:2}
-  .poster .nm{font-size:18px;font-weight:900;text-transform:uppercase;letter-spacing:.02em;line-height:1;position:relative;z-index:2}
-  .poster .tg{font-size:11px;font-weight:400;color:var(--text-75);line-height:1.5;position:relative;z-index:2}
-  .poster .play-hint{font-size:9px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--orange);opacity:0;position:relative;z-index:2;transition:opacity .18s;display:flex;align-items:center;gap:5px}
-  .poster:hover .play-hint,.poster:focus-visible .play-hint{opacity:1}
-  .poster .play-hint svg{flex-shrink:0}
+  /* ---- Portfolio controls ---- */
+  .portfolio-controls{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:28px 0 20px;flex-wrap:wrap}
+  .filter-tabs{display:flex;gap:6px;flex-wrap:wrap}
+  .filter-tab{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.18em;padding:8px 16px;border:1.5px solid var(--border);background:transparent;color:var(--text-50);cursor:pointer;transition:all .15s;font-family:inherit}
+  .filter-tab:hover{color:var(--text);border-color:var(--text)}
+  .filter-tab.active{color:var(--orange);border-color:var(--orange);background:rgba(246,152,32,.08)}
+  .portfolio-search{font-size:12px;font-weight:600;padding:9px 14px;border:1.5px solid var(--border);background:transparent;color:var(--text);font-family:inherit;width:200px;transition:border-color .15s;letter-spacing:.02em}
+  .portfolio-search:focus{outline:3px solid var(--orange);outline-offset:3px;border-color:var(--orange)}
+  .portfolio-search::placeholder{color:var(--text-30)}
 
+  /* ---- Flip card grid ---- */
+  .flip-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gutter)}
+  .flip-card{height:280px;cursor:pointer;perspective:1200px}
+  .flip-card:focus-visible{outline:3px solid var(--orange);outline-offset:3px;border-radius:0}
+  .flip-inner{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.4,0,.2,1)}
+  .flip-card:hover .flip-inner,
+  .flip-card.flipped .flip-inner{transform:rotateY(180deg)}
+  .flip-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border:var(--panel-line-w) solid var(--panel-line);display:flex;flex-direction:column;overflow:hidden}
+  .flip-front{align-items:center;justify-content:flex-start;background:var(--surface)}
+  .flip-back{transform:rotateY(180deg);background:var(--surface);padding:20px;justify-content:space-between}
+
+  /* Front face */
+  .flip-front-cat{font-size:8px;font-weight:800;text-transform:uppercase;letter-spacing:.22em;color:var(--orange);padding:10px 12px;width:100%;border-bottom:1px solid var(--border)}
+  .flip-logo-area{flex:1;display:flex;align-items:center;justify-content:center;padding:16px 20px;width:100%;overflow:hidden}
+  .flip-logo-img{max-width:130px;max-height:72px;width:auto;height:auto;object-fit:contain}
+  .flip-logo-text{font-size:26px;font-weight:900;text-transform:uppercase;letter-spacing:-.02em;line-height:1;text-align:center;color:var(--text)}
+  .flip-front-title{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.2em;color:var(--text-50);padding:10px 12px;border-top:1px solid var(--border);width:100%;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .flip-front-hint{font-size:8px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--text-50);padding:0 12px 10px;width:100%;display:flex;align-items:center;gap:5px}
+  .flip-front-hint svg{flex-shrink:0;opacity:.5}
+
+  /* Back face */
+  .flip-back-top{flex:1;min-height:0;overflow:hidden}
+  .flip-back-cat{font-size:9px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--orange);margin-bottom:6px}
+  .flip-back-title{font-size:16px;font-weight:900;text-transform:uppercase;letter-spacing:.01em;line-height:1.1;margin-bottom:8px}
+  .flip-back-tag{font-size:11px;color:var(--text-75);line-height:1.6;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  .flip-watch-btn{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.18em;color:var(--orange);background:none;border:1px solid var(--orange);padding:8px 14px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;margin-top:12px;transition:background .15s,color .15s;font-family:inherit;flex-shrink:0}
+  .flip-watch-btn:hover{background:var(--orange);color:#0d0d0d}
+  .flip-watch-btn:focus-visible{outline:3px solid var(--orange);outline-offset:3px}
+  .flip-soon{font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--text-50);margin-top:12px;display:inline-block}
+
+  /* Load more */
+  .load-more-wrap{text-align:center;margin-top:20px}
+  .load-more-btn{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.18em;color:var(--text);background:none;border:1.5px solid var(--panel-line);padding:12px 36px;cursor:pointer;font-family:inherit;transition:border-color .15s,color .15s}
+  .load-more-btn:hover{border-color:var(--orange);color:var(--orange)}
+  .load-more-btn:focus-visible{outline:3px solid var(--orange);outline-offset:3px}
+  .no-results{grid-column:1 / -1;text-align:center;padding:48px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.22em;color:var(--text-30)}
+
+  /* Booking */
   .booking-spread{grid-template-columns:1fr 1.1fr;gap:var(--gutter)}
   .panel.booking-fig{display:flex;align-items:flex-end;justify-content:center;padding:0;min-height:620px;position:relative;overflow:hidden}
   .panel.booking-fig .lesa-svg{width:100%;max-width:560px;height:auto;display:block;object-fit:contain;object-position:center bottom}
@@ -126,8 +162,10 @@
   .lb-placeholder p{font-size:11px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-top:12px}
   .lb-iframe{width:100%;height:100%;border:none;display:block}
 
+  @media (max-width:1100px){
+    .flip-grid{grid-template-columns:repeat(2,1fr)}
+  }
   @media (max-width:980px){
-    .poster-grid{grid-template-columns:repeat(2,1fr)}
     .page-hero{grid-template-columns:1fr}
     .page-hero-copy{padding:48px 28px}
     .page-hero-character{border-left:none;border-top:var(--panel-line-w) solid var(--panel-line);min-height:440px}
@@ -138,6 +176,13 @@
     .nav-links{display:none}
     .panel.copy{padding:28px}
     .panel.booking-form{padding:28px}
+    .portfolio-search{width:160px}
+  }
+  @media (max-width:600px){
+    .flip-grid{grid-template-columns:repeat(2,1fr)}
+    .flip-card{height:240px}
+    .portfolio-controls{flex-direction:column;align-items:flex-start}
+    .portfolio-search{width:100%}
   }
   footer{padding:36px 28px;border-top:1px solid var(--border);background:var(--bg);margin-top:var(--gutter)}
   .foot-inner{max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:18px;font-size:11px;color:var(--text-50)}
@@ -178,7 +223,7 @@
     <div class="cap tl-inset">On Camera<span class="dot">.</span></div>
     <div class="halftone faint"></div>
     <div class="page-hero">
-      <div class="page-hero-copy">
+      <div class="page-hero-copy" style="padding-top:38px">
         <p class="eyebrow">On Camera<span class="dot">.</span></p>
         <h1>On <em>camera</em><span class="dot">.</span></h1>
         <p class="lede">Film, television, national commercials, and news media. Acting credits, on-camera interviews, and live appearances. Click any tile to watch.</p>
@@ -190,144 +235,30 @@
   </article>
 </section>
 
+<!-- Credits Portfolio -->
 <section class="spread">
   <article class="panel copy">
     <div class="cap tl">Credits<span class="dot">.</span></div>
     <p class="eyebrow">The work</p>
     <h2>Film<span class="dot">.</span> Television<span class="dot">.</span> Commercial<span class="dot">.</span> News<span class="dot">.</span></h2>
-    <p>Selected on-camera credits across reality television, national commercials, film, and news media. Click any tile to watch the clip. Reps available on request.</p>
-    <div class="poster-grid">
+    <p>Selected on-camera credits across reality television, national commercials, film, and news media. Hover a tile to see details. Click Watch to view the clip. Reps available on request.</p>
 
-      <div class="poster" role="button" tabindex="0" aria-label="Watch The Hustler"
-           data-title="The Hustler" data-cat="Reality TV" data-tag="ABC. Network reality competition series." data-vimeo="">
-        <span class="art">TH</span>
-        <span class="cat">Reality TV<span class="dot">.</span></span>
-        <span class="nm">The Hustler</span>
-        <span class="tg">ABC. Network reality competition series.</span>
-        <span class="play-hint">
-          <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
-          Watch clip
-        </span>
+    <div class="portfolio-controls">
+      <div class="filter-tabs" role="group" aria-label="Filter credits by category">
+        <button class="filter-tab active" data-filter="all">All</button>
+        <button class="filter-tab" data-filter="tv">TV</button>
+        <button class="filter-tab" data-filter="commercial">Commercial</button>
+        <button class="filter-tab" data-filter="film">Film</button>
+        <button class="filter-tab" data-filter="news">News</button>
       </div>
+      <label for="portfolio-search" class="visually-hidden">Search credits</label>
+      <input type="search" class="portfolio-search" id="portfolio-search" placeholder="Search credits..." aria-label="Search credits">
+    </div>
 
-      <div class="poster" role="button" tabindex="0" aria-label="Watch Perfect Jeans"
-           data-title="Perfect Jeans" data-cat="Commercial" data-tag="Lifestyle brand spot. On-camera talent." data-vimeo="">
-        <span class="art">PJ</span>
-        <span class="cat">Commercial<span class="dot">.</span></span>
-        <span class="nm">Perfect Jeans</span>
-        <span class="tg">Lifestyle brand spot. On-camera talent.</span>
-        <span class="play-hint">
-          <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
-          Watch clip
-        </span>
-      </div>
+    <div class="flip-grid" id="flip-grid" role="list" aria-label="Credits portfolio"></div>
 
-      <div class="poster" role="button" tabindex="0" aria-label="Watch Easy Dose"
-           data-title="Easy Dose" data-cat="Commercial" data-tag="Consumer health campaign. On-camera talent." data-vimeo="">
-        <span class="art">ED</span>
-        <span class="cat">Commercial<span class="dot">.</span></span>
-        <span class="nm">Easy Dose</span>
-        <span class="tg">Consumer health campaign. On-camera talent.</span>
-        <span class="play-hint">
-          <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
-          Watch clip
-        </span>
-      </div>
-
-      <div class="poster" role="button" tabindex="0" aria-label="Watch Beyond Diet"
-           data-title="Beyond Diet" data-cat="Commercial"
-           data-tag="Spokesperson for a nutrition platform after losing over 60 pounds."
-           data-vimeo="741212852">
-        <span class="art">BD</span>
-        <span class="cat">Commercial<span class="dot">.</span></span>
-        <span class="nm">Beyond Diet</span>
-        <span class="tg">Spokesperson for a nutrition platform after losing over 60 pounds.</span>
-        <span class="play-hint">
-          <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
-          Watch clip
-        </span>
-      </div>
-
-      <div class="poster" role="button" tabindex="0" aria-label="Watch Eye in the Sky"
-           data-title="Eye in the Sky" data-cat="Commercial"
-           data-tag="Background during a Nissan national commercial."
-           data-vimeo="741212353">
-        <span class="art">NS</span>
-        <span class="cat">Commercial<span class="dot">.</span></span>
-        <span class="nm">Eye in the Sky</span>
-        <span class="tg">Background during a Nissan national commercial.</span>
-        <span class="play-hint">
-          <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
-          Watch clip
-        </span>
-      </div>
-
-      <div class="poster" role="button" tabindex="0" aria-label="Watch Overtown"
-           data-title="Overtown" data-cat="Film"
-           data-tag="Lead antagonist in the college film, Overtown. South Florida production."
-           data-vimeo="1045990737">
-        <span class="art">OT</span>
-        <span class="cat">Film<span class="dot">.</span></span>
-        <span class="nm">Overtown</span>
-        <span class="tg">Lead antagonist in the college film, Overtown. South Florida production.</span>
-        <span class="play-hint">
-          <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
-          Watch clip
-        </span>
-      </div>
-
-      <div class="poster" role="button" tabindex="0" aria-label="Watch Overtown - Part II"
-           data-title="Overtown - Part II" data-cat="Film"
-           data-tag="Lead antagonist in the college film, Overtown. South Florida production."
-           data-vimeo="1045990653">
-        <span class="art">OT</span>
-        <span class="cat">Film<span class="dot">.</span></span>
-        <span class="nm">Overtown - Part II</span>
-        <span class="tg">Lead antagonist in the college film, Overtown. South Florida production.</span>
-        <span class="play-hint">
-          <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
-          Watch clip
-        </span>
-      </div>
-
-      <div class="poster" role="button" tabindex="0" aria-label="Watch Overtown - Part III"
-           data-title="Overtown - Part III" data-cat="Film"
-           data-tag="Lead antagonist in the college film, Overtown. South Florida production."
-           data-vimeo="1045990689">
-        <span class="art">OT</span>
-        <span class="cat">Film<span class="dot">.</span></span>
-        <span class="nm">Overtown - Part III</span>
-        <span class="tg">Lead antagonist in the college film, Overtown. South Florida production.</span>
-        <span class="play-hint">
-          <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
-          Watch clip
-        </span>
-      </div>
-
-      <div class="poster" role="button" tabindex="0" aria-label="Watch News Clip 1"
-           data-title="News Clip" data-cat="News" data-tag="On-camera news appearance. Coming soon." data-vimeo="">
-        <span class="art">NC</span>
-        <span class="cat">News<span class="dot">.</span></span>
-        <span class="nm">News Clip</span>
-        <span class="tg">On-camera news appearance. Coming soon.</span>
-        <span class="play-hint">
-          <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
-          Watch clip
-        </span>
-      </div>
-
-      <div class="poster" role="button" tabindex="0" aria-label="Watch News Clip 2"
-           data-title="News Clip" data-cat="News" data-tag="On-camera news appearance. Coming soon." data-vimeo="">
-        <span class="art">NC</span>
-        <span class="cat">News<span class="dot">.</span></span>
-        <span class="nm">News Clip</span>
-        <span class="tg">On-camera news appearance. Coming soon.</span>
-        <span class="play-hint">
-          <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
-          Watch clip
-        </span>
-      </div>
-
+    <div class="load-more-wrap" id="load-more-wrap" hidden>
+      <button class="load-more-btn" id="load-more-btn" aria-label="Load more credits">Load more</button>
     </div>
   </article>
 </section>
@@ -350,7 +281,7 @@
         </div>
         <div class="form-row">
           <input type="text" placeholder="Organization">
-          <select>
+          <select aria-label="Project type">
             <option>Project type</option>
             <option>Film</option>
             <option>Television</option>
@@ -395,15 +326,278 @@
     <span>&#169; 2026<span class="dot">.</span> A LESARUSS production.</span>
   </div>
 </footer>
+
+<style>
+  .visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border-width:0}
+</style>
+
 <script>
-  // Theme toggle
+  // ---- Theme toggle ----
   const tg = document.querySelector(".nav-toggle");
   if (tg) tg.addEventListener("click", () => {
     const h = document.documentElement;
     h.dataset.theme = h.dataset.theme === "light" ? "dark" : "light";
   });
 
-  // Lightbox
+  // ---- Credits data ----
+  const CREDITS = [
+    {
+      title: "The Hustler",
+      network: "ABC",
+      cat: "tv",
+      catLabel: "Reality TV",
+      desc: "ABC. Network reality competition series.",
+      vimeo: "",
+      logoSlug: "abc"
+    },
+    {
+      title: "Perfect Jeans",
+      network: "Perfect Jeans",
+      cat: "commercial",
+      catLabel: "Commercial",
+      desc: "Lifestyle brand spot. On-camera talent.",
+      vimeo: "",
+      logoSlug: "perfect-jeans"
+    },
+    {
+      title: "Easy Dose",
+      network: "Easy Dose",
+      cat: "commercial",
+      catLabel: "Commercial",
+      desc: "Consumer health campaign. On-camera talent.",
+      vimeo: "",
+      logoSlug: "easy-dose"
+    },
+    {
+      title: "Beyond Diet",
+      network: "Beyond Diet",
+      cat: "commercial",
+      catLabel: "Commercial",
+      desc: "Spokesperson for a nutrition platform after losing over 60 pounds.",
+      vimeo: "741212852",
+      logoSlug: "beyond-diet"
+    },
+    {
+      title: "Eye in the Sky",
+      network: "Nissan",
+      cat: "commercial",
+      catLabel: "Commercial",
+      desc: "Background during a Nissan national commercial.",
+      vimeo: "741212353",
+      logoSlug: "nissan"
+    },
+    {
+      title: "Overtown",
+      network: "Overtown",
+      cat: "film",
+      catLabel: "Film",
+      desc: "Lead antagonist in the college film, Overtown. South Florida production.",
+      vimeo: "1045990737",
+      logoSlug: "overtown"
+    },
+    {
+      title: "Overtown - Part II",
+      network: "Overtown",
+      cat: "film",
+      catLabel: "Film",
+      desc: "Lead antagonist in the college film, Overtown. South Florida production.",
+      vimeo: "1045990653",
+      logoSlug: "overtown"
+    },
+    {
+      title: "Overtown - Part III",
+      network: "Overtown",
+      cat: "film",
+      catLabel: "Film",
+      desc: "Lead antagonist in the college film, Overtown. South Florida production.",
+      vimeo: "1045990689",
+      logoSlug: "overtown"
+    },
+    {
+      title: "News Appearance",
+      network: "News Media",
+      cat: "news",
+      catLabel: "News",
+      desc: "On-camera news appearance. Coming soon.",
+      vimeo: "",
+      logoSlug: "news"
+    },
+    {
+      title: "News Appearance II",
+      network: "News Media",
+      cat: "news",
+      catLabel: "News",
+      desc: "On-camera news appearance. Coming soon.",
+      vimeo: "",
+      logoSlug: "news"
+    }
+  ];
+
+  const INITIAL_SHOW = 8;
+  let activeFilter = "all";
+  let searchQuery = "";
+  let allShown = false;
+
+  function filteredCredits() {
+    return CREDITS.filter(c => {
+      const matchCat = activeFilter === "all" || c.cat === activeFilter;
+      const q = searchQuery.toLowerCase().trim();
+      const matchSearch = !q ||
+        c.title.toLowerCase().includes(q) ||
+        c.network.toLowerCase().includes(q) ||
+        c.catLabel.toLowerCase().includes(q) ||
+        c.desc.toLowerCase().includes(q);
+      return matchCat && matchSearch;
+    });
+  }
+
+  function renderGrid() {
+    const grid    = document.getElementById("flip-grid");
+    const lmWrap  = document.getElementById("load-more-wrap");
+    const filtered = filteredCredits();
+    grid.innerHTML = "";
+
+    if (filtered.length === 0) {
+      grid.innerHTML = '<div class="no-results" role="status" aria-live="polite">No credits match your search.</div>';
+      lmWrap.hidden = true;
+      return;
+    }
+
+    const showCount = allShown ? filtered.length : Math.min(INITIAL_SHOW, filtered.length);
+
+    filtered.forEach((c, i) => {
+      const card = document.createElement("div");
+      card.className = "flip-card";
+      card.setAttribute("role", "listitem");
+      card.setAttribute("tabindex", "0");
+      card.setAttribute("aria-label", c.catLabel + ": " + c.title + ". Press Enter to flip and see details.");
+      if (i >= showCount) card.hidden = true;
+
+      // Build logo HTML - tries image first, falls back to styled text
+      const logoHTML = `
+        <img class="flip-logo-img" src="assets/logos/${c.logoSlug}.png" alt="${c.network}"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+        <span class="flip-logo-text" style="display:none">${c.network}</span>
+      `;
+
+      // Build watch / coming soon
+      const actionHTML = c.vimeo
+        ? `<button class="flip-watch-btn"
+             data-vimeo="${c.vimeo}"
+             data-title="${c.title.replace(/"/g,'&quot;')}"
+             data-cat="${c.catLabel}"
+             data-tag="${c.desc.replace(/"/g,'&quot;')}"
+             aria-label="Watch ${c.title}">
+             <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="5,3 19,12 5,21"/></svg>
+             Watch clip
+           </button>`
+        : `<span class="flip-soon">Coming soon</span>`;
+
+      card.innerHTML = `
+        <div class="flip-inner">
+          <div class="flip-face flip-front" aria-hidden="true">
+            <span class="flip-front-cat">${c.catLabel}</span>
+            <div class="flip-logo-area">${logoHTML}</div>
+            <span class="flip-front-title">${c.title}</span>
+            <span class="flip-front-hint">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="15,3 21,3 21,9"/><polyline points="9,21 3,21 3,15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+              flip for details
+            </span>
+          </div>
+          <div class="flip-face flip-back">
+            <div class="flip-back-top">
+              <p class="flip-back-cat">${c.catLabel}<span class="dot">.</span></p>
+              <p class="flip-back-title">${c.title}</p>
+              <p class="flip-back-tag">${c.desc}</p>
+            </div>
+            ${actionHTML}
+          </div>
+        </div>
+      `;
+
+      // Flip on click (but not on watch button click)
+      card.addEventListener("click", e => {
+        if (e.target.closest(".flip-watch-btn")) return;
+        card.classList.toggle("flipped");
+        const isFlipped = card.classList.contains("flipped");
+        card.setAttribute("aria-label",
+          c.catLabel + ": " + c.title + ". " +
+          (isFlipped ? "Press Enter to flip back." : "Press Enter to flip and see details.")
+        );
+      });
+
+      card.addEventListener("keydown", e => {
+        if (e.key === "Enter" || e.key === " ") {
+          if (e.target === card) {
+            e.preventDefault();
+            card.classList.toggle("flipped");
+          }
+        }
+      });
+
+      // Watch button opens lightbox
+      const watchBtn = card.querySelector(".flip-watch-btn");
+      if (watchBtn) {
+        watchBtn.addEventListener("click", e => {
+          e.stopPropagation();
+          openLb(watchBtn, {
+            cat: watchBtn.dataset.cat,
+            title: watchBtn.dataset.title,
+            tag: watchBtn.dataset.tag,
+            vimeo: watchBtn.dataset.vimeo
+          });
+        });
+        watchBtn.addEventListener("keydown", e => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            watchBtn.click();
+          }
+        });
+      }
+
+      grid.appendChild(card);
+    });
+
+    // Load more button
+    const hasMore = !allShown && filtered.length > INITIAL_SHOW;
+    lmWrap.hidden = !hasMore;
+  }
+
+  // ---- Filter tabs ----
+  document.querySelectorAll(".filter-tab").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".filter-tab").forEach(b => {
+        b.classList.remove("active");
+        b.removeAttribute("aria-pressed");
+      });
+      btn.classList.add("active");
+      btn.setAttribute("aria-pressed", "true");
+      activeFilter = btn.dataset.filter;
+      allShown = false;
+      renderGrid();
+    });
+  });
+
+  // ---- Search ----
+  const searchInput = document.getElementById("portfolio-search");
+  if (searchInput) {
+    searchInput.addEventListener("input", () => {
+      searchQuery = searchInput.value;
+      allShown = false;
+      renderGrid();
+    });
+  }
+
+  // ---- Load more ----
+  document.getElementById("load-more-btn").addEventListener("click", () => {
+    allShown = true;
+    renderGrid();
+  });
+
+  // ---- Initial render ----
+  renderGrid();
+
+  // ---- Lightbox ----
   const lb       = document.getElementById("lb");
   const lbClose  = document.getElementById("lb-close");
   const lbOvl    = document.getElementById("lb-overlay");
@@ -413,14 +607,14 @@
   const lbVideo  = document.getElementById("lb-video");
   let lastFocused = null;
 
-  function openLb(el) {
-    lastFocused = el;
-    lbCat.textContent   = el.dataset.cat;
-    lbTitle.textContent = el.dataset.title;
-    lbTag.textContent   = el.dataset.tag;
-    const vimeoId = el.dataset.vimeo;
+  function openLb(triggerEl, data) {
+    lastFocused = triggerEl;
+    lbCat.textContent   = data.cat;
+    lbTitle.textContent = data.title;
+    lbTag.textContent   = data.tag;
+    const vimeoId = data.vimeo;
     if (vimeoId) {
-      lbVideo.innerHTML = `<iframe class="lb-iframe" src="https://player.vimeo.com/video/${vimeoId}?autoplay=1&color=F69820" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="${el.dataset.title}"></iframe>`;
+      lbVideo.innerHTML = `<iframe class="lb-iframe" src="https://player.vimeo.com/video/${vimeoId}?autoplay=1&color=F69820" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="${data.title}"></iframe>`;
     } else {
       lbVideo.innerHTML = `<div class="lb-placeholder"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polygon points="10,8 16,12 10,16" fill="rgba(255,255,255,0.25)" stroke="none"/></svg><p>Video coming soon</p></div>`;
     }
@@ -435,13 +629,6 @@
     document.body.style.overflow = "";
     if (lastFocused) lastFocused.focus();
   }
-
-  document.querySelectorAll(".poster").forEach(p => {
-    p.addEventListener("click", () => openLb(p));
-    p.addEventListener("keydown", e => {
-      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openLb(p); }
-    });
-  });
 
   lbClose.addEventListener("click", closeLb);
   lbOvl.addEventListener("click", closeLb);
