@@ -34,7 +34,7 @@
   button{font-family:inherit}
   :focus-visible{outline:3px solid var(--orange);outline-offset:3px}
   @media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
-  .dot{color:var(--orange);display:inline-block;animation:dotPulse 2s ease-in-out infinite}
+  .dot{color:var(--orange);display:inline-block;margin-left:0.06em;animation:dotPulse 2s ease-in-out infinite}
   @keyframes dotPulse{0%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(1.3)}100%{opacity:1;transform:scale(1)}}
 
   .nav{position:fixed;top:0;left:0;right:0;z-index:200;height:62px;display:flex;align-items:center;padding:0 28px;background:var(--nav-bg);border-bottom:1px solid var(--border);backdrop-filter:blur(10px)}
@@ -136,10 +136,19 @@
   .vl-box iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
   .vl-close{position:absolute;top:-40px;right:0;font-size:11px;font-weight:900;letter-spacing:.18em;text-transform:uppercase;color:#fff;background:none;border:none;cursor:pointer;font-family:inherit;padding:6px 0}
 
+  /* Booking layout */
+  .booking-spread{display:grid;grid-template-columns:1fr 1.1fr;gap:0}
+  .panel.booking-vid{min-height:580px;position:relative;overflow:hidden;border-right:none}
+  .vid-thumb{position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:center}
+  .vid-bg{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:500px;height:auto;object-fit:contain;object-position:bottom;mix-blend-mode:multiply;opacity:.85}
+  html[data-theme="light"] .vid-bg{mix-blend-mode:multiply;opacity:.9}
+  .vid-gradient{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(13,13,13,.55) 0%,rgba(13,13,13,.2) 50%,transparent 100%)}
+  html[data-theme="light"] .vid-gradient{background:linear-gradient(to bottom,rgba(255,255,255,.4) 0%,rgba(255,255,255,.1) 50%,transparent 100%)}
+
   /* Booking form panel */
-  .booking-form{padding:48px}
-  .booking-form h2{font-size:clamp(36px,5.4vw,68px);font-weight:900;text-transform:uppercase;letter-spacing:-.03em;line-height:.95;margin:14px 0 24px}
-  .booking-form .pre{font-size:14px;color:var(--text-75);line-height:1.75;margin-bottom:30px;max-width:440px}
+  .panel.booking-form{padding:48px}
+  .panel.booking-form h2{font-size:clamp(36px,5.4vw,68px);font-weight:900;text-transform:uppercase;letter-spacing:-.03em;line-height:.95;margin:14px 0 24px}
+  .panel.booking-form .pre{font-size:14px;color:var(--text-75);line-height:1.75;margin-bottom:30px;max-width:440px}
   .form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
   .form input,.form select,.form textarea{width:100%;padding:14px 16px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:inherit;font-size:16px;letter-spacing:.02em}
   .form input::placeholder,.form textarea::placeholder{color:var(--text-50)}
@@ -163,7 +172,9 @@
     .exp-text{padding:28px;border-right:none;border-bottom:var(--panel-line-w) solid var(--panel-line)}
     .exp-video-wrap{height:auto}
     .signal-player{height:auto;aspect-ratio:16/9;border-left:none;border-top:2px solid var(--orange)}
-    .booking-form{padding:28px}
+    .booking-spread{grid-template-columns:1fr}
+    .panel.booking-vid{min-height:340px}
+    .panel.booking-form{padding:28px}
     .form-row{grid-template-columns:1fr}
     .nav-links{display:none}
   }
@@ -281,33 +292,54 @@
 
 <!-- Booking form -->
 <section class="spread">
-  <article class="panel booking-form">
-    <div class="cap tl">Book Sean<span class="dot">.</span></div>
-    <p class="eyebrow">Book Sean<span class="dot">.</span></p>
-    <h2>Tell me<br>about<br>the room<span class="dot">.</span></h2>
-    <p class="pre">Send the audience, the outcome, and the budget range. Reply within 48 hours.</p>
-    <form class="form" onsubmit="event.preventDefault();alert('Form submitted — Sean will be in touch within 48 hours.');">
-      <div class="form-row">
-        <input type="text" id="form-name" name="name" placeholder="Your name" required aria-label="Your name">
-        <input type="email" id="form-email" name="email" placeholder="Email" required aria-label="Email address">
+  <div class="booking-spread">
+
+    <!-- Hero image panel -->
+    <article class="panel booking-vid">
+      <div class="cap tl">The Room<span class="dot">.</span></div>
+      <div class="halftone faint"></div>
+      <div class="vid-thumb">
+        <img
+          class="vid-bg"
+          src="assets/poses/lesaruss-k12-hero.png?v=2"
+          alt=""
+          aria-hidden="true"
+          width="500"
+          height="667">
+        <div class="vid-gradient"></div>
       </div>
-      <div class="form-row">
-        <input type="text" id="form-org" name="organization" placeholder="Organization" aria-label="Organization">
-        <select id="form-type" name="type" aria-label="Engagement type">
-          <option value="">Engagement type</option>
-          <option>Speaking</option>
-          <option>Consulting</option>
-          <option>Producing</option>
-          <option>Acting</option>
-          <option>Hosting</option>
-          <option>Other</option>
-        </select>
-      </div>
-      <input type="text" id="form-date" name="date" placeholder="Event date or window" style="margin-bottom:10px;width:100%;padding:14px 16px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:inherit;font-size:16px;letter-spacing:.02em" aria-label="Event date or window">
-      <textarea id="form-brief" name="brief" placeholder="The audience, the outcome, the budget range. In your words." aria-label="Brief"></textarea>
-      <button type="submit" class="submit">Send the brief</button>
-    </form>
-  </article>
+    </article>
+
+    <!-- Form panel -->
+    <article class="panel booking-form">
+      <div class="cap tl">Book Sean<span class="dot">.</span></div>
+      <p class="eyebrow">Book Sean<span class="dot">.</span></p>
+      <h2>Tell me<br>about<br>the room<span class="dot">.</span></h2>
+      <p class="pre">Send the audience, the outcome, and the budget range. Reply within 48 hours.</p>
+      <form class="form" onsubmit="event.preventDefault();alert('Form submitted — Sean will be in touch within 48 hours.');">
+        <div class="form-row">
+          <input type="text" id="form-name" name="name" placeholder="Your name" required aria-label="Your name">
+          <input type="email" id="form-email" name="email" placeholder="Email" required aria-label="Email address">
+        </div>
+        <div class="form-row">
+          <input type="text" id="form-org" name="organization" placeholder="Organization" aria-label="Organization">
+          <select id="form-type" name="type" aria-label="Engagement type">
+            <option value="">Engagement type</option>
+            <option>Speaking</option>
+            <option>Consulting</option>
+            <option>Producing</option>
+            <option>Acting</option>
+            <option>Hosting</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <input type="text" id="form-date" name="date" placeholder="Event date or window" style="margin-bottom:10px;width:100%;padding:14px 16px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:inherit;font-size:16px;letter-spacing:.02em" aria-label="Event date or window">
+        <textarea id="form-brief" name="brief" placeholder="The audience, the outcome, the budget range. In your words." aria-label="Brief"></textarea>
+        <button type="submit" class="submit">Send the brief</button>
+      </form>
+    </article>
+
+  </div>
 </section>
 
 <footer>

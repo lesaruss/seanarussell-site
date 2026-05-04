@@ -34,7 +34,7 @@
   button{font-family:inherit}
   :focus-visible{outline:3px solid var(--orange);outline-offset:3px}
   @media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
-  .dot{color:var(--orange);display:inline-block;animation:dotPulse 2s ease-in-out infinite}
+  .dot{color:var(--orange);display:inline-block;margin-left:0.06em;animation:dotPulse 2s ease-in-out infinite}
   @keyframes dotPulse{0%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(1.3)}100%{opacity:1;transform:scale(1)}}
 
   .nav{position:fixed;top:0;left:0;right:0;z-index:200;height:62px;display:flex;align-items:center;padding:0 28px;background:var(--nav-bg);border-bottom:1px solid var(--border);backdrop-filter:blur(10px)}
@@ -43,12 +43,6 @@
   .nav-link{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.13em;color:var(--text-50);padding:6px 12px;background:none;border:none;cursor:pointer;transition:color .18s;white-space:nowrap;flex-shrink:0}
   .nav-link:hover{color:var(--text)}
   .nav-link.active{color:var(--orange)}
-  .nav-toggle{width:36px;height:36px;border-radius:50%;background:rgba(127,127,127,0.12);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text);flex-shrink:0;margin-right:10px}
-  .nav-toggle:hover{background:rgba(127,127,127,0.22)}
-  .nav-toggle .icon-sun{display:none}
-  .nav-toggle .icon-moon{display:block}
-  html[data-theme="light"] .nav-toggle .icon-sun{display:block}
-  html[data-theme="light"] .nav-toggle .icon-moon{display:none}
   .nav-enter{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.14em;color:#0d0d0d;background:var(--orange);padding:9px 20px;border:none;cursor:pointer;flex-shrink:0}
   .nav-enter:hover{background:var(--text);color:var(--bg)}
 
@@ -272,10 +266,6 @@
     <a class="nav-link" href="experience.html">Experience</a>
     <a class="nav-link" href="consultant.html">Consultant</a>
   </nav>
-  <button class="nav-toggle" aria-label="Toggle theme">
-    <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-    <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
-  </button>
   <a class="nav-enter" href="book.html">Book Sean</a>
 </header>
 <div class="issue-bar">
@@ -290,7 +280,6 @@
     <div class="sfx" style="bottom:-30px;right:24px">BUILT.</div>
     <div class="halftone faint"></div>
     <div class="splash-copy" style="padding-top:38px;align-self:start">
-      <p class="eyebrow">A System That Builds Systems<span class="dot">.</span></p>
       <h1>From Blur To<br><span id="cycle">Blueprint.</span></h1>
       <p class="byline">Sean A. Russell<span>.</span> Architect of the LESARUSS universe<span>.</span></p>
       <p class="sub">Two decades inside school systems and transformation work. Eight live brands and counting. One book. One framework. A universe built by someone who lived the problem first.</p>
@@ -460,8 +449,6 @@
   </div>
 </footer>
 <script>
-  const tg = document.querySelector(".nav-toggle");
-  if (tg) tg.addEventListener("click", () => { const h = document.documentElement; h.dataset.theme = h.dataset.theme === "light" ? "dark" : "light"; });
   // Keyboard support for Talents dropdown
   document.querySelectorAll(".nav-dropdown-trigger").forEach(btn => {
     btn.addEventListener("click", () => { const exp = btn.getAttribute("aria-expanded") === "true"; btn.setAttribute("aria-expanded", String(!exp)); });
