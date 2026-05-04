@@ -37,20 +37,12 @@
   .dot{color:var(--orange);display:inline-block;margin-left:0.06em;animation:dotPulse 2s ease-in-out infinite}
   @keyframes dotPulse{0%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(1.3)}100%{opacity:1;transform:scale(1)}}
   .visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border-width:0}
-
-  /* NAV */
   .nav{position:fixed;top:0;left:0;right:0;z-index:200;height:62px;display:flex;align-items:center;padding:0 28px;background:var(--nav-bg);border-bottom:1px solid var(--border);backdrop-filter:blur(10px)}
   .nav-brand{font-size:17px;font-weight:900;text-transform:uppercase;letter-spacing:.05em;flex-shrink:0;margin-right:36px}
   .nav-links{display:flex;align-items:center;gap:4px;flex:1}
   .nav-link{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.13em;color:var(--text-50);padding:6px 12px;background:none;border:none;cursor:pointer;transition:color .18s;white-space:nowrap;flex-shrink:0}
   .nav-link:hover{color:var(--text)}
   .nav-link.active{color:var(--orange)}
-  .nav-toggle{width:36px;height:36px;border-radius:50%;background:rgba(127,127,127,0.12);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text);flex-shrink:0;margin-right:10px}
-  .nav-toggle:hover{background:rgba(127,127,127,0.22)}
-  .nav-toggle .icon-sun{display:none}
-  .nav-toggle .icon-moon{display:block}
-  html[data-theme="light"] .nav-toggle .icon-sun{display:block}
-  html[data-theme="light"] .nav-toggle .icon-moon{display:none}
   .nav-enter{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.14em;color:#0d0d0d;background:var(--orange);padding:9px 20px;border:none;cursor:pointer;flex-shrink:0}
   .nav-enter:hover{background:var(--text);color:var(--bg)}
   .nav-dropdown{position:relative;display:inline-flex;align-items:center}
@@ -64,29 +56,19 @@
   .nav-dropdown-item{display:block;padding:9px 16px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.13em;color:var(--text-50);transition:color .15s}
   .nav-dropdown-item:hover{color:var(--orange)}
   .nav-dropdown-item.active{color:var(--orange)}
-
-  /* ISSUE BAR */
   .issue-bar{position:relative;display:flex;align-items:center;gap:18px;padding:10px 28px;border-bottom:1px solid var(--border);font-size:10px;font-weight:800;letter-spacing:.32em;text-transform:uppercase;color:var(--text-50);margin-top:62px}
   .issue-bar .red{width:8px;height:8px;border-radius:50%;background:var(--orange);animation:dotPulse 2s ease-in-out infinite}
   .issue-bar span.title{color:var(--text)}
   .issue-bar .right{margin-left:auto;color:var(--text-30)}
-
-  /* LAYOUT */
   .spread{padding:var(--gutter);max-width:1280px;margin:0 auto}
   .spread + .spread{padding-top:0}
   .panel{position:relative;background:var(--bg);border:var(--panel-line-w) solid var(--panel-line);overflow:hidden}
   .grid{display:grid;gap:var(--gutter)}
-
-  /* CAPS */
   .cap{position:absolute;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--text);background:var(--bg);padding:8px 12px;border:var(--panel-line-w) solid var(--panel-line);z-index:5;line-height:1.5;max-width:280px}
   .cap.tl{top:-1px;left:-1px}
   .cap.tl-inset{top:14px;left:14px}
-
-  /* HALFTONE */
   .halftone{position:absolute;inset:0;opacity:.16;pointer-events:none;background-image:radial-gradient(var(--orange) 1.4px, transparent 1.6px);background-size:14px 14px}
   .halftone.faint{opacity:.08}
-
-  /* HERO */
   .eyebrow{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.32em;color:var(--orange);margin-bottom:22px}
   .page-hero{display:grid;grid-template-columns:minmax(0,1fr) 460px;min-height:520px;align-items:end}
   .page-hero-copy{padding:64px 56px;min-width:0}
@@ -96,8 +78,6 @@
   .page-hero-character{position:relative;height:100%;min-height:480px;display:flex;align-items:flex-end;justify-content:center;border-left:var(--panel-line-w) solid var(--panel-line)}
   .page-hero-character .lesa-svg{width:360px;max-width:360px;height:auto;flex-shrink:0}
   .page-hero-character::before{content:"";position:absolute;left:50%;bottom:24px;transform:translateX(-50%);width:300px;height:300px;border:1px solid var(--text-30);border-radius:50%;opacity:.5;z-index:0}
-
-  /* COPY PANEL */
   .panel.copy{padding:48px}
   .panel.copy h2{font-size:clamp(28px,4vw,42px);font-weight:900;text-transform:uppercase;letter-spacing:-.02em;line-height:1;margin:8px 0 18px}
   .panel.copy p{font-size:14px;line-height:1.85;color:var(--text-75);margin-bottom:18px;max-width:680px}
@@ -106,8 +86,6 @@
   .panel.copy ul.beats li .num{font-size:10px;font-weight:800;letter-spacing:.22em;color:var(--orange);text-transform:uppercase;display:block;margin-bottom:6px}
   .panel.copy ul.beats li .nm{font-size:14px;font-weight:900;text-transform:uppercase;letter-spacing:.02em;display:block;margin-bottom:8px}
   .panel.copy ul.beats li .ds{font-size:12px;line-height:1.6;color:var(--text-75)}
-
-  /* PORTFOLIO CONTROLS */
   .portfolio-controls{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:28px 0 20px;flex-wrap:wrap}
   .filter-tabs{display:flex;gap:6px;flex-wrap:wrap}
   .filter-tab{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.18em;padding:8px 16px;border:1.5px solid var(--border);background:transparent;color:var(--text-50);cursor:pointer;transition:all .15s;font-family:inherit}
@@ -116,8 +94,6 @@
   .portfolio-search{font-size:12px;font-weight:600;padding:9px 14px;border:1.5px solid var(--border);background:transparent;color:var(--text);font-family:inherit;width:200px;transition:border-color .15s;letter-spacing:.02em}
   .portfolio-search:focus{outline:3px solid var(--orange);outline-offset:3px;border-color:var(--orange)}
   .portfolio-search::placeholder{color:var(--text-30)}
-
-  /* FLIP GRID */
   .flip-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gutter)}
   .flip-card{height:260px;cursor:pointer;perspective:1200px}
   .flip-card:focus-visible{outline:3px solid var(--orange);outline-offset:3px}
@@ -126,8 +102,6 @@
   .flip-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border:var(--panel-line-w) solid var(--panel-line);display:flex;flex-direction:column;overflow:hidden}
   .flip-front{align-items:center;justify-content:flex-start;background:var(--surface)}
   .flip-back{transform:rotateY(180deg);background:var(--surface);padding:20px;justify-content:space-between}
-
-  /* Front face */
   .flip-front-cat{font-size:8px;font-weight:800;text-transform:uppercase;letter-spacing:.22em;color:var(--orange);padding:10px 12px;width:100%;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
   .flip-front-cat .type-badge{font-size:7px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--text-50);background:rgba(127,127,127,.1);padding:3px 7px}
   .flip-logo-area{flex:1;display:flex;align-items:center;justify-content:center;padding:16px 20px;width:100%;overflow:hidden}
@@ -137,8 +111,6 @@
   .flip-front-hint svg{flex-shrink:0;opacity:.5}
   .flip-status-live{width:6px;height:6px;border-radius:50%;background:#22c55e;display:inline-block;animation:dotPulse 2s ease-in-out infinite;margin-right:5px}
   .flip-status-soon{font-size:7px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--orange);border:1px solid var(--orange);padding:2px 6px}
-
-  /* Back face */
   .flip-back-top{flex:1;min-height:0;overflow:hidden}
   .flip-back-cat{font-size:9px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--orange);margin-bottom:4px}
   .flip-back-type{font-size:8px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--text-30);margin-bottom:8px}
@@ -148,15 +120,11 @@
   .flip-action-btn:hover{background:var(--orange);color:#0d0d0d}
   .flip-action-btn:focus-visible{outline:3px solid var(--orange);outline-offset:3px}
   .flip-no-action{font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--text-30);margin-top:12px;display:inline-block}
-
-  /* Load more / no results */
   .load-more-wrap{text-align:center;margin-top:20px}
   .load-more-btn{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.18em;color:var(--text);background:none;border:1.5px solid var(--panel-line);padding:12px 36px;cursor:pointer;font-family:inherit;transition:border-color .15s,color .15s}
   .load-more-btn:hover{border-color:var(--orange);color:var(--orange)}
   .load-more-btn:focus-visible{outline:3px solid var(--orange);outline-offset:3px}
   .no-results{grid-column:1 / -1;text-align:center;padding:48px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.22em;color:var(--text-30)}
-
-  /* BOOKING */
   .booking-spread{grid-template-columns:1fr 1.1fr;gap:var(--gutter)}
   .panel.booking-fig{display:flex;align-items:flex-end;justify-content:center;padding:0;min-height:620px;position:relative;overflow:hidden}
   .panel.booking-fig .lesa-svg{width:100%;max-width:560px;height:auto;display:block;object-fit:contain;object-position:center bottom}
@@ -169,15 +137,11 @@
   .form textarea{min-height:120px;resize:vertical;margin-bottom:14px}
   .form .submit{width:100%;background:var(--orange);color:#0d0d0d;border:none;padding:16px;font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.14em;cursor:pointer}
   .form .submit:hover{background:var(--text)}
-
-  /* FOOTER */
   footer{padding:36px 28px;border-top:1px solid var(--border);background:var(--bg);margin-top:var(--gutter)}
   .foot-inner{max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:18px;font-size:11px;color:var(--text-50)}
   .foot-wm{font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:.05em;color:var(--text-50)}
   .foot-links{display:flex;gap:24px;font-weight:700;text-transform:uppercase;letter-spacing:.16em;font-size:10px}
   .foot-links a:hover{color:var(--orange)}
-
-  /* RESPONSIVE */
   @media (max-width:1100px){.flip-grid{grid-template-columns:repeat(3,1fr)}}
   @media (max-width:980px){
     .page-hero{grid-template-columns:1fr}
@@ -217,21 +181,14 @@
     <a class="nav-link" href="experience.html">Experience</a>
     <a class="nav-link" href="consultant.html">Consultant</a>
   </nav>
-  <button class="nav-toggle" aria-label="Toggle theme">
-    <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-    <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
-  </button>
   <a class="nav-enter" href="book.html">Book Sean</a>
 </header>
-
 <div class="issue-bar" aria-hidden="true">
   <span class="red"></span>
   <span class="title">Issue 01</span>
   <span>Producer</span>
   <span class="right">Page 04 . Producer</span>
 </div>
-
-<!-- HERO -->
 <section class="spread">
   <article class="panel">
     <div class="cap tl-inset">Producer<span class="dot">.</span></div>
@@ -248,8 +205,6 @@
     </div>
   </article>
 </section>
-
-<!-- CONTEXT COPY -->
 <section class="spread">
   <article class="panel copy">
     <div class="cap tl">What gets built<span class="dot">.</span></div>
@@ -264,15 +219,12 @@
     </ul>
   </article>
 </section>
-
-<!-- UNIFIED FILTERABLE MODULE -->
 <section class="spread">
   <article class="panel copy" style="padding-bottom:36px">
     <div class="cap tl">The work<span class="dot">.</span></div>
     <p class="eyebrow">Portfolio</p>
     <h2>Brands<span class="dot">.</span> Productions<span class="dot">.</span> Skills<span class="dot">.</span></h2>
     <p>Every brand built, every campaign produced, every skill in the stack. Filter by type or search to dig in.</p>
-
     <div class="portfolio-controls">
       <div class="filter-tabs" role="group" aria-label="Filter portfolio by type">
         <button class="filter-tab active" data-filter="all">All</button>
@@ -283,16 +235,12 @@
       <label for="portfolio-search" class="visually-hidden">Search portfolio</label>
       <input type="search" class="portfolio-search" id="portfolio-search" placeholder="Search..." aria-label="Search portfolio">
     </div>
-
     <div class="flip-grid" id="flip-grid" role="list" aria-label="Portfolio"></div>
-
     <div class="load-more-wrap" id="load-more-wrap" hidden>
       <button class="load-more-btn" id="load-more-btn">Load more</button>
     </div>
   </article>
 </section>
-
-<!-- BOOKING -->
 <section class="spread" id="contact">
   <div class="grid booking-spread">
     <article class="panel booking-fig">
@@ -320,7 +268,6 @@
     </article>
   </div>
 </section>
-
 <footer>
   <div class="foot-inner">
     <a class="foot-wm" href="index.html">Sean A. Russell<span class="dot">.</span></a>
@@ -332,28 +279,16 @@
     <span>&#169; 2026<span class="dot">.</span> A LESARUSS production.</span>
   </div>
 </footer>
-
 <script>
-  // Theme toggle
-  const tg = document.querySelector(".nav-toggle");
-  if (tg) tg.addEventListener("click", () => {
-    const h = document.documentElement;
-    h.dataset.theme = h.dataset.theme === "light" ? "dark" : "light";
-  });
-
-  // Portfolio data
   const ITEMS = [
-    // BRANDS
     { type:"brands", typeLabel:"Brand", subcat:"Founders / AI", title:"LESARUSS", abbr:"L.", desc:"Operating system for brand building. The platform behind every brand in this portfolio.", status:"live", url:"" },
     { type:"brands", typeLabel:"Brand", subcat:"Community", title:"Vegans Explore", abbr:"VE", desc:"Multi-city vegan community platform. Events, content, culture.", status:"live", url:"" },
     { type:"brands", typeLabel:"Brand", subcat:"Personal", title:"The 111 Day Theory", abbr:"111", desc:"The on-ramp transformation framework. Sean's personal method, productized.", status:"live", url:"" },
     { type:"brands", typeLabel:"Brand", subcat:"Education", title:"K12 Unlocked", abbr:"K12", desc:"Educational technology at district scale. Built for the people actually in the schools.", status:"soon", url:"" },
     { type:"brands", typeLabel:"Brand", subcat:"Anime / Gaming", title:"Anime3000", abbr:"3K", desc:"Anime fandom community platform. Culture-first, community-driven.", status:"soon", url:"" },
     { type:"brands", typeLabel:"Brand", subcat:"Design", title:"GeekFon Society", abbr:"GF", desc:"Design and creative collective. The studio arm of the LESARUSS universe.", status:"soon", url:"" },
-    { type:"brands", typeLabel:"Brand", subcat:"Edutainment", title:"Chester", abbr:"CD", desc:"Animated lessons. Fourth-grade core. Where entertainment meets curriculum.", status:"soon", url:"" },
+    { type:"brands", typeLabel:"Brand", subcat:"Edutainment", title:"Chester is Cool", abbr:"CIC", desc:"Animated lessons. Fourth-grade core. Where entertainment meets curriculum.", status:"soon", url:"" },
     { type:"brands", typeLabel:"Brand", subcat:"Accessibility", title:"ADA Unlocked", abbr:"A11Y", desc:"Accessibility compliance and consulting for institutions. Built to scale.", status:"soon", url:"" },
-
-    // PRODUCTIONS
     { type:"productions", typeLabel:"Production", subcat:"NFL", title:"Miami Dolphins", abbr:"MIA", desc:"Campaign production. Major-league brand and media at the national level.", status:"", url:"" },
     { type:"productions", typeLabel:"Production", subcat:"NBA", title:"Miami Heat", abbr:"HTW", desc:"Campaign production. National audience, arena scale.", status:"", url:"" },
     { type:"productions", typeLabel:"Production", subcat:"MLB", title:"Miami Marlins", abbr:"MRM", desc:"Campaign production. South Florida market, full-season scope.", status:"", url:"" },
@@ -362,8 +297,6 @@
     { type:"productions", typeLabel:"Production", subcat:"Anime / Streaming", title:"Crunchyroll", abbr:"CR", desc:"Campaign and content production for the leading anime streaming platform.", status:"", url:"" },
     { type:"productions", typeLabel:"Production", subcat:"Music", title:"Atlantic Records", abbr:"ATL", desc:"Campaign and media production. Major label, national reach.", status:"", url:"" },
     { type:"productions", typeLabel:"Production", subcat:"Advocacy", title:"PETA", abbr:"PTA", desc:"Campaign and content production. Mission-driven, global audience.", status:"", url:"" },
-
-    // SKILLS
     { type:"skills", typeLabel:"Skill", subcat:"Media", title:"Videographer", abbr:"VID", desc:"Capture, direction, and field production across brand campaigns and documentary content.", status:"", url:"" },
     { type:"skills", typeLabel:"Skill", subcat:"Media", title:"Video Editor", abbr:"EDI", desc:"Post-production from rough cut to final delivery. Social, broadcast, and long-form.", status:"", url:"" },
     { type:"skills", typeLabel:"Skill", subcat:"Design", title:"Graphic Designer", abbr:"GFX", desc:"Brand identity, print, digital. From logo to full campaign visual system.", status:"", url:"" },
@@ -381,40 +314,30 @@
     { type:"skills", typeLabel:"Skill", subcat:"Creative", title:"Creative Director", abbr:"CDR", desc:"Campaign architecture, visual language, and cross-channel coherence.", status:"", url:"" },
     { type:"skills", typeLabel:"Skill", subcat:"Community", title:"Community Builder", abbr:"COM", desc:"Membership systems, engagement loops, and sustained community momentum.", status:"", url:"" }
   ];
-
   const INITIAL_SHOW = 12;
   let activeFilter = "all";
   let searchQuery = "";
   let allShown = false;
-
   function filtered() {
     return ITEMS.filter(item => {
       const matchType = activeFilter === "all" || item.type === activeFilter;
       const q = searchQuery.toLowerCase().trim();
-      const matchSearch = !q ||
-        item.title.toLowerCase().includes(q) ||
-        item.subcat.toLowerCase().includes(q) ||
-        item.typeLabel.toLowerCase().includes(q) ||
-        item.desc.toLowerCase().includes(q);
+      const matchSearch = !q || item.title.toLowerCase().includes(q) || item.subcat.toLowerCase().includes(q) || item.typeLabel.toLowerCase().includes(q) || item.desc.toLowerCase().includes(q);
       return matchType && matchSearch;
     });
   }
-
   function renderGrid() {
     const grid = document.getElementById("flip-grid");
     const lmWrap = document.getElementById("load-more-wrap");
     const lmBtn = document.getElementById("load-more-btn");
     const data = filtered();
     grid.innerHTML = "";
-
     if (data.length === 0) {
       grid.innerHTML = '<div class="no-results" role="status" aria-live="polite">No results found.</div>';
       lmWrap.hidden = true;
       return;
     }
-
     const showCount = allShown ? data.length : Math.min(INITIAL_SHOW, data.length);
-
     data.forEach((item, i) => {
       const card = document.createElement("div");
       card.className = "flip-card";
@@ -422,61 +345,21 @@
       card.setAttribute("tabindex", "0");
       card.setAttribute("aria-label", item.typeLabel + ": " + item.title + ". Press Enter to flip.");
       if (i >= showCount) card.hidden = true;
-
-      // Status indicator
       let statusHTML = "";
       if (item.status === "live") {
         statusHTML = `<span style="display:inline-flex;align-items:center;gap:4px;font-size:7px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:#22c55e"><span class="flip-status-live"></span>Live</span>`;
       } else if (item.status === "soon") {
         statusHTML = `<span class="flip-status-soon">Soon</span>`;
       }
-
-      // Action button on back
       let actionHTML = "";
       if (item.url) {
-        actionHTML = `<a class="flip-action-btn" href="${item.url}">View
-          <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>`;
+        actionHTML = `<a class="flip-action-btn" href="${item.url}">View <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>`;
       }
-
-      card.innerHTML = `
-        <div class="flip-inner">
-          <div class="flip-face flip-front" aria-hidden="true">
-            <div class="flip-front-cat">
-              <span>${item.subcat}</span>
-              ${statusHTML ? '<span>' + statusHTML + '</span>' : '<span class="type-badge">' + item.typeLabel + '</span>'}
-            </div>
-            <div class="flip-logo-area">
-              <span class="flip-logo-text">${item.abbr}</span>
-            </div>
-            <div class="flip-front-title">${item.title}</div>
-            <div class="flip-front-hint">
-              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
-              Flip for details
-            </div>
-          </div>
-          <div class="flip-face flip-back">
-            <div class="flip-back-top">
-              <div class="flip-back-cat">${item.subcat}</div>
-              <div class="flip-back-type">${item.typeLabel}</div>
-              <div class="flip-back-title">${item.title}</div>
-              <div class="flip-back-tag">${item.desc}</div>
-            </div>
-            ${actionHTML || '<span class="flip-no-action">Portfolio</span>'}
-          </div>
-        </div>
-      `;
-
-      // Flip on click or Enter
+      card.innerHTML = `<div class="flip-inner"><div class="flip-face flip-front" aria-hidden="true"><div class="flip-front-cat"><span>${item.subcat}</span>${statusHTML ? '<span>' + statusHTML + '</span>' : '<span class="type-badge">' + item.typeLabel + '</span>'}</div><div class="flip-logo-area"><span class="flip-logo-text">${item.abbr}</span></div><div class="flip-front-title">${item.title}</div><div class="flip-front-hint"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>Flip for details</div></div><div class="flip-face flip-back"><div class="flip-back-top"><div class="flip-back-cat">${item.subcat}</div><div class="flip-back-type">${item.typeLabel}</div><div class="flip-back-title">${item.title}</div><div class="flip-back-tag">${item.desc}</div></div>${actionHTML || '<span class="flip-no-action">Portfolio</span>'}</div></div>`;
       card.addEventListener("click", () => card.classList.toggle("flipped"));
-      card.addEventListener("keydown", e => {
-        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); card.classList.toggle("flipped"); }
-      });
-
+      card.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); card.classList.toggle("flipped"); } });
       grid.appendChild(card);
     });
-
-    // Load more
     if (!allShown && data.length > INITIAL_SHOW) {
       lmWrap.hidden = false;
       lmBtn.textContent = "Load more (" + (data.length - showCount) + " remaining)";
@@ -484,37 +367,20 @@
       lmWrap.hidden = true;
     }
   }
-
-  // Filter tabs
   document.querySelectorAll(".filter-tab").forEach(btn => {
     btn.addEventListener("click", () => {
       activeFilter = btn.dataset.filter;
       allShown = false;
-      document.querySelectorAll(".filter-tab").forEach(b => {
-        b.classList.toggle("active", b === btn);
-        b.setAttribute("aria-pressed", b === btn ? "true" : "false");
-      });
+      document.querySelectorAll(".filter-tab").forEach(b => { b.classList.toggle("active", b === btn); b.setAttribute("aria-pressed", b === btn ? "true" : "false"); });
       renderGrid();
     });
   });
-
-  // Search
   let searchTimer;
   document.getElementById("portfolio-search").addEventListener("input", e => {
     clearTimeout(searchTimer);
-    searchTimer = setTimeout(() => {
-      searchQuery = e.target.value;
-      allShown = false;
-      renderGrid();
-    }, 180);
+    searchTimer = setTimeout(() => { searchQuery = e.target.value; allShown = false; renderGrid(); }, 180);
   });
-
-  // Load more
-  document.getElementById("load-more-btn").addEventListener("click", () => {
-    allShown = true;
-    renderGrid();
-  });
-
+  document.getElementById("load-more-btn").addEventListener("click", () => { allShown = true; renderGrid(); });
   renderGrid();
 </script>
 </body>
