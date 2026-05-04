@@ -320,10 +320,11 @@ document.querySelectorAll('[data-year]').forEach(btn=>{
 });
 
 // Theme toggle
-document.getElementById('theme-toggle').addEventListener('click',()=>{
+const themeToggle = document.getElementById('theme-toggle');
+if(themeToggle){themeToggle.addEventListener('click',()=>{
   const h = document.documentElement;
   h.dataset.theme = h.dataset.theme==='light'?'dark':'light';
-});
+});}
 
 // Load data
 fetch(API)
