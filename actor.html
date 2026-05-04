@@ -128,14 +128,6 @@
 
   @media (max-width:980px){
     .poster-grid{grid-template-columns:repeat(2,1fr)}
-  }
-  footer{padding:36px 28px;border-top:1px solid var(--border);background:var(--bg);margin-top:var(--gutter)}
-  .foot-inner{max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:18px;font-size:11px;color:var(--text-50)}
-  .foot-wm{font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:.05em;color:var(--text-50)}
-  .foot-links{display:flex;gap:24px;font-weight:700;text-transform:uppercase;letter-spacing:.16em;font-size:10px}
-  .foot-links a:hover{color:var(--orange)}
-
-  @media (max-width:980px){
     .page-hero{grid-template-columns:1fr}
     .page-hero-copy{padding:48px 28px}
     .page-hero-character{border-left:none;border-top:var(--panel-line-w) solid var(--panel-line);min-height:440px}
@@ -147,6 +139,11 @@
     .panel.copy{padding:28px}
     .panel.booking-form{padding:28px}
   }
+  footer{padding:36px 28px;border-top:1px solid var(--border);background:var(--bg);margin-top:var(--gutter)}
+  .foot-inner{max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:18px;font-size:11px;color:var(--text-50)}
+  .foot-wm{font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:.05em;color:var(--text-50)}
+  .foot-links{display:flex;gap:24px;font-weight:700;text-transform:uppercase;letter-spacing:.16em;font-size:10px}
+  .foot-links a:hover{color:var(--orange)}
 </style>
 </head>
 <body>
@@ -159,13 +156,14 @@
     <a class="nav-link active" href="actor.html">On Camera</a>
     <a class="nav-link" href="host.html">Host</a>
     <a class="nav-link" href="consultant.html">Consultant</a>
-    <a class="nav-link" href="book.html">Book</a>
+    <a class="nav-link" href="experience.html">Experience</a>
+    <a class="nav-link" href="booking.html">Book</a>
   </nav>
   <button class="nav-toggle" aria-label="Toggle theme">
     <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
     <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
   </button>
-  <a class="nav-enter" href="book.html">Book Sean</a>
+  <a class="nav-enter" href="booking.html">Book Sean</a>
 </header>
 
 <div class="issue-bar">
@@ -238,23 +236,27 @@
       </div>
 
       <div class="poster" role="button" tabindex="0" aria-label="Watch Beyond Diet"
-           data-title="Beyond Diet" data-cat="Commercial" data-tag="Health and wellness brand spot. On-camera talent." data-vimeo="">
+           data-title="Beyond Diet" data-cat="Commercial"
+           data-tag="Spokesperson for a nutrition platform after losing over 60 pounds."
+           data-vimeo="741212852">
         <span class="art">BD</span>
         <span class="cat">Commercial<span class="dot">.</span></span>
         <span class="nm">Beyond Diet</span>
-        <span class="tg">Health and wellness brand spot. On-camera talent.</span>
+        <span class="tg">Spokesperson for a nutrition platform after losing over 60 pounds.</span>
         <span class="play-hint">
           <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
           Watch clip
         </span>
       </div>
 
-      <div class="poster" role="button" tabindex="0" aria-label="Watch Nissan"
-           data-title="Nissan" data-cat="Commercial" data-tag="National auto campaign. On-camera talent." data-vimeo="">
+      <div class="poster" role="button" tabindex="0" aria-label="Watch Eye in the Sky"
+           data-title="Eye in the Sky" data-cat="Commercial"
+           data-tag="Background during a Nissan national commercial."
+           data-vimeo="741212353">
         <span class="art">NS</span>
         <span class="cat">Commercial<span class="dot">.</span></span>
-        <span class="nm">Nissan</span>
-        <span class="tg">National auto campaign. On-camera talent.</span>
+        <span class="nm">Eye in the Sky</span>
+        <span class="tg">Background during a Nissan national commercial.</span>
         <span class="play-hint">
           <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
           Watch clip
@@ -262,11 +264,41 @@
       </div>
 
       <div class="poster" role="button" tabindex="0" aria-label="Watch Overtown"
-           data-title="Overtown" data-cat="Film" data-tag="Feature film. Acting credit, South Florida production." data-vimeo="">
+           data-title="Overtown" data-cat="Film"
+           data-tag="Lead antagonist in the college film, Overtown. South Florida production."
+           data-vimeo="1045990737">
         <span class="art">OT</span>
         <span class="cat">Film<span class="dot">.</span></span>
         <span class="nm">Overtown</span>
-        <span class="tg">Feature film. Acting credit, South Florida production.</span>
+        <span class="tg">Lead antagonist in the college film, Overtown. South Florida production.</span>
+        <span class="play-hint">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+          Watch clip
+        </span>
+      </div>
+
+      <div class="poster" role="button" tabindex="0" aria-label="Watch Overtown - Part II"
+           data-title="Overtown - Part II" data-cat="Film"
+           data-tag="Lead antagonist in the college film, Overtown. South Florida production."
+           data-vimeo="1045990653">
+        <span class="art">OT</span>
+        <span class="cat">Film<span class="dot">.</span></span>
+        <span class="nm">Overtown - Part II</span>
+        <span class="tg">Lead antagonist in the college film, Overtown. South Florida production.</span>
+        <span class="play-hint">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+          Watch clip
+        </span>
+      </div>
+
+      <div class="poster" role="button" tabindex="0" aria-label="Watch Overtown - Part III"
+           data-title="Overtown - Part III" data-cat="Film"
+           data-tag="Lead antagonist in the college film, Overtown. South Florida production."
+           data-vimeo="1045990689">
+        <span class="art">OT</span>
+        <span class="cat">Film<span class="dot">.</span></span>
+        <span class="nm">Overtown - Part III</span>
+        <span class="tg">Lead antagonist in the college film, Overtown. South Florida production.</span>
         <span class="play-hint">
           <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
           Watch clip
@@ -359,7 +391,8 @@
     <div class="foot-links">
       <a href="author.html">Author</a>
       <a href="speaker.html">Speaker</a>
-      <a href="book.html">Book</a>
+      <a href="experience.html">Experience</a>
+      <a href="booking.html">Book</a>
     </div>
     <span>&#169; 2026<span class="dot">.</span> A LESARUSS production.</span>
   </div>
@@ -405,7 +438,6 @@
     if (lastFocused) lastFocused.focus();
   }
 
-  // Wire up poster tiles
   document.querySelectorAll(".poster").forEach(p => {
     p.addEventListener("click", () => openLb(p));
     p.addEventListener("keydown", e => {
@@ -419,7 +451,6 @@
     if (e.key === "Escape" && !lb.hidden) closeLb();
   });
 
-  // Basic focus trap inside lightbox
   lb.addEventListener("keydown", e => {
     if (e.key !== "Tab") return;
     const focusable = [...lb.querySelectorAll("button, [tabindex='0'], a[href]")].filter(el => !el.hidden);
