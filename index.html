@@ -101,7 +101,7 @@
   .splash-character .lesa-svg{width:100%;max-width:540px;height:auto;flex-shrink:0;display:block;object-fit:contain;object-position:center bottom}
   .splash-character::before{content:"";position:absolute;left:50%;bottom:24px;transform:translateX(-50%);width:340px;height:340px;border:1px solid var(--text-30);border-radius:50%;opacity:.5;z-index:0}
 
-  /* Page hero (non-homepage pages) — tighter, single panel */
+  /* Page hero (non-homepage pages) â tighter, single panel */
   .page-hero{display:grid;grid-template-columns:minmax(0,1fr) 460px;min-height:62vh;align-items:end}
   .page-hero-copy{padding:64px 56px;min-width:0}
   .page-hero h1{font-size:clamp(48px,7vw,88px);font-weight:900;text-transform:uppercase;letter-spacing:-.03em;line-height:.95;margin:14px 0 18px;overflow-wrap:break-word}
@@ -255,7 +255,7 @@
   <a class="nav-brand" href="index.html">Sean A. Russell<span class="dot">.</span></a>
   <nav class="nav-links" aria-label="Primary">
     <div class="nav-dropdown">
-      <button class="nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false">Talents <span class="chevron" aria-hidden="true">▾</span></button>
+      <button class="nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false">Talents <span class="chevron" aria-hidden="true">â¾</span></button>
       <div class="nav-dropdown-menu" role="menu">
         <a class="nav-dropdown-item" href="author.html" role="menuitem">Author</a>
         <a class="nav-dropdown-item" href="producer.html" role="menuitem">Producer</a>
@@ -279,7 +279,7 @@
     <div class="cap tl-inset">A System That Builds Systems<span class="dot">.</span></div>
     <div class="sfx" style="bottom:-30px;right:24px">BUILT.</div>
     <div class="halftone faint"></div>
-    <div class="splash-copy" style="padding-top:38px;align-self:start">
+    <div class="splash-copy" style="padding-top:136px;align-self:start">
       <h1>From Blur To<br><span id="cycle">Blueprint.</span></h1>
       <p class="byline">Sean A. Russell<span>.</span> Architect of the LESARUSS universe<span>.</span></p>
       <p class="sub">Two decades inside school systems and transformation work. Eight live brands and counting. One book. One framework. A universe built by someone who lived the problem first.</p>
@@ -300,7 +300,7 @@
   <span class="brand">K12 Unlocked</span><span class="sep"></span>
   <span class="brand">Anime3000</span><span class="sep"></span>
   <span class="brand">Geekfont Society</span><span class="sep"></span>
-  <span class="brand">Chester</span><span class="sep"></span>
+  <span class="brand">Chester is Cool</span><span class="sep"></span>
   <span class="brand">ADA Unlocked</span><span class="sep"></span>
   <span class="brand">The 111 Day Theory</span>
 </div>
@@ -322,7 +322,7 @@
     <p>Author, producer, speaker, on camera, host. Each one a different door into the same universe.</p>
     <div class="flip-grid" role="list">
 
-      <div class="flip-card" role="listitem" aria-label="Author — click to learn more" tabindex="0">
+      <div class="flip-card" role="listitem" aria-label="Author â click to learn more" tabindex="0">
         <div class="flip-inner">
           <div class="flip-face flip-front">
             <img src="assets/poses/lesaruss-author-hero.png?v=2" alt="Sean A. Russell as Author" width="300" height="400">
@@ -342,7 +342,7 @@
         </div>
       </div>
 
-      <div class="flip-card" role="listitem" aria-label="Producer — click to learn more" tabindex="0">
+      <div class="flip-card" role="listitem" aria-label="Producer â click to learn more" tabindex="0">
         <div class="flip-inner">
           <div class="flip-face flip-front">
             <img src="assets/poses/lesaruss-producer-hero.png?v=2" alt="Sean A. Russell as Producer" width="300" height="400">
@@ -362,7 +362,7 @@
         </div>
       </div>
 
-      <div class="flip-card" role="listitem" aria-label="Speaker — click to learn more" tabindex="0">
+      <div class="flip-card" role="listitem" aria-label="Speaker â click to learn more" tabindex="0">
         <div class="flip-inner">
           <div class="flip-face flip-front">
             <img src="assets/poses/lesaruss-speaker-hero.png?v=2" alt="Sean A. Russell as Speaker" width="300" height="400">
@@ -382,7 +382,7 @@
         </div>
       </div>
 
-      <div class="flip-card" role="listitem" aria-label="On Camera — click to learn more" tabindex="0">
+      <div class="flip-card" role="listitem" aria-label="On Camera â click to learn more" tabindex="0">
         <div class="flip-inner">
           <div class="flip-face flip-front">
             <img src="assets/poses/lesaruss-actor-hero.png?v=2" alt="Sean A. Russell, On Camera" width="300" height="400">
@@ -453,7 +453,7 @@
   document.querySelectorAll(".nav-dropdown-trigger").forEach(btn => {
     btn.addEventListener("click", () => { const exp = btn.getAttribute("aria-expanded") === "true"; btn.setAttribute("aria-expanded", String(!exp)); });
   });
-  // Flip cards — click card to flip, click CTA link without flipping back
+  // Flip cards â click card to flip, click CTA link without flipping back
   document.querySelectorAll(".flip-card").forEach(card => {
     card.addEventListener("click", e => {
       if (e.target.closest(".flip-cta")) return; // let the link navigate
@@ -499,7 +499,7 @@
 <div id="reel-lb" role="dialog" aria-modal="true" aria-label="Speaker Reel" style="display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.92);align-items:center;justify-content:center">
   <button id="reel-close" aria-label="Close video" style="position:absolute;top:20px;right:28px;background:none;border:none;color:#ffffff;font-size:32px;cursor:pointer;font-family:inherit;line-height:1;padding:4px 8px">&times;</button>
   <div style="width:90%;max-width:960px;aspect-ratio:16/9;position:relative">
-    <iframe id="reel-iframe" src="" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:none" title="Sean A. Russell — Speaker Reel"></iframe>
+    <iframe id="reel-iframe" src="" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:none" title="Sean A. Russell â Speaker Reel"></iframe>
   </div>
 </div>
 </body>
