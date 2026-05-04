@@ -36,7 +36,6 @@
   @media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
   .dot{color:var(--orange);display:inline-block;margin-left:0.06em;animation:dotPulse 2s ease-in-out infinite}
   @keyframes dotPulse{0%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(1.3)}100%{opacity:1;transform:scale(1)}}
-
   .nav{position:fixed;top:0;left:0;right:0;z-index:200;height:62px;display:flex;align-items:center;padding:0 28px;background:var(--nav-bg);border-bottom:1px solid var(--border);backdrop-filter:blur(10px)}
   .nav-brand{font-size:17px;font-weight:900;text-transform:uppercase;letter-spacing:.05em;flex-shrink:0;margin-right:36px}
   .nav-links{display:flex;align-items:center;gap:4px;flex:1}
@@ -45,8 +44,6 @@
   .nav-link.active{color:var(--orange)}
   .nav-enter{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.14em;color:#0d0d0d;background:var(--orange);padding:9px 20px;border:none;cursor:pointer;flex-shrink:0}
   .nav-enter:hover{background:var(--text);color:var(--bg)}
-
-  /* Talents dropdown */
   .nav-dropdown{position:relative;display:inline-flex;align-items:center}
   .nav-dropdown-trigger{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.13em;color:var(--text-50);padding:6px 12px;background:none;border:none;cursor:pointer;display:flex;align-items:center;gap:5px;white-space:nowrap;flex-shrink:0;font-family:inherit;transition:color .18s}
   .nav-dropdown-trigger:hover,.nav-dropdown:hover .nav-dropdown-trigger{color:var(--text)}
@@ -56,17 +53,14 @@
   .nav-dropdown:hover .nav-dropdown-menu,.nav-dropdown:focus-within .nav-dropdown-menu{display:block}
   .nav-dropdown-item{display:block;padding:9px 16px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.13em;color:var(--text-50);transition:color .15s}
   .nav-dropdown-item:hover{color:var(--orange)}
-
   .issue-bar{position:relative;display:flex;align-items:center;gap:18px;padding:10px 28px;border-bottom:1px solid var(--border);font-size:10px;font-weight:800;letter-spacing:.32em;text-transform:uppercase;color:var(--text-50);margin-top:62px}
   .issue-bar .red{width:8px;height:8px;border-radius:50%;background:var(--orange);animation:dotPulse 2s ease-in-out infinite}
   .issue-bar span.title{color:var(--text)}
   .issue-bar .right{margin-left:auto;color:var(--text-30)}
-
   .spread{padding:var(--gutter);max-width:1280px;margin:0 auto}
   .spread + .spread{padding-top:0}
   .panel{position:relative;background:var(--bg);border:var(--panel-line-w) solid var(--panel-line);overflow:hidden}
   .grid{display:grid;gap:var(--gutter)}
-
   .cap{position:absolute;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--text);background:var(--bg);padding:8px 12px;border:var(--panel-line-w) solid var(--panel-line);z-index:5;line-height:1.5;max-width:280px}
   .cap.tl{top:-1px;left:-1px}
   .cap.tr{top:-1px;right:-1px}
@@ -77,18 +71,14 @@
   .cap.br-inset{bottom:14px;right:14px}
   .pose-tag{position:absolute;bottom:14px;right:14px;font-size:9px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--orange);background:rgba(13,13,13,.78);padding:6px 9px;border:1px solid var(--orange);z-index:6}
   html[data-theme="light"] .pose-tag{background:#0d0d0d;color:var(--orange)}
-
   .sfx{position:absolute;font-size:clamp(64px,11vw,160px);font-weight:900;text-transform:uppercase;letter-spacing:-.04em;line-height:.85;color:var(--orange);opacity:.12;pointer-events:none;z-index:1}
   .halftone{position:absolute;inset:0;opacity:.16;pointer-events:none;background-image:radial-gradient(var(--orange) 1.4px, transparent 1.6px);background-size:14px 14px}
   .halftone.faint{opacity:.08}
-
   .eyebrow{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.32em;color:var(--orange);margin-bottom:22px}
   .cta{display:inline-block;font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.14em;color:#0d0d0d;background:var(--orange);padding:14px 32px;border:none;cursor:pointer;font-family:inherit;transition:background .18s,color .18s}
   .cta:hover{background:var(--text);color:var(--bg)}
   .cta-ghost{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--text-50);cursor:pointer;border:1px solid var(--text-30);padding:13px 22px}
   .cta-ghost:hover{color:var(--text)}
-
-  /* Splash hero (homepage) */
   .splash{min-height:76vh;display:grid;grid-template-columns:minmax(0,1fr) 540px;align-items:end}
   .splash-copy{position:relative;padding:48px 56px;z-index:2;min-width:0}
   .splash h1{font-size:clamp(48px,7vw,96px);font-weight:900;text-transform:uppercase;letter-spacing:-.035em;line-height:.95;margin-bottom:18px;overflow-wrap:break-word}
@@ -100,8 +90,6 @@
   .splash-character{position:relative;height:100%;min-height:520px;display:flex;align-items:flex-end;justify-content:center;border-left:var(--panel-line-w) solid var(--panel-line);overflow:hidden}
   .splash-character .lesa-svg{width:100%;max-width:540px;height:auto;flex-shrink:0;display:block;object-fit:contain;object-position:center bottom}
   .splash-character::before{content:"";position:absolute;left:50%;bottom:24px;transform:translateX(-50%);width:340px;height:340px;border:1px solid var(--text-30);border-radius:50%;opacity:.5;z-index:0}
-
-  /* Page hero (non-homepage pages) â tighter, single panel */
   .page-hero{display:grid;grid-template-columns:minmax(0,1fr) 460px;min-height:62vh;align-items:end}
   .page-hero-copy{padding:64px 56px;min-width:0}
   .page-hero h1{font-size:clamp(48px,7vw,88px);font-weight:900;text-transform:uppercase;letter-spacing:-.03em;line-height:.95;margin:14px 0 18px;overflow-wrap:break-word}
@@ -110,13 +98,9 @@
   .page-hero-character{position:relative;height:100%;min-height:480px;display:flex;align-items:flex-end;justify-content:center;border-left:var(--panel-line-w) solid var(--panel-line)}
   .page-hero-character .lesa-svg{width:360px;max-width:360px;height:auto;flex-shrink:0}
   .page-hero-character::before{content:"";position:absolute;left:50%;bottom:24px;transform:translateX(-50%);width:300px;height:300px;border:1px solid var(--text-30);border-radius:50%;opacity:.5;z-index:0}
-
-  /* Section header inside panels */
   .section-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:28px;gap:24px;flex-wrap:wrap}
   .section-title{font-size:clamp(28px,4.5vw,48px);font-weight:900;text-transform:uppercase;letter-spacing:-.02em;line-height:1.0;max-width:760px}
   .section-sub{font-size:13px;color:var(--text-50);max-width:340px;line-height:1.7}
-
-  /* Brand poster grid */
   .poster-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:var(--gutter)}
   .poster{position:relative;background:var(--surface);border:var(--panel-line-w) solid var(--panel-line);min-height:240px;display:flex;flex-direction:column;justify-content:space-between;padding:20px;overflow:hidden}
   .poster .art{position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);font-size:80px;font-weight:900;letter-spacing:-.06em;line-height:.85;color:var(--text);opacity:.06;text-align:center}
@@ -127,8 +111,6 @@
   .poster .cat{font-size:9px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--orange);position:relative;z-index:2}
   .poster .nm{font-size:18px;font-weight:900;text-transform:uppercase;letter-spacing:.02em;line-height:1;position:relative;z-index:2}
   .poster .tg{font-size:11px;font-weight:400;color:var(--text-75);line-height:1.5;position:relative;z-index:2}
-
-  /* Panels: man/system, proof, book, reel, quote, booking */
   .duo-spread{grid-template-columns:1fr 1fr;gap:var(--gutter)}
   .panel.man,.panel.system{aspect-ratio:3/4;display:flex;align-items:center;justify-content:center;overflow:hidden}
   .panel.man img{width:100%;height:100%;object-fit:cover;object-position:center top}
@@ -139,7 +121,6 @@
   .stat .num{font-size:clamp(38px,5.4vw,68px);font-weight:900;letter-spacing:-.03em;line-height:1;margin-bottom:14px}
   .stat .num span{color:var(--orange)}
   .stat .lab{font-size:10px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--text-50);line-height:1.5}
-
   .reel-spread{grid-template-columns:1.05fr 1fr;gap:var(--gutter)}
   .panel.reel-fig{aspect-ratio:1;display:flex;align-items:flex-end;justify-content:center;padding:24px}
   .panel.reel-fig .lesa-svg{width:88%;max-width:340px}
@@ -148,12 +129,9 @@
   .play-btn{width:84px;height:84px;border-radius:50%;background:var(--orange);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;position:relative;z-index:2}
   .play-btn svg{width:30px;height:30px}
   .panel.reel-frame .label{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);font-size:11px;font-weight:800;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,255,255,.55);z-index:2}
-
   .panel.quote{padding:88px 56px;text-align:center;position:relative}
   .panel.quote q{font-size:clamp(22px,3.4vw,38px);font-weight:900;text-transform:uppercase;letter-spacing:-.012em;line-height:1.15;display:block;max-width:880px;margin:0 auto 24px;quotes:none}
   .panel.quote cite{font-style:normal;font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--text-50);font-weight:700}
-
-  /* Booking spread */
   .booking-spread{grid-template-columns:1fr 1.1fr;gap:var(--gutter)}
   .panel.booking-fig{display:flex;align-items:flex-end;justify-content:center;padding:0;min-height:620px;position:relative;overflow:hidden}
   .panel.booking-fig .lesa-svg{width:100%;max-width:560px;height:auto;display:block;object-fit:contain;object-position:center bottom}
@@ -166,8 +144,6 @@
   .form textarea{min-height:120px;resize:vertical;margin-bottom:14px}
   .form .submit{width:100%;background:var(--orange);color:#0d0d0d;border:none;padding:16px;font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.14em;cursor:pointer}
   .form .submit:hover{background:var(--text)}
-
-  /* Service bullet panels */
   .panel.copy{padding:48px}
   .panel.copy h2{font-size:clamp(28px,4vw,42px);font-weight:900;text-transform:uppercase;letter-spacing:-.02em;line-height:1;margin:8px 0 18px}
   .panel.copy p{font-size:14px;line-height:1.85;color:var(--text-75);margin-bottom:18px;max-width:680px}
@@ -176,12 +152,9 @@
   .panel.copy ul.beats li .num{font-size:10px;font-weight:800;letter-spacing:.22em;color:var(--orange);text-transform:uppercase;display:block;margin-bottom:6px}
   .panel.copy ul.beats li .nm{font-size:14px;font-weight:900;text-transform:uppercase;letter-spacing:.02em;display:block;margin-bottom:8px}
   .panel.copy ul.beats li .ds{font-size:12px;line-height:1.6;color:var(--text-75)}
-
   .ticker{display:flex;align-items:center;gap:36px;padding:18px 28px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);font-size:10px;font-weight:800;letter-spacing:.28em;text-transform:uppercase;color:var(--text-50);overflow:hidden;white-space:nowrap}
   .ticker span.brand{color:var(--text)}
   .ticker .sep{width:6px;height:6px;border-radius:50%;background:var(--orange);flex-shrink:0;animation:dotPulse 2.4s ease-in-out infinite}
-
-
   .brand-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gutter);margin-top:14px}
   .brand-card{position:relative;padding:24px 18px;border:var(--panel-line-w) solid var(--panel-line);background:var(--bg);min-height:110px;display:flex;flex-direction:column;justify-content:space-between}
   .brand-card .brand-cat{font-size:9px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--orange)}
@@ -195,12 +168,7 @@
   .room-card .skill-num{font-size:9px;font-weight:800;letter-spacing:.22em;color:var(--orange)}
   .room-card .skill-nm{font-size:15px;font-weight:900;text-transform:uppercase;letter-spacing:0;line-height:1.05;color:var(--text)}
   .room-card .room-ds{font-size:12px;font-weight:400;color:var(--text-75);line-height:1.6;margin-top:6px}
-  @media (max-width:980px){
-    .brand-grid{grid-template-columns:repeat(2,1fr)}
-    .skill-grid{grid-template-columns:repeat(2,1fr)}
-    .speak-rooms{grid-template-columns:1fr}
-  }
-  /* ---- Flip cards ---- */
+  @media (max-width:980px){.brand-grid{grid-template-columns:repeat(2,1fr)}.skill-grid{grid-template-columns:repeat(2,1fr)}.speak-rooms{grid-template-columns:1fr}}
   .flip-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gutter);margin-top:28px}
   .flip-card{perspective:1200px;height:440px;cursor:pointer;-webkit-tap-highlight-color:transparent}
   .flip-inner{position:relative;width:100%;height:100%;transition:transform .55s cubic-bezier(.4,0,.2,1);transform-style:preserve-3d}
@@ -208,13 +176,11 @@
   .flip-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border:var(--panel-line-w) solid var(--panel-line);overflow:hidden}
   .flip-front{background:var(--surface)}
   .flip-back{background:var(--bg);transform:rotateY(180deg);display:flex;flex-direction:column;padding:28px 24px}
-  /* Front */
   .flip-front img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
   .flip-front .flip-label{position:absolute;bottom:0;left:0;right:0;padding:14px 18px 16px;background:linear-gradient(transparent,rgba(0,0,0,.88))}
   .flip-front .flip-num{font-size:11px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--orange);display:block;margin-bottom:4px}
   .flip-front .flip-title{font-size:clamp(18px,2.2vw,26px);font-weight:900;text-transform:uppercase;letter-spacing:-.01em;line-height:1;color:#fff;display:block}
   .flip-front .flip-hint{font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.72);display:block;margin-top:6px}
-  /* Back */
   .flip-back .flip-num{font-size:9px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--orange);margin-bottom:8px}
   .flip-back .flip-title{font-size:clamp(16px,2vw,22px);font-weight:900;text-transform:uppercase;letter-spacing:-.01em;line-height:1;margin-bottom:16px}
   .flip-back .flip-desc{font-size:13px;line-height:1.8;color:var(--text-75);flex:1;margin-bottom:22px}
@@ -223,13 +189,11 @@
   .flip-back .flip-back-hint{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--text-30);margin-top:12px}
   @media (max-width:980px){.flip-grid{grid-template-columns:repeat(2,1fr)}.flip-card{height:400px}}
   @media (max-width:560px){.flip-grid{grid-template-columns:1fr 1fr}.flip-card{height:360px}}
-
   footer{padding:36px 28px;border-top:1px solid var(--border);background:var(--bg);margin-top:var(--gutter)}
   .foot-inner{max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:18px;font-size:11px;color:var(--text-50)}
   .foot-wm{font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:.05em;color:var(--text-50)}
   .foot-links{display:flex;gap:24px;font-weight:700;text-transform:uppercase;letter-spacing:.16em;font-size:10px}
   .foot-links a:hover{color:var(--orange)}
-
   @media (max-width:980px){
     .splash{grid-template-columns:1fr;min-height:auto}
     .splash-copy{padding:48px 28px}
@@ -255,7 +219,7 @@
   <a class="nav-brand" href="index.html">Sean A. Russell<span class="dot">.</span></a>
   <nav class="nav-links" aria-label="Primary">
     <div class="nav-dropdown">
-      <button class="nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false">Talents <span class="chevron" aria-hidden="true">â¾</span></button>
+      <button class="nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false">Talents <span class="chevron" aria-hidden="true">&#9662;</span></button>
       <div class="nav-dropdown-menu" role="menu">
         <a class="nav-dropdown-item" href="author.html" role="menuitem">Author</a>
         <a class="nav-dropdown-item" href="producer.html" role="menuitem">Producer</a>
@@ -293,18 +257,16 @@
     </div>
   </article>
 </section>
-
 <div class="ticker" aria-label="Brands in the LESARUSS universe">
   <span class="brand">LESARUSS</span><span class="sep"></span>
   <span class="brand">Vegans Explore</span><span class="sep"></span>
   <span class="brand">K12 Unlocked</span><span class="sep"></span>
   <span class="brand">Anime3000</span><span class="sep"></span>
-  <span class="brand">Geekfont Society</span><span class="sep"></span>
+  <span class="brand">GeekFon Society</span><span class="sep"></span>
   <span class="brand">Chester is Cool</span><span class="sep"></span>
   <span class="brand">ADA Unlocked</span><span class="sep"></span>
   <span class="brand">The 111 Day Theory</span>
 </div>
-
 <section class="spread">
   <article class="panel proof">
     <div class="cap tl">By the Numbers<span class="dot">.</span></div>
@@ -314,15 +276,13 @@
     <div class="stat"><div class="num">1</div><div class="lab">Book. One framework. One operating system.</div></div>
   </article>
 </section>
-
 <section class="spread">
   <article class="panel copy">
     <p class="eyebrow">The Talents<span class="dot">.</span></p>
     <h2>Many talents<span class="dot">.</span></h2>
     <p>Author, producer, speaker, on camera, host. Each one a different door into the same universe.</p>
     <div class="flip-grid" role="list">
-
-      <div class="flip-card" role="listitem" aria-label="Author â click to learn more" tabindex="0">
+      <div class="flip-card" role="listitem" aria-label="Author — click to learn more" tabindex="0">
         <div class="flip-inner">
           <div class="flip-face flip-front">
             <img src="assets/poses/lesaruss-author-hero.png?v=2" alt="Sean A. Russell as Author" width="300" height="400">
@@ -341,8 +301,7 @@
           </div>
         </div>
       </div>
-
-      <div class="flip-card" role="listitem" aria-label="Producer â click to learn more" tabindex="0">
+      <div class="flip-card" role="listitem" aria-label="Producer — click to learn more" tabindex="0">
         <div class="flip-inner">
           <div class="flip-face flip-front">
             <img src="assets/poses/lesaruss-producer-hero.png?v=2" alt="Sean A. Russell as Producer" width="300" height="400">
@@ -361,8 +320,7 @@
           </div>
         </div>
       </div>
-
-      <div class="flip-card" role="listitem" aria-label="Speaker â click to learn more" tabindex="0">
+      <div class="flip-card" role="listitem" aria-label="Speaker — click to learn more" tabindex="0">
         <div class="flip-inner">
           <div class="flip-face flip-front">
             <img src="assets/poses/lesaruss-speaker-hero.png?v=2" alt="Sean A. Russell as Speaker" width="300" height="400">
@@ -381,8 +339,7 @@
           </div>
         </div>
       </div>
-
-      <div class="flip-card" role="listitem" aria-label="On Camera â click to learn more" tabindex="0">
+      <div class="flip-card" role="listitem" aria-label="On Camera — click to learn more" tabindex="0">
         <div class="flip-inner">
           <div class="flip-face flip-front">
             <img src="assets/poses/lesaruss-actor-hero.png?v=2" alt="Sean A. Russell, On Camera" width="300" height="400">
@@ -401,14 +358,12 @@
           </div>
         </div>
       </div>
-
     </div>
     <div style="margin-top:28px">
       <a href="talents.html" class="cta-ghost">See all talents <span style="color:var(--orange);margin-left:6px">&#8594;</span></a>
     </div>
   </article>
 </section>
-
 <section class="spread" id="contact">
   <div class="grid booking-spread">
     <article class="panel booking-fig">
@@ -436,7 +391,6 @@
     </article>
   </div>
 </section>
-
 <footer>
   <div class="foot-inner">
     <a class="foot-wm" href="index.html">Sean A. Russell<span class="dot">.</span></a>
@@ -449,14 +403,12 @@
   </div>
 </footer>
 <script>
-  // Keyboard support for Talents dropdown
   document.querySelectorAll(".nav-dropdown-trigger").forEach(btn => {
     btn.addEventListener("click", () => { const exp = btn.getAttribute("aria-expanded") === "true"; btn.setAttribute("aria-expanded", String(!exp)); });
   });
-  // Flip cards â click card to flip, click CTA link without flipping back
   document.querySelectorAll(".flip-card").forEach(card => {
     card.addEventListener("click", e => {
-      if (e.target.closest(".flip-cta")) return; // let the link navigate
+      if (e.target.closest(".flip-cta")) return;
       card.classList.toggle("flipped");
       card.setAttribute("aria-expanded", card.classList.contains("flipped"));
     });
@@ -464,7 +416,6 @@
       if (e.key === "Enter" || e.key === " ") { e.preventDefault(); card.classList.toggle("flipped"); }
     });
   });
-  // Speaker reel lightbox
   const reelOpen = document.getElementById('reel-open');
   const reelLb = document.getElementById('reel-lb');
   const reelClose = document.getElementById('reel-close');
@@ -477,16 +428,12 @@
     });
   }
   if (reelClose) {
-    reelClose.addEventListener('click', () => {
-      reelLb.style.display = 'none';
-      reelIframe.src = '';
-    });
+    reelClose.addEventListener('click', () => { reelLb.style.display = 'none'; reelIframe.src = ''; });
   }
   if (reelLb) {
     reelLb.addEventListener('click', e => { if (e.target === reelLb) { reelLb.style.display = 'none'; reelIframe.src = ''; } });
     document.addEventListener('keydown', e => { if (e.key === 'Escape' && reelLb.style.display === 'flex') { reelLb.style.display = 'none'; reelIframe.src = ''; } });
   }
-
   const words = ["Blueprint.", "Brands.", "Systems.", "Universes."];
   let i = 0;
   const el = document.getElementById("cycle");
@@ -495,11 +442,10 @@
     setInterval(() => { i = (i + 1) % words.length; el.style.opacity = 0; setTimeout(() => { el.textContent = words[i]; el.style.opacity = 1; }, 240); }, 2600);
   }
 </script>
-<!-- Speaker reel lightbox -->
 <div id="reel-lb" role="dialog" aria-modal="true" aria-label="Speaker Reel" style="display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.92);align-items:center;justify-content:center">
   <button id="reel-close" aria-label="Close video" style="position:absolute;top:20px;right:28px;background:none;border:none;color:#ffffff;font-size:32px;cursor:pointer;font-family:inherit;line-height:1;padding:4px 8px">&times;</button>
   <div style="width:90%;max-width:960px;aspect-ratio:16/9;position:relative">
-    <iframe id="reel-iframe" src="" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:none" title="Sean A. Russell â Speaker Reel"></iframe>
+    <iframe id="reel-iframe" src="" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:none" title="Sean A. Russell — Speaker Reel"></iframe>
   </div>
 </div>
 </body>
