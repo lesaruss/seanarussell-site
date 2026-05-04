@@ -8,11 +8,12 @@ import sys, os, json, hashlib, urllib.request, urllib.error
 TOKEN      = sys.argv[1] if len(sys.argv) > 1 else ""
 PROJECT_ID = "prj_3yey1dF5tCLQIXiahJA5vPCvRO6H"
 TEAM_ID    = "team_G2qO2cUYl8ZmeOMaamFvY8C6"
-GOOD_DEP   = "dpl_BRJyox29xiDopbtEXTk5VsYFMdnV"
+GOOD_DEP   = "dpl_8F2kDWgR65R3bwv4q1Z4qiUPrUDa"
 HERE       = os.path.dirname(os.path.abspath(__file__))
 LOCAL_HTML = {"actor.html","author.html","consultant.html",
               "host.html","producer.html","speaker.html",
-              "book.html","index.html","universe.html"}
+              "book.html","index.html","universe.html",
+              "experience.html","booking.html"}
 
 def api_get(path):
     req = urllib.request.Request(f"https://api.vercel.com{path}",
@@ -27,7 +28,6 @@ def api_post(path, body):
     with urllib.request.urlopen(req) as r: return json.loads(r.read())
 
 def upload(content, sha):
-    ext = ".html"
     req = urllib.request.Request(
         f"https://api.vercel.com/v2/files?teamId={TEAM_ID}",
         data=content,
@@ -50,8 +50,8 @@ def flatten(items, prefix=""):
             out[name] = {"uid": item.get("uid",""), "size": item.get("contentLength", 0)}
     return out
 
-# 1. Get all files from the original working deployment
-print("Getting file list from original deployment...")
+# 1. Get all files from the latest working deployment
+print("Getting file list from latest deployment...")
 raw   = api_get(f"/v6/deployments/{GOOD_DEP}/files?teamId={TEAM_ID}")
 items = raw if isinstance(raw, list) else raw.get("files",[])
 remote = flatten(items)
@@ -70,8 +70,8 @@ for src_path, meta in remote.items():
     dep_files.append({"file": clean, "sha": meta["uid"], "size": meta["size"]})
     print(f"  KEEP  {clean}")
 
-# 2. Upload only our 6 updated HTML files
-print("\nUploading updated HTML files...")
+# 2. Upload our updated HTML files
+print("\nUploading HTML files...")
 for fname in LOCAL_HTML:
     local_path = os.path.join(HERE, fname)
     if not os.path.exists(local_path):
