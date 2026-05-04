@@ -50,6 +50,18 @@
   html[data-theme="light"] .nav-toggle .icon-moon{display:none}
   .nav-enter{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.14em;color:#0d0d0d;background:var(--orange);padding:9px 20px;border:none;cursor:pointer;flex-shrink:0}
   .nav-enter:hover{background:var(--text);color:var(--bg)}
+  /* Talents dropdown */
+  .nav-dropdown{position:relative;display:inline-flex;align-items:center}
+  .nav-dropdown-trigger{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.13em;color:var(--text-50);padding:6px 12px;background:none;border:none;cursor:pointer;display:flex;align-items:center;gap:5px;white-space:nowrap;flex-shrink:0;font-family:inherit;transition:color .18s}
+  .nav-dropdown-trigger:hover,.nav-dropdown:hover .nav-dropdown-trigger{color:var(--text)}
+  .nav-dropdown-trigger.active{color:var(--orange)}
+  .nav-dropdown-trigger .chevron{font-size:9px;line-height:1;transition:transform .18s;display:inline-block}
+  .nav-dropdown:hover .chevron{transform:rotate(180deg)}
+  .nav-dropdown-menu{position:absolute;top:100%;left:0;background:var(--nav-bg);border:1px solid var(--border);backdrop-filter:blur(10px);min-width:150px;padding:4px 0 6px;display:none;z-index:300}
+  .nav-dropdown:hover .nav-dropdown-menu,.nav-dropdown:focus-within .nav-dropdown-menu{display:block}
+  .nav-dropdown-item{display:block;padding:9px 16px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.13em;color:var(--text-50);transition:color .15s}
+  .nav-dropdown-item:hover{color:var(--orange)}
+  .nav-dropdown-item.active{color:var(--orange)}
   .issue-bar{position:relative;display:flex;align-items:center;gap:18px;padding:10px 28px;border-bottom:1px solid var(--border);font-size:10px;font-weight:800;letter-spacing:.32em;text-transform:uppercase;color:var(--text-50);margin-top:62px}
   .issue-bar .red{width:8px;height:8px;border-radius:50%;background:var(--orange);animation:dotPulse 2s ease-in-out infinite}
   .issue-bar span.title{color:var(--text)}
@@ -124,11 +136,17 @@
 <header class="nav">
   <a class="nav-brand" href="index.html">Sean A. Russell<span class="dot">.</span></a>
   <nav class="nav-links" aria-label="Primary">
-    <a class="nav-link" href="author.html">Author</a>
-    <a class="nav-link" href="producer.html">Producer</a>
-    <a class="nav-link" href="speaker.html">Speaker</a>
-    <a class="nav-link" href="actor.html">On Camera</a>
-    <a class="nav-link active" href="host.html">Host</a>
+    <div class="nav-dropdown">
+      <button class="nav-dropdown-trigger active" aria-haspopup="true" aria-expanded="false">Talents <span class="chevron" aria-hidden="true">&#9662;</span></button>
+      <div class="nav-dropdown-menu" role="menu">
+        <a class="nav-dropdown-item" href="author.html" role="menuitem">Author</a>
+        <a class="nav-dropdown-item" href="producer.html" role="menuitem">Producer</a>
+        <a class="nav-dropdown-item" href="speaker.html" role="menuitem">Speaker</a>
+        <a class="nav-dropdown-item" href="actor.html" role="menuitem">On Camera</a>
+        <a class="nav-dropdown-item active" href="host.html" role="menuitem">Host</a>
+      </div>
+    </div>
+    <a class="nav-link" href="experience.html">Experience</a>
     <a class="nav-link" href="consultant.html">Consultant</a>
     <a class="nav-link" href="book.html">Book</a>
   </nav>
