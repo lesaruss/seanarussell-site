@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sean A. Russell. Issue 01. From Blur to Blueprint.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0d0d0d; --surface:#111111; --surface2:#161616;
+    --border:rgba(255,255,255,0.07);
+    --text:#ffffff; --text-75:rgba(255,255,255,0.75); --text-50:rgba(255,255,255,0.50); --text-30:rgba(255,255,255,0.30);
+    --orange:#F69820;
+    --panel-line:var(--text);
+    --panel-line-w:1.5px;
+    --gutter:14px;
+    --nav-bg:rgba(13,13,13,0.96);
+  }
+  html[data-theme="light"]{
+    --bg:#ffffff; --surface:#ffffff; --surface2:#fafafa;
+    --border:rgba(0,0,0,0.08);
+    --text:#1a1a1a; --text-75:rgba(26,26,26,0.78); --text-50:rgba(26,26,26,0.55); --text-30:rgba(26,26,26,0.35);
+    --orange:#F69820;
+    --panel-line:#0d0d0d;
+    --nav-bg:rgba(255,255,255,0.96);
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:'Montserrat',Arial,Helvetica,sans-serif;overflow-x:hidden;transition:background .25s ease,color .25s ease}
+  a{text-decoration:none;color:inherit}
+  img,svg{display:block;max-width:100%}
+  button{font-family:inherit}
+  :focus-visible{outline:3px solid var(--orange);outline-offset:3px}
+  @media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
+  .dot{color:var(--orange);display:inline-block;animation:dotPulse 2s ease-in-out infinite}
+  @keyframes dotPulse{0%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(1.3)}100%{opacity:1;transform:scale(1)}}
+
+  .nav{position:fixed;top:0;left:0;right:0;z-index:200;height:62px;display:flex;align-items:center;padding:0 28px;background:var(--nav-bg);border-bottom:1px solid var(--border);backdrop-filter:blur(10px)}
+  .nav-brand{font-size:17px;font-weight:900;text-transform:uppercase;letter-spacing:.05em;flex-shrink:0;margin-right:36px}
+  .nav-links{display:flex;align-items:center;gap:4px;flex:1}
+  .nav-link{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.13em;color:var(--text-50);padding:6px 12px;background:none;border:none;cursor:pointer;transition:color .18s;white-space:nowrap;flex-shrink:0}
+  .nav-link:hover{color:var(--text)}
+  .nav-link.active{color:var(--orange)}
+  .nav-toggle{width:36px;height:36px;border-radius:50%;background:rgba(127,127,127,0.12);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text);flex-shrink:0;margin-right:10px}
+  .nav-toggle:hover{background:rgba(127,127,127,0.22)}
+  .nav-toggle .icon-sun{display:none}
+  .nav-toggle .icon-moon{display:block}
+  html[data-theme="light"] .nav-toggle .icon-sun{display:block}
+  html[data-theme="light"] .nav-toggle .icon-moon{display:none}
+  .nav-enter{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.14em;color:#0d0d0d;background:var(--orange);padding:9px 20px;border:none;cursor:pointer;flex-shrink:0}
+  .nav-enter:hover{background:var(--text);color:var(--bg)}
+
+  .issue-bar{position:relative;display:flex;align-items:center;gap:18px;padding:10px 28px;border-bottom:1px solid var(--border);font-size:10px;font-weight:800;letter-spacing:.32em;text-transform:uppercase;color:var(--text-50);margin-top:62px}
+  .issue-bar .red{width:8px;height:8px;border-radius:50%;background:var(--orange);animation:dotPulse 2s ease-in-out infinite}
+  .issue-bar span.title{color:var(--text)}
+  .issue-bar .right{margin-left:auto;color:var(--text-30)}
+
+  .spread{padding:var(--gutter);max-width:1280px;margin:0 auto}
+  .spread + .spread{padding-top:0}
+  .panel{position:relative;background:var(--bg);border:var(--panel-line-w) solid var(--panel-line);overflow:hidden}
+  .grid{display:grid;gap:var(--gutter)}
+
+  .cap{position:absolute;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--text);background:var(--bg);padding:8px 12px;border:var(--panel-line-w) solid var(--panel-line);z-index:5;line-height:1.5;max-width:280px}
+  .cap.tl{top:-1px;left:-1px}
+  .cap.tr{top:-1px;right:-1px}
+  .cap.bl{bottom:-1px;left:-1px}
+  .cap.br{bottom:-1px;right:-1px}
+  .cap.tl-inset{top:14px;left:14px}
+  .cap.bl-inset{bottom:14px;left:14px}
+  .cap.br-inset{bottom:14px;right:14px}
+  .pose-tag{position:absolute;bottom:14px;right:14px;font-size:9px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--orange);background:rgba(13,13,13,.78);padding:6px 9px;border:1px solid var(--orange);z-index:6}
+  html[data-theme="light"] .pose-tag{background:#0d0d0d;color:var(--orange)}
+
+  .sfx{position:absolute;font-size:clamp(64px,11vw,160px);font-weight:900;text-transform:uppercase;letter-spacing:-.04em;line-height:.85;color:var(--orange);opacity:.12;pointer-events:none;z-index:1}
+  .halftone{position:absolute;inset:0;opacity:.16;pointer-events:none;background-image:radial-gradient(var(--orange) 1.4px, transparent 1.6px);background-size:14px 14px}
+  .halftone.faint{opacity:.08}
+
+  .eyebrow{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.32em;color:var(--orange);margin-bottom:22px}
+  .cta{display:inline-block;font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.14em;color:#0d0d0d;background:var(--orange);padding:14px 32px;border:none;cursor:pointer;font-family:inherit;transition:background .18s,color .18s}
+  .cta:hover{background:var(--text);color:var(--bg)}
+  .cta-ghost{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--text-50);cursor:pointer;border:1px solid var(--text-30);padding:13px 22px}
+  .cta-ghost:hover{color:var(--text)}
+
+  /* Splash hero (homepage) */
+  .splash{min-height:88vh;display:grid;grid-template-columns:minmax(0,1fr) 540px;align-items:end}
+  .splash-copy{position:relative;padding:48px 56px;z-index:2;min-width:0}
+  .splash h1{font-size:clamp(48px,7vw,96px);font-weight:900;text-transform:uppercase;letter-spacing:-.035em;line-height:.95;margin-bottom:18px;overflow-wrap:break-word}
+  .splash h1 #cycle{color:var(--orange);transition:opacity .24s ease;display:inline-block;max-width:100%;overflow-wrap:break-word}
+  .splash .byline{font-size:11px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--text-50);margin-bottom:32px;border-top:1px solid var(--border);padding-top:18px}
+  .splash .byline span{color:var(--orange)}
+  .splash .sub{font-size:14px;line-height:1.85;color:var(--text-75);max-width:480px;margin-bottom:32px}
+  .splash-cta-row{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+  .splash-character{position:relative;height:100%;min-height:620px;display:flex;align-items:flex-end;justify-content:center;border-left:var(--panel-line-w) solid var(--panel-line);overflow:hidden}
+  .splash-character .lesa-svg{width:100%;max-width:540px;height:auto;flex-shrink:0;display:block;object-fit:contain;object-position:center bottom}
+  .splash-character::before{content:"";position:absolute;left:50%;bottom:24px;transform:translateX(-50%);width:340px;height:340px;border:1px solid var(--text-30);border-radius:50%;opacity:.5;z-index:0}
+
+  /* Page hero (non-homepage pages) — tighter, single panel */
+  .page-hero{display:grid;grid-template-columns:minmax(0,1fr) 460px;min-height:62vh;align-items:end}
+  .page-hero-copy{padding:64px 56px;min-width:0}
+  .page-hero h1{font-size:clamp(48px,7vw,88px);font-weight:900;text-transform:uppercase;letter-spacing:-.03em;line-height:.95;margin:14px 0 18px;overflow-wrap:break-word}
+  .page-hero h1 em{font-style:normal;color:var(--orange)}
+  .page-hero .lede{font-size:15px;line-height:1.85;color:var(--text-75);max-width:480px;margin-bottom:24px}
+  .page-hero-character{position:relative;height:100%;min-height:480px;display:flex;align-items:flex-end;justify-content:center;border-left:var(--panel-line-w) solid var(--panel-line)}
+  .page-hero-character .lesa-svg{width:360px;max-width:360px;height:auto;flex-shrink:0}
+  .page-hero-character::before{content:"";position:absolute;left:50%;bottom:24px;transform:translateX(-50%);width:300px;height:300px;border:1px solid var(--text-30);border-radius:50%;opacity:.5;z-index:0}
+
+  /* Section header inside panels */
+  .section-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:28px;gap:24px;flex-wrap:wrap}
+  .section-title{font-size:clamp(28px,4.5vw,48px);font-weight:900;text-transform:uppercase;letter-spacing:-.02em;line-height:1.0;max-width:760px}
+  .section-sub{font-size:13px;color:var(--text-50);max-width:340px;line-height:1.7}
+
+  /* Brand poster grid */
+  .poster-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:var(--gutter)}
+  .poster{position:relative;background:var(--surface);border:var(--panel-line-w) solid var(--panel-line);min-height:240px;display:flex;flex-direction:column;justify-content:space-between;padding:20px;overflow:hidden}
+  .poster .art{position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);font-size:80px;font-weight:900;letter-spacing:-.06em;line-height:.85;color:var(--text);opacity:.06;text-align:center}
+  .poster .badge{position:absolute;top:14px;right:14px;font-size:9px;font-weight:800;letter-spacing:.18em;padding:5px 8px;text-transform:uppercase;display:inline-flex;align-items:center;gap:6px}
+  .poster .badge.live{background:#22c55e;color:#0d0d0d}
+  .poster .badge.live .ld{width:6px;height:6px;border-radius:50%;background:#0d0d0d;animation:dotPulse 2s ease-in-out infinite}
+  .poster .badge.soon{color:var(--orange);border:1px solid var(--orange);background:rgba(13,13,13,.6)}
+  .poster .cat{font-size:9px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--orange);position:relative;z-index:2}
+  .poster .nm{font-size:18px;font-weight:900;text-transform:uppercase;letter-spacing:.02em;line-height:1;position:relative;z-index:2}
+  .poster .tg{font-size:11px;font-weight:400;color:var(--text-75);line-height:1.5;position:relative;z-index:2}
+
+  /* Panels: man/system, proof, book, reel, quote, booking */
+  .duo-spread{grid-template-columns:1fr 1fr;gap:var(--gutter)}
+  .panel.man,.panel.system{aspect-ratio:3/4;display:flex;align-items:center;justify-content:center;overflow:hidden}
+  .panel.man img{width:100%;height:100%;object-fit:cover;object-position:center top}
+  .panel.system{display:flex;align-items:flex-end;padding:24px}
+  .panel.system .lesa-svg{width:90%;max-width:340px}
+  .panel.proof{padding:48px;display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gutter);position:relative;min-height:280px}
+  .stat{position:relative;padding:18px;border:1px solid var(--border)}
+  .stat .num{font-size:clamp(38px,5.4vw,68px);font-weight:900;letter-spacing:-.03em;line-height:1;margin-bottom:14px}
+  .stat .num span{color:var(--orange)}
+  .stat .lab{font-size:10px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--text-50);line-height:1.5}
+
+  .reel-spread{grid-template-columns:1.05fr 1fr;gap:var(--gutter)}
+  .panel.reel-fig{aspect-ratio:1;display:flex;align-items:flex-end;justify-content:center;padding:24px}
+  .panel.reel-fig .lesa-svg{width:88%;max-width:340px}
+  .panel.reel-frame{aspect-ratio:1;background:linear-gradient(135deg,#0d0d0d 0%,#1a1a1a 100%);position:relative;display:flex;align-items:center;justify-content:center}
+  .panel.reel-frame::after{content:"";position:absolute;left:50%;top:50%;width:62%;height:62%;border-radius:50%;border:1px solid rgba(255,255,255,.3);transform:translate(-50%,-50%)}
+  .play-btn{width:84px;height:84px;border-radius:50%;background:var(--orange);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;position:relative;z-index:2}
+  .play-btn svg{width:30px;height:30px}
+  .panel.reel-frame .label{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);font-size:11px;font-weight:800;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,255,255,.55);z-index:2}
+
+  .panel.quote{padding:88px 56px;text-align:center;position:relative}
+  .panel.quote q{font-size:clamp(22px,3.4vw,38px);font-weight:900;text-transform:uppercase;letter-spacing:-.012em;line-height:1.15;display:block;max-width:880px;margin:0 auto 24px;quotes:none}
+  .panel.quote cite{font-style:normal;font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--text-50);font-weight:700}
+
+  /* Booking spread */
+  .booking-spread{grid-template-columns:1fr 1.1fr;gap:var(--gutter)}
+  .panel.booking-fig{display:flex;align-items:flex-end;justify-content:center;padding:0;min-height:620px;position:relative;overflow:hidden}
+  .panel.booking-fig .lesa-svg{width:100%;max-width:560px;height:auto;display:block;object-fit:contain;object-position:center bottom}
+  .panel.booking-form{padding:48px}
+  .panel.booking-form h2{font-size:clamp(36px,5.4vw,68px);font-weight:900;text-transform:uppercase;letter-spacing:-.03em;line-height:.95;margin:14px 0 24px}
+  .panel.booking-form .pre{font-size:14px;color:var(--text-75);line-height:1.75;margin-bottom:30px;max-width:440px}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+  .form input,.form select,.form textarea{width:100%;padding:14px 16px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:inherit;font-size:13px;letter-spacing:.02em}
+  .form input::placeholder,.form textarea::placeholder{color:var(--text-50)}
+  .form textarea{min-height:120px;resize:vertical;margin-bottom:14px}
+  .form .submit{width:100%;background:var(--orange);color:#0d0d0d;border:none;padding:16px;font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.14em;cursor:pointer}
+  .form .submit:hover{background:var(--text)}
+
+  /* Service bullet panels */
+  .panel.copy{padding:48px}
+  .panel.copy h2{font-size:clamp(28px,4vw,42px);font-weight:900;text-transform:uppercase;letter-spacing:-.02em;line-height:1;margin:8px 0 18px}
+  .panel.copy p{font-size:14px;line-height:1.85;color:var(--text-75);margin-bottom:18px;max-width:680px}
+  .panel.copy ul.beats{list-style:none;padding:0;margin:18px 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+  .panel.copy ul.beats li{padding:18px;border:1px solid var(--border);position:relative}
+  .panel.copy ul.beats li .num{font-size:10px;font-weight:800;letter-spacing:.22em;color:var(--orange);text-transform:uppercase;display:block;margin-bottom:6px}
+  .panel.copy ul.beats li .nm{font-size:14px;font-weight:900;text-transform:uppercase;letter-spacing:.02em;display:block;margin-bottom:8px}
+  .panel.copy ul.beats li .ds{font-size:12px;line-height:1.6;color:var(--text-75)}
+
+  .ticker{display:flex;align-items:center;gap:36px;padding:18px 28px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);font-size:10px;font-weight:800;letter-spacing:.28em;text-transform:uppercase;color:var(--text-50);overflow:hidden;white-space:nowrap}
+  .ticker span.brand{color:var(--text)}
+  .ticker .sep{width:6px;height:6px;border-radius:50%;background:var(--orange);flex-shrink:0;animation:dotPulse 2.4s ease-in-out infinite}
+
+
+  .brand-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gutter);margin-top:14px}
+  .brand-card{position:relative;padding:24px 18px;border:var(--panel-line-w) solid var(--panel-line);background:var(--bg);min-height:110px;display:flex;flex-direction:column;justify-content:space-between}
+  .brand-card .brand-cat{font-size:9px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--orange)}
+  .brand-card .brand-nm{font-size:15px;font-weight:900;text-transform:uppercase;letter-spacing:-.005em;line-height:1.05;color:var(--text)}
+  .skill-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gutter);margin-top:14px}
+  .skill-card{position:relative;padding:18px;border:1px solid var(--border);background:var(--bg);min-height:84px;display:flex;flex-direction:column;justify-content:space-between}
+  .skill-card .skill-num{font-size:9px;font-weight:800;letter-spacing:.22em;color:var(--text-50)}
+  .skill-card .skill-nm{font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:.01em;line-height:1.1;color:var(--text)}
+  .speak-rooms{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gutter);margin-top:14px}
+  .room-card{position:relative;padding:22px 20px;border:var(--panel-line-w) solid var(--panel-line);background:var(--bg);min-height:160px;display:flex;flex-direction:column;gap:8px}
+  .room-card .skill-num{font-size:9px;font-weight:800;letter-spacing:.22em;color:var(--orange)}
+  .room-card .skill-nm{font-size:15px;font-weight:900;text-transform:uppercase;letter-spacing:0;line-height:1.05;color:var(--text)}
+  .room-card .room-ds{font-size:12px;font-weight:400;color:var(--text-75);line-height:1.6;margin-top:6px}
+  @media (max-width:980px){
+    .brand-grid{grid-template-columns:repeat(2,1fr)}
+    .skill-grid{grid-template-columns:repeat(2,1fr)}
+    .speak-rooms{grid-template-columns:1fr}
+  }
+  footer{padding:36px 28px;border-top:1px solid var(--border);background:var(--bg);margin-top:var(--gutter)}
+  .foot-inner{max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:18px;font-size:11px;color:var(--text-50)}
+  .foot-wm{font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:.05em;color:var(--text-50)}
+  .foot-links{display:flex;gap:24px;font-weight:700;text-transform:uppercase;letter-spacing:.16em;font-size:10px}
+  .foot-links a:hover{color:var(--orange)}
+
+  @media (max-width:980px){
+    .splash{grid-template-columns:1fr;min-height:auto}
+    .splash-copy{padding:48px 28px}
+    .splash-character{border-left:none;border-top:var(--panel-line-w) solid var(--panel-line);min-height:520px}
+    .splash-character .lesa-svg{width:100%;max-width:420px}
+    .splash-character::before{width:280px;height:280px}
+    .page-hero{grid-template-columns:1fr}
+    .page-hero-copy{padding:48px 28px}
+    .page-hero-character{border-left:none;border-top:var(--panel-line-w) solid var(--panel-line);min-height:440px}
+    .page-hero-character .lesa-svg{width:280px;max-width:280px}
+    .duo-spread,.reel-spread,.booking-spread{grid-template-columns:1fr}
+    .panel.booking-fig{min-height:520px}
+    .panel.booking-fig .lesa-svg{max-width:440px}
+    .panel.proof{grid-template-columns:repeat(2,1fr);padding:24px}
+    .nav-links{display:none}
+    .panel.copy{padding:28px}
+    .panel.booking-form{padding:28px}
+  }
+</style>
+</head>
+<body>
+<header class="nav">
+  <a class="nav-brand" href="index.html">Sean A. Russell<span class="dot">.</span></a>
+  <nav class="nav-links" aria-label="Primary">
+    <a class="nav-link" href="author.html">Author</a>
+    <a class="nav-link" href="producer.html">Producer</a>
+    <a class="nav-link" href="speaker.html">Speaker</a>
+    <a class="nav-link" href="actor.html">On Camera</a>
+    <a class="nav-link" href="host.html">Host</a>
+    <a class="nav-link" href="consultant.html">Consultant</a>
+    <a class="nav-link" href="book.html">Book</a>
+  </nav>
+  <button class="nav-toggle" aria-label="Toggle theme">
+    <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+  </button>
+  <a class="nav-enter" href="book.html">Book Sean</a>
+</header>
+<div class="issue-bar">
+  <span class="red"></span>
+  <span class="title">Issue 01</span>
+  <span>From Blur to Blueprint</span>
+  <span class="right">Page 01 . Splash</span>
+</div>
+<section class="spread">
+  <article class="panel splash">
+    <div class="cap tl-inset">Splash<span class="dot">.</span> Pose 01<span class="dot">.</span></div>
+    <div class="sfx" style="bottom:-30px;right:24px">BUILT.</div>
+    <div class="halftone faint"></div>
+    <div class="splash-copy" style="padding-top:38px">
+      <p class="eyebrow">A System That Builds Systems<span class="dot">.</span></p>
+      <h1>From Blur To<br><span id="cycle">Blueprint.</span></h1>
+      <p class="byline">Sean A. Russell<span>.</span> Architect of the LESARUSS universe<span>.</span></p>
+      <p class="sub">Two decades inside school systems and transformation work. Eight live brands and counting. One book. One framework. A universe built by someone who lived the problem first.</p>
+      <div class="splash-cta-row">
+        <a class="cta" href="book.html">Book Sean</a>
+        <a class="cta-ghost" href="speaker.html"><span style="display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:var(--orange)"><svg width="11" height="11" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 0L12 7L0 14V0Z" fill="#0d0d0d"/></svg></span>Watch the speaker reel</a>
+      </div>
+    </div>
+    <div class="splash-character">
+      <img class="lesa-svg" src="assets/poses/lesaruss-hero.png" alt="Sean A. Russell, LESARUSS founder." width="380" height="507">
+      <span class="pose-tag">Pose 01 . Hero stance</span>
+    </div>
+  </article>
+</section>
+
+<div class="ticker" aria-label="Brands in the LESARUSS universe">
+  <span class="brand">LESARUSS</span><span class="sep"></span>
+  <span class="brand">Vegans Explore</span><span class="sep"></span>
+  <span class="brand">K12 Unlocked</span><span class="sep"></span>
+  <span class="brand">Anime3000</span><span class="sep"></span>
+  <span class="brand">Geekfont Society</span><span class="sep"></span>
+  <span class="brand">Chester</span><span class="sep"></span>
+  <span class="brand">ADA Unlocked</span><span class="sep"></span>
+  <span class="brand">The 111 Day Theory</span>
+</div>
+
+<section class="spread">
+  <article class="panel proof">
+    <div class="cap tl">Panel 02<span class="dot">.</span> Proof<span class="dot">.</span></div>
+    <div class="stat"><div class="num"><span>$</span>800<span>M</span></div><div class="lab">Investments secured. Campaigns Sean has led.</div></div>
+    <div class="stat"><div class="num">20<span>+</span></div><div class="lab">Years inside K-12 and transformation work.</div></div>
+    <div class="stat"><div class="num">8</div><div class="lab">Active brands in the LESARUSS universe.</div></div>
+    <div class="stat"><div class="num">1</div><div class="lab">Book. One framework. One operating system.</div></div>
+  </article>
+</section>
+
+<section class="spread">
+  <article class="panel copy">
+    <p class="eyebrow">The chapters<span class="dot">.</span></p>
+    <h2>Step into a chapter<span class="dot">.</span></h2>
+    <p>Each section of the universe has its own door. Walk in through any of them.</p>
+    <ul class="beats">
+      <li style="margin-top:18px"><span class="num">01</span><span class="nm">Producer<span class="dot">.</span></span><span class="ds">Eight brands, eight sports and entertainment productions, sixteen skills. The full build log.</span><a href="producer.html" class="cta-ghost" style="margin-top:14px;display:inline-flex">Open<span class="dot">.</span></a></li>
+      <li style="margin-top:18px"><span class="num">02</span><span class="nm">Author<span class="dot">.</span></span><span class="ds">Pre-Vegans is on the shelf. From Blur to Blueprint and the LESARUSS field guide are next.</span><a href="author.html" class="cta-ghost" style="margin-top:14px;display:inline-flex">Open<span class="dot">.</span></a></li>
+      <li><span class="num">03</span><span class="nm">Speaker<span class="dot">.</span></span><span class="ds">Keynotes, panels, conferences. Europe summer 2026. World tour coming soon.</span><a href="speaker.html" class="cta-ghost" style="margin-top:14px;display:inline-flex">Open<span class="dot">.</span></a></li>
+      <li><span class="num">04</span><span class="nm">Consultant<span class="dot">.</span></span><span class="ds">Founder-level work on brand systems, operations architecture, and AI rollout.</span><a href="consultant.html" class="cta-ghost" style="margin-top:14px;display:inline-flex">Open<span class="dot">.</span></a></li>
+    </ul>
+  </article>
+</section>
+
+<section class="spread" id="contact">
+  <div class="grid booking-spread">
+    <article class="panel booking-fig">
+      <div class="cap tl">Book<span class="dot">.</span></div>
+      <div class="halftone faint"></div>
+      <img class="lesa-svg" src="assets/poses/lesaruss-k12-hero.png" alt="LESARUSS, the K-12 education guide." width="380" height="507">
+      <span class="pose-tag">K-12 Education Hero<span class="dot">.</span></span>
+    </article>
+    <article class="panel booking-form">
+      <p class="eyebrow">Book Sean<span class="dot">.</span></p>
+      <h2>Tell me<br>about<br>the room<span class="dot">.</span></h2>
+      <p class="pre">Send the audience, the outcome, and the budget range. Reply within 48 hours.</p>
+      <form class="form" onsubmit="event.preventDefault();alert('Mockup form');">
+        <div class="form-row">
+          <input type="text" placeholder="Your name" required>
+          <input type="email" placeholder="Email" required>
+        </div>
+        <div class="form-row">
+          <input type="text" placeholder="Organization">
+          <select><option>Engagement type</option><option>Speaking</option><option>Consulting</option><option>Producing</option><option>Acting</option><option>Hosting</option><option>Other</option></select>
+        </div>
+        <input type="text" placeholder="Event date or window" style="margin-bottom:10px">
+        <textarea placeholder="The audience, the outcome, the budget range. In your words."></textarea>
+        <button type="submit" class="submit">Send the brief</button>
+      </form>
+    </article>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-inner">
+    <a class="foot-wm" href="index.html">Sean A. Russell<span class="dot">.</span></a>
+    <div class="foot-links">
+      <a href="author.html">Author</a>
+      <a href="speaker.html">Speaker</a>
+      <a href="book.html">Book</a>
+    </div>
+    <span>&copy; 2026<span class="dot">.</span> A LESARUSS production.</span>
+  </div>
+</footer>
+<script>
+  const tg = document.querySelector(".nav-toggle");
+  if (tg) tg.addEventListener("click", () => { const h = document.documentElement; h.dataset.theme = h.dataset.theme === "light" ? "dark" : "light"; });
+  const words = ["Blueprint.", "Brands.", "Systems.", "Universes."];
+  let i = 0;
+  const el = document.getElementById("cycle");
+  if (el) {
+    el.style.transition = "opacity .24s ease";
+    setInterval(() => { i = (i + 1) % words.length; el.style.opacity = 0; setTimeout(() => { el.textContent = words[i]; el.style.opacity = 1; }, 240); }, 2600);
+  }
+</script>
+</body>
+</html>

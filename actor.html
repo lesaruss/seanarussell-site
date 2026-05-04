@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>On Camera. Sean A. Russell.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0d0d0d; --surface:#111111; --surface2:#161616;
+    --border:rgba(255,255,255,0.07);
+    --text:#ffffff; --text-75:rgba(255,255,255,0.75); --text-50:rgba(255,255,255,0.50); --text-30:rgba(255,255,255,0.30);
+    --orange:#F69820;
+    --panel-line:var(--text);
+    --panel-line-w:1.5px;
+    --gutter:14px;
+    --nav-bg:rgba(13,13,13,0.96);
+  }
+  html[data-theme="light"]{
+    --bg:#ffffff; --surface:#ffffff; --surface2:#fafafa;
+    --border:rgba(0,0,0,0.08);
+    --text:#1a1a1a; --text-75:rgba(26,26,26,0.78); --text-50:rgba(26,26,26,0.55); --text-30:rgba(26,26,26,0.35);
+    --orange:#F69820;
+    --panel-line:#0d0d0d;
+    --nav-bg:rgba(255,255,255,0.96);
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:'Montserrat',Arial,Helvetica,sans-serif;overflow-x:hidden;transition:background .25s ease,color .25s ease}
+  a{text-decoration:none;color:inherit}
+  img,svg{display:block;max-width:100%}
+  button{font-family:inherit}
+  :focus-visible{outline:3px solid var(--orange);outline-offset:3px}
+  @media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
+  .dot{color:var(--orange);display:inline-block;animation:dotPulse 2s ease-in-out infinite}
+  @keyframes dotPulse{0%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(1.3)}100%{opacity:1;transform:scale(1)}}
+
+  .nav{position:fixed;top:0;left:0;right:0;z-index:200;height:62px;display:flex;align-items:center;padding:0 28px;background:var(--nav-bg);border-bottom:1px solid var(--border);backdrop-filter:blur(10px)}
+  .nav-brand{font-size:17px;font-weight:900;text-transform:uppercase;letter-spacing:.05em;flex-shrink:0;margin-right:36px}
+  .nav-links{display:flex;align-items:center;gap:4px;flex:1}
+  .nav-link{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.13em;color:var(--text-50);padding:6px 12px;background:none;border:none;cursor:pointer;transition:color .18s;white-space:nowrap;flex-shrink:0}
+  .nav-link:hover{color:var(--text)}
+  .nav-link.active{color:var(--orange)}
+  .nav-toggle{width:36px;height:36px;border-radius:50%;background:rgba(127,127,127,0.12);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text);flex-shrink:0;margin-right:10px}
+  .nav-toggle:hover{background:rgba(127,127,127,0.22)}
+  .nav-toggle .icon-sun{display:none}
+  .nav-toggle .icon-moon{display:block}
+  html[data-theme="light"] .nav-toggle .icon-sun{display:block}
+  html[data-theme="light"] .nav-toggle .icon-moon{display:none}
+  .nav-enter{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.14em;color:#0d0d0d;background:var(--orange);padding:9px 20px;border:none;cursor:pointer;flex-shrink:0}
+  .nav-enter:hover{background:var(--text);color:var(--bg)}
+
+  .issue-bar{position:relative;display:flex;align-items:center;gap:18px;padding:10px 28px;border-bottom:1px solid var(--border);font-size:10px;font-weight:800;letter-spacing:.32em;text-transform:uppercase;color:var(--text-50);margin-top:62px}
+  .issue-bar .red{width:8px;height:8px;border-radius:50%;background:var(--orange);animation:dotPulse 2s ease-in-out infinite}
+  .issue-bar span.title{color:var(--text)}
+  .issue-bar .right{margin-left:auto;color:var(--text-30)}
+
+  .spread{padding:var(--gutter);max-width:1280px;margin:0 auto}
+  .spread + .spread{padding-top:0}
+  .panel{position:relative;background:var(--bg);border:var(--panel-line-w) solid var(--panel-line);overflow:hidden}
+  .grid{display:grid;gap:var(--gutter)}
+
+  .cap{position:absolute;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--text);background:var(--bg);padding:8px 12px;border:var(--panel-line-w) solid var(--panel-line);z-index:5;line-height:1.5;max-width:280px}
+  .cap.tl{top:-1px;left:-1px}
+  .cap.tl-inset{top:14px;left:14px}
+  .pose-tag{position:absolute;bottom:14px;right:14px;font-size:9px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--orange);background:rgba(13,13,13,.78);padding:6px 9px;border:1px solid var(--orange);z-index:6}
+  html[data-theme="light"] .pose-tag{background:#0d0d0d;color:var(--orange)}
+
+  .halftone{position:absolute;inset:0;opacity:.16;pointer-events:none;background-image:radial-gradient(var(--orange) 1.4px, transparent 1.6px);background-size:14px 14px}
+  .halftone.faint{opacity:.08}
+
+  .eyebrow{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.32em;color:var(--orange);margin-bottom:22px}
+
+  .page-hero{display:grid;grid-template-columns:minmax(0,1fr) 460px;min-height:520px;align-items:end}
+  .page-hero-copy{padding:64px 56px;min-width:0}
+  .page-hero h1{font-size:clamp(48px,7vw,88px);font-weight:900;text-transform:uppercase;letter-spacing:-.03em;line-height:.95;margin:14px 0 18px;overflow-wrap:break-word}
+  .page-hero h1 em{font-style:normal;color:var(--orange)}
+  .page-hero .lede{font-size:15px;line-height:1.85;color:var(--text-75);max-width:480px;margin-bottom:24px}
+  .page-hero-character{position:relative;height:100%;min-height:480px;display:flex;align-items:flex-end;justify-content:center;border-left:var(--panel-line-w) solid var(--panel-line)}
+  .page-hero-character .lesa-svg{width:360px;max-width:360px;height:auto;flex-shrink:0}
+  .page-hero-character::before{content:"";position:absolute;left:50%;bottom:24px;transform:translateX(-50%);width:300px;height:300px;border:1px solid var(--text-30);border-radius:50%;opacity:.5;z-index:0}
+
+  /* Credits grid */
+  .poster-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:var(--gutter)}
+  .poster{position:relative;background:var(--surface);border:var(--panel-line-w) solid var(--panel-line);min-height:240px;display:flex;flex-direction:column;justify-content:space-between;padding:20px;overflow:hidden;cursor:pointer;transition:border-color .18s,transform .12s}
+  .poster:hover,.poster:focus-visible{border-color:var(--orange);transform:translateY(-2px)}
+  .poster .art{position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);font-size:80px;font-weight:900;letter-spacing:-.06em;line-height:.85;color:var(--text);opacity:.06;text-align:center}
+  .poster .cat{font-size:9px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--orange);position:relative;z-index:2}
+  .poster .nm{font-size:18px;font-weight:900;text-transform:uppercase;letter-spacing:.02em;line-height:1;position:relative;z-index:2}
+  .poster .tg{font-size:11px;font-weight:400;color:var(--text-75);line-height:1.5;position:relative;z-index:2}
+  .poster .play-hint{font-size:9px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--orange);opacity:0;position:relative;z-index:2;transition:opacity .18s;display:flex;align-items:center;gap:5px}
+  .poster:hover .play-hint,.poster:focus-visible .play-hint{opacity:1}
+  .poster .play-hint svg{flex-shrink:0}
+
+  .booking-spread{grid-template-columns:1fr 1.1fr;gap:var(--gutter)}
+  .panel.booking-fig{display:flex;align-items:flex-end;justify-content:center;padding:0;min-height:620px;position:relative;overflow:hidden}
+  .panel.booking-fig .lesa-svg{width:100%;max-width:560px;height:auto;display:block;object-fit:contain;object-position:center bottom}
+  .panel.booking-form{padding:48px}
+  .panel.booking-form h2{font-size:clamp(36px,5.4vw,68px);font-weight:900;text-transform:uppercase;letter-spacing:-.03em;line-height:.95;margin:14px 0 24px}
+  .panel.booking-form .pre{font-size:14px;color:var(--text-75);line-height:1.75;margin-bottom:30px;max-width:440px}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+  .form input,.form select,.form textarea{width:100%;padding:14px 16px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:inherit;font-size:13px;letter-spacing:.02em}
+  .form input::placeholder,.form textarea::placeholder{color:var(--text-50)}
+  .form textarea{min-height:120px;resize:vertical;margin-bottom:14px}
+  .form .submit{width:100%;background:var(--orange);color:#0d0d0d;border:none;padding:16px;font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.14em;cursor:pointer}
+  .form .submit:hover{background:var(--text)}
+
+  .panel.copy{padding:48px}
+  .panel.copy h2{font-size:clamp(28px,4vw,42px);font-weight:900;text-transform:uppercase;letter-spacing:-.02em;line-height:1;margin:8px 0 18px}
+  .panel.copy p{font-size:14px;line-height:1.85;color:var(--text-75);margin-bottom:18px;max-width:680px}
+
+  /* Lightbox */
+  .lb{position:fixed;inset:0;z-index:900;display:flex;align-items:center;justify-content:center}
+  .lb[hidden]{display:none}
+  .lb-overlay{position:absolute;inset:0;background:rgba(0,0,0,.88);cursor:pointer}
+  .lb-inner{position:relative;z-index:2;background:var(--bg);border:var(--panel-line-w) solid var(--panel-line);width:min(700px,92vw);padding:36px 36px 28px}
+  .lb-close{position:absolute;top:14px;right:14px;width:36px;height:36px;background:none;border:1px solid var(--border);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text);transition:border-color .15s,color .15s}
+  .lb-close:hover{border-color:var(--orange);color:var(--orange)}
+  .lb-cat{font-size:9px;font-weight:800;letter-spacing:.28em;text-transform:uppercase;color:var(--orange);margin-bottom:8px}
+  .lb-title{font-size:22px;font-weight:900;text-transform:uppercase;letter-spacing:.02em;margin-bottom:8px}
+  .lb-tag{font-size:12px;color:var(--text-75);margin-bottom:22px}
+  .lb-video{aspect-ratio:16/9;background:#0d0d0d;display:flex;align-items:center;justify-content:center;overflow:hidden}
+  .lb-placeholder{text-align:center}
+  .lb-placeholder p{font-size:11px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-top:12px}
+  .lb-iframe{width:100%;height:100%;border:none;display:block}
+
+  @media (max-width:980px){
+    .poster-grid{grid-template-columns:repeat(2,1fr)}
+  }
+  footer{padding:36px 28px;border-top:1px solid var(--border);background:var(--bg);margin-top:var(--gutter)}
+  .foot-inner{max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:18px;font-size:11px;color:var(--text-50)}
+  .foot-wm{font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:.05em;color:var(--text-50)}
+  .foot-links{display:flex;gap:24px;font-weight:700;text-transform:uppercase;letter-spacing:.16em;font-size:10px}
+  .foot-links a:hover{color:var(--orange)}
+
+  @media (max-width:980px){
+    .page-hero{grid-template-columns:1fr}
+    .page-hero-copy{padding:48px 28px}
+    .page-hero-character{border-left:none;border-top:var(--panel-line-w) solid var(--panel-line);min-height:440px}
+    .page-hero-character .lesa-svg{width:280px;max-width:280px}
+    .booking-spread{grid-template-columns:1fr}
+    .panel.booking-fig{min-height:520px}
+    .panel.booking-fig .lesa-svg{max-width:440px}
+    .nav-links{display:none}
+    .panel.copy{padding:28px}
+    .panel.booking-form{padding:28px}
+  }
+</style>
+</head>
+<body>
+<header class="nav">
+  <a class="nav-brand" href="index.html">Sean A. Russell<span class="dot">.</span></a>
+  <nav class="nav-links" aria-label="Primary">
+    <a class="nav-link" href="author.html">Author</a>
+    <a class="nav-link" href="producer.html">Producer</a>
+    <a class="nav-link" href="speaker.html">Speaker</a>
+    <a class="nav-link active" href="actor.html">On Camera</a>
+    <a class="nav-link" href="host.html">Host</a>
+    <a class="nav-link" href="consultant.html">Consultant</a>
+    <a class="nav-link" href="book.html">Book</a>
+  </nav>
+  <button class="nav-toggle" aria-label="Toggle theme">
+    <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+  </button>
+  <a class="nav-enter" href="book.html">Book Sean</a>
+</header>
+
+<div class="issue-bar">
+  <span class="red"></span>
+  <span class="title">Issue 01</span>
+  <span>On Camera</span>
+  <span class="right">Page 06 . On Camera</span>
+</div>
+
+<section class="spread">
+  <article class="panel">
+    <div class="cap tl-inset">On Camera<span class="dot">.</span></div>
+    <div class="halftone faint"></div>
+    <div class="page-hero">
+      <div class="page-hero-copy">
+        <p class="eyebrow">On Camera<span class="dot">.</span></p>
+        <h1>On <em>camera</em><span class="dot">.</span></h1>
+        <p class="lede">Film, television, national commercials, and news media. Acting credits, on-camera interviews, and live appearances. Click any tile to watch.</p>
+      </div>
+      <div class="page-hero-character">
+        <img class="lesa-svg" src="assets/poses/lesaruss-actor-hero.png" alt="Sean A. Russell, on-camera talent." width="360" height="480">
+        <span class="pose-tag">Pose . act</span>
+      </div>
+    </div>
+  </article>
+</section>
+
+<section class="spread">
+  <article class="panel copy">
+    <div class="cap tl">Credits<span class="dot">.</span></div>
+    <p class="eyebrow">The work</p>
+    <h2>Film<span class="dot">.</span> Television<span class="dot">.</span> Commercial<span class="dot">.</span> News<span class="dot">.</span></h2>
+    <p>Selected on-camera credits across reality television, national commercials, film, and news media. Click any tile to watch the clip. Reps available on request.</p>
+    <div class="poster-grid">
+
+      <div class="poster" role="button" tabindex="0" aria-label="Watch The Hustler"
+           data-title="The Hustler" data-cat="Reality TV" data-tag="ABC. Network reality competition series." data-vimeo="">
+        <span class="art">TH</span>
+        <span class="cat">Reality TV<span class="dot">.</span></span>
+        <span class="nm">The Hustler</span>
+        <span class="tg">ABC. Network reality competition series.</span>
+        <span class="play-hint">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+          Watch clip
+        </span>
+      </div>
+
+      <div class="poster" role="button" tabindex="0" aria-label="Watch Perfect Jeans"
+           data-title="Perfect Jeans" data-cat="Commercial" data-tag="Lifestyle brand spot. On-camera talent." data-vimeo="">
+        <span class="art">PJ</span>
+        <span class="cat">Commercial<span class="dot">.</span></span>
+        <span class="nm">Perfect Jeans</span>
+        <span class="tg">Lifestyle brand spot. On-camera talent.</span>
+        <span class="play-hint">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+          Watch clip
+        </span>
+      </div>
+
+      <div class="poster" role="button" tabindex="0" aria-label="Watch Easy Dose"
+           data-title="Easy Dose" data-cat="Commercial" data-tag="Consumer health campaign. On-camera talent." data-vimeo="">
+        <span class="art">ED</span>
+        <span class="cat">Commercial<span class="dot">.</span></span>
+        <span class="nm">Easy Dose</span>
+        <span class="tg">Consumer health campaign. On-camera talent.</span>
+        <span class="play-hint">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+          Watch clip
+        </span>
+      </div>
+
+      <div class="poster" role="button" tabindex="0" aria-label="Watch Beyond Diet"
+           data-title="Beyond Diet" data-cat="Commercial" data-tag="Health and wellness brand spot. On-camera talent." data-vimeo="">
+        <span class="art">BD</span>
+        <span class="cat">Commercial<span class="dot">.</span></span>
+        <span class="nm">Beyond Diet</span>
+        <span class="tg">Health and wellness brand spot. On-camera talent.</span>
+        <span class="play-hint">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+          Watch clip
+        </span>
+      </div>
+
+      <div class="poster" role="button" tabindex="0" aria-label="Watch Nissan"
+           data-title="Nissan" data-cat="Commercial" data-tag="National auto campaign. On-camera talent." data-vimeo="">
+        <span class="art">NS</span>
+        <span class="cat">Commercial<span class="dot">.</span></span>
+        <span class="nm">Nissan</span>
+        <span class="tg">National auto campaign. On-camera talent.</span>
+        <span class="play-hint">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+          Watch clip
+        </span>
+      </div>
+
+      <div class="poster" role="button" tabindex="0" aria-label="Watch Overtown"
+           data-title="Overtown" data-cat="Film" data-tag="Feature film. Acting credit, South Florida production." data-vimeo="">
+        <span class="art">OT</span>
+        <span class="cat">Film<span class="dot">.</span></span>
+        <span class="nm">Overtown</span>
+        <span class="tg">Feature film. Acting credit, South Florida production.</span>
+        <span class="play-hint">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+          Watch clip
+        </span>
+      </div>
+
+      <div class="poster" role="button" tabindex="0" aria-label="Watch News Clip 1"
+           data-title="News Clip" data-cat="News" data-tag="On-camera news appearance. Coming soon." data-vimeo="">
+        <span class="art">NC</span>
+        <span class="cat">News<span class="dot">.</span></span>
+        <span class="nm">News Clip</span>
+        <span class="tg">On-camera news appearance. Coming soon.</span>
+        <span class="play-hint">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+          Watch clip
+        </span>
+      </div>
+
+      <div class="poster" role="button" tabindex="0" aria-label="Watch News Clip 2"
+           data-title="News Clip" data-cat="News" data-tag="On-camera news appearance. Coming soon." data-vimeo="">
+        <span class="art">NC</span>
+        <span class="cat">News<span class="dot">.</span></span>
+        <span class="nm">News Clip</span>
+        <span class="tg">On-camera news appearance. Coming soon.</span>
+        <span class="play-hint">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+          Watch clip
+        </span>
+      </div>
+
+    </div>
+  </article>
+</section>
+
+<section class="spread" id="contact">
+  <div class="grid booking-spread">
+    <article class="panel booking-fig">
+      <div class="cap tl">Book<span class="dot">.</span></div>
+      <div class="halftone faint"></div>
+      <img class="lesa-svg" src="assets/poses/lesaruss-k12-hero.png" alt="LESARUSS, the K-12 education guide." width="380" height="507">
+      <span class="pose-tag">K-12 Education Hero<span class="dot">.</span></span>
+    </article>
+    <article class="panel booking-form">
+      <p class="eyebrow">On-camera inquiry<span class="dot">.</span></p>
+      <h2>Tell me<br>about<br>the room<span class="dot">.</span></h2>
+      <p class="pre">Send the project details, the role, and the timeline. Reply within 48 hours.</p>
+      <form class="form" onsubmit="event.preventDefault();alert('Mockup form');">
+        <div class="form-row">
+          <input type="text" placeholder="Your name" required>
+          <input type="email" placeholder="Email" required>
+        </div>
+        <div class="form-row">
+          <input type="text" placeholder="Organization">
+          <select>
+            <option>Project type</option>
+            <option>Film</option>
+            <option>Television</option>
+            <option>Commercial</option>
+            <option>News / Interview</option>
+            <option>Voice / VO</option>
+            <option>Podcast</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <input type="text" placeholder="Shoot date or window" style="margin-bottom:10px">
+        <textarea placeholder="The project, the role, the budget range. In your words."></textarea>
+        <button type="submit" class="submit">Send the brief</button>
+      </form>
+    </article>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div id="lb" class="lb" role="dialog" aria-modal="true" aria-labelledby="lb-title" hidden>
+  <div class="lb-overlay" id="lb-overlay"></div>
+  <div class="lb-inner">
+    <button class="lb-close" id="lb-close" aria-label="Close">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <p class="lb-cat" id="lb-cat"></p>
+    <p class="lb-title" id="lb-title"></p>
+    <p class="lb-tag" id="lb-tag"></p>
+    <div class="lb-video" id="lb-video"></div>
+  </div>
+</div>
+
+<footer>
+  <div class="foot-inner">
+    <a class="foot-wm" href="index.html">Sean A. Russell<span class="dot">.</span></a>
+    <div class="foot-links">
+      <a href="author.html">Author</a>
+      <a href="speaker.html">Speaker</a>
+      <a href="book.html">Book</a>
+    </div>
+    <span>&#169; 2026<span class="dot">.</span> A LESARUSS production.</span>
+  </div>
+</footer>
+<script>
+  // Theme toggle
+  const tg = document.querySelector(".nav-toggle");
+  if (tg) tg.addEventListener("click", () => {
+    const h = document.documentElement;
+    h.dataset.theme = h.dataset.theme === "light" ? "dark" : "light";
+  });
+
+  // Lightbox
+  const lb       = document.getElementById("lb");
+  const lbClose  = document.getElementById("lb-close");
+  const lbOvl    = document.getElementById("lb-overlay");
+  const lbCat    = document.getElementById("lb-cat");
+  const lbTitle  = document.getElementById("lb-title");
+  const lbTag    = document.getElementById("lb-tag");
+  const lbVideo  = document.getElementById("lb-video");
+  let lastFocused = null;
+
+  function openLb(el) {
+    lastFocused = el;
+    lbCat.textContent   = el.dataset.cat;
+    lbTitle.textContent = el.dataset.title;
+    lbTag.textContent   = el.dataset.tag;
+    const vimeoId = el.dataset.vimeo;
+    if (vimeoId) {
+      lbVideo.innerHTML = `<iframe class="lb-iframe" src="https://player.vimeo.com/video/${vimeoId}?autoplay=1&color=F69820" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="${el.dataset.title}"></iframe>`;
+    } else {
+      lbVideo.innerHTML = `<div class="lb-placeholder"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polygon points="10,8 16,12 10,16" fill="rgba(255,255,255,0.25)" stroke="none"/></svg><p>Video coming soon</p></div>`;
+    }
+    lb.hidden = false;
+    document.body.style.overflow = "hidden";
+    lbClose.focus();
+  }
+
+  function closeLb() {
+    lb.hidden = true;
+    lbVideo.innerHTML = "";
+    document.body.style.overflow = "";
+    if (lastFocused) lastFocused.focus();
+  }
+
+  // Wire up poster tiles
+  document.querySelectorAll(".poster").forEach(p => {
+    p.addEventListener("click", () => openLb(p));
+    p.addEventListener("keydown", e => {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openLb(p); }
+    });
+  });
+
+  lbClose.addEventListener("click", closeLb);
+  lbOvl.addEventListener("click", closeLb);
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape" && !lb.hidden) closeLb();
+  });
+
+  // Basic focus trap inside lightbox
+  lb.addEventListener("keydown", e => {
+    if (e.key !== "Tab") return;
+    const focusable = [...lb.querySelectorAll("button, [tabindex='0'], a[href]")].filter(el => !el.hidden);
+    if (!focusable.length) return;
+    const first = focusable[0], last = focusable[focusable.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  });
+</script>
+</body>
+</html>
