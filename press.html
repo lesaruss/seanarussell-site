@@ -64,11 +64,21 @@
   .issue-bar .right{margin-left:auto;color:var(--text-30)}
 
   /* Layout */
-  .page-hero{padding:64px 28px 48px;max-width:1280px;margin:0 auto}
+  .page-hero{padding:var(--gutter);max-width:1280px;margin:0 auto}
+  .press-hero-panel{display:grid;grid-template-columns:1fr 1fr;border:var(--panel-line-w) solid var(--panel-line);overflow:hidden;min-height:460px}
+  .press-hero-img-col{background:#0d0d0d;position:relative;overflow:hidden;border-right:var(--panel-line-w) solid var(--panel-line)}
+  .press-hero-img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;min-height:460px}
+  .press-hero-copy{padding:56px 48px;display:flex;flex-direction:column;justify-content:center;gap:16px}
   .page-hero h1{font-size:clamp(48px,7vw,88px);font-weight:900;text-transform:uppercase;letter-spacing:-.03em;line-height:.95;margin:14px 0 18px}
   .page-hero h1 em{font-style:normal;color:var(--orange)}
   .page-hero .lede{font-size:15px;line-height:1.85;color:var(--text-75);max-width:520px}
   .eyebrow{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.32em;color:var(--orange);margin-bottom:22px}
+  @media(max-width:768px){
+    .press-hero-panel{grid-template-columns:1fr}
+    .press-hero-img-col{border-right:none;border-bottom:var(--panel-line-w) solid var(--panel-line);min-height:280px}
+    .press-hero-img{min-height:280px}
+    .press-hero-copy{padding:32px 24px}
+  }
 
   /* Filter bar */
   .filter-wrap{padding:0 14px;max-width:1280px;margin:0 auto}
@@ -159,9 +169,16 @@
 
 <!-- Hero -->
 <div class="page-hero">
-  <p class="eyebrow">LESARUSS Production House</p>
-  <h1>Press <em>&amp;</em><br>Media<span class="dot">.</span></h1>
-  <p class="lede">Television, print, podcast, and digital coverage of Sean A. Russell spanning 25+ years across South Florida, national networks, and the global Vegan movement.</p>
+  <div class="press-hero-panel">
+    <div class="press-hero-img-col">
+      <img class="press-hero-img" src="assets/poses/sar-press-thumb.png?v=1" alt="Sean A. Russell at a press podium, suited, with microphones" width="960" height="540">
+    </div>
+    <div class="press-hero-copy">
+      <p class="eyebrow">LESARUSS Production House</p>
+      <h1>Press <em>&amp;</em><br>Media<span class="dot">.</span></h1>
+      <p class="lede">Television, print, podcast, and digital coverage of Sean A. Russell spanning 25+ years across South Florida, national networks, and the global Vegan movement.</p>
+    </div>
+  </div>
 </div>
 
 <!-- Filters -->
