@@ -52,6 +52,17 @@
   .nav-enter{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.14em;color:#0d0d0d;background:var(--orange);padding:9px 20px;border:none;cursor:pointer;flex-shrink:0}
   .nav-enter:hover{background:var(--text);color:var(--bg)}
 
+  /* Talents dropdown */
+  .nav-dropdown{position:relative;display:inline-flex;align-items:center}
+  .nav-dropdown-trigger{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.13em;color:var(--text-50);padding:6px 12px;background:none;border:none;cursor:pointer;display:flex;align-items:center;gap:5px;white-space:nowrap;flex-shrink:0;font-family:inherit;transition:color .18s}
+  .nav-dropdown-trigger:hover,.nav-dropdown:hover .nav-dropdown-trigger{color:var(--text)}
+  .nav-dropdown-trigger .chevron{font-size:9px;line-height:1;transition:transform .18s;display:inline-block}
+  .nav-dropdown:hover .chevron{transform:rotate(180deg)}
+  .nav-dropdown-menu{position:absolute;top:calc(100% + 4px);left:0;background:var(--nav-bg);border:1px solid var(--border);backdrop-filter:blur(10px);min-width:150px;padding:6px 0;display:none;z-index:300}
+  .nav-dropdown:hover .nav-dropdown-menu,.nav-dropdown:focus-within .nav-dropdown-menu{display:block}
+  .nav-dropdown-item{display:block;padding:9px 16px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.13em;color:var(--text-50);transition:color .15s}
+  .nav-dropdown-item:hover{color:var(--orange)}
+
   .issue-bar{position:relative;display:flex;align-items:center;gap:18px;padding:10px 28px;border-bottom:1px solid var(--border);font-size:10px;font-weight:800;letter-spacing:.32em;text-transform:uppercase;color:var(--text-50);margin-top:62px}
   .issue-bar .red{width:8px;height:8px;border-radius:50%;background:var(--orange);animation:dotPulse 2s ease-in-out infinite}
   .issue-bar span.title{color:var(--text)}
@@ -84,7 +95,7 @@
   .cta-ghost:hover{color:var(--text)}
 
   /* Splash hero (homepage) */
-  .splash{min-height:88vh;display:grid;grid-template-columns:minmax(0,1fr) 540px;align-items:end}
+  .splash{min-height:76vh;display:grid;grid-template-columns:minmax(0,1fr) 540px;align-items:end}
   .splash-copy{position:relative;padding:48px 56px;z-index:2;min-width:0}
   .splash h1{font-size:clamp(48px,7vw,96px);font-weight:900;text-transform:uppercase;letter-spacing:-.035em;line-height:.95;margin-bottom:18px;overflow-wrap:break-word}
   .splash h1 #cycle{color:var(--orange);transition:opacity .24s ease;display:inline-block;max-width:100%;overflow-wrap:break-word}
@@ -92,7 +103,7 @@
   .splash .byline span{color:var(--orange)}
   .splash .sub{font-size:14px;line-height:1.85;color:var(--text-75);max-width:480px;margin-bottom:32px}
   .splash-cta-row{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
-  .splash-character{position:relative;height:100%;min-height:620px;display:flex;align-items:flex-end;justify-content:center;border-left:var(--panel-line-w) solid var(--panel-line);overflow:hidden}
+  .splash-character{position:relative;height:100%;min-height:520px;display:flex;align-items:flex-end;justify-content:center;border-left:var(--panel-line-w) solid var(--panel-line);overflow:hidden}
   .splash-character .lesa-svg{width:100%;max-width:540px;height:auto;flex-shrink:0;display:block;object-fit:contain;object-position:center bottom}
   .splash-character::before{content:"";position:absolute;left:50%;bottom:24px;transform:translateX(-50%);width:340px;height:340px;border:1px solid var(--text-30);border-radius:50%;opacity:.5;z-index:0}
 
@@ -225,11 +236,16 @@
 <header class="nav">
   <a class="nav-brand" href="index.html">Sean A. Russell<span class="dot">.</span></a>
   <nav class="nav-links" aria-label="Primary">
-    <a class="nav-link" href="author.html">Author</a>
-    <a class="nav-link" href="producer.html">Producer</a>
-    <a class="nav-link" href="speaker.html">Speaker</a>
-    <a class="nav-link" href="actor.html">On Camera</a>
-    <a class="nav-link" href="host.html">Host</a>
+    <div class="nav-dropdown">
+      <button class="nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false">Talents <span class="chevron" aria-hidden="true">▾</span></button>
+      <div class="nav-dropdown-menu" role="menu">
+        <a class="nav-dropdown-item" href="author.html" role="menuitem">Author</a>
+        <a class="nav-dropdown-item" href="producer.html" role="menuitem">Producer</a>
+        <a class="nav-dropdown-item" href="speaker.html" role="menuitem">Speaker</a>
+        <a class="nav-dropdown-item" href="actor.html" role="menuitem">On Camera</a>
+        <a class="nav-dropdown-item" href="host.html" role="menuitem">Host</a>
+      </div>
+    </div>
     <a class="nav-link" href="consultant.html">Consultant</a>
     <a class="nav-link" href="book.html">Book</a>
   </nav>
@@ -260,7 +276,7 @@
         <a class="cta-ghost" href="speaker.html"><span style="display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:var(--orange)"><svg width="11" height="11" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 0L12 7L0 14V0Z" fill="#0d0d0d"/></svg></span>Watch the speaker reel</a>
       </div>
     </div>
-    <div class="splash-character" style="padding-top:96px">
+    <div class="splash-character" style="padding-top:16px">
       <img class="lesa-svg" src="assets/poses/lesaruss-hero.png?v=2" alt="Sean A. Russell, LESARUSS founder." width="380" height="507">
       <span class="pose-tag">Pose 01 . Hero stance</span>
     </div>
@@ -290,15 +306,18 @@
 
 <section class="spread">
   <article class="panel copy">
-    <p class="eyebrow">The chapters<span class="dot">.</span></p>
-    <h2>Step into a chapter<span class="dot">.</span></h2>
-    <p>Each section of the universe has its own door. Walk in through any of them.</p>
+    <p class="eyebrow">The Talents<span class="dot">.</span></p>
+    <h2>Many talents<span class="dot">.</span></h2>
+    <p>Author, producer, speaker, on camera, host. Each one a different door into the same universe.</p>
     <ul class="beats">
-      <li style="margin-top:18px"><span class="num">01</span><span class="nm">Producer<span class="dot">.</span></span><span class="ds">Eight brands, eight sports and entertainment productions, sixteen skills. The full build log.</span><a href="producer.html" class="cta-ghost" style="margin-top:14px;display:inline-flex">Open<span class="dot">.</span></a></li>
-      <li style="margin-top:18px"><span class="num">02</span><span class="nm">Author<span class="dot">.</span></span><span class="ds">Pre-Vegans is on the shelf. From Blur to Blueprint and the LESARUSS field guide are next.</span><a href="author.html" class="cta-ghost" style="margin-top:14px;display:inline-flex">Open<span class="dot">.</span></a></li>
+      <li><span class="num">01</span><span class="nm">Author<span class="dot">.</span></span><span class="ds">Pre-Vegans is on the shelf. From Blur to Blueprint and the LESARUSS field guide are next.</span><a href="author.html" class="cta-ghost" style="margin-top:14px;display:inline-flex">Open<span class="dot">.</span></a></li>
+      <li><span class="num">02</span><span class="nm">Producer<span class="dot">.</span></span><span class="ds">Eight brands, eight sports and entertainment productions, sixteen skills. The full build log.</span><a href="producer.html" class="cta-ghost" style="margin-top:14px;display:inline-flex">Open<span class="dot">.</span></a></li>
       <li><span class="num">03</span><span class="nm">Speaker<span class="dot">.</span></span><span class="ds">Keynotes, panels, conferences. Europe summer 2026. World tour coming soon.</span><a href="speaker.html" class="cta-ghost" style="margin-top:14px;display:inline-flex">Open<span class="dot">.</span></a></li>
-      <li><span class="num">04</span><span class="nm">Consultant<span class="dot">.</span></span><span class="ds">Founder-level work on brand systems, operations architecture, and AI rollout.</span><a href="consultant.html" class="cta-ghost" style="margin-top:14px;display:inline-flex">Open<span class="dot">.</span></a></li>
+      <li><span class="num">04</span><span class="nm">On Camera<span class="dot">.</span></span><span class="ds">On-screen presence across documentary, commercial, and branded content work.</span><a href="actor.html" class="cta-ghost" style="margin-top:14px;display:inline-flex">Open<span class="dot">.</span></a></li>
     </ul>
+    <div style="margin-top:28px">
+      <a href="talents.html" class="cta-ghost">See all talents <span style="color:var(--orange);margin-left:6px">&#8594;</span></a>
+    </div>
   </article>
 </section>
 
@@ -335,7 +354,7 @@
   <div class="foot-inner">
     <a class="foot-wm" href="index.html">Sean A. Russell<span class="dot">.</span></a>
     <div class="foot-links">
-      <a href="author.html">Author</a>
+      <a href="talents.html">Talents</a>
       <a href="speaker.html">Speaker</a>
       <a href="book.html">Book</a>
     </div>
@@ -345,6 +364,10 @@
 <script>
   const tg = document.querySelector(".nav-toggle");
   if (tg) tg.addEventListener("click", () => { const h = document.documentElement; h.dataset.theme = h.dataset.theme === "light" ? "dark" : "light"; });
+  // Keyboard support for Talents dropdown
+  document.querySelectorAll(".nav-dropdown-trigger").forEach(btn => {
+    btn.addEventListener("click", () => { const exp = btn.getAttribute("aria-expanded") === "true"; btn.setAttribute("aria-expanded", String(!exp)); });
+  });
   const words = ["Blueprint.", "Brands.", "Systems.", "Universes."];
   let i = 0;
   const el = document.getElementById("cycle");
