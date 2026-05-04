@@ -112,7 +112,10 @@
   .exp-video-wrap{position:relative;width:100%;height:100%}
   .signal-player{position:relative;width:100%;height:100%;background:#0d0d0d;border:none;border-left:2px solid var(--orange);outline:none;overflow:hidden;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;font-family:inherit}
   html[data-theme="light"] .signal-player{background:#0a0a0a}
-  .signal-player-inner{position:relative;display:flex;align-items:center;justify-content:center;width:100%;height:100%}
+  .signal-thumb{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:.55;z-index:0;pointer-events:none}
+  .signal-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.45) 0%,rgba(0,0,0,.25) 50%,rgba(0,0,0,.55) 100%);z-index:1;pointer-events:none}
+  .signal-player-inner{position:relative;z-index:2;display:flex;align-items:center;justify-content:center;width:100%;height:100%}
+  /* .signal-player-inner position/z-index set above with .signal-thumb */
   /* Pulse rings */
   .pulse-ring{position:absolute;border-radius:50%;border:1.5px solid var(--orange);opacity:0;animation:signalRing 2.4s ease-out infinite}
   .pulse-ring:nth-child(1){width:64px;height:64px;animation-delay:0s}
@@ -243,6 +246,8 @@
       <div class="exp-video-wrap">
         <button class="signal-player" aria-label="Play education reel"
              data-vimeo="1057094472" onclick="openVL(this)">
+          <img class="signal-thumb" src="assets/poses/sar-education-thumb.png" alt="" aria-hidden="true">
+          <div class="signal-overlay" aria-hidden="true"></div>
           <div class="signal-player-inner">
             <div class="pulse-ring" aria-hidden="true"></div>
             <div class="pulse-ring" aria-hidden="true"></div>
@@ -274,6 +279,8 @@
       <div class="exp-video-wrap">
         <button class="signal-player" aria-label="Play entertainment reel"
              data-vimeo="1042843232" onclick="openVL(this)">
+          <img class="signal-thumb" src="assets/poses/sar-entertainment-thumb.png" alt="" aria-hidden="true">
+          <div class="signal-overlay" aria-hidden="true"></div>
           <div class="signal-player-inner">
             <div class="pulse-ring" aria-hidden="true"></div>
             <div class="pulse-ring" aria-hidden="true"></div>
