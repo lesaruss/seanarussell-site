@@ -181,6 +181,7 @@
     .page-hero-character .lesa-svg{width:280px;max-width:280px}
     .exp-row{grid-template-columns:1fr;min-height:unset}
     .exp-text{padding:28px;border-right:none;border-bottom:var(--panel-line-w) solid var(--panel-line)}
+    .panel:has(.cap.tl) .exp-text{padding-top:58px}
     .exp-video-wrap{height:auto}
     .signal-player{height:auto;aspect-ratio:16/9;border-left:none;border-top:2px solid var(--orange)}
     .booking-spread{grid-template-columns:1fr}
@@ -392,10 +393,6 @@
 </div>
 
 <script>
-  if (tg) tg.addEventListener("click", () => {
-    const h = document.documentElement;
-    h.dataset.theme = h.dataset.theme === "light" ? "dark" : "light";
-  });
 
   function openVL(el) {
     const id = el.dataset.vimeo;

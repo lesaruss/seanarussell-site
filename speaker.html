@@ -229,6 +229,7 @@
     .nav-enter{display:none}
     .nav-hamburger{display:flex}
     .panel.copy{padding:28px}
+    .panel.copy:has(.cap){padding-top:58px}
     .panel.booking-form{padding:28px}
     .infra-grid{grid-template-columns:1fr 1fr}
   }
@@ -564,12 +565,6 @@
       document.body.style.overflow = open ? 'hidden' : '';
     });
   }
-  // Theme toggle
-  if (tg) tg.addEventListener("click", () => {
-    const h = document.documentElement;
-    h.dataset.theme = h.dataset.theme === "light" ? "dark" : "light";
-  });
-
   // Stage credits data
   const EVENTS = [
     { title:"SoFlo Vegans EXPO",             abbr:"VE", cat:"festival",  catLabel:"Festival",  desc:"Annual expo. Multi-stage. Community and vendor-facing." },
