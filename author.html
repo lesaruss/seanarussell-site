@@ -45,6 +45,20 @@
   .nav-link.active{color:var(--orange)}
   .nav-enter{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.14em;color:#0d0d0d;background:var(--orange);padding:9px 20px;border:none;cursor:pointer;flex-shrink:0}
   .nav-enter:hover{background:var(--text);color:var(--bg)}
+
+  /* Hamburger + mobile menu */
+  .nav-hamburger{display:none;flex-direction:column;justify-content:center;align-items:center;width:40px;height:40px;background:none;border:none;cursor:pointer;gap:5px;padding:0;margin-left:auto;flex-shrink:0}
+  .nav-hamburger span{display:block;width:22px;height:2px;background:var(--text);transition:transform .22s,opacity .22s}
+  .nav-hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .nav-hamburger.open span:nth-child(2){opacity:0}
+  .nav-hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  .mobile-menu{display:none;position:fixed;top:62px;left:0;right:0;bottom:0;background:var(--nav-bg);z-index:199;padding:28px 24px;overflow-y:auto;border-top:1px solid var(--border)}
+  .mobile-menu.open{display:block}
+  .mobile-menu-section{font-size:10px;font-weight:800;letter-spacing:.28em;text-transform:uppercase;color:var(--text-30);padding:22px 0 10px}
+  .mobile-menu-section:first-child{padding-top:8px}
+  .mobile-menu-link{display:block;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.13em;color:var(--text-50);padding:15px 0;border-bottom:1px solid var(--border);transition:color .15s}
+  .mobile-menu-link:hover{color:var(--orange)}
+  .mobile-menu-link.book{color:var(--orange);font-weight:900}
   /* Talents dropdown */
   .nav-dropdown{position:relative;display:inline-flex;align-items:center}
   .nav-dropdown-trigger{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.13em;color:var(--text-50);padding:6px 12px;background:none;border:none;cursor:pointer;display:flex;align-items:center;gap:5px;white-space:nowrap;flex-shrink:0;font-family:inherit;transition:color .18s}
@@ -127,6 +141,8 @@
     .panel.booking-fig{min-height:520px}
     .panel.booking-fig .lesa-svg{max-width:440px}
     .nav-links{display:none}
+    .nav-enter{display:none}
+    .nav-hamburger{display:flex}
     .panel.copy{padding:28px}
     .panel.booking-form{padding:28px}
   }
@@ -150,7 +166,22 @@
     <a class="nav-link" href="press.html">Press</a>
   </nav>
   <a class="nav-enter" href="book.html">Book Sean</a>
+  <button class="nav-hamburger" id="hamBtn" aria-label="Open navigation" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
 </header>
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <div class="mobile-menu-section">Talents</div>
+  <a class="mobile-menu-link" href="author.html">Author</a>
+  <a class="mobile-menu-link" href="producer.html">Producer</a>
+  <a class="mobile-menu-link" href="speaker.html">Speaker + Host</a>
+  <a class="mobile-menu-link" href="actor.html">On Camera</a>
+  <div class="mobile-menu-section">Navigate</div>
+  <a class="mobile-menu-link" href="experience.html">Experience</a>
+  <a class="mobile-menu-link" href="consultant.html">Consultant</a>
+  <a class="mobile-menu-link" href="press.html">Press</a>
+  <a class="mobile-menu-link book" href="book.html">Book Sean</a>
+</div>
 <div class="issue-bar">
   <span class="red"></span>
   <span class="title">Issue 01</span>
