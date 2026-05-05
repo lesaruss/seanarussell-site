@@ -287,11 +287,6 @@
   <button class="nav-hamburger" id="hamBtn" aria-label="Open navigation" aria-expanded="false">
     <span></span><span></span><span></span>
   </button>
-  <button class="nav-hamburger" id="hamBtn" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobileMenu">
-    <span aria-hidden="true"></span>
-    <span aria-hidden="true"></span>
-    <span aria-hidden="true"></span>
-  </button>
 </header>
 <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
   <div class="mobile-menu-section">Talents</div>
@@ -486,6 +481,17 @@
   </div>
 </footer>
 <script>
+  const hamBtn = document.getElementById('hamBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  if (hamBtn && mobileMenu) {
+    hamBtn.addEventListener('click', () => {
+      const open = mobileMenu.classList.toggle('open');
+      hamBtn.classList.toggle('open', open);
+      hamBtn.setAttribute('aria-expanded', open);
+      mobileMenu.setAttribute('aria-hidden', !open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    });
+  }
   // Keyboard support for Talents dropdown
   document.querySelectorAll(".nav-dropdown-trigger").forEach(btn => {
     btn.addEventListener("click", () => { const exp = btn.getAttribute("aria-expanded") === "true"; btn.setAttribute("aria-expanded", String(!exp)); });
