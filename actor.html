@@ -378,12 +378,6 @@
       document.body.style.overflow = open ? 'hidden' : '';
     });
   }
-  // ---- Theme toggle ----
-  if (tg) tg.addEventListener("click", () => {
-    const h = document.documentElement;
-    h.dataset.theme = h.dataset.theme === "light" ? "dark" : "light";
-  });
-
   // ---- Credits data ----
   const CREDITS = [
     {
