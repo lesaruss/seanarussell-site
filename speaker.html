@@ -210,6 +210,13 @@
   .foot-links{display:flex;gap:24px;font-weight:700;text-transform:uppercase;letter-spacing:.16em;font-size:10px}
   .foot-links a:hover{color:var(--orange)}
 
+  /* slot menu */
+  .slot-menu{background:var(--bg);border:1px solid var(--border);padding:14px 16px;margin-top:4px;margin-bottom:10px}
+  .slot-menu-label{font-size:9px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--orange);margin-bottom:12px}
+  .slot-cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .slot-group-title{font-size:9px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--text-50);margin-bottom:8px}
+  .slot-menu label{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text);padding:5px 0;cursor:pointer}
+  .slot-menu input[type="checkbox"]{width:15px;height:15px;accent-color:var(--orange);flex-shrink:0}
   /* RESPONSIVE */
   @media (max-width:1100px){
     .infra-grid{grid-template-columns:repeat(2,1fr)}
@@ -232,11 +239,14 @@
     .panel.copy:has(.cap){padding-top:58px}
     .panel.booking-form{padding:28px}
     .infra-grid{grid-template-columns:1fr 1fr}
+    .flip-grid{grid-template-columns:1fr}
+    .issue-bar > span:not(.red):not(.pulse){display:none}
+    .issue-bar::after{content:"Architect of the LESARUSS Universe";font-size:10px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--text-50)}
   }
   @media (max-width:600px){
     .infra-grid{grid-template-columns:1fr}
     .form-row{grid-template-columns:1fr}
-    .flip-grid{grid-template-columns:repeat(2,1fr)}
+    .flip-grid{grid-template-columns:1fr}
     .flip-card{height:240px}
   }
 </style>
@@ -530,16 +540,50 @@
                 <option>Awards / ceremony</option>
                 <option>Live podcast</option>
               </optgroup>
-              <option>Speaker + Host</option>
+              <option value="speaking + hosting">Speaking + Hosting</option>
+              <option>Consulting</option>
+              <option>Press / Media</option>
               <option>Full partnership</option>
               <option>Other</option>
             </select>
           </div>
         </div>
+        <!-- slot menu: appears when "Speaking + Hosting" is selected -->
+        <div id="slot-menu" class="slot-menu" hidden aria-live="polite">
+          <p class="slot-menu-label">Select your slots</p>
+          <div class="slot-cols">
+            <div>
+              <p class="slot-group-title">Speaking</p>
+              <label><input type="checkbox" name="slots" value="Keynote"> Keynote</label>
+              <label><input type="checkbox" name="slots" value="Panel"> Panel</label>
+              <label><input type="checkbox" name="slots" value="Workshop"> Workshop</label>
+              <label><input type="checkbox" name="slots" value="Conference"> Conference</label>
+            </div>
+            <div>
+              <p class="slot-group-title">Hosting</p>
+              <label><input type="checkbox" name="slots" value="Festival host"> Festival host</label>
+              <label><input type="checkbox" name="slots" value="Conference / panel MC"> Conference / panel MC</label>
+              <label><input type="checkbox" name="slots" value="Awards / ceremony"> Awards / ceremony</label>
+              <label><input type="checkbox" name="slots" value="Live podcast"> Live podcast</label>
+            </div>
+          </div>
+        </div>
+        <!-- budget row: shown conditionally based on engagement type -->
+        <div id="budget-row" style="display:none;margin-bottom:10px">
+          <label for="f-budget" class="sr-only">Budget range</label>
+          <select id="f-budget">
+            <option value="">Budget range</option>
+            <option>Under $5k</option>
+            <option>$5k - $15k</option>
+            <option>$15k - $30k</option>
+            <option>$30k+</option>
+            <option>Let's talk</option>
+          </select>
+        </div>
         <label for="f-date" class="sr-only">Event date or window</label>
         <input id="f-date" type="text" placeholder="Event date or window" style="margin-bottom:10px" autocomplete="off">
-        <label for="f-brief" class="sr-only">Brief: audience, outcome, budget</label>
-        <textarea id="f-brief" placeholder="The audience, the outcome, the budget range. In your words." required></textarea>
+        <label for="f-brief" class="sr-only">Brief: audience and outcome</label>
+        <textarea id="f-brief" placeholder="The audience, the outcome, and the context. In your words." required></textarea>
         <button type="submit" class="submit">Send the brief</button>
       </form>
     </article>
@@ -678,6 +722,19 @@
   });
 
   renderGrid();
+
+  // Engagement type: slot menu + budget conditional
+  const typeSelect = document.getElementById('f-type');
+  const slotMenu  = document.getElementById('slot-menu');
+  const budgetRow = document.getElementById('budget-row');
+  const BUDGET_TYPES = ['keynote','panel','workshop','conference','speaking','hosting','consulting','producing','festival','awards'];
+  if (typeSelect) {
+    typeSelect.addEventListener('change', function() {
+      const val = this.value.toLowerCase();
+      if (slotMenu) slotMenu.hidden = val !== 'speaking + hosting';
+      if (budgetRow) budgetRow.style.display = BUDGET_TYPES.some(t => val.includes(t)) ? 'block' : 'none';
+    });
+  }
 </script>
 </body>
 </html>
