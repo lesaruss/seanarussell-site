@@ -78,6 +78,8 @@
   .issue-bar .red{width:8px;height:8px;border-radius:50%;background:var(--orange);animation:dotPulse 2s ease-in-out infinite}
   .issue-bar span.title{color:var(--text)}
   .issue-bar .right{margin-left:auto;color:var(--text-30)}
+  .issue-bar > span:not(.red):not(.pulse){display:none}
+  .issue-bar::after{content:"Architect of the LESARUSS Universe";font-size:10px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--text-50)}
 
   /* LAYOUT */
   .spread{padding:var(--gutter);max-width:1280px;margin:0 auto}
@@ -202,8 +204,6 @@
     .panel.booking-form{padding:28px}
     .portfolio-search{width:160px}
     .flip-grid{grid-template-columns:1fr}
-    .issue-bar > span:not(.red):not(.pulse){display:none}
-    .issue-bar::after{content:"Architect of the LESARUSS Universe";font-size:10px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--text-50)}
   }
   @media (max-width:600px){
     .flip-grid{grid-template-columns:1fr}
