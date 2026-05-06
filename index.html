@@ -271,7 +271,7 @@
   }
 </style>
 </head>
-<body>
+<body data-no-newsletter>
 <header class="nav">
   <a class="nav-brand" href="index.html">Sean A. Russell<span class="dot">.</span></a>
   <nav class="nav-links" aria-label="Primary">
@@ -457,18 +457,20 @@
       <p class="eyebrow">Book Sean<span class="dot">.</span></p>
       <h2>Tell me<br>about<br>the room<span class="dot">.</span></h2>
       <p class="pre">Send the audience, the outcome, and the budget range. Reply within 48 hours.</p>
-      <form class="form" onsubmit="event.preventDefault();alert('Mockup form');">
+      <form class="form" data-contact="index">
         <div class="form-row">
-          <input type="text" placeholder="Your name" required>
-          <input type="email" placeholder="Email" required>
+          <input type="text" name="name" placeholder="Your name" required>
+          <input type="email" name="email" placeholder="Email" required>
         </div>
         <div class="form-row">
-          <input type="text" placeholder="Organization">
-          <select><option>Engagement type</option><option>Speaking</option><option>Consulting</option><option>Producing</option><option>On Camera</option><option>Hosting</option><option>Other</option></select>
+          <input type="text" name="organization" placeholder="Organization">
+          <select name="engagement_type"><option>Engagement type</option><option>Speaking</option><option>Consulting</option><option>Producing</option><option>On Camera</option><option>Hosting</option><option>Other</option></select>
         </div>
-        <input type="text" placeholder="Event date or window" style="margin-bottom:10px">
-        <textarea placeholder="The audience, the outcome, the budget range. In your words."></textarea>
+        <input type="text" name="event_date" placeholder="Event date or window" style="margin-bottom:10px">
+        <textarea name="message" placeholder="The audience, the outcome, the budget range. In your words."></textarea>
+        <input type="text" name="website" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden" aria-hidden="true" tabindex="-1" autocomplete="off">
         <button type="submit" class="submit">Send the brief</button>
+        <div class="form-msg" role="status" hidden></div>
       </form>
     </article>
   </div>
@@ -557,5 +559,6 @@
     <iframe id="reel-iframe" src="" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:none" title="Sean A. Russell — Speaker Reel"></iframe>
   </div>
 </div>
+<script src="assets/js/contact-form.js"></script>
 </body>
 </html>
