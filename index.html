@@ -263,6 +263,12 @@
     .nav-hamburger{display:flex}
     .panel.copy{padding:28px}
     .panel.booking-form{padding:28px}
+    .issue-bar > span:not(.red):not(.pulse){display:none}
+    .issue-bar::after{content:"Architect of the LESARUSS Universe";font-size:10px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--text-50)}
+    /* ticker: auto-scroll looping carousel on mobile */
+    .ticker{overflow:hidden;padding:0;position:relative;cursor:default}
+    .ticker-track{display:flex;align-items:center;gap:36px;padding:18px 28px;white-space:nowrap;width:max-content;animation:tickerScroll 22s linear infinite}
+    @keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
   }
 </style>
 </head>
@@ -459,7 +465,7 @@
         </div>
         <div class="form-row">
           <input type="text" placeholder="Organization">
-          <select><option>Engagement type</option><option>Speaking</option><option>Consulting</option><option>Producing</option><option>Acting</option><option>Hosting</option><option>Other</option></select>
+          <select><option>Engagement type</option><option>Speaking</option><option>Consulting</option><option>Producing</option><option>On Camera</option><option>Hosting</option><option>Other</option></select>
         </div>
         <input type="text" placeholder="Event date or window" style="margin-bottom:10px">
         <textarea placeholder="The audience, the outcome, the budget range. In your words."></textarea>
@@ -528,6 +534,15 @@
   if (reelLb) {
     reelLb.addEventListener('click', e => { if (e.target === reelLb) { reelLb.style.display = 'none'; reelIframe.src = ''; } });
     document.addEventListener('keydown', e => { if (e.key === 'Escape' && reelLb.style.display === 'flex') { reelLb.style.display = 'none'; reelIframe.src = ''; } });
+  }
+
+  // Brand ticker: looping carousel on mobile
+  if (window.matchMedia('(max-width:980px)').matches) {
+    const ticker = document.querySelector('.ticker');
+    if (ticker) {
+      const inner = ticker.innerHTML;
+      ticker.innerHTML = '<div class="ticker-track" aria-hidden="true">' + inner + inner + '</div>';
+    }
   }
 
   const words = ["Blueprint.", "Brands.", "Systems.", "Universes."];
