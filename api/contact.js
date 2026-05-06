@@ -17,6 +17,8 @@ export default async function handler(req, res) {
   const isBooking = ['booking', 'speaker', 'index'].includes(source);
   const tags = ['lesaruss-universe', isBooking ? 'sar-booking' : 'sar-newsletter'];
 
+  let subId = null;
+
   try {
     const bhResp = await fetch(
       `https://api.beehiiv.com/v2/publications/${BEEHIIV_PUBLICATION_ID}/subscriptions`,
@@ -41,32 +43,43 @@ export default async function handler(req, res) {
         })
       }
     );
+
+    const bhText = await bhResp.text();
     if (!bhResp.ok) {
-      console.error('Beehiiv error:', bhResp.status, await bhResp.text());
+      console.error('Beehiiv subscribe error:', bhResp.status, bhText.slice(0, 300));
       return res.status(502).json({ error: 'Subscription failed.' });
     }
 
-    // Tags must be applied via a separate PUT after creation.
-    // Beehiiv silently ignores tags passed in the POST body.
-    const bhData = await bhResp.json();
-    const subId = bhData && bhData.data && bhData.data.id;
-    if (subId) {
-      try {
-        await fetch(
-          `https://api.beehiiv.com/v2/publications/${BEEHIIV_PUBLICATION_ID}/subscriptions/${subId}`,
-          {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${BEEHIIV_API_KEY}` },
-            body: JSON.stringify({ tags })
-          }
-        );
-      } catch (e) {
-        console.error('Tag apply failed (non-fatal):', e);
-      }
+    try {
+      const bhData = JSON.parse(bhText);
+      subId = bhData && bhData.data && bhData.data.id;
+      console.error('Beehiiv subscribe OK. subId:', subId);
+    } catch (e) {
+      console.error('Beehiiv parse error:', e.message);
     }
   } catch (err) {
-    console.error('Beehiiv fetch error:', err);
+    console.error('Beehiiv fetch error:', err.message);
     return res.status(502).json({ error: 'Subscription failed.' });
+  }
+
+  // Apply each tag via POST /subscriptions/:id/tags (more reliable than PUT body)
+  if (subId) {
+    for (const tag of tags) {
+      try {
+        const tagResp = await fetch(
+          `https://api.beehiiv.com/v2/publications/${BEEHIIV_PUBLICATION_ID}/subscriptions/${subId}/tags`,
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${BEEHIIV_API_KEY}` },
+            body: JSON.stringify({ name: tag })
+          }
+        );
+        const tagText = await tagResp.text();
+        console.error('Tag apply', tag, '- status:', tagResp.status, 'body:', tagText.slice(0, 200));
+      } catch (e) {
+        console.error('Tag apply error for', tag, ':', e.message);
+      }
+    }
   }
 
   if (RESEND_API_KEY && NOTIFY_TO_EMAIL && isBooking) {
@@ -92,7 +105,7 @@ export default async function handler(req, res) {
         })
       });
     } catch (err) {
-      console.error('Resend error (non-fatal):', err);
+      console.error('Resend error (non-fatal):', err.message);
     }
   }
 
