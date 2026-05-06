@@ -75,6 +75,8 @@
   .issue-bar .red{width:8px;height:8px;border-radius:50%;background:var(--orange);animation:dotPulse 2s ease-in-out infinite}
   .issue-bar span.title{color:var(--text)}
   .issue-bar .right{margin-left:auto;color:var(--text-30)}
+  .issue-bar > span:not(.red):not(.pulse){display:none}
+  .issue-bar::after{content:"Architect of the LESARUSS Universe";font-size:10px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--text-50)}
   .spread{padding:var(--gutter);max-width:1280px;margin:0 auto}
   .spread + .spread{padding-top:0}
   .panel{position:relative;background:var(--bg);border:var(--panel-line-w) solid var(--panel-line);overflow:hidden}
@@ -151,8 +153,6 @@
     .spread .grid .panel.copy{order:2}
     .spread .grid .panel:not(.copy){order:1}
     /* issue bar */
-    .issue-bar > span:not(.red):not(.pulse){display:none}
-    .issue-bar::after{content:"Architect of the LESARUSS Universe";font-size:10px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--text-50)}
   }
 </style>
 </head>
