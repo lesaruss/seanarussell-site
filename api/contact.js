@@ -3,7 +3,7 @@ export default async function handler(req, res) {
 
   const { name, email, organization, engagement_type, event_date, budget, slots, message, source, website } = req.body || {};
 
-  if (website) return res.status(200).json({ ok: true }); // honeypot
+  if (website) return res.status(200).json({ ok: true });
 
   if (!email) return res.status(400).json({ error: 'Email is required.' });
 
@@ -45,15 +45,16 @@ export default async function handler(req, res) {
     );
 
     const bhText = await bhResp.text();
+    console.error('Beehiiv POST status:', bhResp.status, 'body:', bhText.slice(0, 600));
+
     if (!bhResp.ok) {
-      console.error('Beehiiv subscribe error:', bhResp.status, bhText.slice(0, 300));
       return res.status(502).json({ error: 'Subscription failed.' });
     }
 
     try {
       const bhData = JSON.parse(bhText);
       subId = bhData && bhData.data && bhData.data.id;
-      console.error('Beehiiv subscribe OK. subId:', subId);
+      console.error('Parsed subId:', subId, 'keys:', Object.keys((bhData && bhData.data) || {}).join(','));
     } catch (e) {
       console.error('Beehiiv parse error:', e.message);
     }
@@ -62,7 +63,6 @@ export default async function handler(req, res) {
     return res.status(502).json({ error: 'Subscription failed.' });
   }
 
-  // Apply each tag via POST /subscriptions/:id/tags (more reliable than PUT body)
   if (subId) {
     for (const tag of tags) {
       try {
@@ -75,11 +75,13 @@ export default async function handler(req, res) {
           }
         );
         const tagText = await tagResp.text();
-        console.error('Tag apply', tag, '- status:', tagResp.status, 'body:', tagText.slice(0, 200));
+        console.error('Tag', tag, 'status:', tagResp.status, 'body:', tagText.slice(0, 300));
       } catch (e) {
-        console.error('Tag apply error for', tag, ':', e.message);
+        console.error('Tag error', tag, ':', e.message);
       }
     }
+  } else {
+    console.error('No subId - skipping tag apply');
   }
 
   if (RESEND_API_KEY && NOTIFY_TO_EMAIL && isBooking) {
