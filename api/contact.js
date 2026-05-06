@@ -25,7 +25,7 @@ export default async function handler(req, res) {
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${BEEHIIV_API_KEY}` },
         body: JSON.stringify({
           email,
-          reactivate_existing: false,
+          reactivate_existing: true,
           send_welcome_email: true,
           utm_source: 'seanarussell.com',
           utm_medium: source || 'website',
@@ -37,14 +37,32 @@ export default async function handler(req, res) {
             { name: 'budget', value: budget || '' },
             { name: 'slots', value: Array.isArray(slots) ? slots.join(', ') : (slots || '') },
             { name: 'message', value: message || '' }
-          ],
-          tags
+          ]
         })
       }
     );
     if (!bhResp.ok) {
       console.error('Beehiiv error:', bhResp.status, await bhResp.text());
       return res.status(502).json({ error: 'Subscription failed.' });
+    }
+
+    // Tags must be applied via a separate PUT after creation.
+    // Beehiiv silently ignores tags passed in the POST body.
+    const bhData = await bhResp.json();
+    const subId = bhData && bhData.data && bhData.data.id;
+    if (subId) {
+      try {
+        await fetch(
+          `https://api.beehiiv.com/v2/publications/${BEEHIIV_PUBLICATION_ID}/subscriptions/${subId}`,
+          {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${BEEHIIV_API_KEY}` },
+            body: JSON.stringify({ tags })
+          }
+        );
+      } catch (e) {
+        console.error('Tag apply failed (non-fatal):', e);
+      }
     }
   } catch (err) {
     console.error('Beehiiv fetch error:', err);
