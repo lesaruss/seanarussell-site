@@ -234,6 +234,8 @@
     .nav-hamburger{display:flex}
     .panel.copy{padding:28px}
     .panel.booking-form{padding:28px}
+    .issue-bar > span:not(.red):not(.pulse){display:none}
+    .issue-bar::after{content:"Architect of the LESARUSS Universe";font-size:10px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--text-50)}
   }
 </style>
 </head>
@@ -296,7 +298,7 @@
         </div>
         <div class="form-row">
           <input type="text" placeholder="Organization">
-          <select><option>Engagement type</option><option>Speaking</option><option>Acting</option><option>Hosting</option><option>Consulting</option><option>Producing</option><option>Press</option><option>Partnership</option><option>Other</option></select>
+          <select><option>Engagement type</option><option>Speaking</option><option>On Camera</option><option>Hosting</option><option>Consulting</option><option>Producing</option><option>Press</option><option>Partnership</option><option>Other</option></select>
         </div>
         <input type="text" placeholder="Event date or window" style="margin-bottom:10px">
         <textarea placeholder="The audience, the outcome, the budget range. In your words."></textarea>
