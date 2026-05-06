@@ -201,10 +201,12 @@
     .panel.copy{padding:28px}
     .panel.booking-form{padding:28px}
     .portfolio-search{width:160px}
-    .flip-grid{grid-template-columns:repeat(2,1fr)}
+    .flip-grid{grid-template-columns:1fr}
+    .issue-bar > span:not(.red):not(.pulse){display:none}
+    .issue-bar::after{content:"Architect of the LESARUSS Universe";font-size:10px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--text-50)}
   }
   @media (max-width:600px){
-    .flip-grid{grid-template-columns:repeat(2,1fr)}
+    .flip-grid{grid-template-columns:1fr}
     .flip-card{height:240px}
     .portfolio-controls{flex-direction:column;align-items:flex-start}
     .portfolio-search{width:100%}
@@ -275,7 +277,6 @@
 <section class="spread">
   <article class="panel copy">
     <div class="cap tl">What gets built<span class="dot">.</span></div>
-    <p class="eyebrow">Production</p>
     <h2>From the napkin sketch<br>to the live event<span class="dot">.</span></h2>
     <p>Twenty-plus years executing campaigns up to $800M. Brand launches, festivals, podcasts, on-camera, ad creative. The full stack from blueprint to live event.</p>
     <ul class="beats">
@@ -291,7 +292,6 @@
 <section class="spread">
   <article class="panel copy" style="padding-bottom:36px">
     <div class="cap tl">The work<span class="dot">.</span></div>
-    <p class="eyebrow">Portfolio</p>
     <h2>Brands<span class="dot">.</span> Productions<span class="dot">.</span> Skills<span class="dot">.</span></h2>
     <p>Every brand built, every campaign produced, every skill in the stack. Filter by type or search to dig in.</p>
 
@@ -410,7 +410,7 @@
     { type:"skills", typeLabel:"Skill", subcat:"Community", title:"Community Builder", abbr:"COM", desc:"Membership systems, engagement loops, and sustained community momentum.", status:"", url:"" }
   ];
 
-  const INITIAL_SHOW = 12;
+  const INITIAL_SHOW = 5;
   let activeFilter = "all";
   let searchQuery = "";
   let allShown = false;
