@@ -5,7 +5,7 @@ export default async function handler(req, res) {
 
   if (website) return res.status(200).json({ ok: true }); // honeypot
 
-  if (!email || !name) return res.status(400).json({ error: 'Name and email are required.' });
+  if (!email) return res.status(400).json({ error: 'Email is required.' });
 
   const BEEHIIV_API_KEY = process.env.BEEHIIV_API_KEY;
   const BEEHIIV_PUBLICATION_ID = process.env.BEEHIIV_PUBLICATION_ID;
