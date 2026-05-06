@@ -251,7 +251,7 @@
   }
 </style>
 </head>
-<body>
+<body data-no-newsletter>
 
 <header class="nav">
   <a class="nav-brand" href="index.html">Sean A. Russell<span class="dot">.</span></a>
@@ -508,25 +508,25 @@
       <p class="eyebrow">The brief<span class="dot">.</span></p>
       <h2>Tell me<br>about<br>the room<span class="dot">.</span></h2>
       <p class="pre">Speaker, host, or both. Send the audience, the outcome, and the budget range. Reply within 48 hours.</p>
-      <form class="form" onsubmit="event.preventDefault();alert('Form submission coming at launch.');" aria-label="Booking inquiry" novalidate>
+      <form class="form" data-contact="speaker" aria-label="Booking inquiry" novalidate>
         <div class="form-row">
           <div>
             <label for="f-name" class="sr-only">Your name</label>
-            <input id="f-name" type="text" placeholder="Your name" required autocomplete="name">
+            <input id="f-name" name="name" type="text" placeholder="Your name" required autocomplete="name">
           </div>
           <div>
             <label for="f-email" class="sr-only">Email address</label>
-            <input id="f-email" type="email" placeholder="Email" required autocomplete="email">
+            <input id="f-email" name="email" type="email" placeholder="Email" required autocomplete="email">
           </div>
         </div>
         <div class="form-row">
           <div>
             <label for="f-org" class="sr-only">Organization</label>
-            <input id="f-org" type="text" placeholder="Organization" autocomplete="organization">
+            <input id="f-org" name="organization" type="text" placeholder="Organization" autocomplete="organization">
           </div>
           <div>
             <label for="f-type" class="sr-only">Engagement type</label>
-            <select id="f-type">
+            <select id="f-type" name="engagement_type">
               <option value="">Engagement type</option>
               <optgroup label="Speaking">
                 <option>Keynote</option>
@@ -571,7 +571,7 @@
         <!-- budget row: shown conditionally based on engagement type -->
         <div id="budget-row" style="display:none;margin-bottom:10px">
           <label for="f-budget" class="sr-only">Budget range</label>
-          <select id="f-budget">
+          <select id="f-budget" name="budget">
             <option value="">Budget range</option>
             <option>Under $5k</option>
             <option>$5k - $15k</option>
@@ -581,10 +581,12 @@
           </select>
         </div>
         <label for="f-date" class="sr-only">Event date or window</label>
-        <input id="f-date" type="text" placeholder="Event date or window" style="margin-bottom:10px" autocomplete="off">
+        <input id="f-date" name="event_date" type="text" placeholder="Event date or window" style="margin-bottom:10px" autocomplete="off">
         <label for="f-brief" class="sr-only">Brief: audience and outcome</label>
-        <textarea id="f-brief" placeholder="The audience, the outcome, and the context. In your words." required></textarea>
+        <textarea id="f-brief" name="message" placeholder="The audience, the outcome, and the context. In your words." required></textarea>
+        <input type="text" name="website" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden" aria-hidden="true" tabindex="-1" autocomplete="off">
         <button type="submit" class="submit">Send the brief</button>
+        <div class="form-msg" role="status" hidden></div>
       </form>
     </article>
   </div>
@@ -736,5 +738,6 @@
     });
   }
 </script>
+<script src="assets/js/contact-form.js"></script>
 </body>
 </html>
