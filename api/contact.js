@@ -8,15 +8,13 @@ export default async function handler(req, res) {
 
   const BEEHIIV_API_KEY = process.env.BEEHIIV_API_KEY;
   const BEEHIIV_PUBLICATION_ID = process.env.BEEHIIV_PUBLICATION_ID;
-  const RESEND_API_KEY = process.env.RESEND_API_KEY;
-  const NOTIFY_TO_EMAIL = process.env.NOTIFY_TO_EMAIL;
 
   if (!BEEHIIV_API_KEY || !BEEHIIV_PUBLICATION_ID) return res.status(502).json({ error: 'Service not configured.' });
 
   const isBooking = ['booking', 'speaker', 'index'].includes(source);
   const tags = ['lesaruss-universe', isBooking ? 'sar-booking' : 'sar-newsletter'];
 
-  const debug = { source, isBooking, tags, pubId: BEEHIIV_PUBLICATION_ID.slice(0,8) };
+  const debug = { source, isBooking, tags };
 
   let subId = null;
 
@@ -47,11 +45,10 @@ export default async function handler(req, res) {
 
     const bhText = await bhResp.text();
     debug.bhStatus = bhResp.status;
-    debug.bhBody = bhText.slice(0, 400);
 
     if (!bhResp.ok) {
-      console.error('BH_DEBUG', JSON.stringify(debug));
-      return res.status(502).json({ error: 'Subscription failed.' });
+      debug.bhError = bhText.slice(0, 500);
+      return res.status(502).json({ error: 'Subscription failed.', debug });
     }
 
     try {
@@ -59,16 +56,16 @@ export default async function handler(req, res) {
       subId = bhData && bhData.data && bhData.data.id;
       debug.subId = subId;
       debug.dataKeys = Object.keys((bhData && bhData.data) || {});
+      debug.topKeys = Object.keys(bhData || {});
     } catch (e) {
       debug.parseErr = e.message;
+      debug.rawSlice = bhText.slice(0, 300);
     }
   } catch (err) {
     debug.fetchErr = err.message;
-    console.error('BH_DEBUG', JSON.stringify(debug));
-    return res.status(502).json({ error: 'Subscription failed.' });
+    return res.status(502).json({ error: 'Subscription failed.', debug });
   }
 
-  // Try PUT with tags array (standard v2 update)
   if (subId) {
     try {
       const putResp = await fetch(
@@ -81,28 +78,12 @@ export default async function handler(req, res) {
       );
       const putText = await putResp.text();
       debug.putStatus = putResp.status;
-      debug.putBody = putText.slice(0, 300);
+      debug.putBody = putText.slice(0, 500);
     } catch (e) {
       debug.putErr = e.message;
     }
   }
 
-  console.error('BH_DEBUG', JSON.stringify(debug));
-
-  if (RESEND_API_KEY && NOTIFY_TO_EMAIL && isBooking) {
-    try {
-      await fetch('https://api.resend.com/emails', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${RESEND_API_KEY}` },
-        body: JSON.stringify({
-          from: 'noreply@lesaruss.com',
-          to: NOTIFY_TO_EMAIL,
-          subject: `Booking inquiry from ${name}`,
-          html: `<p>${email} - ${source}</p>`
-        })
-      });
-    } catch (err) {}
-  }
-
-  return res.status(200).json({ ok: true });
+  // Return debug in response temporarily
+  return res.status(200).json({ ok: true, debug });
 }
