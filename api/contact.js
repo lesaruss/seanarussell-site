@@ -10,11 +10,19 @@ export default async function handler(req, res) {
   const headers = { 'Content-Type': 'application/json', 'Authorization': `Bearer ${KEY}` };
   const debug = {};
 
-  // Step 1: List publication tags to get IDs
-  const tagsListResp = await fetch(`${BASE}/tags`, { headers: { Authorization: `Bearer ${KEY}` } });
-  debug.tagsListStatus = tagsListResp.status;
-  const tagsListData = await tagsListResp.json();
-  debug.tagsList = tagsListData;
+  // Step 1: Ensure tags exist and collect their IDs
+  const tagNames = source === 'booking' ? ['lesaruss-universe', 'sar-booking'] : ['lesaruss-universe', 'sar-newsletter'];
+  const tagIds = [];
+  for (const name of tagNames) {
+    const r = await fetch(`${BASE}/tags`, {
+      method: 'POST', headers,
+      body: JSON.stringify({ name })
+    });
+    const d = await r.json();
+    debug[`ensureTag_${name}`] = { status: r.status, id: d && d.data && d.data.id, body: JSON.stringify(d).slice(0, 200) };
+    if (d && d.data && d.data.id) tagIds.push(d.data.id);
+  }
+  debug.tagIds = tagIds;
 
   // Step 2: Create subscriber
   const bhResp = await fetch(`${BASE}/subscriptions`, {
@@ -26,32 +34,25 @@ export default async function handler(req, res) {
   debug.subId = subId;
   debug.bhStatus = bhResp.status;
 
-  if (subId && tagsListData && tagsListData.data) {
-    // Find IDs for our tags by name
-    const tagNames = ['lesaruss-universe', 'sar-newsletter'];
-    const matchedIds = tagsListData.data
-      .filter(t => tagNames.includes(t.name))
-      .map(t => t.id);
-    debug.matchedIds = matchedIds;
-
-    if (matchedIds.length > 0) {
-      // POST /subscriptions/:subId/tags with tag_ids
-      const tagResp = await fetch(`${BASE}/subscriptions/${subId}/tags`, {
-        method: 'POST', headers,
-        body: JSON.stringify({ tag_ids: matchedIds })
-      });
-      const tagBody = await tagResp.text();
-      debug.tagPost_status = tagResp.status;
-      debug.tagPost_body = tagBody.slice(0, 400);
-    }
+  // Step 3: Apply tags by ID
+  if (subId && tagIds.length > 0) {
+    const tagResp = await fetch(`${BASE}/subscriptions/${subId}/tags`, {
+      method: 'POST', headers,
+      body: JSON.stringify({ tag_ids: tagIds })
+    });
+    const tagBody = await tagResp.text();
+    debug.tagApply_status = tagResp.status;
+    debug.tagApply_body = tagBody.slice(0, 300);
   }
 
-  // Step 3: Verify
-  const getResp = await fetch(`${BASE}/subscriptions/${subId}?expand[]=tags`, {
-    headers: { Authorization: `Bearer ${KEY}` }
-  });
-  const getData = await getResp.json();
-  debug.finalTags = getData && getData.data && getData.data.tags;
+  // Step 4: Verify
+  if (subId) {
+    const getResp = await fetch(`${BASE}/subscriptions/${subId}?expand[]=tags`, {
+      headers: { Authorization: `Bearer ${KEY}` }
+    });
+    const getData = await getResp.json();
+    debug.finalTags = getData && getData.data && getData.data.tags;
+  }
 
   return res.status(200).json({ ok: true, debug });
 }
