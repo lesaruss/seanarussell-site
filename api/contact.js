@@ -11,54 +11,46 @@ export default async function handler(req, res) {
     const hdrs = { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + KEY };
     const debug = {};
 
-    async function safeJson(fetchPromise) {
-      const r = await fetchPromise;
+    async function safeJson(r) {
       const txt = await r.text();
-      let parsed;
-      try { parsed = JSON.parse(txt); } catch(e) { parsed = { _raw: txt.slice(0, 200) }; }
-      return { status: r.status, data: parsed };
+      let d; try { d = JSON.parse(txt); } catch(e) { d = { _raw: txt.slice(0,200) }; }
+      return { status: r.status, data: d };
     }
 
-    // Step 1: POST /tags for each name to get IDs (create if not exists)
-    const tagNames = source === 'booking' ? ['lesaruss-universe', 'sar-booking'] : ['lesaruss-universe', 'sar-newsletter'];
-    const tagIds = [];
-    for (let i = 0; i < tagNames.length; i++) {
-      const name = tagNames[i];
-      const result = await safeJson(fetch(BASE + '/tags', {
-        method: 'POST', headers: hdrs,
-        body: JSON.stringify({ name: name })
-      }));
-      debug['tag_' + i] = { name: name, status: result.status, resp: result.data };
-      const id = result.data && result.data.data && result.data.data.id;
-      if (id) tagIds.push(id);
-    }
-    debug.tagIds = tagIds;
-
-    // Step 2: Create subscriber
-    const sub = await safeJson(fetch(BASE + '/subscriptions', {
-      method: 'POST', headers: hdrs,
+    // Create subscriber
+    const subResp = await fetch(BASE + '/subscriptions', { method: 'POST', headers: hdrs,
       body: JSON.stringify({ email: email, reactivate_existing: true, send_welcome_email: false, utm_source: 'sar-website' })
-    }));
-    const subId = sub.data && sub.data.data && sub.data.data.id;
+    });
+    const subResult = await safeJson(subResp);
+    const subId = subResult.data && subResult.data.data && subResult.data.data.id;
     debug.subId = subId;
-    debug.subStatus = sub.status;
+    debug.subStatus = subResult.status;
 
-    // Step 3: Apply tags
-    if (subId && tagIds.length > 0) {
-      const apply = await safeJson(fetch(BASE + '/subscriptions/' + subId + '/tags', {
-        method: 'POST', headers: hdrs,
-        body: JSON.stringify({ tag_ids: tagIds })
-      }));
-      debug.applyStatus = apply.status;
-      debug.applyResp = apply.data;
-    }
-
-    // Step 4: Verify
     if (subId) {
-      const verify = await safeJson(fetch(BASE + '/subscriptions/' + subId + '?expand[]=tags', {
+      const tagNames = source === 'booking' ? ['lesaruss-universe', 'sar-booking'] : ['lesaruss-universe', 'sar-newsletter'];
+
+      // Hypothesis: tag_ids takes name strings directly
+      const tryA = await fetch(BASE + '/subscriptions/' + subId + '/tags', {
+        method: 'POST', headers: hdrs,
+        body: JSON.stringify({ tag_ids: tagNames })
+      });
+      const tryAResult = await safeJson(tryA);
+      debug.tryA_names_as_ids = { status: tryAResult.status, resp: tryAResult.data };
+
+      // Also try tags array of objects with name field in the PUT endpoint
+      const tryB = await fetch(BASE + '/subscriptions/' + subId, {
+        method: 'PUT', headers: hdrs,
+        body: JSON.stringify({ tags: tagNames })
+      });
+      const tryBResult = await safeJson(tryB);
+      debug.tryB_put_tags = { status: tryBResult.status, finalTags: tryBResult.data && tryBResult.data.data && tryBResult.data.data.tags };
+
+      // Verify
+      const verify = await fetch(BASE + '/subscriptions/' + subId + '?expand[]=tags', {
         headers: { Authorization: 'Bearer ' + KEY }
-      }));
-      debug.finalTags = verify.data && verify.data.data && verify.data.data.tags;
+      });
+      const verResult = await safeJson(verify);
+      debug.finalTags = verResult.data && verResult.data.data && verResult.data.data.tags;
     }
 
     return res.status(200).json({ ok: true, debug: debug });
