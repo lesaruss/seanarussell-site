@@ -4,7 +4,6 @@ export default async function handler(req, res) {
   const { name, email, organization, engagement_type, event_date, budget, slots, message, source, website } = req.body || {};
 
   if (website) return res.status(200).json({ ok: true });
-
   if (!email) return res.status(400).json({ error: 'Email is required.' });
 
   const BEEHIIV_API_KEY = process.env.BEEHIIV_API_KEY;
@@ -16,6 +15,8 @@ export default async function handler(req, res) {
 
   const isBooking = ['booking', 'speaker', 'index'].includes(source);
   const tags = ['lesaruss-universe', isBooking ? 'sar-booking' : 'sar-newsletter'];
+
+  const debug = { source, isBooking, tags, pubId: BEEHIIV_PUBLICATION_ID.slice(0,8) };
 
   let subId = null;
 
@@ -45,44 +46,48 @@ export default async function handler(req, res) {
     );
 
     const bhText = await bhResp.text();
-    console.error('Beehiiv POST status:', bhResp.status, 'body:', bhText.slice(0, 600));
+    debug.bhStatus = bhResp.status;
+    debug.bhBody = bhText.slice(0, 400);
 
     if (!bhResp.ok) {
+      console.error('BH_DEBUG', JSON.stringify(debug));
       return res.status(502).json({ error: 'Subscription failed.' });
     }
 
     try {
       const bhData = JSON.parse(bhText);
       subId = bhData && bhData.data && bhData.data.id;
-      console.error('Parsed subId:', subId, 'keys:', Object.keys((bhData && bhData.data) || {}).join(','));
+      debug.subId = subId;
+      debug.dataKeys = Object.keys((bhData && bhData.data) || {});
     } catch (e) {
-      console.error('Beehiiv parse error:', e.message);
+      debug.parseErr = e.message;
     }
   } catch (err) {
-    console.error('Beehiiv fetch error:', err.message);
+    debug.fetchErr = err.message;
+    console.error('BH_DEBUG', JSON.stringify(debug));
     return res.status(502).json({ error: 'Subscription failed.' });
   }
 
+  // Try PUT with tags array (standard v2 update)
   if (subId) {
-    for (const tag of tags) {
-      try {
-        const tagResp = await fetch(
-          `https://api.beehiiv.com/v2/publications/${BEEHIIV_PUBLICATION_ID}/subscriptions/${subId}/tags`,
-          {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${BEEHIIV_API_KEY}` },
-            body: JSON.stringify({ name: tag })
-          }
-        );
-        const tagText = await tagResp.text();
-        console.error('Tag', tag, 'status:', tagResp.status, 'body:', tagText.slice(0, 300));
-      } catch (e) {
-        console.error('Tag error', tag, ':', e.message);
-      }
+    try {
+      const putResp = await fetch(
+        `https://api.beehiiv.com/v2/publications/${BEEHIIV_PUBLICATION_ID}/subscriptions/${subId}`,
+        {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${BEEHIIV_API_KEY}` },
+          body: JSON.stringify({ tags })
+        }
+      );
+      const putText = await putResp.text();
+      debug.putStatus = putResp.status;
+      debug.putBody = putText.slice(0, 300);
+    } catch (e) {
+      debug.putErr = e.message;
     }
-  } else {
-    console.error('No subId - skipping tag apply');
   }
+
+  console.error('BH_DEBUG', JSON.stringify(debug));
 
   if (RESEND_API_KEY && NOTIFY_TO_EMAIL && isBooking) {
     try {
@@ -93,22 +98,10 @@ export default async function handler(req, res) {
           from: 'noreply@lesaruss.com',
           to: NOTIFY_TO_EMAIL,
           subject: `Booking inquiry from ${name}`,
-          html: [
-            `<p><strong>Name:</strong> ${name}</p>`,
-            `<p><strong>Email:</strong> ${email}</p>`,
-            `<p><strong>Organization:</strong> ${organization || 'N/A'}</p>`,
-            `<p><strong>Engagement type:</strong> ${engagement_type || 'N/A'}</p>`,
-            `<p><strong>Event date:</strong> ${event_date || 'N/A'}</p>`,
-            `<p><strong>Budget:</strong> ${budget || 'N/A'}</p>`,
-            `<p><strong>Slots:</strong> ${Array.isArray(slots) ? slots.join(', ') : (slots || 'N/A')}</p>`,
-            `<p><strong>Message:</strong></p><p>${(message || 'N/A').replace(/\n/g, '<br>')}</p>`,
-            `<p><strong>Source page:</strong> ${source || 'N/A'}</p>`
-          ].join('\n')
+          html: `<p>${email} - ${source}</p>`
         })
       });
-    } catch (err) {
-      console.error('Resend error (non-fatal):', err.message);
-    }
+    } catch (err) {}
   }
 
   return res.status(200).json({ ok: true });
