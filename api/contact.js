@@ -30,19 +30,16 @@ export default async function handler(req, res) {
       const d = JSON.parse(txt);
       subId = d && d.data && d.data.id;
     } catch (e) {}
-    if (!resp.ok && resp.status !== 201) {
-      console.error('Beehiiv subscribe error', resp.status);
-    }
     if (subId) {
       const tagIds = isBooking ? [TAG_UNIVERSE, TAG_BOOKING] : [TAG_UNIVERSE, TAG_NEWSLETTER];
-      fetch('https://api.beehiiv.com/v2/publications/' + PUB + '/subscriptions/' + subId + '/tags', {
+      await fetch('https://api.beehiiv.com/v2/publications/' + PUB + '/subscriptions/' + subId + '/tags', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + KEY },
         body: JSON.stringify({ tag_ids: tagIds })
-      }).catch(e => console.error('Tag apply failed', e.message));
+      });
     }
   } catch (err) {
-    console.error('Beehiiv fetch failed', err.message);
+    console.error('Beehiiv error', err.message);
   }
   return res.status(200).json({ ok: true });
 }
