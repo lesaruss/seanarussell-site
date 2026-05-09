@@ -148,8 +148,11 @@
     .panel.copy{padding:28px}
     .panel.copy:has(.cap){padding-top:58px}
     .panel.booking-form{padding:28px}
-    /* book sections: image before copy on mobile */
+    /* book sections: copy first, image below on mobile */
     .spread .grid{grid-template-columns:1fr !important}
+    .spread .grid .panel.copy{order:1}
+    .spread .grid .panel:not(.copy){order:2}
+    .spread .grid .section-header{margin-bottom:10px}
     /* issue bar */
   }
 </style>
