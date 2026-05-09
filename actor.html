@@ -205,7 +205,7 @@
     .portfolio-search{width:160px}
   }
   @media (max-width:600px){
-    .flip-grid{grid-template-columns:repeat(2,1fr)}
+    .flip-grid{grid-template-columns:1fr}
     .flip-card{height:240px}
     .portfolio-controls{flex-direction:column;align-items:flex-start}
     .portfolio-search{width:100%}
@@ -444,7 +444,7 @@
     },
   ];
 
-  const INITIAL_SHOW = 8;
+  function getInitialShow() { return window.matchMedia('(max-width:600px)').matches ? 3 : 8; }
   let activeFilter = "all";
   let searchQuery = "";
   let allShown = false;
@@ -474,7 +474,7 @@
       return;
     }
 
-    const showCount = allShown ? filtered.length : Math.min(INITIAL_SHOW, filtered.length);
+    const showCount = allShown ? filtered.length : Math.min(getInitialShow(), filtered.length);
 
     filtered.forEach((c, i) => {
       const card = document.createElement("div");
@@ -578,7 +578,7 @@
     });
 
     // Load more button
-    const hasMore = !allShown && filtered.length > INITIAL_SHOW;
+    const hasMore = !allShown && filtered.length > getInitialShow();
     lmWrap.hidden = !hasMore;
   }
 
