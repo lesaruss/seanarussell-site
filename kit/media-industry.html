@@ -153,6 +153,7 @@ button{font-family:inherit;cursor:pointer}
 
 /* ---- THREE DECADES ---- */
 .decades-panel{padding:52px 48px}
+.skills-panel{padding:52px 48px}
 .decades-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--g);margin-top:28px}
 .decade-item{border:var(--panel-line-w) solid var(--panel-line);padding:22px 20px}
 .decade-year{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.26em;color:var(--orange);margin-bottom:8px}
@@ -388,7 +389,7 @@ html[data-theme="dark"] .press-type-tag{background:rgba(255,255,255,.12);color:r
         <div class="sb-block">
           <div class="sb-label">BASED IN</div>
           <ul class="sb-list">
-            <li>Fort Lauderdale, FL</li>
+            <li>Orlando, FL</li>
             <li>Available Worldwide</li>
           </ul>
         </div>
@@ -961,17 +962,64 @@ html[data-theme="dark"] .press-type-tag{background:rgba(255,255,255,.12);color:r
             </div>
           </div>
           <div class="flip-back" role="note">
-            <p class="flip-back-label">Depth by Industry</p>
+            <p class="flip-back-label">Years Active by Industry</p>
             <h3>Industry Expertise</h3>
-            <p style="font-size:12px;line-height:2;opacity:.9;flex:1">
-              Professional Sports — since 1998<br>
-              Education — since 2003<br>
-              Japanese Pop Culture — since 2004<br>
-              Music — since 2007<br>
-              Travel and Hospitality — since 2018<br>
-              Beauty and Fashion — since 2021
-            </p>
-            <p>The earliest entries are not hobbies. They are decades of fluency. The newer ones reflect deliberate expansion into spaces where Sean saw gaps no one else was closing.</p>
+            <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:11px;margin:14px 0 10px">
+              <!-- Sports: 28 yrs = 100% -->
+              <div>
+                <div style="display:flex;justify-content:space-between;align-items:baseline;font-size:8.5px;font-weight:800;text-transform:uppercase;letter-spacing:.16em;margin-bottom:5px">
+                  <span>Professional Sports</span><span style="opacity:.55;font-weight:700">28 yrs</span>
+                </div>
+                <div style="height:5px;background:rgba(255,255,255,.08);border-radius:2px">
+                  <div style="height:100%;width:100%;background:#F69820;border-radius:2px"></div>
+                </div>
+              </div>
+              <!-- Education: 23 yrs = 82% -->
+              <div>
+                <div style="display:flex;justify-content:space-between;align-items:baseline;font-size:8.5px;font-weight:800;text-transform:uppercase;letter-spacing:.16em;margin-bottom:5px">
+                  <span>Education</span><span style="opacity:.55;font-weight:700">23 yrs</span>
+                </div>
+                <div style="height:5px;background:rgba(255,255,255,.08);border-radius:2px">
+                  <div style="height:100%;width:82%;background:rgba(255,255,255,.65);border-radius:2px"></div>
+                </div>
+              </div>
+              <!-- J-Pop: 22 yrs = 79% -->
+              <div>
+                <div style="display:flex;justify-content:space-between;align-items:baseline;font-size:8.5px;font-weight:800;text-transform:uppercase;letter-spacing:.16em;margin-bottom:5px">
+                  <span>Japanese Pop Culture</span><span style="opacity:.55;font-weight:700">22 yrs</span>
+                </div>
+                <div style="height:5px;background:rgba(255,255,255,.08);border-radius:2px">
+                  <div style="height:100%;width:79%;background:rgba(255,255,255,.55);border-radius:2px"></div>
+                </div>
+              </div>
+              <!-- Music: 19 yrs = 68% -->
+              <div>
+                <div style="display:flex;justify-content:space-between;align-items:baseline;font-size:8.5px;font-weight:800;text-transform:uppercase;letter-spacing:.16em;margin-bottom:5px">
+                  <span>Music</span><span style="opacity:.55;font-weight:700">19 yrs</span>
+                </div>
+                <div style="height:5px;background:rgba(255,255,255,.08);border-radius:2px">
+                  <div style="height:100%;width:68%;background:rgba(255,255,255,.45);border-radius:2px"></div>
+                </div>
+              </div>
+              <!-- Travel: 8 yrs = 29% -->
+              <div>
+                <div style="display:flex;justify-content:space-between;align-items:baseline;font-size:8.5px;font-weight:800;text-transform:uppercase;letter-spacing:.16em;margin-bottom:5px">
+                  <span>Travel &amp; Hospitality</span><span style="opacity:.55;font-weight:700">8 yrs</span>
+                </div>
+                <div style="height:5px;background:rgba(255,255,255,.08);border-radius:2px">
+                  <div style="height:100%;width:29%;background:rgba(255,255,255,.35);border-radius:2px"></div>
+                </div>
+              </div>
+              <!-- Fashion: 5 yrs = 18% -->
+              <div>
+                <div style="display:flex;justify-content:space-between;align-items:baseline;font-size:8.5px;font-weight:800;text-transform:uppercase;letter-spacing:.16em;margin-bottom:5px">
+                  <span>Beauty &amp; Fashion</span><span style="opacity:.55;font-weight:700">5 yrs</span>
+                </div>
+                <div style="height:5px;background:rgba(255,255,255,.08);border-radius:2px">
+                  <div style="height:100%;width:18%;background:#F69820;opacity:.6;border-radius:2px"></div>
+                </div>
+              </div>
+            </div>
             <p class="flip-back-foot">TAP TO FLIP BACK</p>
           </div>
         </div>
@@ -1329,7 +1377,7 @@ html[data-theme="dark"] .press-type-tag{background:rgba(255,255,255,.12);color:r
         </div>
         <div class="aside-block">
           <div class="aside-label">BASED IN</div>
-          <div class="aside-val">Fort Lauderdale, FL<br><span style="color:var(--text-30);font-size:12px">Available for travel worldwide</span></div>
+          <div class="aside-val">Orlando, FL<br><span style="color:var(--text-30);font-size:12px">Available for travel worldwide</span></div>
         </div>
         <div class="aside-block">
           <div class="aside-label">RESPONSE TIME</div>
