@@ -160,6 +160,9 @@ button{font-family:inherit;cursor:pointer}
 .org-logo:hover{filter:none;opacity:1}
 .org-name{font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:.16em;color:var(--text-30);transition:color .2s}
 .org-name:hover{color:var(--text)}
+.org-logo-item{display:flex;flex-direction:column;align-items:center;gap:8px}
+.org-logo-img{height:38px;width:38px;object-fit:contain;filter:grayscale(1);opacity:.55;transition:opacity .2s,filter .2s;border-radius:6px}
+.org-logo-img:hover{filter:none;opacity:1}
 
 /* ---- MEDIA ASSETS ---- */
 .assets-tabs{display:flex;border-bottom:var(--panel-line-w) solid var(--panel-line);margin-bottom:var(--g)}
@@ -178,6 +181,15 @@ button{font-family:inherit;cursor:pointer}
 .video-slot{aspect-ratio:16/9;position:relative;background:#000;border:var(--panel-line-w) solid var(--panel-line)}
 .video-slot iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
 .video-ph{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:#111;color:rgba(255,255,255,.3);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.2em}
+.press-grid{display:grid;gap:1px;background:var(--border);border:var(--panel-line-w) solid var(--border)}
+.press-item{background:var(--bg);padding:20px 24px;display:grid;grid-template-columns:100px 1fr;gap:12px 20px;align-items:start;transition:background .15s}
+.press-item:hover{background:var(--surface2)}
+.press-meta{display:flex;flex-direction:column;gap:5px}
+.press-type-tag{display:inline-block;font-size:8px;font-weight:900;text-transform:uppercase;letter-spacing:.22em;padding:3px 8px;background:var(--ink);color:white;width:fit-content}
+html[data-theme="dark"] .press-type-tag{background:rgba(255,255,255,.12);color:rgba(255,255,255,.7)}
+.press-pub{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.14em;color:var(--text);margin-top:2px}
+.press-date{font-size:10px;font-weight:600;letter-spacing:.06em;color:var(--text-30)}
+.press-headline-text{font-size:13px;line-height:1.7;color:var(--text-50);align-self:center;padding-top:2px}
 
 /* ---- CONTACT FORM ---- */
 .contact-grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:48px;padding:52px 48px}
@@ -656,47 +668,44 @@ button{font-family:inherit;cursor:pointer}
   <p class="sec-sub">Tap any card to see the details behind the work.</p>
   <div class="cases-grid" role="list">
 
-    <!-- Case 1: K12 Unlocked -->
-    <div class="flip-card" role="listitem" tabindex="0" aria-label="K12 Unlocked case study - tap to open">
+    <!-- Case 1: LESARUSS -->
+    <div class="flip-card" role="listitem" tabindex="0" aria-label="LESARUSS System case study - tap to open">
       <div class="flip-inner">
         <div class="flip-front">
           <div class="flip-title-bar">
-            <span>K12 Unlocked</span>
+            <span>LESARUSS</span>
             <span class="flip-hint">TAP</span>
           </div>
           <div class="flip-art" aria-hidden="true">
             <svg viewBox="0 0 320 230" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
               <rect width="320" height="230" fill="#0d0d0d"/>
-              <!-- Halftone dots -->
-              <pattern id="dots1" x="0" y="0" width="14" height="14" patternUnits="userSpaceOnUse">
-                <circle cx="7" cy="7" r="1" fill="rgba(246,152,32,.15)"/>
-              </pattern>
-              <rect width="320" height="230" fill="url(#dots1)"/>
-              <!-- Building silhouette -->
-              <rect x="80" y="100" width="160" height="90" fill="#1a1a1a" stroke="white" stroke-width="2"/>
-              <rect x="60" y="80" width="200" height="25" fill="#F69820" stroke="white" stroke-width="2"/>
-              <!-- Windows -->
-              <rect x="96" y="116" width="22" height="18" fill="#0d0d0d" stroke="rgba(255,255,255,.3)" stroke-width="1"/>
-              <rect x="128" y="116" width="22" height="18" fill="#0d0d0d" stroke="rgba(255,255,255,.3)" stroke-width="1"/>
-              <rect x="170" y="116" width="22" height="18" fill="#F69820" stroke="rgba(255,255,255,.3)" stroke-width="1"/>
-              <rect x="202" y="116" width="22" height="18" fill="#0d0d0d" stroke="rgba(255,255,255,.3)" stroke-width="1"/>
-              <!-- Door -->
-              <rect x="144" y="152" width="32" height="38" fill="#0d0d0d" stroke="rgba(255,255,255,.4)" stroke-width="1.5"/>
-              <!-- Key unlock overlay -->
-              <circle cx="240" cy="65" r="14" fill="#0d0d0d" stroke="#F69820" stroke-width="2.5"/>
-              <circle cx="240" cy="65" r="6" fill="none" stroke="#F69820" stroke-width="2"/>
-              <rect x="250" y="63" width="18" height="4" rx="2" fill="#F69820"/>
-              <rect x="262" y="67" width="6" height="4" rx="1" fill="#F69820"/>
-              <!-- FLAG / BANNER top -->
-              <rect x="153" y="35" width="14" height="28" fill="#F69820" stroke="white" stroke-width="1.5"/>
-              <line x1="160" y1="35" x2="160" y2="80" stroke="rgba(255,255,255,.3)" stroke-width="1.5"/>
+              <rect x="50" y="60" width="62" height="42" fill="#111" stroke="#F69820" stroke-width="2"/>
+              <rect x="129" y="60" width="62" height="42" fill="#F69820" stroke="#F69820" stroke-width="2"/>
+              <rect x="208" y="60" width="62" height="42" fill="#111" stroke="rgba(255,255,255,.4)" stroke-width="1.5"/>
+              <rect x="50" y="119" width="62" height="42" fill="#111" stroke="rgba(255,255,255,.4)" stroke-width="1.5"/>
+              <rect x="129" y="119" width="62" height="42" fill="#111" stroke="rgba(255,255,255,.4)" stroke-width="1.5"/>
+              <rect x="208" y="119" width="62" height="42" fill="#F69820" stroke="#F69820" stroke-width="2"/>
+              <text x="81" y="86" fill="rgba(255,255,255,.5)" text-anchor="middle" font-size="8" font-weight="800" font-family="Montserrat,sans-serif">BRAND</text>
+              <text x="160" y="86" fill="#0d0d0d" text-anchor="middle" font-size="8" font-weight="800" font-family="Montserrat,sans-serif">SYSTEM</text>
+              <text x="239" y="86" fill="rgba(255,255,255,.5)" text-anchor="middle" font-size="8" font-weight="800" font-family="Montserrat,sans-serif">OPS</text>
+              <text x="81" y="145" fill="rgba(255,255,255,.5)" text-anchor="middle" font-size="8" font-weight="800" font-family="Montserrat,sans-serif">SIGNAL</text>
+              <text x="160" y="145" fill="rgba(255,255,255,.5)" text-anchor="middle" font-size="8" font-weight="800" font-family="Montserrat,sans-serif">GROWTH</text>
+              <text x="239" y="145" fill="#0d0d0d" text-anchor="middle" font-size="8" font-weight="800" font-family="Montserrat,sans-serif">MEDIA</text>
+              <line x1="112" y1="81" x2="129" y2="81" stroke="rgba(246,152,32,.5)" stroke-width="1.5"/>
+              <line x1="191" y1="81" x2="208" y2="81" stroke="rgba(255,255,255,.2)" stroke-width="1"/>
+              <line x1="112" y1="140" x2="129" y2="140" stroke="rgba(255,255,255,.2)" stroke-width="1"/>
+              <line x1="191" y1="140" x2="208" y2="140" stroke="rgba(246,152,32,.5)" stroke-width="1.5"/>
+              <line x1="81" y1="102" x2="81" y2="119" stroke="rgba(255,255,255,.2)" stroke-width="1"/>
+              <line x1="160" y1="102" x2="160" y2="119" stroke="rgba(246,152,32,.5)" stroke-width="1.5"/>
+              <line x1="239" y1="102" x2="239" y2="119" stroke="rgba(246,152,32,.5)" stroke-width="1.5"/>
+              <text x="160" y="195" fill="rgba(255,255,255,.12)" text-anchor="middle" font-size="22" font-weight="900" font-family="Montserrat,sans-serif">LESARUSS</text>
             </svg>
           </div>
         </div>
         <div class="flip-back" role="note">
           <p class="flip-back-label">Case Study</p>
-          <h3>K12 Unlocked</h3>
-          <p>An EdTech platform built to address systemic gaps in public school systems. Developed from Sean's direct experience working inside school districts, K12 Unlocked created tools, frameworks, and community infrastructure that reached district administrators and educators across the country.</p>
+          <h3>LESARUSS</h3>
+          <p>A full brand-building operating system launched as a multi-brand universe spanning eight distinct properties across media, education, entertainment, and lifestyle. LESARUSS serves as the infrastructure layer, connecting brands, creators, and community members through a unified platform and system architecture designed and built by Sean.</p>
           <p class="flip-back-foot">TAP TO FLIP BACK</p>
         </div>
       </div>
@@ -713,22 +722,16 @@ button{font-family:inherit;cursor:pointer}
           <div class="flip-art" aria-hidden="true">
             <svg viewBox="0 0 320 230" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
               <rect width="320" height="230" fill="#0d0d0d"/>
-              <!-- Globe -->
               <circle cx="160" cy="115" r="75" stroke="#F69820" stroke-width="2.5" fill="#0d0d0d"/>
-              <!-- Latitude lines -->
               <ellipse cx="160" cy="115" rx="75" ry="30" stroke="rgba(255,255,255,.12)" stroke-width="1" fill="none"/>
               <line x1="85" y1="115" x2="235" y2="115" stroke="rgba(255,255,255,.12)" stroke-width="1"/>
               <ellipse cx="160" cy="115" rx="75" ry="55" stroke="rgba(255,255,255,.08)" stroke-width="1" fill="none"/>
-              <!-- Meridian lines -->
               <line x1="160" y1="40" x2="160" y2="190" stroke="rgba(255,255,255,.12)" stroke-width="1"/>
               <ellipse cx="160" cy="115" rx="35" ry="75" stroke="rgba(255,255,255,.1)" stroke-width="1" fill="none"/>
-              <!-- Compass needle -->
               <polygon points="160,65 156,115 160,95 164,115" fill="#F69820"/>
               <polygon points="160,165 156,115 160,135 164,115" fill="rgba(255,255,255,.4)"/>
-              <!-- Leaf element top right -->
               <path d="M215 55 Q235 35 248 48 Q255 70 232 72 Q220 73 215 55Z" fill="#F69820" stroke="white" stroke-width="1.5"/>
               <path d="M215 55 Q230 62 232 72" stroke="rgba(0,0,0,.4)" stroke-width="1"/>
-              <!-- Pin at destination -->
               <circle cx="200" cy="90" r="8" fill="white" stroke="#F69820" stroke-width="2"/>
               <circle cx="200" cy="90" r="3" fill="#F69820"/>
             </svg>
@@ -743,99 +746,111 @@ button{font-family:inherit;cursor:pointer}
       </div>
     </div>
 
-    <!-- Case 3: LESARUSS System -->
-    <div class="flip-card" role="listitem" tabindex="0" aria-label="LESARUSS System case study - tap to open">
+    <!-- Case 3: GeekFon Society -->
+    <div class="flip-card" role="listitem" tabindex="0" aria-label="GeekFon Society case study - tap to open">
       <div class="flip-inner">
         <div class="flip-front">
           <div class="flip-title-bar">
-            <span>LESARUSS</span>
+            <span>GeekFon Society</span>
             <span class="flip-hint">TAP</span>
           </div>
           <div class="flip-art" aria-hidden="true">
             <svg viewBox="0 0 320 230" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
               <rect width="320" height="230" fill="#0d0d0d"/>
-              <!-- Module grid -->
-              <rect x="50" y="60" width="62" height="42" fill="#111" stroke="#F69820" stroke-width="2"/>
-              <rect x="129" y="60" width="62" height="42" fill="#F69820" stroke="#F69820" stroke-width="2"/>
-              <rect x="208" y="60" width="62" height="42" fill="#111" stroke="rgba(255,255,255,.4)" stroke-width="1.5"/>
-              <rect x="50" y="119" width="62" height="42" fill="#111" stroke="rgba(255,255,255,.4)" stroke-width="1.5"/>
-              <rect x="129" y="119" width="62" height="42" fill="#111" stroke="rgba(255,255,255,.4)" stroke-width="1.5"/>
-              <rect x="208" y="119" width="62" height="42" fill="#F69820" stroke="#F69820" stroke-width="2"/>
-              <!-- Labels in modules -->
-              <text x="81" y="86" fill="rgba(255,255,255,.5)" text-anchor="middle" font-size="8" font-weight="800" font-family="Montserrat,sans-serif">BRAND</text>
-              <text x="160" y="86" fill="#0d0d0d" text-anchor="middle" font-size="8" font-weight="800" font-family="Montserrat,sans-serif">SYSTEM</text>
-              <text x="239" y="86" fill="rgba(255,255,255,.5)" text-anchor="middle" font-size="8" font-weight="800" font-family="Montserrat,sans-serif">OPS</text>
-              <text x="81" y="145" fill="rgba(255,255,255,.5)" text-anchor="middle" font-size="8" font-weight="800" font-family="Montserrat,sans-serif">SIGNAL</text>
-              <text x="160" y="145" fill="rgba(255,255,255,.5)" text-anchor="middle" font-size="8" font-weight="800" font-family="Montserrat,sans-serif">GROWTH</text>
-              <text x="239" y="145" fill="#0d0d0d" text-anchor="middle" font-size="8" font-weight="800" font-family="Montserrat,sans-serif">MEDIA</text>
-              <!-- Connect lines -->
-              <line x1="112" y1="81" x2="129" y2="81" stroke="rgba(246,152,32,.5)" stroke-width="1.5"/>
-              <line x1="191" y1="81" x2="208" y2="81" stroke="rgba(255,255,255,.2)" stroke-width="1"/>
-              <line x1="112" y1="140" x2="129" y2="140" stroke="rgba(255,255,255,.2)" stroke-width="1"/>
-              <line x1="191" y1="140" x2="208" y2="140" stroke="rgba(246,152,32,.5)" stroke-width="1.5"/>
-              <!-- Vertical connections -->
-              <line x1="81" y1="102" x2="81" y2="119" stroke="rgba(255,255,255,.2)" stroke-width="1"/>
-              <line x1="160" y1="102" x2="160" y2="119" stroke="rgba(246,152,32,.5)" stroke-width="1.5"/>
-              <line x1="239" y1="102" x2="239" y2="119" stroke="rgba(246,152,32,.5)" stroke-width="1.5"/>
-              <!-- Logo bottom -->
-              <text x="160" y="195" fill="rgba(255,255,255,.12)" text-anchor="middle" font-size="22" font-weight="900" font-family="Montserrat,sans-serif">LESARUSS</text>
+              <pattern id="dots-gf" x="0" y="0" width="14" height="14" patternUnits="userSpaceOnUse">
+                <circle cx="7" cy="7" r="1" fill="rgba(246,152,32,.12)"/>
+              </pattern>
+              <rect width="320" height="230" fill="url(#dots-gf)"/>
+              <!-- Signal arcs -->
+              <circle cx="160" cy="95" r="42" stroke="rgba(246,152,32,.18)" stroke-width="1.5" fill="none"/>
+              <circle cx="160" cy="95" r="68" stroke="rgba(246,152,32,.1)" stroke-width="1" fill="none"/>
+              <circle cx="160" cy="95" r="94" stroke="rgba(246,152,32,.06)" stroke-width="1" fill="none"/>
+              <!-- Left buildings -->
+              <rect x="18" y="148" width="30" height="62" fill="#1a1a1a" stroke="white" stroke-width="1.5"/>
+              <rect x="26" y="138" width="18" height="12" fill="#1a1a1a" stroke="white" stroke-width="1.5"/>
+              <rect x="22" y="158" width="8" height="8" fill="#F69820"/>
+              <rect x="35" y="158" width="8" height="8" fill="#0d0d0d" stroke="rgba(255,255,255,.3)" stroke-width="1"/>
+              <rect x="58" y="130" width="44" height="80" fill="#111" stroke="white" stroke-width="2"/>
+              <rect x="66" y="120" width="28" height="12" fill="#111" stroke="white" stroke-width="1.5"/>
+              <rect x="63" y="146" width="11" height="10" fill="#F69820"/>
+              <rect x="79" y="146" width="11" height="10" fill="#0d0d0d" stroke="rgba(255,255,255,.3)" stroke-width="1"/>
+              <rect x="63" y="162" width="11" height="10" fill="#0d0d0d" stroke="rgba(255,255,255,.3)" stroke-width="1"/>
+              <rect x="79" y="162" width="11" height="10" fill="#F69820" opacity=".5"/>
+              <!-- Tower -->
+              <line x1="160" y1="165" x2="160" y2="45" stroke="white" stroke-width="3"/>
+              <polygon points="151,93 160,45 169,93" fill="#F69820" stroke="white" stroke-width="1.5"/>
+              <circle cx="160" cy="45" r="5" fill="#F69820" stroke="white" stroke-width="1.5"/>
+              <!-- Signal lines from tower -->
+              <path d="M148 78 Q138 66 143 53" stroke="#F69820" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <path d="M172 78 Q182 66 177 53" stroke="#F69820" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <path d="M142 86 Q128 70 135 52" stroke="rgba(246,152,32,.45)" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+              <path d="M178 86 Q192 70 185 52" stroke="rgba(246,152,32,.45)" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+              <!-- Right buildings -->
+              <rect x="218" y="122" width="50" height="88" fill="#111" stroke="white" stroke-width="2"/>
+              <rect x="225" y="112" width="16" height="12" fill="#111" stroke="white" stroke-width="1.5"/>
+              <rect x="222" y="137" width="13" height="10" fill="#F69820"/>
+              <rect x="240" y="137" width="13" height="10" fill="#0d0d0d" stroke="rgba(255,255,255,.3)" stroke-width="1"/>
+              <rect x="255" y="137" width="9" height="10" fill="#0d0d0d" stroke="rgba(255,255,255,.3)" stroke-width="1"/>
+              <rect x="222" y="154" width="13" height="10" fill="#0d0d0d" stroke="rgba(255,255,255,.3)" stroke-width="1"/>
+              <rect x="240" y="154" width="13" height="10" fill="#F69820" opacity=".5"/>
+              <rect x="275" y="146" width="32" height="64" fill="#1a1a1a" stroke="white" stroke-width="1.5"/>
+              <rect x="281" y="136" width="18" height="12" fill="#1a1a1a" stroke="white" stroke-width="1.5"/>
+              <rect x="278" y="156" width="9" height="8" fill="#F69820" opacity=".8"/>
+              <!-- Anime star top right -->
+              <polygon points="272,30 275,42 287,42 277,49 281,61 272,54 263,61 267,49 257,42 269,42" fill="#F69820" stroke="white" stroke-width="1"/>
+              <!-- Stars -->
+              <circle cx="44" cy="24" r="2" fill="white" opacity=".5"/>
+              <circle cx="92" cy="14" r="1.5" fill="white" opacity=".35"/>
+              <circle cx="218" cy="18" r="2" fill="#F69820" opacity=".65"/>
+              <line x1="0" y1="210" x2="320" y2="210" stroke="rgba(255,255,255,.07)" stroke-width="1"/>
+              <text x="160" y="222" fill="rgba(255,255,255,.1)" text-anchor="middle" font-size="13" font-weight="900" font-family="Montserrat,sans-serif">GEEKFON</text>
             </svg>
           </div>
         </div>
         <div class="flip-back" role="note">
           <p class="flip-back-label">Case Study</p>
-          <h3>LESARUSS</h3>
-          <p>A full brand-building operating system launched as a multi-brand universe spanning eight distinct properties across media, education, entertainment, and lifestyle. LESARUSS serves as the infrastructure layer, connecting brands, creators, and community members through a unified platform and system architecture designed and built by Sean.</p>
+          <h3>GeekFon Society</h3>
+          <p>The first geek culture lifestyle network built as a full membership society, with its own radio station, city chapters, live events, and original content operating under one brand. What makes it groundbreaking: GeekFon turns fans into dues-paying members and members into city-level operators, creating a self-compounding network across music, gaming, anime, and pop culture with owned distribution and no platform dependency.</p>
           <p class="flip-back-foot">TAP TO FLIP BACK</p>
         </div>
       </div>
     </div>
 
-    <!-- Case 4: Anime3000 / Vegan 64 -->
-    <div class="flip-card" role="listitem" tabindex="0" aria-label="Anime3000 and Vegan 64 case study - tap to open">
+    <!-- Case 4: K12 Unlocked -->
+    <div class="flip-card" role="listitem" tabindex="0" aria-label="K12 Unlocked case study - tap to open">
       <div class="flip-inner">
         <div class="flip-front">
           <div class="flip-title-bar">
-            <span>Anime3000 / Vegan 64</span>
+            <span>K12 Unlocked</span>
             <span class="flip-hint">TAP</span>
           </div>
           <div class="flip-art" aria-hidden="true">
             <svg viewBox="0 0 320 230" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
               <rect width="320" height="230" fill="#0d0d0d"/>
-              <!-- Pixel grid overlay -->
-              <pattern id="px1" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
-                <rect width="10" height="10" fill="none" stroke="rgba(255,255,255,.04)" stroke-width=".5"/>
+              <pattern id="dots-k12" x="0" y="0" width="14" height="14" patternUnits="userSpaceOnUse">
+                <circle cx="7" cy="7" r="1" fill="rgba(246,152,32,.15)"/>
               </pattern>
-              <rect width="320" height="230" fill="url(#px1)"/>
-              <!-- Controller body -->
-              <rect x="60" y="80" width="200" height="90" rx="40" fill="#111" stroke="white" stroke-width="2"/>
-              <!-- D-pad left -->
-              <rect x="88" y="118" width="28" height="10" rx="3" fill="#F69820"/>
-              <rect x="97" y="109" width="10" height="28" rx="3" fill="#F69820"/>
-              <!-- ABXY right -->
-              <circle cx="218" cy="115" r="7" fill="#111" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/>
-              <circle cx="232" cy="125" r="7" fill="#F69820" stroke="white" stroke-width="1.5"/>
-              <circle cx="218" cy="135" r="7" fill="#111" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/>
-              <circle cx="204" cy="125" r="7" fill="#111" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/>
-              <!-- Center buttons -->
-              <rect x="149" y="120" width="22" height="10" rx="3" fill="rgba(255,255,255,.15)"/>
-              <!-- Anime star/eye upper left -->
-              <polygon points="100,55 103,65 113,65 105,72 108,82 100,76 92,82 95,72 87,65 97,65" fill="#F69820"/>
-              <!-- Screen-like element -->
-              <text x="232" y="76" fill="rgba(255,255,255,.15)" text-anchor="middle" font-size="10" font-weight="700" font-family="Montserrat,sans-serif">ANIME</text>
-              <text x="232" y="90" fill="rgba(246,152,32,.3)" text-anchor="middle" font-size="10" font-weight="900" font-family="Montserrat,sans-serif">3000</text>
-              <!-- Pixel art person bottom right -->
-              <rect x="240" y="150" width="10" height="10" fill="#F69820"/>
-              <rect x="238" y="160" width="14" height="8" fill="#F69820"/>
-              <rect x="236" y="168" width="6" height="10" fill="#F69820"/>
-              <rect x="248" y="168" width="6" height="10" fill="#F69820"/>
+              <rect width="320" height="230" fill="url(#dots-k12)"/>
+              <rect x="80" y="100" width="160" height="90" fill="#1a1a1a" stroke="white" stroke-width="2"/>
+              <rect x="60" y="80" width="200" height="25" fill="#F69820" stroke="white" stroke-width="2"/>
+              <rect x="96" y="116" width="22" height="18" fill="#0d0d0d" stroke="rgba(255,255,255,.3)" stroke-width="1"/>
+              <rect x="128" y="116" width="22" height="18" fill="#0d0d0d" stroke="rgba(255,255,255,.3)" stroke-width="1"/>
+              <rect x="170" y="116" width="22" height="18" fill="#F69820" stroke="rgba(255,255,255,.3)" stroke-width="1"/>
+              <rect x="202" y="116" width="22" height="18" fill="#0d0d0d" stroke="rgba(255,255,255,.3)" stroke-width="1"/>
+              <rect x="144" y="152" width="32" height="38" fill="#0d0d0d" stroke="rgba(255,255,255,.4)" stroke-width="1.5"/>
+              <circle cx="240" cy="65" r="14" fill="#0d0d0d" stroke="#F69820" stroke-width="2.5"/>
+              <circle cx="240" cy="65" r="6" fill="none" stroke="#F69820" stroke-width="2"/>
+              <rect x="250" y="63" width="18" height="4" rx="2" fill="#F69820"/>
+              <rect x="262" y="67" width="6" height="4" rx="1" fill="#F69820"/>
+              <rect x="153" y="35" width="14" height="28" fill="#F69820" stroke="white" stroke-width="1.5"/>
+              <line x1="160" y1="35" x2="160" y2="80" stroke="rgba(255,255,255,.3)" stroke-width="1.5"/>
             </svg>
           </div>
         </div>
         <div class="flip-back" role="note">
           <p class="flip-back-label">Case Study</p>
-          <h3>Anime3000 / Vegan 64</h3>
-          <p>Two of Sean's longest-running community brands. Anime3000 is one of the oldest fan media communities of its kind in the U.S., with conventions, original content, and a fanbase built over two decades. Vegan 64 brings plant-based culture into gaming and pop culture spaces, creating a rare crossover audience few creators have reached.</p>
+          <h3>K12 Unlocked</h3>
+          <p>An EdTech platform built to address systemic gaps in public school systems. Developed from Sean's direct experience working inside school districts, K12 Unlocked created tools, frameworks, and community infrastructure that reached district administrators and educators across the country.</p>
           <p class="flip-back-foot">TAP TO FLIP BACK</p>
         </div>
       </div>
@@ -853,9 +868,9 @@ button{font-family:inherit;cursor:pointer}
     <h2 class="sec-title">Built Over Time</h2>
     <div class="decades-grid">
       <div class="decade-item">
-        <div class="decade-year">1996</div>
-        <div class="decade-title">Digital Roots</div>
-        <div class="decade-body">Began professional work as the webmaster for the USS Hoga, a historic Navy vessel. One of the first self-taught web creators in the pre-Google era.</div>
+        <div class="decade-year">LATE 90s</div>
+        <div class="decade-title">Professional Before Graduation</div>
+        <div class="decade-body">Before finishing high school, Sean was already working: webmaster for the Florida Marlins and a junior reporter for NBC's Broward County affiliate. Real professional credentials at 16, in an era when most people had never built a website.</div>
       </div>
       <div class="decade-item">
         <div class="decade-year">2000s</div>
@@ -881,12 +896,30 @@ button{font-family:inherit;cursor:pointer}
   <p class="sec-label" id="connected-heading" style="margin-bottom:8px">CONNECTED TO</p>
   <div class="logos-panel">
     <div class="logos-flex">
-      <span class="org-name">BCPS</span>
-      <span class="org-name">ABC</span>
-      <span class="org-name">NBC</span>
-      <span class="org-name">MTV</span>
-      <span class="org-name">Crunchyroll</span>
-      <span class="org-name">Nintendo</span>
+      <div class="org-logo-item">
+        <img class="org-logo-img" src="https://www.google.com/s2/favicons?domain=browardschools.com&sz=128" alt="" aria-hidden="true" loading="lazy" onerror="this.style.display='none'">
+        <span class="org-name">BCPS</span>
+      </div>
+      <div class="org-logo-item">
+        <img class="org-logo-img" src="https://www.google.com/s2/favicons?domain=abc.com&sz=128" alt="" aria-hidden="true" loading="lazy" onerror="this.style.display='none'">
+        <span class="org-name">ABC</span>
+      </div>
+      <div class="org-logo-item">
+        <img class="org-logo-img" src="https://www.google.com/s2/favicons?domain=nbc.com&sz=128" alt="" aria-hidden="true" loading="lazy" onerror="this.style.display='none'">
+        <span class="org-name">NBC</span>
+      </div>
+      <div class="org-logo-item">
+        <img class="org-logo-img" src="https://www.google.com/s2/favicons?domain=mtv.com&sz=128" alt="" aria-hidden="true" loading="lazy" onerror="this.style.display='none'">
+        <span class="org-name">MTV</span>
+      </div>
+      <div class="org-logo-item">
+        <img class="org-logo-img" src="https://www.google.com/s2/favicons?domain=crunchyroll.com&sz=128" alt="" aria-hidden="true" loading="lazy" onerror="this.style.display='none'">
+        <span class="org-name">Crunchyroll</span>
+      </div>
+      <div class="org-logo-item">
+        <img class="org-logo-img" src="https://www.google.com/s2/favicons?domain=nintendo.com&sz=128" alt="" aria-hidden="true" loading="lazy" onerror="this.style.display='none'">
+        <span class="org-name">Nintendo</span>
+      </div>
     </div>
   </div>
 </section>
@@ -952,20 +985,100 @@ button{font-family:inherit;cursor:pointer}
   <div class="a-panel" id="panel-press" role="tabpanel" aria-labelledby="tab-press">
     <div class="press-grid">
       <div class="press-item">
-        <div class="press-pub">NBC</div>
-        <div class="press-headline">Featured coverage across NBC-affiliated properties and digital platforms</div>
+        <div class="press-meta">
+          <span class="press-type-tag">TV</span>
+          <span class="press-pub">Local 10 News</span>
+          <span class="press-date">Jan 2025</span>
+        </div>
+        <div class="press-headline-text">Featured at the Vegan Foodie Fest in CityPlace Doral, highlighting the event's role in bringing the community together with plant-based food, music, and vendors.</div>
       </div>
       <div class="press-item">
-        <div class="press-pub">Crunchyroll / Anime3000</div>
-        <div class="press-headline">Long-form partnership and community coverage spanning fan culture and original content</div>
+        <div class="press-meta">
+          <span class="press-type-tag">TV</span>
+          <span class="press-pub">ABC Television</span>
+          <span class="press-date">Jul 2021</span>
+        </div>
+        <div class="press-headline-text">Appeared on ABC's primetime reality competition <em>The Hustler</em>, bringing his community organizer's mindset to a high-stakes game watched by millions across the country.</div>
       </div>
       <div class="press-item">
-        <div class="press-pub">MTV</div>
-        <div class="press-headline">Content syndicated and featured on MTV digital properties during Vegans Explore campaign run</div>
+        <div class="press-meta">
+          <span class="press-type-tag">TV</span>
+          <span class="press-pub">Deco Drive / WSVN 7</span>
+          <span class="press-date">Jul 2021</span>
+        </div>
+        <div class="press-headline-text">Featured for producing Veg Night Out, South Florida's first all-Vegan street market, spotlighting plant-based food, music, fashion, and local vendors in Fort Lauderdale.</div>
       </div>
       <div class="press-item">
-        <div class="press-pub">Nintendo</div>
-        <div class="press-headline">Official partner coverage and event participation across Nintendo fan community programming</div>
+        <div class="press-meta">
+          <span class="press-type-tag">TV</span>
+          <span class="press-pub">NBC News</span>
+          <span class="press-date">May 2000</span>
+        </div>
+        <div class="press-headline-text">Featured in senior year of high school as a junior broadcaster and ambassador for Broward schools, working with NBC executives and learning news production that shaped a 25-year career.</div>
+      </div>
+      <div class="press-item">
+        <div class="press-meta">
+          <span class="press-type-tag">Print</span>
+          <span class="press-pub">Delray Magazine</span>
+          <span class="press-date">Aug 2022</span>
+        </div>
+        <div class="press-headline-text">Profiled as one of South Florida's most vocal Vegan advocates, sharing his journey and vision for making plant-based living accessible and exciting.</div>
+      </div>
+      <div class="press-item">
+        <div class="press-meta">
+          <span class="press-type-tag">Print</span>
+          <span class="press-pub">Sun Sentinel</span>
+          <span class="press-date">Jul 2022</span>
+        </div>
+        <div class="press-headline-text">Featured for Veg Night Out, Fort Lauderdale's first all-Vegan night market, drawing hundreds to the MASS District for plant-based food, music, and local vendors.</div>
+      </div>
+      <div class="press-item">
+        <div class="press-meta">
+          <span class="press-type-tag">Print</span>
+          <span class="press-pub">Miami New Times</span>
+          <span class="press-date">Jun 2020</span>
+        </div>
+        <div class="press-headline-text">Featured as a leading voice in South Florida's Black Vegan movement, speaking on the intersection of race, food justice, and plant-based advocacy as founder of SoFlo Vegans.</div>
+      </div>
+      <div class="press-item">
+        <div class="press-meta">
+          <span class="press-type-tag">Podcast</span>
+          <span class="press-pub">Plant Powered Athlete</span>
+          <span class="press-date">Jan 2025</span>
+        </div>
+        <div class="press-headline-text">Shared the vision behind Vegans Explore, highlighting how grassroots strategies, community building, and systems thinking are driving the global plant-based travel movement.</div>
+      </div>
+      <div class="press-item">
+        <div class="press-meta">
+          <span class="press-type-tag">Podcast</span>
+          <span class="press-pub">Veggies Abroad</span>
+          <span class="press-date">Mar 2024</span>
+        </div>
+        <div class="press-headline-text">Discussed Miami's Vegan scene, community growth, and how South Florida became a global destination for plant-based travelers.</div>
+      </div>
+      <div class="press-item">
+        <div class="press-meta">
+          <span class="press-type-tag">Podcast</span>
+          <span class="press-pub">VoyageMIA</span>
+          <span class="press-date">Dec 2021</span>
+        </div>
+        <div class="press-headline-text">Chronicled the journey from 12-year-old media enthusiast to founder of SoFlo Vegans and Creative Director of LESARUSS Media, reflecting on entrepreneurship and building lasting community platforms.</div>
+      </div>
+      <div class="press-item">
+        <div class="press-meta">
+          <span class="press-type-tag">Podcast</span>
+          <span class="press-pub">Canvas Rebel</span>
+          <span class="press-date">May 2022</span>
+        </div>
+        <div class="press-headline-text">Shared the philosophy on success, emphasizing self-love, community support, and resilience, and how a positive mindset turns challenges into opportunities.</div>
+      </div>
+      <div class="press-item">
+        <div class="press-meta">
+          <span class="press-type-tag">Podcast</span>
+          <span class="press-pub">VegWorld Magazine</span>
+          <span class="press-date">Jul 2021</span>
+        </div>
+        <div class="press-headline-text">Spotlighted Veg Night Out, South Florida's first 100% Vegan night market, co-created with SoFlo Vegans in a landmark moment for the regional Vegan scene.</div>
       </div>
     </div>
   </div>
