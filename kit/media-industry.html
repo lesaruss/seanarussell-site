@@ -257,6 +257,41 @@ html[data-theme="dark"] .press-type-tag{background:rgba(255,255,255,.12);color:r
   .stat{width:50%}
   .flip-card{height:280px}
 }
+
+  /* ── Kit Press Cards ─────────────────────────────────────────────────── */
+  #kit-press-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:16px 0}
+  @media(max-width:900px){#kit-press-grid{grid-template-columns:repeat(3,1fr)}}
+  @media(max-width:600px){#kit-press-grid{grid-template-columns:repeat(2,1fr)}}
+  .kp-card{aspect-ratio:3/4;perspective:1000px;cursor:pointer;position:relative}
+  .kp-card-inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .5s cubic-bezier(.4,.2,.2,1)}
+  .kp-card.flipped .kp-card-inner{transform:rotateY(180deg)}
+  .kp-cf,.kp-cb{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+  .kp-cf{border:1.5px solid #1a1a1a;background:#fff;display:flex;flex-direction:column}
+  .kp-cb{transform:rotateY(180deg);background:#F69820;color:#0d0d0d;border:1.5px solid #F69820;display:flex;flex-direction:column;padding:14px 12px 12px}
+  .kp-badges{position:absolute;top:0;left:0;right:0;display:flex;align-items:flex-start;justify-content:space-between;padding:8px;z-index:2}
+  .kp-pill{font-size:8px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:3px 7px;border:1px solid;pointer-events:none}
+  .kp-pill-tv{border-color:#1a1a1a;color:#1a1a1a;background:#fff}
+  .kp-pill-print{border-color:rgba(26,26,26,.5);color:rgba(26,26,26,.5);background:#fff}
+  .kp-pill-pod{border-color:#F69820;color:#F69820;background:#fff}
+  .kp-ribbon{position:absolute;top:0;right:0;width:0;height:0;border-style:solid;border-width:0 28px 28px 0;border-color:transparent #F69820 transparent transparent;z-index:1}
+  .kp-logo-zone{flex:1;display:flex;align-items:center;justify-content:center;padding:20px 16px 12px;overflow:hidden;min-height:0}
+  .kp-logo-zone img{width:100%;max-height:100%;object-fit:contain}
+  .kp-logo-fb{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.12em;text-align:center;color:rgba(26,26,26,.5);line-height:1.5;padding:8px 14px;border:1.5px solid rgba(26,26,26,.1);max-width:80%;display:none}
+  .kp-logo-zone.no-logo{background:#fafafa}
+  .kp-cfoot{border-top:1px solid rgba(26,26,26,.08);padding:9px 10px 10px;display:flex;flex-direction:column;gap:3px}
+  .kp-ctitle{font-size:clamp(8px,1vw,10px);font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:#1a1a1a;line-height:1.25}
+  .kp-cdate{font-size:clamp(7px,.85vw,9px);font-weight:600;color:rgba(26,26,26,.5)}
+  .kp-fhint{position:absolute;bottom:5px;right:7px;font-size:7px;font-weight:600;color:rgba(26,26,26,.3);letter-spacing:.08em;text-transform:uppercase;pointer-events:none}
+  .kp-btitle{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:#0d0d0d;margin-bottom:5px;line-height:1.2}
+  .kp-bsub{font-size:8px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:rgba(0,0,0,.6);margin-bottom:8px;line-height:1.4}
+  .kp-bdesc{font-size:9px;font-weight:400;color:rgba(0,0,0,.8);line-height:1.7;flex:1;overflow:hidden;display:-webkit-box;-webkit-line-clamp:7;-webkit-box-orient:vertical}
+  .kp-bcta{display:block;margin-top:10px;flex-shrink:0;font-size:8px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:#F69820;background:#0d0d0d;padding:7px 10px;text-decoration:none;text-align:center}
+  .kp-pagination{display:flex;align-items:center;justify-content:center;gap:16px;padding:20px 0 8px;border-top:1px solid rgba(26,26,26,.08);margin-top:4px}
+  .kp-pg-btn{font-family:inherit;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.16em;padding:7px 18px;border:1.5px solid #1a1a1a;background:transparent;color:#1a1a1a;cursor:pointer;transition:all .15s}
+  .kp-pg-btn:disabled{border-color:rgba(26,26,26,.2);color:rgba(26,26,26,.3);cursor:not-allowed}
+  .kp-pg-btn:not(:disabled):hover{background:#1a1a1a;color:#fff}
+  .kp-pg-info{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(26,26,26,.5);min-width:60px;text-align:center}
+  .kp-state-msg{padding:40px;text-align:center;font-size:12px;color:rgba(26,26,26,.5)}
 </style>
 </head>
 <body>
@@ -965,103 +1000,11 @@ html[data-theme="dark"] .press-type-tag{background:rgba(255,255,255,.12);color:r
 
   <!-- Press -->
   <div class="a-panel" id="panel-press" role="tabpanel" aria-labelledby="tab-press">
-    <div class="press-grid">
-      <div class="press-item">
-        <div class="press-meta">
-          <span class="press-type-tag">TV</span>
-          <span class="press-pub">Local 10 News</span>
-          <span class="press-date">Jan 2025</span>
-        </div>
-        <div class="press-headline-text">Featured at the Vegan Foodie Fest in CityPlace Doral, highlighting the event's role in bringing the community together with plant-based food, music, and vendors.</div>
-      </div>
-      <div class="press-item">
-        <div class="press-meta">
-          <span class="press-type-tag">TV</span>
-          <span class="press-pub">ABC Television</span>
-          <span class="press-date">Jul 2021</span>
-        </div>
-        <div class="press-headline-text">Appeared on ABC's primetime reality competition <em>The Hustler</em>, bringing his community organizer's mindset to a high-stakes game watched by millions across the country.</div>
-      </div>
-      <div class="press-item">
-        <div class="press-meta">
-          <span class="press-type-tag">TV</span>
-          <span class="press-pub">Deco Drive / WSVN 7</span>
-          <span class="press-date">Jul 2021</span>
-        </div>
-        <div class="press-headline-text">Featured for producing Veg Night Out, South Florida's first all-Vegan street market, spotlighting plant-based food, music, fashion, and local vendors in Fort Lauderdale.</div>
-      </div>
-      <div class="press-item">
-        <div class="press-meta">
-          <span class="press-type-tag">TV</span>
-          <span class="press-pub">NBC News</span>
-          <span class="press-date">May 2000</span>
-        </div>
-        <div class="press-headline-text">Featured in senior year of high school as a junior broadcaster and ambassador for Broward schools, working with NBC executives and learning news production that shaped a 25-year career.</div>
-      </div>
-      <div class="press-item">
-        <div class="press-meta">
-          <span class="press-type-tag">Print</span>
-          <span class="press-pub">Delray Magazine</span>
-          <span class="press-date">Aug 2022</span>
-        </div>
-        <div class="press-headline-text">Profiled as one of South Florida's most vocal Vegan advocates, sharing his journey and vision for making plant-based living accessible and exciting.</div>
-      </div>
-      <div class="press-item">
-        <div class="press-meta">
-          <span class="press-type-tag">Print</span>
-          <span class="press-pub">Sun Sentinel</span>
-          <span class="press-date">Jul 2022</span>
-        </div>
-        <div class="press-headline-text">Featured for Veg Night Out, Fort Lauderdale's first all-Vegan night market, drawing hundreds to the MASS District for plant-based food, music, and local vendors.</div>
-      </div>
-      <div class="press-item">
-        <div class="press-meta">
-          <span class="press-type-tag">Print</span>
-          <span class="press-pub">Miami New Times</span>
-          <span class="press-date">Jun 2020</span>
-        </div>
-        <div class="press-headline-text">Featured as a leading voice in South Florida's Black Vegan movement, speaking on the intersection of race, food justice, and plant-based advocacy as founder of SoFlo Vegans.</div>
-      </div>
-      <div class="press-item">
-        <div class="press-meta">
-          <span class="press-type-tag">Podcast</span>
-          <span class="press-pub">Plant Powered Athlete</span>
-          <span class="press-date">Jan 2025</span>
-        </div>
-        <div class="press-headline-text">Shared the vision behind Vegans Explore, highlighting how grassroots strategies, community building, and systems thinking are driving the global plant-based travel movement.</div>
-      </div>
-      <div class="press-item">
-        <div class="press-meta">
-          <span class="press-type-tag">Podcast</span>
-          <span class="press-pub">Veggies Abroad</span>
-          <span class="press-date">Mar 2024</span>
-        </div>
-        <div class="press-headline-text">Discussed Miami's Vegan scene, community growth, and how South Florida became a global destination for plant-based travelers.</div>
-      </div>
-      <div class="press-item">
-        <div class="press-meta">
-          <span class="press-type-tag">Podcast</span>
-          <span class="press-pub">VoyageMIA</span>
-          <span class="press-date">Dec 2021</span>
-        </div>
-        <div class="press-headline-text">Chronicled the journey from 12-year-old media enthusiast to founder of SoFlo Vegans and Creative Director of LESARUSS Media, reflecting on entrepreneurship and building lasting community platforms.</div>
-      </div>
-      <div class="press-item">
-        <div class="press-meta">
-          <span class="press-type-tag">Podcast</span>
-          <span class="press-pub">Canvas Rebel</span>
-          <span class="press-date">May 2022</span>
-        </div>
-        <div class="press-headline-text">Shared the philosophy on success, emphasizing self-love, community support, and resilience, and how a positive mindset turns challenges into opportunities.</div>
-      </div>
-      <div class="press-item">
-        <div class="press-meta">
-          <span class="press-type-tag">Podcast</span>
-          <span class="press-pub">VegWorld Magazine</span>
-          <span class="press-date">Jul 2021</span>
-        </div>
-        <div class="press-headline-text">Spotlighted Veg Night Out, South Florida's first 100% Vegan night market, co-created with SoFlo Vegans in a landmark moment for the regional Vegan scene.</div>
-      </div>
+    <div id="kit-press-grid" aria-label="Press and media coverage"><div class="kp-state-msg">Loading coverage...</div></div>
+    <div class="kp-pagination">
+      <button class="kp-pg-btn" id="kp-prev" aria-label="Previous page">&larr; Prev</button>
+      <span class="kp-pg-info" id="kp-pg-info"></span>
+      <button class="kp-pg-btn" id="kp-next" aria-label="Next page">Next &rarr;</button>
     </div>
   </div>
 </section>
@@ -1270,6 +1213,88 @@ html[data-theme="dark"] .press-type-tag{background:rgba(255,255,255,.12);color:r
   }
 
 })();
+
+  // ── Kit Press: fetch from API, 4-col flip cards, paginated ──────────────
+  (function(){
+    var API = 'https://lesaruss.ai/api/press';
+    var PER_PAGE = 8;
+    var FEATURED = ['local-10-news','abc-television','deco-drive','nbc-news','miami-new-times-black-voices','sun-sentinel-veg-night-out-2022','delray-magazine','vegworld-magazine','veggies-abroad','plant-powered-athlete','voyagemia-rising-stars','canvas-rebel'];
+    var PILL_CLASS = {television:'kp-pill-tv',print:'kp-pill-print',podcast:'kp-pill-pod'};
+    var PILL_LABEL = {television:'TV',print:'Print',podcast:'Podcast'};
+    var ALL = [], page = 0;
+
+    function makeCard(e){
+      var feat = FEATURED.indexOf(e.id) > -1;
+      var card = document.createElement('div');
+      card.className = 'kp-card';
+      card.setAttribute('role','button');
+      card.setAttribute('tabindex','0');
+      card.setAttribute('aria-label', e.title + ', ' + e.date + '. Press Enter to flip.');
+      card.innerHTML =
+        '<div class="kp-card-inner">' +
+          '<div class="kp-cf">' +
+            '<div class="kp-badges"><span class="kp-pill ' + (PILL_CLASS[e.type]||'') + '" aria-hidden="true">' + (PILL_LABEL[e.type]||e.type) + '</span></div>' +
+            (feat ? '<div class="kp-ribbon" aria-hidden="true"></div>' : '') +
+            '<div class="kp-logo-zone">' +
+              '<img src="' + e.img + '" alt="' + e.title + ' logo" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block';this.parentElement.classList.add('no-logo')">' +
+              '<span class="kp-logo-fb">' + e.title + '</span>' +
+            '</div>' +
+            '<div class="kp-cfoot">' +
+              '<div class="kp-ctitle">' + e.title + '</div>' +
+              '<div class="kp-cdate">' + e.date + '</div>' +
+            '</div>' +
+            '<span class="kp-fhint" aria-hidden="true">Tap to flip</span>' +
+          '</div>' +
+          '<div class="kp-cb" aria-hidden="true">' +
+            '<div class="kp-btitle">' + e.title + '</div>' +
+            (e.subtitle ? '<div class="kp-bsub">' + e.subtitle + '</div>' : '') +
+            '<div class="kp-bdesc">' + e.desc + '</div>' +
+            '<a href="' + e.href + '" target="_blank" rel="noopener noreferrer" class="kp-bcta">Read More &rarr;</a>' +
+          '</div>' +
+        '</div>';
+      card.addEventListener('click', function(ev){ if(ev.target.closest('a'))return; card.classList.toggle('flipped'); });
+      card.addEventListener('keydown', function(ev){
+        if(ev.target.closest('a'))return;
+        if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();card.classList.toggle('flipped');}
+        if(ev.key==='Escape')card.classList.remove('flipped');
+      });
+      return card;
+    }
+
+    function renderPage(){
+      var grid = document.getElementById('kit-press-grid');
+      var prev = document.getElementById('kp-prev');
+      var next = document.getElementById('kp-next');
+      var info = document.getElementById('kp-pg-info');
+      var totalPages = Math.ceil(ALL.length / PER_PAGE);
+      var slice = ALL.slice(page * PER_PAGE, (page + 1) * PER_PAGE);
+      grid.innerHTML = '';
+      slice.forEach(function(e){ grid.appendChild(makeCard(e)); });
+      info.textContent = (page + 1) + ' / ' + totalPages;
+      prev.disabled = page === 0;
+      next.disabled = page >= totalPages - 1;
+    }
+
+    var prevBtn = document.getElementById('kp-prev');
+    var nextBtn = document.getElementById('kp-next');
+    if(prevBtn) prevBtn.addEventListener('click', function(){ if(page > 0){ page--; renderPage(); } });
+    if(nextBtn) nextBtn.addEventListener('click', function(){ if((page+1)*PER_PAGE < ALL.length){ page++; renderPage(); } });
+
+    fetch(API)
+      .then(function(r){ if(!r.ok) throw new Error(); return r.json(); })
+      .then(function(data){
+        ALL = data;
+        renderPage();
+      })
+      .catch(function(){
+        var grid = document.getElementById('kit-press-grid');
+        if(grid) grid.innerHTML = '<div class="kp-state-msg">Coverage could not be loaded.</div>';
+        if(prevBtn) prevBtn.disabled = true;
+        if(nextBtn) nextBtn.disabled = true;
+        var info = document.getElementById('kp-pg-info');
+        if(info) info.textContent = '';
+      });
+  })();
 </script>
 </body>
 </html>
