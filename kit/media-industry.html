@@ -168,7 +168,7 @@ button{font-family:inherit;cursor:pointer}
 .org-name{font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:.16em;color:var(--text-30);transition:color .2s}
 .org-name:hover{color:var(--text)}
 .org-logo-item{display:flex;flex-direction:column;align-items:center;gap:8px}
-.org-logo-img{height:38px;width:38px;object-fit:contain;filter:grayscale(1);opacity:.55;transition:opacity .2s,filter .2s;border-radius:6px}
+.org-logo-img{height:44px;width:44px;object-fit:contain;filter:grayscale(1);opacity:.55;transition:opacity .2s,filter .2s;border-radius:6px}
 .org-logo-img:hover{filter:none;opacity:1}
 
 /* ---- MEDIA ASSETS ---- */
@@ -185,6 +185,19 @@ button{font-family:inherit;cursor:pointer}
 .photo-dl{position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,.75);color:#fff;font-size:9px;font-weight:800;letter-spacing:.15em;text-transform:uppercase;padding:6px 10px;border:none;opacity:0;transition:opacity .2s;text-decoration:none}
 .photo-slot:hover .photo-dl{opacity:1}
 .video-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--g)}
+/* ---- VIDEO SLIDER ---- */
+.video-slider-wrap{position:relative}
+.video-slider{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;-ms-overflow-style:none;scrollbar-width:none}
+.video-slider::-webkit-scrollbar{display:none}
+.video-slide{flex:0 0 100%;scroll-snap-align:start}
+.slider-nav{display:flex;align-items:center;justify-content:space-between;margin-top:16px;border-top:var(--panel-line-w) solid var(--border);padding-top:16px}
+.slider-dots{display:flex;gap:8px;align-items:center}
+.slider-dot{width:8px;height:8px;border-radius:50%;background:var(--border);border:none;padding:0;cursor:pointer;transition:background .2s;flex-shrink:0}
+.slider-dot.on{background:var(--orange)}
+.slider-btn{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.2em;background:none;border:var(--panel-line-w) solid var(--panel-line);padding:9px 16px;color:var(--text);cursor:pointer;font-family:inherit;transition:background .18s,color .18s}
+.slider-btn:hover:not(:disabled){background:var(--ink);color:var(--bg)}
+.slider-btn:disabled{opacity:.3;cursor:not-allowed}
+.slider-count{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.22em;color:var(--text-30)}
 .video-slot{aspect-ratio:16/9;position:relative;background:#000;border:var(--panel-line-w) solid var(--panel-line)}
 .video-slot iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
 .video-ph{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:#111;color:rgba(255,255,255,.3);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.2em}
@@ -871,28 +884,22 @@ html[data-theme="dark"] .press-type-tag{background:rgba(255,255,255,.12);color:r
   <div class="logos-panel">
     <div class="logos-flex">
       <div class="org-logo-item">
-        <img class="org-logo-img" src="https://www.google.com/s2/favicons?domain=browardschools.com&sz=128" alt="" aria-hidden="true" loading="lazy" onerror="this.style.display='none'">
-        <span class="org-name">BCPS</span>
+        <img class="org-logo-img" src="https://www.google.com/s2/favicons?domain=browardschools.com&sz=128" alt="Broward County Public Schools" loading="lazy" onerror="this.style.display='none'">
       </div>
       <div class="org-logo-item">
-        <img class="org-logo-img" src="https://www.google.com/s2/favicons?domain=abc.com&sz=128" alt="" aria-hidden="true" loading="lazy" onerror="this.style.display='none'">
-        <span class="org-name">ABC</span>
+        <img class="org-logo-img" src="https://www.google.com/s2/favicons?domain=abc.com&sz=128" alt="ABC" loading="lazy" onerror="this.style.display='none'">
       </div>
       <div class="org-logo-item">
-        <img class="org-logo-img" src="https://www.google.com/s2/favicons?domain=nbc.com&sz=128" alt="" aria-hidden="true" loading="lazy" onerror="this.style.display='none'">
-        <span class="org-name">NBC</span>
+        <img class="org-logo-img" src="https://www.google.com/s2/favicons?domain=nbc.com&sz=128" alt="NBC" loading="lazy" onerror="this.style.display='none'">
       </div>
       <div class="org-logo-item">
-        <img class="org-logo-img" src="https://www.google.com/s2/favicons?domain=mtv.com&sz=128" alt="" aria-hidden="true" loading="lazy" onerror="this.style.display='none'">
-        <span class="org-name">MTV</span>
+        <img class="org-logo-img" src="https://www.google.com/s2/favicons?domain=mtv.com&sz=128" alt="MTV" loading="lazy" onerror="this.style.display='none'">
       </div>
       <div class="org-logo-item">
-        <img class="org-logo-img" src="https://www.google.com/s2/favicons?domain=crunchyroll.com&sz=128" alt="" aria-hidden="true" loading="lazy" onerror="this.style.display='none'">
-        <span class="org-name">Crunchyroll</span>
+        <img class="org-logo-img" src="https://www.google.com/s2/favicons?domain=crunchyroll.com&sz=128" alt="Crunchyroll" loading="lazy" onerror="this.style.display='none'">
       </div>
       <div class="org-logo-item">
-        <img class="org-logo-img" src="https://www.google.com/s2/favicons?domain=nintendo.com&sz=128" alt="" aria-hidden="true" loading="lazy" onerror="this.style.display='none'">
-        <span class="org-name">Nintendo</span>
+        <img class="org-logo-img" src="https://www.google.com/s2/favicons?domain=nintendo.com&sz=128" alt="Nintendo" loading="lazy" onerror="this.style.display='none'">
       </div>
     </div>
   </div>
@@ -963,31 +970,67 @@ html[data-theme="dark"] .press-type-tag{background:rgba(255,255,255,.12);color:r
 
     <!-- Video -->
   <div class="a-panel" id="panel-video" role="tabpanel" aria-labelledby="tab-video">
-    <div class="video-grid">
-      <div>
-        <div class="video-slot" aria-label="Peeled — Line Producer credit">
-          <iframe src="https://www.youtube.com/embed/Qh7-qiF5sf8" title="Peeled — Official Trailer. Sean A. Russell, Line Producer." allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
-        </div>
-        <div style="margin-top:10px;padding:14px 16px;border:var(--panel-line-w) solid var(--border)">
-          <div style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.22em;color:var(--orange);margin-bottom:6px">Competition Television</div>
-          <div style="font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--text);margin-bottom:8px">Peeled — Official Trailer</div>
-          <div style="font-size:12px;line-height:1.7;color:var(--text-50);margin-bottom:12px">Sean served as <strong>Line Producer</strong> on Peeled, a food competition series. Responsibilities included interviewing contestants, working directly with the Director and Producers on recommendations, continuity checking for scenes, and filling in wherever needed across production.</div>
-          <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center">
-            <a href="https://youtu.be/Qh7-qiF5sf8" target="_blank" rel="noopener" style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.2em;color:var(--text);border-bottom:1.5px solid var(--panel-line);padding-bottom:2px;text-decoration:none" aria-label="Watch Peeled trailer on YouTube">Watch on YouTube &#8599;</a>
-            <a href="https://drive.google.com/file/d/1ciogn2Z9HqArNXWIi-abWXiUwhD68DZi/view" target="_blank" rel="noopener" style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.2em;color:var(--orange);border-bottom:1.5px solid var(--orange);padding-bottom:2px;text-decoration:none" aria-label="Download Peeled video from Google Drive">Download from Drive &#8599;</a>
+    <div class="video-slider-wrap" id="videoSliderWrap">
+      <div class="video-slider" id="videoSlider" role="list" aria-label="Video reel">
+
+        <!-- Slide 1: Peeled -->
+        <div class="video-slide" role="listitem">
+          <div class="video-slot" aria-label="Peeled — Line Producer credit">
+            <iframe src="https://www.youtube.com/embed/Qh7-qiF5sf8" title="Peeled — Official Trailer. Sean A. Russell, Line Producer." allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div style="margin-top:10px;padding:14px 16px;border:var(--panel-line-w) solid var(--border)">
+            <div style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.22em;color:var(--orange);margin-bottom:6px">Competition Television</div>
+            <div style="font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--text);margin-bottom:8px">Peeled — Official Trailer</div>
+            <div style="font-size:12px;line-height:1.7;color:var(--text-50);margin-bottom:12px">Sean served as <strong>Line Producer</strong> on Peeled, a food competition series. Responsibilities included interviewing contestants, working directly with the Director and Producers on recommendations, continuity checking for scenes, and filling in wherever needed across production.</div>
+            <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center">
+              <a href="https://youtu.be/Qh7-qiF5sf8" target="_blank" rel="noopener" style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.2em;color:var(--text);border-bottom:1.5px solid var(--panel-line);padding-bottom:2px;text-decoration:none" aria-label="Watch Peeled trailer on YouTube">Watch on YouTube &#8599;</a>
+              <a href="https://drive.google.com/file/d/1ciogn2Z9HqArNXWIi-abWXiUwhD68DZi/view" target="_blank" rel="noopener" style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.2em;color:var(--orange);border-bottom:1.5px solid var(--orange);padding-bottom:2px;text-decoration:none" aria-label="Download Peeled video from Google Drive">Download from Drive &#8599;</a>
+            </div>
           </div>
         </div>
-      </div>
-      <div>
-        <div class="video-slot" aria-label="Unchained TV LunchBreakLIVE cooking appearance">
-          <iframe src="https://www.youtube.com/embed/lv03sK-DuHk" title="Mr. Russell's Super Simple Tofu Bowl — Unchained TV LunchBreakLIVE" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+        <!-- Slide 2: The Hustler (ABC Primetime) -->
+        <div class="video-slide" role="listitem">
+          <div class="video-slot" aria-label="The Hustler — ABC Primetime Season 2 Premiere">
+            <iframe src="https://player.vimeo.com/video/1189213406" title="The Hustler Season 2 — ABC Primetime. Sean A. Russell appearance." allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div style="margin-top:10px;padding:14px 16px;border:var(--panel-line-w) solid var(--border)">
+            <div style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.22em;color:var(--orange);margin-bottom:6px">ABC Primetime Reality Competition</div>
+            <div style="font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--text);margin-bottom:8px">The Hustler — Season 2 Premiere</div>
+            <div style="font-size:12px;line-height:1.7;color:var(--text-50);margin-bottom:12px">Sean appeared on <strong>The Hustler</strong>, ABC's primetime reality competition series hosted by Craig Ferguson. His episode was the <strong>Season 2 premiere</strong>, placing him in front of one of the largest broadcast audiences in primetime television. The show features contestants competing to uncover a hidden "Hustler" among them while answering trivia questions to build a shared prize pot.</div>
+            <a href="https://vimeo.com/1189213406" target="_blank" rel="noopener" style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.2em;color:var(--text);border-bottom:1.5px solid var(--panel-line);padding-bottom:2px;text-decoration:none" aria-label="Watch The Hustler appearance on Vimeo">Watch on Vimeo &#8599;</a>
+          </div>
         </div>
-        <div style="margin-top:10px;padding:14px 16px;border:var(--panel-line-w) solid var(--border)">
-          <div style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.22em;color:var(--orange);margin-bottom:6px">Vegan Lifestyle Media</div>
-          <div style="font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--text);margin-bottom:8px">LunchBreakLIVE — Unchained TV</div>
-          <div style="font-size:12px;line-height:1.7;color:var(--text-50);margin-bottom:12px">Sean was featured as a <strong>guest chef</strong> on Unchained TV's LunchBreakLIVE, one of the world's few dedicated vegan streaming platforms. He demonstrated his original Tofu Bowl recipe live on the Jane Unchained News network, bringing genuine plant-based expertise and on-camera presence to a committed international audience.</div>
-          <a href="https://www.youtube.com/live/lv03sK-DuHk" target="_blank" rel="noopener" style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.2em;color:var(--text);border-bottom:1.5px solid var(--panel-line);padding-bottom:2px;text-decoration:none" aria-label="Watch Unchained TV cooking appearance on YouTube and download clips">Watch + Get Clips on YouTube &#8599;</a>
+
+        <!-- Slide 3: Unchained TV -->
+        <div class="video-slide" role="listitem">
+          <div class="video-slot" aria-label="Unchained TV LunchBreakLIVE cooking appearance">
+            <iframe src="https://www.youtube.com/embed/lv03sK-DuHk" title="Mr. Russell's Super Simple Tofu Bowl — Unchained TV LunchBreakLIVE" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div style="margin-top:10px;padding:14px 16px;border:var(--panel-line-w) solid var(--border)">
+            <div style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.22em;color:var(--orange);margin-bottom:6px">2026 Telly Award Winner - Vegan Lifestyle Media</div>
+            <div style="font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--text);margin-bottom:8px">LunchBreakLIVE — Unchained TV</div>
+            <div style="font-size:12px;line-height:1.7;color:var(--text-50);margin-bottom:12px">Sean was featured as a <strong>guest chef</strong> on Unchained TV's LunchBreakLIVE, one of the world's few dedicated vegan streaming platforms. He demonstrated his original Tofu Bowl recipe live on the Jane Unchained News network, bringing genuine plant-based expertise and on-camera presence to a committed international audience.</div>
+            <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center">
+              <a href="https://www.youtube.com/live/lv03sK-DuHk" target="_blank" rel="noopener" style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.2em;color:var(--text);border-bottom:1.5px solid var(--panel-line);padding-bottom:2px;text-decoration:none" aria-label="Watch Unchained TV cooking appearance on YouTube">Watch on YouTube &#8599;</a>
+              <a href="https://drive.google.com/file/d/1gfgK2Ozm2MO6zV7LMfSo3hfKrtV5WjgM/view" target="_blank" rel="noopener" style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.2em;color:var(--orange);border-bottom:1.5px solid var(--orange);padding-bottom:2px;text-decoration:none" aria-label="Download Unchained TV video from Google Drive">Download from Drive &#8599;</a>
+            </div>
+          </div>
         </div>
+
+      </div><!-- /video-slider -->
+
+      <div class="slider-nav" aria-label="Video navigation">
+        <button class="slider-btn" id="vPrev" aria-label="Previous video" disabled>&#8592; PREV</button>
+        <div style="display:flex;align-items:center;gap:16px">
+          <div class="slider-dots" id="vDots" role="tablist" aria-label="Video slides">
+            <button class="slider-dot on" role="tab" aria-selected="true" aria-label="Slide 1: Peeled" data-idx="0"></button>
+            <button class="slider-dot" role="tab" aria-selected="false" aria-label="Slide 2: The Hustler" data-idx="1"></button>
+            <button class="slider-dot" role="tab" aria-selected="false" aria-label="Slide 3: Unchained TV" data-idx="2"></button>
+          </div>
+          <span class="slider-count" id="vCount">1 / 3</span>
+        </div>
+        <button class="slider-btn" id="vNext" aria-label="Next video">NEXT &#8594;</button>
       </div>
     </div>
   </div>
@@ -1289,6 +1332,51 @@ html[data-theme="dark"] .press-type-tag{background:rgba(255,255,255,.12);color:r
         if(info) info.textContent = '';
       });
   })();
+</script>
+
+<script>
+/* ---- VIDEO SLIDER ---- */
+(function(){
+  var slider = document.getElementById('videoSlider');
+  var prevBtn = document.getElementById('vPrev');
+  var nextBtn = document.getElementById('vNext');
+  var countEl = document.getElementById('vCount');
+  var dots = document.querySelectorAll('#vDots .slider-dot');
+  if(!slider || !prevBtn || !nextBtn) return;
+
+  var total = slider.querySelectorAll('.video-slide').length;
+  var current = 0;
+
+  function goTo(idx){
+    current = Math.max(0, Math.min(idx, total - 1));
+    slider.scrollTo({ left: current * slider.offsetWidth, behavior: 'smooth' });
+    update();
+  }
+
+  function update(){
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current === total - 1;
+    if(countEl) countEl.textContent = (current + 1) + ' / ' + total;
+    dots.forEach(function(d, i){
+      d.classList.toggle('on', i === current);
+      d.setAttribute('aria-selected', i === current ? 'true' : 'false');
+    });
+  }
+
+  prevBtn.addEventListener('click', function(){ goTo(current - 1); });
+  nextBtn.addEventListener('click', function(){ goTo(current + 1); });
+  dots.forEach(function(d){
+    d.addEventListener('click', function(){ goTo(parseInt(d.dataset.idx, 10)); });
+  });
+
+  /* sync dots on swipe */
+  slider.addEventListener('scroll', function(){
+    var idx = Math.round(slider.scrollLeft / slider.offsetWidth);
+    if(idx !== current){ current = idx; update(); }
+  }, { passive: true });
+
+  update();
+})();
 </script>
 </body>
 </html>
