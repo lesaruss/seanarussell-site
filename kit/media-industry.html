@@ -1232,7 +1232,7 @@ html[data-theme="dark"] .press-type-tag{background:rgba(255,255,255,.12);color:r
       };
       submitBtn.disabled = true;
       submitBtn.textContent = 'SENDING...';
-      fetch('https://seanarussell.com/api/contact', {
+      fetch('/api/contact', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(payload)
