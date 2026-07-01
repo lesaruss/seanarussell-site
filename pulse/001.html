@@ -724,6 +724,7 @@ const btnFull      = document.getElementById('btnFull');
 
 let current = 0;
 const total = STEPS.length;
+document.getElementById('stepTotalEl').textContent = ' / ' + String(total).padStart(2,'0');
 
 // ─── RENDER ──────────────────────────────────────────────────────────────────
 function render(idx) {
