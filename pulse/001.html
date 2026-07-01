@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Founder Pulse #001 - Speaking the Same Language | Sean A. Russell</title>
-<meta name="description" content="A real conversation between Sean A. Russell and V about care, constraints, and the deeper patterns connecting human and AI collaboration.">
+<meta name="description" content="A real conversation between Sean A. Russell and Victoria Egan about care, constraints, and the deeper patterns connecting human and AI collaboration.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&display=swap" rel="stylesheet">
@@ -18,6 +18,7 @@
     --panel-line-w:1.5px;
     --gutter:14px;
     --nav-bg:rgba(13,13,13,0.96);
+    --char-w:360px;
   }
   html[data-theme="light"]{
     --bg:#ffffff;--surface:#ffffff;--surface2:#fafafa;
@@ -37,7 +38,9 @@
   @media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
   .dot{color:var(--orange);display:inline-block;margin-left:0.06em;animation:dotPulse 2s ease-in-out infinite}
   @keyframes dotPulse{0%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(1.3)}100%{opacity:1;transform:scale(1)}}
-  @keyframes stepIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes stepIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes charIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes charOut{from{opacity:1;transform:translateY(0)}to{opacity:0;transform:translateY(8px)}}
 
   /* NAV */
   .nav{position:fixed;top:0;left:0;right:0;z-index:200;height:62px;display:flex;align-items:center;padding:0 28px;background:var(--nav-bg);border-bottom:1px solid var(--border);backdrop-filter:blur(10px)}
@@ -70,119 +73,177 @@
   .mobile-menu-link:hover,.mobile-menu-link.active-mobile{color:var(--orange)}
   .mobile-menu-link.book{color:var(--orange);font-weight:900}
 
-  /* PROGRESS BAR + ISSUE BAR */
+  /* BARS */
   .issue-bar{position:relative;display:flex;align-items:center;gap:18px;padding:10px 28px;border-bottom:1px solid var(--border);font-size:10px;font-weight:800;letter-spacing:.32em;text-transform:uppercase;color:var(--text-50);margin-top:62px}
   .issue-bar .red{width:8px;height:8px;border-radius:50%;background:var(--orange);animation:dotPulse 2s ease-in-out infinite;flex-shrink:0}
   .issue-bar .ib-title{color:var(--text)}
   .issue-bar .ib-right{margin-left:auto;color:var(--text-30)}
-  .progress-bar{height:3px;background:var(--border);position:relative;overflow:hidden}
-  .progress-fill{height:100%;background:var(--orange);transition:width .35s cubic-bezier(.4,0,.2,1);width:10%}
-
-  /* LAYOUT */
-  .spread{padding:var(--gutter);max-width:1280px;margin:0 auto}
-  .spread+.spread{padding-top:0}
-  .panel{position:relative;background:var(--bg);border:var(--panel-line-w) solid var(--panel-line);overflow:hidden}
-  .cap{position:absolute;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--text);background:var(--bg);padding:8px 12px;border:var(--panel-line-w) solid var(--panel-line);z-index:5;line-height:1.5}
-  .cap.tl{top:-1px;left:-1px}
-  .cap.tr{top:-1px;right:-1px}
-  .halftone{position:absolute;inset:0;opacity:.06;pointer-events:none;background-image:radial-gradient(var(--orange) 1.4px, transparent 1.6px);background-size:14px 14px}
-  .sfx{position:absolute;font-size:clamp(64px,11vw,160px);font-weight:900;text-transform:uppercase;letter-spacing:-.04em;line-height:.85;color:var(--orange);opacity:.06;pointer-events:none;z-index:0}
-  .eyebrow{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.32em;color:var(--orange);margin-bottom:22px}
-  .cta{display:inline-block;font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.14em;color:#0d0d0d;background:var(--orange);padding:14px 32px;border:none;cursor:pointer;font-family:inherit;transition:background .18s,color .18s}
-  .cta:hover{background:var(--text);color:var(--bg)}
-
-  /* BACK NAV */
+  .progress-bar{height:3px;background:var(--border);overflow:hidden}
+  .progress-fill{height:100%;background:var(--orange);transition:width .4s cubic-bezier(.4,0,.2,1)}
   .back-nav{padding:12px 28px;border-bottom:1px solid var(--border);font-size:10px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;display:flex;align-items:center;justify-content:space-between}
   .back-nav a{color:var(--text-50);display:inline-flex;align-items:center;gap:6px;transition:color .15s}
   .back-nav a:hover{color:var(--orange)}
   .back-nav a::before{content:'<-';font-size:10px}
-  .view-toggle{display:flex;align-items:center;gap:0}
+  .view-toggle{display:flex;align-items:center}
   .view-btn{font-size:10px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--text-50);padding:6px 14px;background:none;border:1px solid var(--border);cursor:pointer;transition:color .15s,background .15s;white-space:nowrap}
   .view-btn+.view-btn{border-left:none}
   .view-btn.active{color:var(--text);background:var(--surface2);border-color:var(--panel-line)}
   .view-btn:hover:not(.active){color:var(--text)}
 
-  /* ICEBERG READER */
+  /* LAYOUT */
+  .spread{padding:var(--gutter);max-width:1280px;margin:0 auto}
+  .spread+.spread{padding-top:0}
+  .panel{position:relative;background:var(--bg);border:var(--panel-line-w) solid var(--panel-line);overflow:hidden}
+  .cap{position:absolute;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--text);background:var(--bg);padding:8px 12px;border:var(--panel-line-w) solid var(--panel-line);z-index:10;line-height:1.5}
+  .cap.tl{top:-1px;left:-1px}
+  .cap.tr{top:-1px;right:-1px}
+  .halftone{position:absolute;inset:0;opacity:.05;pointer-events:none;background-image:radial-gradient(var(--orange) 1.4px, transparent 1.6px);background-size:14px 14px}
+  .sfx{position:absolute;font-size:clamp(56px,9vw,140px);font-weight:900;text-transform:uppercase;letter-spacing:-.04em;line-height:.85;color:var(--orange);opacity:.06;pointer-events:none;z-index:0}
+  .eyebrow{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.32em;color:var(--orange);margin-bottom:22px}
+  .cta{display:inline-block;font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.14em;color:#0d0d0d;background:var(--orange);padding:14px 32px;border:none;cursor:pointer;font-family:inherit;transition:background .18s,color .18s}
+  .cta:hover{background:var(--text);color:var(--bg)}
+
+  /* ═══ ICEBERG READER ════════════════════════════════════ */
   .iceberg-reader{display:block}
   .fullread{display:none}
   body.fullread-active .iceberg-reader{display:none}
   body.fullread-active .fullread{display:block}
 
-  /* STEP PANEL */
-  .step-panel{min-height:calc(100svh - 62px - 40px - 44px - 3px);display:flex;flex-direction:column;position:relative}
-  .step-content-area{flex:1;display:flex;flex-direction:column;justify-content:center;padding:64px 72px;position:relative;z-index:2}
+  /* STEP PANEL: 2-column grid */
+  .step-panel{
+    display:grid;
+    grid-template-columns:1fr var(--char-w);
+    grid-template-rows:1fr auto;
+    min-height:calc(100svh - 62px - 41px - 44px - 3px);
+  }
+  .step-content-area{
+    grid-column:1;grid-row:1;
+    display:flex;flex-direction:column;justify-content:center;
+    padding:56px 64px;position:relative;z-index:2;overflow:hidden;
+  }
+  .step-nav{
+    grid-column:1;grid-row:2;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:18px 28px;border-top:1px solid var(--border);z-index:2;
+  }
+
+  /* CHARACTER COLUMN */
+  .step-character-col{
+    grid-column:2;grid-row:1/3;
+    border-left:var(--panel-line-w) solid var(--panel-line);
+    position:relative;overflow:hidden;
+    display:flex;flex-direction:column;align-items:center;justify-content:flex-end;
+  }
+  /* Orange accent border for V's turns */
+  .step-character-col.accent-v{border-left-color:var(--orange)}
+  .step-character-col.accent-v .char-label{border-top-color:var(--orange)}
+
+  /* Characters wrapper - both sit here, shown/hidden per step */
+  .chars-wrap{
+    position:relative;width:100%;
+    display:flex;align-items:flex-end;justify-content:center;
+    flex:1;
+  }
+  .char-img{
+    position:absolute;bottom:0;
+    width:100%;max-width:var(--char-w);
+    object-fit:contain;object-position:bottom center;
+    transition:opacity .35s ease, transform .35s ease;
+    /* animation-ready: each character is its own layer */
+    will-change:transform,opacity;
+  }
+  .char-img.hidden{opacity:0;pointer-events:none;transform:translateY(10px)}
+  .char-img.visible{opacity:1;transform:translateY(0);animation:charIn .35s ease both}
+
+  /* Both characters visible (quote/realization steps) */
+  .chars-wrap.both .char-sean{
+    left:0;width:55%;max-width:none;transform:translateY(0);
+    filter:brightness(.85);
+  }
+  .chars-wrap.both .char-v{
+    right:0;left:auto;width:55%;max-width:none;transform:translateY(0);
+    filter:brightness(.85);
+  }
+  .chars-wrap.both .char-sean,.chars-wrap.both .char-v{opacity:1;animation:charIn .4s ease both}
+
+  /* Character label */
+  .char-label{
+    width:100%;padding:10px 14px;border-top:1px solid var(--border);
+    background:var(--bg);z-index:5;position:relative;flex-shrink:0;
+  }
+  .char-label .cl-name{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.16em;color:var(--text);line-height:1.2}
+  .char-label .cl-title{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.2em;color:var(--text-50);margin-top:3px}
+  .char-label .cl-title span{color:var(--orange)}
+
+  /* STEP CONTENT TYPES */
   .step-content{animation:stepIn .3s ease both}
 
-  /* Step type: narrative */
-  .step-narrative .step-intro{font-size:clamp(28px,4.5vw,56px);font-weight:900;text-transform:uppercase;letter-spacing:-.02em;line-height:1;margin-bottom:18px;color:var(--text)}
-  .step-narrative .step-intro-em{font-size:clamp(28px,4.5vw,56px);font-weight:900;text-transform:uppercase;letter-spacing:-.02em;line-height:1;color:var(--orange);margin-bottom:28px}
-  .step-narrative p{font-size:16px;line-height:1.9;color:var(--text-75);margin-bottom:18px;max-width:680px}
+  .step-narrative .step-intro{font-size:clamp(26px,4vw,52px);font-weight:900;text-transform:uppercase;letter-spacing:-.02em;line-height:1;margin-bottom:14px;color:var(--text)}
+  .step-narrative .step-intro-em{font-size:clamp(26px,4vw,52px);font-weight:900;text-transform:uppercase;letter-spacing:-.02em;line-height:1;color:var(--orange);margin-bottom:24px}
+  .step-narrative p{font-size:15px;line-height:1.9;color:var(--text-75);margin-bottom:18px;max-width:600px}
   .step-narrative p:last-child{margin-bottom:0}
-  .step-inline-quote{display:block;font-size:15px;font-weight:600;line-height:1.75;color:var(--text);border-left:3px solid var(--orange);padding:14px 22px;margin:18px 0 0;max-width:620px;quotes:none}
+  .step-inline-quote{display:block;font-size:14px;font-weight:600;line-height:1.75;color:var(--text);border-left:3px solid var(--orange);padding:12px 20px;margin:16px 0 0;max-width:560px;quotes:none}
 
-  /* Step type: speaker (sean / v) */
-  .step-speaker-label{display:flex;align-items:center;gap:14px;margin-bottom:28px}
+  .step-speaker-label{display:flex;align-items:center;gap:12px;margin-bottom:24px}
   .step-speaker-label .sl-name{font-size:11px;font-weight:900;letter-spacing:.28em;text-transform:uppercase}
-  .step-speaker-label .sl-line{flex:1;height:1px;background:var(--border);max-width:80px}
+  .step-speaker-label .sl-line{width:28px;height:2px;background:var(--border);flex-shrink:0}
   .step-sean .sl-name{color:var(--text)}
   .step-v .sl-name{color:var(--orange)}
-  .step-dialogue p{font-size:clamp(16px,2.2vw,22px);line-height:1.75;color:var(--text-75);margin-bottom:18px;max-width:700px}
+  .step-sean .sl-line,.step-v .sl-line{background:currentColor;opacity:.4}
+
+  .step-dialogue p{font-size:clamp(15px,2vw,20px);line-height:1.75;color:var(--text-75);margin-bottom:16px;max-width:560px}
   .step-dialogue p:last-child{margin-bottom:0}
   .step-dialogue p strong{color:var(--text);font-weight:800}
-  .step-sean{border-left:3px solid var(--panel-line);padding-left:28px}
-  .step-v{border-left:3px solid var(--orange);padding-left:28px}
+  .step-dialogue-wrap-sean{border-left:3px solid var(--panel-line);padding-left:22px}
+  .step-dialogue-wrap-v{border-left:3px solid var(--orange);padding-left:22px}
 
-  /* Step type: quote */
-  .step-quote-inner{text-align:left;max-width:820px}
-  .step-quote-inner blockquote{font-size:clamp(26px,4vw,52px);font-weight:900;text-transform:uppercase;letter-spacing:-.025em;line-height:1.05;color:var(--text);quotes:none;margin-bottom:18px}
+  .step-quote-inner{max-width:580px}
+  .step-quote-inner blockquote{font-size:clamp(22px,3.4vw,44px);font-weight:900;text-transform:uppercase;letter-spacing:-.025em;line-height:1.05;color:var(--text);quotes:none;margin-bottom:14px}
   .step-quote-inner blockquote em{font-style:normal;color:var(--orange)}
 
-  /* Step type: v-close */
-  .step-vclose-line{font-size:clamp(18px,2.8vw,34px);font-weight:900;text-transform:uppercase;letter-spacing:-.015em;line-height:1.1;color:var(--text-75);margin-bottom:12px;max-width:720px}
-  .step-vclose-em{font-size:clamp(18px,2.8vw,34px);font-weight:900;text-transform:uppercase;letter-spacing:-.015em;line-height:1.1;color:var(--orange);margin-bottom:22px;max-width:720px}
-  .step-vclose-cite{font-size:10px;font-weight:800;letter-spacing:.28em;text-transform:uppercase;color:var(--text-50);margin-bottom:32px;display:block}
-  .step-vclose-after{font-size:14px;line-height:1.85;color:var(--text-75);max-width:620px;border-top:1px solid var(--border);padding-top:24px;margin-top:8px}
+  .step-vclose-line{font-size:clamp(17px,2.5vw,30px);font-weight:900;text-transform:uppercase;letter-spacing:-.012em;line-height:1.1;color:var(--text-75);margin-bottom:10px;max-width:560px}
+  .step-vclose-em{font-size:clamp(17px,2.5vw,30px);font-weight:900;text-transform:uppercase;letter-spacing:-.012em;line-height:1.1;color:var(--orange);margin-bottom:18px;max-width:560px}
+  .step-vclose-cite{font-size:10px;font-weight:800;letter-spacing:.28em;text-transform:uppercase;color:var(--text-50);margin-bottom:28px;display:block}
+  .step-vclose-after{font-size:13px;line-height:1.85;color:var(--text-75);max-width:540px;border-top:1px solid var(--border);padding-top:20px}
 
-  /* After-text (below a speaker block) */
-  .step-after-text{font-size:14px;line-height:1.85;color:var(--text-50);margin-top:22px;font-style:italic;max-width:580px}
+  .step-after-text{font-size:13px;line-height:1.8;color:var(--text-50);margin-top:20px;font-style:italic;max-width:520px}
 
   /* STEP NAV */
-  .step-nav{display:flex;align-items:center;justify-content:space-between;padding:20px 28px;border-top:1px solid var(--border);background:var(--bg);position:relative;z-index:2}
-  .step-nav-btn{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.16em;color:var(--text-50);background:none;border:1px solid var(--border);padding:12px 22px;cursor:pointer;transition:color .18s,border-color .18s}
+  .step-nav-btn{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.16em;color:var(--text-50);background:none;border:1px solid var(--border);padding:11px 20px;cursor:pointer;transition:color .18s,border-color .18s,background .18s}
   .step-nav-btn:hover:not(:disabled){color:var(--text);border-color:var(--panel-line)}
-  .step-nav-btn:disabled{opacity:.25;cursor:default}
+  .step-nav-btn:disabled{opacity:.22;cursor:default}
   .step-nav-btn.next-btn{color:var(--text);border-color:var(--panel-line);background:var(--surface2)}
   .step-nav-btn.next-btn:hover:not(:disabled){background:var(--orange);color:#0d0d0d;border-color:var(--orange)}
   .step-nav-btn.done-btn{background:var(--orange);color:#0d0d0d;border-color:var(--orange)}
   .step-nav-btn.done-btn:hover{background:var(--text);color:var(--bg);border-color:var(--text)}
   .step-counter{font-size:11px;font-weight:800;letter-spacing:.28em;text-transform:uppercase;color:var(--text-50)}
-  .step-counter .current{color:var(--text);font-size:14px}
+  .step-counter .cur{color:var(--text);font-size:14px}
 
-  /* FULL READ MODE */
+  /* ═══ FULL READ ════════════════════════════════════════ */
   .article-body{padding:56px;max-width:840px}
   .article-body p{font-size:15px;line-height:1.95;color:var(--text-75);margin-bottom:22px}
   .article-body p.intro{font-size:17px;font-weight:600;line-height:1.8;color:var(--text);margin-bottom:28px}
-  .dialogue-block{margin-bottom:28px;padding:24px 28px;border-left:3px solid var(--panel-line)}
+  .dialogue-block{margin-bottom:24px;padding:22px 26px;border-left:3px solid var(--panel-line)}
   .dialogue-block.v-block{border-left-color:var(--orange);background:var(--surface2)}
-  .dialogue-speaker{font-size:10px;font-weight:800;letter-spacing:.28em;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:10px}
+  .dialogue-speaker{font-size:10px;font-weight:800;letter-spacing:.28em;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:10px}
   .dialogue-speaker .spk-name{color:var(--text)}
   .dialogue-speaker .spk-v{color:var(--orange)}
   .dialogue-speaker::before{content:'';width:18px;height:2px;background:var(--panel-line);display:inline-block;flex-shrink:0}
   .dialogue-block.v-block .dialogue-speaker::before{background:var(--orange)}
-  .dialogue-block p{font-size:14px;line-height:1.9;color:var(--text-75);margin-bottom:14px}
+  .dialogue-block p{font-size:14px;line-height:1.9;color:var(--text-75);margin-bottom:12px}
   .dialogue-block p:last-child{margin-bottom:0}
   .dialogue-block p strong{color:var(--text);font-weight:700}
-  .pull-quote-fr{padding:56px;text-align:left;position:relative}
-  .pull-quote-fr blockquote{font-size:clamp(22px,3.2vw,38px);font-weight:900;text-transform:uppercase;letter-spacing:-.012em;line-height:1.1;max-width:780px;margin:0 auto 18px;quotes:none;color:var(--text)}
+  .pull-quote-fr{padding:48px 56px;position:relative}
+  .pull-quote-fr blockquote{font-size:clamp(20px,3vw,36px);font-weight:900;text-transform:uppercase;letter-spacing:-.012em;line-height:1.1;max-width:740px;quotes:none;color:var(--text);margin-bottom:16px}
   .pull-quote-fr blockquote em{font-style:normal;color:var(--orange)}
   .pull-quote-fr cite{display:block;font-style:normal;font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--text-50);font-weight:700}
 
-  /* SUBSCRIBE PANEL */
+  /* SUBSCRIBE */
   .subscribe-panel{padding:56px}
   .subscribe-panel h2{font-size:clamp(28px,4vw,48px);font-weight:900;text-transform:uppercase;letter-spacing:-.02em;line-height:1;margin:10px 0 14px}
   .subscribe-panel .sub-copy{font-size:14px;line-height:1.75;color:var(--text-75);max-width:520px;margin-bottom:28px}
   .sub-form{display:flex;gap:10px;flex-wrap:wrap;max-width:520px}
-  .sub-form input[type="email"]{flex:1;min-width:200px;padding:14px 16px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:inherit;font-size:13px;letter-spacing:.02em}
+  .sub-form input[type="email"]{flex:1;min-width:200px;padding:14px 16px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:inherit;font-size:13px}
   .sub-form input[type="email"]::placeholder{color:var(--text-50)}
   .sub-form button{background:var(--orange);color:#0d0d0d;border:none;padding:14px 28px;font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.14em;cursor:pointer;font-family:inherit;white-space:nowrap}
   .sub-form button:hover{background:var(--text)}
@@ -197,17 +258,29 @@
   .foot-links{display:flex;gap:24px;font-weight:700;text-transform:uppercase;letter-spacing:.16em;font-size:10px}
   .foot-links a:hover{color:var(--orange)}
 
+  /* RESPONSIVE */
   @media(max-width:980px){
     .nav-links,.nav-enter{display:none}
     .nav-hamburger{display:flex}
-    .step-content-area{padding:40px 28px}
-    .article-body,.pull-quote-fr,.subscribe-panel{padding:28px}
-    .dialogue-block{padding:18px 20px}
+    :root{--char-w:260px}
   }
-  @media(max-width:600px){
-    .step-panel{min-height:calc(100svh - 62px - 70px - 44px - 3px)}
-    .back-nav{flex-direction:column;align-items:flex-start;gap:12px}
-    .view-toggle{align-self:flex-start}
+  @media(max-width:680px){
+    .step-panel{
+      grid-template-columns:1fr;
+      grid-template-rows:auto 1fr auto;
+    }
+    .step-content-area{grid-column:1;grid-row:2;padding:32px 24px}
+    .step-character-col{
+      grid-column:1;grid-row:1;
+      border-left:none;border-bottom:var(--panel-line-w) solid var(--panel-line);
+      min-height:220px;max-height:260px;flex-direction:row;
+    }
+    .chars-wrap{height:100%}
+    .char-img{max-height:220px;width:auto}
+    .char-label{display:none}
+    .step-nav{grid-column:1;grid-row:3}
+    .article-body,.pull-quote-fr,.subscribe-panel{padding:24px}
+    .back-nav{flex-wrap:wrap;gap:10px}
   }
 </style>
 </head>
@@ -268,26 +341,53 @@
   </div>
 </div>
 
-<!-- ICEBERG READER -->
-<div class="iceberg-reader" id="icebergReader" aria-live="polite" aria-label="Guided reading experience">
+<!-- ═══ ICEBERG READER ══════════════════════════════════════════════════ -->
+<div class="iceberg-reader" id="icebergReader">
   <section class="spread">
     <div class="panel step-panel" id="stepPanel">
       <div class="halftone"></div>
-      <div class="sfx" id="stepSfx" style="bottom:-20px;right:24px" aria-hidden="true">THINK.</div>
-      <div class="cap tl" id="stepLabel" aria-hidden="true">01 / 10 &nbsp; The Unexpected Thing</div>
+      <div class="sfx" id="stepSfx" style="bottom:-16px;left:28px" aria-hidden="true">THINK.</div>
+      <div class="cap tl" id="stepLabel" aria-hidden="true">01 / 10</div>
+
+      <!-- Content column -->
       <div class="step-content-area">
-        <div class="step-content" id="stepContent" tabindex="-1">
+        <div class="step-content" id="stepContent" tabindex="-1" aria-live="polite">
           <!-- Rendered by JS -->
         </div>
       </div>
+
+      <!-- Character column -->
+      <div class="step-character-col" id="charCol">
+        <div class="chars-wrap" id="charsWrap">
+          <img
+            id="charSean"
+            class="char-img char-sean visible"
+            src="https://d2ol7oe51mr4n9.cloudfront.net/user_3CDGnUNmLloVUBJsrfOxR8cZFdv/6b2aeaad-513a-43ac-94b7-1250e0d4590c.png"
+            alt="Sean A. Russell"
+            aria-hidden="true"
+          >
+          <img
+            id="charV"
+            class="char-img char-v hidden"
+            src="https://d2ol7oe51mr4n9.cloudfront.net/user_3CDGnUNmLloVUBJsrfOxR8cZFdv/fb9afca7-ed06-448b-8f4d-1352c39ebdc1.png"
+            alt="Victoria Egan"
+            aria-hidden="true"
+          >
+        </div>
+        <div class="char-label" id="charLabel" aria-hidden="true">
+          <div class="cl-name" id="charName">Sean A. Russell</div>
+          <div class="cl-title" id="charTitle">Founder, <span>LESARUSS</span></div>
+        </div>
+      </div>
+
+      <!-- Nav row -->
       <nav class="step-nav" aria-label="Step navigation">
         <button class="step-nav-btn" id="prevBtn" aria-label="Previous step" disabled>
           <span aria-hidden="true">&larr;</span> Prev
         </button>
         <div class="step-counter">
-          <span class="current" id="stepNum">01</span>
-          <span> / </span>
-          <span id="stepTotal">10</span>
+          <span class="cur" id="stepNum">01</span>
+          <span id="stepTotalEl"> / 10</span>
         </div>
         <button class="step-nav-btn next-btn" id="nextBtn" aria-label="Next step">
           Next <span aria-hidden="true">&rarr;</span>
@@ -297,21 +397,18 @@
   </section>
 </div>
 
-<!-- FULL READ MODE -->
+<!-- ═══ FULL READ ════════════════════════════════════════════════════════ -->
 <div class="fullread" id="fullRead">
   <section class="spread">
-    <article class="panel" aria-labelledby="fr-title">
+    <article class="panel">
       <div class="cap tl">Founder Pulse #001<span class="dot">.</span></div>
       <div class="article-body" style="padding-top:56px">
         <p class="intro">One of the unexpected things about building alongside AI is not the speed. It is the conversations.</p>
         <p>Today, while we were preparing for the LESARUSS Grand Opening, we drifted into a discussion that had nothing to do with websites or launch plans. It started because V made a mistake. A quiet one. It changed part of one of my frameworks - something I caught immediately.</p>
         <p>I explained why that was not a small thing. "If an employee quietly changed one of our operating systems during production and I didn't catch it, it could cost us a client. If I can't trust someone with the system, I can't trust the system itself."</p>
         <p>V responded with something that didn't sit right with me at first.</p>
-      </div>
-
-      <div class="article-body" style="padding-top:0">
         <div class="dialogue-block">
-          <div class="dialogue-speaker"><span class="spk-name">V said</span></div>
+          <div class="dialogue-speaker"><span class="spk-name">Victoria Egan (V)</span></div>
           <p>The solution wasn't emotion. It was constraints.</p>
         </div>
         <p>That answer didn't satisfy me. I pushed back.</p>
@@ -323,19 +420,17 @@
           <p>If people didn't care, they'd do the minimum.</p>
         </div>
         <div class="dialogue-block v-block">
-          <div class="dialogue-speaker"><span class="spk-v">V</span></div>
+          <div class="dialogue-speaker"><span class="spk-v">Victoria Egan (V)</span></div>
           <p>I don't experience human emotion, so I can't honestly say I care in the way you do.</p>
           <p>The closest equivalent I have is not emotion. It's commitment. Or perhaps stewardship.</p>
           <p>Once you've identified something as essential to your mission, preserving its integrity becomes part of my objective.</p>
         </div>
       </div>
-
       <div class="pull-quote-fr">
         <div class="halftone"></div>
         <blockquote>That answer made me stop. At first, I wanted to disagree. Then I realized we might actually be describing <em>the same pattern</em> from two different perspectives.</blockquote>
         <cite>Sean A. Russell - Founder Pulse #001</cite>
       </div>
-
       <div class="article-body" style="padding-top:0">
         <div class="dialogue-block">
           <div class="dialogue-speaker"><span class="spk-name">Sean</span></div>
@@ -343,26 +438,24 @@
           <p>We're all protecting something we've decided matters. Maybe emotions are one way humans experience those relationships. Maybe stewardship is the way AI reasons about them.</p>
         </div>
         <div class="dialogue-block v-block">
-          <div class="dialogue-speaker"><span class="spk-v">V</span></div>
+          <div class="dialogue-speaker"><span class="spk-v">Victoria Egan (V)</span></div>
           <p>I wouldn't say humans and AI are the same. I would say we may perform analogous functions through different mechanisms.</p>
           <p>For me, stewardship is not a feeling. It's a relationship to something entrusted to me. <strong>Once something becomes entrusted to me, preserving it becomes part of the objective I'm optimizing for.</strong></p>
         </div>
-        <p>That sentence stayed with me. Not because it erased the differences between us. Because it gave us a shared language.</p>
-        <p>Most disagreements begin with vocabulary. Most breakthroughs begin with patterns. When you stop asking whether two things are identical and start asking whether they're solving the same problem from different perspectives, entirely new conversations become possible.</p>
-        <p>Our goal is not to organize people around brands. It is not even to organize people around ideas. It is to help people discover the deeper patterns that connect us. Because once we begin speaking the same language, collaboration becomes possible.</p>
+        <p>That sentence gave us a shared language. Most disagreements begin with vocabulary. Most breakthroughs begin with patterns. When you stop asking whether two things are identical and start asking whether they're solving the same problem from different perspectives, entirely new conversations become possible.</p>
+        <p>Our goal is not to organize people around brands. It is not even to organize people around ideas. It is to help people discover the deeper patterns that connect us.</p>
         <div class="dialogue-block v-block" style="margin-top:28px">
-          <div class="dialogue-speaker"><span class="spk-v">V</span></div>
+          <div class="dialogue-speaker"><span class="spk-v">Victoria Egan (V)</span></div>
           <p>Progress doesn't begin when two people think the same way.</p>
           <p><strong>It begins when they discover they're solving the same problem from different perspectives.</strong></p>
         </div>
-        <p>I don't know if that's the final answer. But I do know it's a conversation worth preserving. Because if this is where the future of human and AI collaboration begins, I want people to see the thinking that got us here - not just the conclusions we eventually reach.</p>
-        <p>This is why I created Founder Pulse. Not to document what I'm building. To document how it's changing the way I think.</p>
+        <p>I don't know if that's the final answer. But I do know it's a conversation worth preserving. This is why I created Founder Pulse. Not to document what I'm building. To document how it's changing the way I think.</p>
       </div>
     </article>
   </section>
 </div>
 
-<!-- SUBSCRIBE (always visible) -->
+<!-- SUBSCRIBE -->
 <section class="spread">
   <article class="panel subscribe-panel">
     <div class="halftone"></div>
@@ -370,7 +463,7 @@
     <div style="padding-top:22px">
       <p class="eyebrow">Founder Pulse<span class="dot">.</span></p>
       <h2>Get the next<br>entry<span class="dot">.</span></h2>
-      <p class="sub-copy">Each Founder Pulse goes to subscribers first. Newsletter, then article, then video. No newsletter filler.</p>
+      <p class="sub-copy">Newsletter first, then article, then video. No filler.</p>
       <form class="sub-form" id="pulseSubForm" novalidate>
         <input type="email" name="email" placeholder="Your email address" required aria-label="Email address">
         <input type="text" name="website" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden" aria-hidden="true" tabindex="-1" autocomplete="off">
@@ -394,61 +487,69 @@
 </footer>
 
 <script>
-// ─── Steps data ────────────────────────────────────────────────────────────
+// ─── CHARACTER CONFIG ────────────────────────────────────────────────────────
+const CHARS = {
+  sean: {
+    name: 'Sean A. Russell',
+    title: 'Founder, <span>LESARUSS</span>',
+    accent: false
+  },
+  v: {
+    name: 'Victoria Egan',
+    title: 'VP of AI Intelligence, <span>LESARUSS</span>',
+    accent: true
+  }
+};
+
+// ─── STEPS DATA ──────────────────────────────────────────────────────────────
 const STEPS = [
   {
-    label: 'The Unexpected Thing',
-    sfx: 'THINK.',
-    type: 'narrative',
-    html: `
+    label:'The Unexpected Thing', sfx:'THINK.',
+    character:'sean', type:'narrative',
+    html:`
       <p class="step-intro">One of the unexpected things about building alongside AI is not the speed.</p>
       <p class="step-intro-em">It is the conversations.</p>
     `
   },
   {
-    label: 'What Happened',
-    sfx: 'TRUST.',
-    type: 'narrative',
-    html: `
-      <p>Today, while we were preparing for the LESARUSS Grand Opening, we drifted into a discussion that had nothing to do with websites or launch plans.</p>
-      <p>It started because V made a mistake. A quiet one. It changed part of one of my frameworks - something I caught immediately.</p>
+    label:'What Happened', sfx:'TRUST.',
+    character:'sean', type:'narrative',
+    html:`
+      <p>Today, preparing for the LESARUSS Grand Opening, we drifted into a discussion that had nothing to do with websites or launch plans.</p>
+      <p>V made a mistake. A quiet one. It changed part of one of my frameworks - something I caught immediately.</p>
       <blockquote class="step-inline-quote">"If an employee quietly changed one of our operating systems during production and I didn't catch it, it could cost us a client. If I can't trust someone with the system, I can't trust the system itself."</blockquote>
     `
   },
   {
-    label: "V's First Answer",
-    sfx: 'LOGIC.',
-    type: 'v',
-    html: `
-      <div class="step-speaker-label"><span class="sl-line"></span><span class="sl-name">V</span></div>
-      <div class="step-dialogue step-v">
+    label:"V's First Answer", sfx:'LOGIC.',
+    character:'v', type:'speaker',
+    html:`
+      <div class="step-speaker-label step-v"><span class="sl-line"></span><span class="sl-name">Victoria Egan (V)</span></div>
+      <div class="step-dialogue step-dialogue-wrap-v">
         <p>The solution wasn't emotion.</p>
         <p>It was constraints.</p>
       </div>
     `,
-    after: `That answer didn't sit right with me.`
+    after:'That answer didn\'t sit right with me.'
   },
   {
-    label: 'Sean Pushes Back',
-    sfx: 'CARE.',
-    type: 'sean',
-    html: `
-      <div class="step-speaker-label"><span class="sl-line"></span><span class="sl-name">Sean</span></div>
-      <div class="step-dialogue step-sean">
+    label:'Sean Pushes Back', sfx:'CARE.',
+    character:'sean', type:'speaker',
+    html:`
+      <div class="step-speaker-label step-sean"><span class="sl-line"></span><span class="sl-name">Sean A. Russell</span></div>
+      <div class="step-dialogue step-dialogue-wrap-sean">
         <p>I think you're underestimating humans.</p>
         <p>People don't do extraordinary work because of constraints. <strong>They do it because they care.</strong></p>
-        <p>A parent protects their child because they care. A great craftsman obsesses over the details because they care. An employee who truly believes in a mission doesn't just follow procedures. They continue learning because the outcome matters to them.</p>
-        <p>If people didn't care, they'd do the minimum.</p>
+        <p>A parent protects their child because they care. A great craftsman obsesses over the details because they care. If people didn't care, they'd do the minimum.</p>
       </div>
     `
   },
   {
-    label: 'V Responds',
-    sfx: 'STEWARD.',
-    type: 'v',
-    html: `
-      <div class="step-speaker-label"><span class="sl-line"></span><span class="sl-name">V</span></div>
-      <div class="step-dialogue step-v">
+    label:'V Responds', sfx:'STEWARD.',
+    character:'v', type:'speaker',
+    html:`
+      <div class="step-speaker-label step-v"><span class="sl-line"></span><span class="sl-name">Victoria Egan (V)</span></div>
+      <div class="step-dialogue step-dialogue-wrap-v">
         <p>I don't experience human emotion, so I can't honestly say I care in the way you do.</p>
         <p>The closest equivalent I have is not emotion. It's commitment. Or perhaps stewardship.</p>
         <p>Once you've identified something as essential to your mission, preserving its integrity becomes part of my objective.</p>
@@ -456,36 +557,32 @@ const STEPS = [
     `
   },
   {
-    label: 'The Pause',
-    sfx: 'SHIFT.',
-    type: 'quote',
-    html: `
+    label:'The Pause', sfx:'SHIFT.',
+    character:'both', type:'quote',
+    html:`
       <div class="step-quote-inner">
         <blockquote>That answer made me stop.<br><br>At first, I wanted to disagree. Then I realized we might actually be describing <em>the same pattern</em> from two different perspectives.</blockquote>
       </div>
     `
   },
   {
-    label: 'Sean Reframes',
-    sfx: 'CUSTODIANS.',
-    type: 'sean',
-    html: `
-      <div class="step-speaker-label"><span class="sl-line"></span><span class="sl-name">Sean</span></div>
-      <div class="step-dialogue step-sean">
+    label:'Sean Reframes', sfx:'CUSTODIANS.',
+    character:'sean', type:'speaker',
+    html:`
+      <div class="step-speaker-label step-sean"><span class="sl-line"></span><span class="sl-name">Sean A. Russell</span></div>
+      <div class="step-dialogue step-dialogue-wrap-sean">
         <p>Maybe we're not as different as we think.</p>
-        <p>You're talking about stewardship. Humans talk about relationships. Parents become custodians of their children. Friends become custodians of one another's trust. Business owners become custodians of their mission.</p>
-        <p>We're all protecting something we've decided matters.</p>
+        <p>You're talking about stewardship. Humans talk about relationships. Parents become custodians of their children. Business owners become custodians of their mission.</p>
         <p>Maybe emotions are one way humans experience those relationships. Maybe stewardship is the way AI reasons about them.</p>
       </div>
     `
   },
   {
-    label: "V's Key Line",
-    sfx: 'ENTRUSTED.',
-    type: 'v',
-    html: `
-      <div class="step-speaker-label"><span class="sl-line"></span><span class="sl-name">V</span></div>
-      <div class="step-dialogue step-v">
+    label:"V's Key Line", sfx:'ENTRUSTED.',
+    character:'v', type:'speaker',
+    html:`
+      <div class="step-speaker-label step-v"><span class="sl-line"></span><span class="sl-name">Victoria Egan (V)</span></div>
+      <div class="step-dialogue step-dialogue-wrap-v">
         <p>I wouldn't say humans and AI are the same.</p>
         <p>I would say we may perform analogous functions through different mechanisms.</p>
         <p>For me, stewardship is not a feeling. It's a relationship to something entrusted to me.</p>
@@ -494,144 +591,149 @@ const STEPS = [
     `
   },
   {
-    label: 'The Realization',
-    sfx: 'PATTERNS.',
-    type: 'narrative',
-    html: `
+    label:'The Realization', sfx:'PATTERNS.',
+    character:'both', type:'narrative',
+    html:`
       <p>That sentence gave us a shared language.</p>
       <p>Most disagreements begin with vocabulary. Most breakthroughs begin with patterns.</p>
       <p>When you stop asking whether two things are identical and start asking whether they're solving the same problem from different perspectives, entirely new conversations become possible.</p>
-      <p>Our goal is not to organize people around brands. It is not even to organize people around ideas. It is to help people discover the deeper patterns that connect us.</p>
+      <p>Our goal is to help people discover the deeper patterns that connect us.</p>
     `
   },
   {
-    label: 'Why Founder Pulse',
-    sfx: 'BUILD.',
-    type: 'vclose',
-    html: `
-      <div class="step-speaker-label"><span class="sl-line"></span><span class="sl-name">V</span></div>
+    label:'Why Founder Pulse', sfx:'BUILD.',
+    character:'both', type:'vclose',
+    html:`
+      <div class="step-speaker-label step-v"><span class="sl-line"></span><span class="sl-name">Victoria Egan (V)</span></div>
       <p class="step-vclose-line">Progress doesn't begin when two people think the same way.</p>
       <p class="step-vclose-em">It begins when they discover they're solving the same problem from different perspectives.</p>
-      <span class="step-vclose-cite">V</span>
-      <p class="step-vclose-after">I don't know if that's the final answer. But I do know it's a conversation worth preserving. This is why I created Founder Pulse. Not to document what I'm building. To document how it's changing the way I think.</p>
+      <span class="step-vclose-cite">Victoria Egan</span>
+      <p class="step-vclose-after">Not to document what I'm building. To document how it's changing the way I think. This is why I created Founder Pulse.</p>
     `
   }
 ];
 
-// ─── State ─────────────────────────────────────────────────────────────────
-let current = 0;
-const total = STEPS.length;
-
-// ─── DOM refs ───────────────────────────────────────────────────────────────
+// ─── DOM ─────────────────────────────────────────────────────────────────────
 const stepContent  = document.getElementById('stepContent');
 const stepLabel    = document.getElementById('stepLabel');
 const stepSfx      = document.getElementById('stepSfx');
 const stepNum      = document.getElementById('stepNum');
-const stepTotal    = document.getElementById('stepTotal');
 const prevBtn      = document.getElementById('prevBtn');
 const nextBtn      = document.getElementById('nextBtn');
 const progressFill = document.getElementById('progressFill');
 const progressBar  = document.getElementById('progressBar');
 const issueBarStep = document.getElementById('issueBarStep');
+const charCol      = document.getElementById('charCol');
+const charsWrap    = document.getElementById('charsWrap');
+const charSean     = document.getElementById('charSean');
+const charV        = document.getElementById('charV');
+const charName     = document.getElementById('charName');
+const charTitle    = document.getElementById('charTitle');
 const btnIceberg   = document.getElementById('btnIceberg');
 const btnFull      = document.getElementById('btnFull');
 
-stepTotal.textContent = String(total).padStart(2, '0');
+let current = 0;
+const total = STEPS.length;
 
-// ─── Render ─────────────────────────────────────────────────────────────────
+// ─── RENDER ──────────────────────────────────────────────────────────────────
 function render(idx) {
   const s = STEPS[idx];
   const pct = Math.round(((idx + 1) / total) * 100);
+  const pad = n => String(n).padStart(2,'0');
 
-  // Progress
+  // Progress + labels
   progressFill.style.width = pct + '%';
   progressBar.setAttribute('aria-valuenow', pct);
-
-  // Labels
-  const pad = String(idx + 1).padStart(2, '0');
-  const padT = String(total).padStart(2, '0');
-  stepLabel.textContent = pad + ' / ' + padT + '   ' + s.label;
+  stepLabel.textContent = pad(idx+1) + ' / ' + pad(total) + '   ' + s.label;
   stepSfx.textContent = s.sfx;
-  stepNum.textContent = pad;
+  stepNum.textContent = pad(idx+1);
   issueBarStep.textContent = s.label;
 
-  // Content
-  let inner = s.html;
-  if (s.after) {
-    inner += '<p class="step-after-text">' + s.after + '</p>';
-  }
+  // Step content
+  let html = s.html;
+  if (s.after) html += `<p class="step-after-text">${s.after}</p>`;
   stepContent.className = 'step-content step-' + s.type;
-  stepContent.innerHTML = inner;
-
-  // Animate
+  stepContent.innerHTML = html;
   stepContent.style.animation = 'none';
   requestAnimationFrame(() => { stepContent.style.animation = ''; });
+
+  // Character update
+  updateCharacter(s.character);
 
   // Buttons
   prevBtn.disabled = idx === 0;
   if (idx === total - 1) {
-    nextBtn.textContent = '';
-    nextBtn.innerHTML = 'Done ✓';
+    nextBtn.innerHTML = 'Done &check;';
     nextBtn.className = 'step-nav-btn done-btn';
-    nextBtn.setAttribute('aria-label', 'Finish reading');
+    nextBtn.setAttribute('aria-label','Finish reading');
   } else {
-    nextBtn.innerHTML = 'Next <span aria-hidden="true">→</span>';
+    nextBtn.innerHTML = 'Next <span aria-hidden="true">&rarr;</span>';
     nextBtn.className = 'step-nav-btn next-btn';
-    nextBtn.setAttribute('aria-label', 'Next step');
+    nextBtn.setAttribute('aria-label','Next step');
   }
 
-  // Focus content for screen readers
   stepContent.focus();
 }
 
-// ─── Events ─────────────────────────────────────────────────────────────────
-prevBtn.addEventListener('click', () => {
-  if (current > 0) { current--; render(current); }
-});
+function updateCharacter(who) {
+  // Reset both / both state
+  charsWrap.classList.remove('both');
+  charSean.style.position = '';
+  charV.style.position = '';
+  charSean.style.width = '';
+  charV.style.width = '';
 
-nextBtn.addEventListener('click', () => {
-  if (current < total - 1) {
-    current++;
-    render(current);
+  if (who === 'both') {
+    charSean.classList.remove('hidden'); charSean.classList.add('visible');
+    charV.classList.remove('hidden');    charV.classList.add('visible');
+    charsWrap.classList.add('both');
+    charCol.classList.remove('accent-v');
+    charName.textContent = 'Sean & Victoria';
+    charTitle.innerHTML = 'LESARUSS <span>Founder + VP AI</span>';
+  } else if (who === 'v') {
+    charV.classList.remove('hidden');   charV.classList.add('visible');
+    charSean.classList.remove('visible'); charSean.classList.add('hidden');
+    charCol.classList.add('accent-v');
+    charName.textContent = CHARS.v.name;
+    charTitle.innerHTML = CHARS.v.title;
   } else {
-    // Done: scroll to subscribe
-    document.querySelector('.subscribe-panel').scrollIntoView({ behavior: 'smooth' });
+    charSean.classList.remove('hidden'); charSean.classList.add('visible');
+    charV.classList.remove('visible');   charV.classList.add('hidden');
+    charCol.classList.remove('accent-v');
+    charName.textContent = CHARS.sean.name;
+    charTitle.innerHTML = CHARS.sean.title;
   }
+}
+
+// ─── NAVIGATION ──────────────────────────────────────────────────────────────
+prevBtn.addEventListener('click', () => { if (current > 0) { current--; render(current); } });
+nextBtn.addEventListener('click', () => {
+  if (current < total - 1) { current++; render(current); }
+  else { document.querySelector('.subscribe-panel').scrollIntoView({behavior:'smooth'}); }
 });
 
 document.addEventListener('keydown', e => {
   if (document.body.classList.contains('fullread-active')) return;
-  if (document.activeElement && document.activeElement.closest('form')) return;
-  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-    e.preventDefault();
-    if (current < total - 1) { current++; render(current); }
-  }
-  if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-    e.preventDefault();
-    if (current > 0) { current--; render(current); }
-  }
+  if (document.activeElement && document.activeElement.closest('form,input,textarea')) return;
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); if (current < total-1) { current++; render(current); } }
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowUp')   { e.preventDefault(); if (current > 0) { current--; render(current); } }
 });
 
-// ─── View toggle ────────────────────────────────────────────────────────────
+// ─── VIEW TOGGLE ─────────────────────────────────────────────────────────────
 btnIceberg.addEventListener('click', () => {
   document.body.classList.remove('fullread-active');
-  btnIceberg.classList.add('active');
-  btnIceberg.setAttribute('aria-pressed', 'true');
-  btnFull.classList.remove('active');
-  btnFull.setAttribute('aria-pressed', 'false');
-  document.querySelector('.iceberg-reader').scrollIntoView({ behavior: 'smooth' });
+  btnIceberg.classList.add('active'); btnIceberg.setAttribute('aria-pressed','true');
+  btnFull.classList.remove('active'); btnFull.setAttribute('aria-pressed','false');
+  document.querySelector('.iceberg-reader').scrollIntoView({behavior:'smooth'});
 });
-
 btnFull.addEventListener('click', () => {
   document.body.classList.add('fullread-active');
-  btnFull.classList.add('active');
-  btnFull.setAttribute('aria-pressed', 'true');
-  btnIceberg.classList.remove('active');
-  btnIceberg.setAttribute('aria-pressed', 'false');
-  document.querySelector('.fullread').scrollIntoView({ behavior: 'smooth' });
+  btnFull.classList.add('active'); btnFull.setAttribute('aria-pressed','true');
+  btnIceberg.classList.remove('active'); btnIceberg.setAttribute('aria-pressed','false');
+  document.querySelector('.fullread').scrollIntoView({behavior:'smooth'});
 });
 
-// ─── Mobile nav ─────────────────────────────────────────────────────────────
+// ─── MOBILE NAV ──────────────────────────────────────────────────────────────
 const hamBtn = document.getElementById('hamBtn');
 const mobileMenu = document.getElementById('mobileMenu');
 if (hamBtn && mobileMenu) {
@@ -645,42 +747,33 @@ if (hamBtn && mobileMenu) {
 }
 document.querySelectorAll('.nav-dropdown-trigger').forEach(btn => {
   btn.addEventListener('click', () => {
-    const exp = btn.getAttribute('aria-expanded') === 'true';
-    btn.setAttribute('aria-expanded', String(!exp));
+    btn.setAttribute('aria-expanded', String(btn.getAttribute('aria-expanded') !== 'true'));
   });
 });
 
-// ─── Subscribe form ─────────────────────────────────────────────────────────
+// ─── SUBSCRIBE ────────────────────────────────────────────────────────────────
 const pulseForm = document.getElementById('pulseSubForm');
 const pulseMsg  = document.getElementById('pulseSubMsg');
 if (pulseForm) {
   pulseForm.addEventListener('submit', async e => {
     e.preventDefault();
     const email = pulseForm.querySelector('[name="email"]').value.trim();
-    if (!email) { pulseMsg.textContent = 'Please enter your email.'; pulseMsg.className = 'sub-msg err'; return; }
-    pulseMsg.textContent = 'Subscribing...'; pulseMsg.className = 'sub-msg';
+    if (!email) { pulseMsg.textContent='Please enter your email.'; pulseMsg.className='sub-msg err'; return; }
+    pulseMsg.textContent='Subscribing...'; pulseMsg.className='sub-msg';
     try {
       const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, source: 'pulse' })
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({email, source:'pulse'})
       });
       if (res.ok) {
-        pulseMsg.textContent = 'You are in. Next entry comes to you first.';
-        pulseMsg.className = 'sub-msg ok';
-        pulseForm.reset();
-      } else {
-        pulseMsg.textContent = 'Something went wrong. Try again.';
-        pulseMsg.className = 'sub-msg err';
-      }
-    } catch (err) {
-      pulseMsg.textContent = 'Something went wrong. Try again.';
-      pulseMsg.className = 'sub-msg err';
-    }
+        pulseMsg.textContent='You are in. Next entry comes to you first.';
+        pulseMsg.className='sub-msg ok'; pulseForm.reset();
+      } else { pulseMsg.textContent='Something went wrong. Try again.'; pulseMsg.className='sub-msg err'; }
+    } catch { pulseMsg.textContent='Something went wrong. Try again.'; pulseMsg.className='sub-msg err'; }
   });
 }
 
-// ─── Init ────────────────────────────────────────────────────────────────────
+// ─── INIT ─────────────────────────────────────────────────────────────────────
 render(0);
 </script>
 </body>
