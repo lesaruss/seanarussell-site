@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Founder Pulse | Sean A. Russell</title>
+<meta name="description" content="Founder Pulse is where Sean A. Russell documents how building LESARUSS is changing the way he thinks. Articles, conversations, and TLDRs - delivered as newsletter, video, and social content.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0d0d0d;--surface:#111111;--surface2:#161616;
+    --border:rgba(255,255,255,0.07);
+    --text:#ffffff;--text-75:rgba(255,255,255,0.75);--text-50:rgba(255,255,255,0.50);--text-30:rgba(255,255,255,0.30);
+    --orange:#F69820;
+    --panel-line:var(--text);
+    --panel-line-w:1.5px;
+    --gutter:14px;
+    --nav-bg:rgba(13,13,13,0.96);
+  }
+  html[data-theme="light"]{
+    --bg:#ffffff;--surface:#ffffff;--surface2:#fafafa;
+    --border:rgba(0,0,0,0.08);
+    --text:#1a1a1a;--text-75:rgba(26,26,26,0.78);--text-50:rgba(26,26,26,0.55);--text-30:rgba(26,26,26,0.35);
+    --orange:#F69820;
+    --panel-line:#0d0d0d;
+    --nav-bg:rgba(255,255,255,0.96);
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:'Montserrat',Arial,Helvetica,sans-serif;overflow-x:hidden;transition:background .25s ease,color .25s ease}
+  a{text-decoration:none;color:inherit}
+  img,svg{display:block;max-width:100%}
+  button{font-family:inherit}
+  :focus-visible{outline:3px solid var(--orange);outline-offset:3px}
+  @media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
+  .dot{color:var(--orange);display:inline-block;margin-left:0.06em;animation:dotPulse 2s ease-in-out infinite}
+  @keyframes dotPulse{0%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(1.3)}100%{opacity:1;transform:scale(1)}}
+
+  /* NAV */
+  .nav{position:fixed;top:0;left:0;right:0;z-index:200;height:62px;display:flex;align-items:center;padding:0 28px;background:var(--nav-bg);border-bottom:1px solid var(--border);backdrop-filter:blur(10px)}
+  .nav-brand{font-size:17px;font-weight:900;text-transform:uppercase;letter-spacing:.05em;flex-shrink:0;margin-right:36px}
+  .nav-links{display:flex;align-items:center;gap:4px;flex:1}
+  .nav-link{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.13em;color:var(--text-50);padding:6px 12px;background:none;border:none;cursor:pointer;transition:color .18s;white-space:nowrap;flex-shrink:0}
+  .nav-link:hover{color:var(--text)}
+  .nav-link.active{color:var(--orange)}
+  .nav-enter{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.14em;color:#0d0d0d;background:var(--orange);padding:9px 20px;border:none;cursor:pointer;flex-shrink:0}
+  .nav-enter:hover{background:var(--text);color:var(--bg)}
+  .nav-dropdown{position:relative;display:inline-flex;align-items:center}
+  .nav-dropdown-trigger{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.13em;color:var(--text-50);padding:6px 12px;background:none;border:none;cursor:pointer;display:flex;align-items:center;gap:5px;white-space:nowrap;flex-shrink:0;font-family:inherit;transition:color .18s}
+  .nav-dropdown-trigger:hover,.nav-dropdown:hover .nav-dropdown-trigger{color:var(--text)}
+  .nav-dropdown-trigger .chevron{font-size:9px;line-height:1;transition:transform .18s;display:inline-block}
+  .nav-dropdown:hover .chevron{transform:rotate(180deg)}
+  .nav-dropdown-menu{position:absolute;top:100%;left:0;background:var(--nav-bg);border:1px solid var(--border);backdrop-filter:blur(10px);min-width:150px;padding:4px 0 6px;display:none;z-index:300}
+  .nav-dropdown:hover .nav-dropdown-menu,.nav-dropdown:focus-within .nav-dropdown-menu{display:block}
+  .nav-dropdown-item{display:block;padding:9px 16px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.13em;color:var(--text-50);transition:color .15s}
+  .nav-dropdown-item:hover{color:var(--orange)}
+  .nav-hamburger{display:none;flex-direction:column;justify-content:center;align-items:center;width:40px;height:40px;background:none;border:none;cursor:pointer;gap:5px;padding:0;margin-left:auto;flex-shrink:0}
+  .nav-hamburger span{display:block;width:22px;height:2px;background:var(--text);transition:transform .22s,opacity .22s}
+  .nav-hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .nav-hamburger.open span:nth-child(2){opacity:0}
+  .nav-hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  .mobile-menu{display:none;position:fixed;top:62px;left:0;right:0;bottom:0;background:var(--nav-bg);z-index:199;padding:28px 24px;overflow-y:auto;border-top:1px solid var(--border)}
+  .mobile-menu.open{display:block}
+  .mobile-menu-section{font-size:10px;font-weight:800;letter-spacing:.28em;text-transform:uppercase;color:var(--text-30);padding:22px 0 10px}
+  .mobile-menu-section:first-child{padding-top:8px}
+  .mobile-menu-link{display:block;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.13em;color:var(--text-50);padding:15px 0;border-bottom:1px solid var(--border);transition:color .15s}
+  .mobile-menu-link:hover,.mobile-menu-link.active-mobile{color:var(--orange)}
+  .mobile-menu-link.book{color:var(--orange);font-weight:900}
+
+  /* ISSUE BAR */
+  .issue-bar{position:relative;display:flex;align-items:center;gap:18px;padding:10px 28px;border-bottom:1px solid var(--border);font-size:10px;font-weight:800;letter-spacing:.32em;text-transform:uppercase;color:var(--text-50);margin-top:62px}
+  .issue-bar .red{width:8px;height:8px;border-radius:50%;background:var(--orange);animation:dotPulse 2s ease-in-out infinite;flex-shrink:0}
+  .issue-bar .ib-title{color:var(--text)}
+  .issue-bar .ib-right{margin-left:auto;color:var(--text-30)}
+
+  /* LAYOUT */
+  .spread{padding:var(--gutter);max-width:1280px;margin:0 auto}
+  .spread+.spread{padding-top:0}
+  .panel{position:relative;background:var(--bg);border:var(--panel-line-w) solid var(--panel-line);overflow:hidden}
+  .grid{display:grid;gap:var(--gutter)}
+  .cap{position:absolute;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--text);background:var(--bg);padding:8px 12px;border:var(--panel-line-w) solid var(--panel-line);z-index:5;line-height:1.5;max-width:280px}
+  .cap.tl{top:-1px;left:-1px}
+  .cap.br{bottom:-1px;right:-1px}
+  .cap.tl-inset{top:14px;left:14px}
+  .halftone{position:absolute;inset:0;opacity:.08;pointer-events:none;background-image:radial-gradient(var(--orange) 1.4px, transparent 1.6px);background-size:14px 14px}
+  .sfx{position:absolute;font-size:clamp(64px,11vw,160px);font-weight:900;text-transform:uppercase;letter-spacing:-.04em;line-height:.85;color:var(--orange);opacity:.07;pointer-events:none;z-index:1}
+  .eyebrow{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.32em;color:var(--orange);margin-bottom:22px}
+  .cta{display:inline-block;font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.14em;color:#0d0d0d;background:var(--orange);padding:14px 32px;border:none;cursor:pointer;font-family:inherit;transition:background .18s,color .18s}
+  .cta:hover{background:var(--text);color:var(--bg)}
+
+  /* PAGE HERO */
+  .page-hero{display:grid;grid-template-columns:minmax(0,1fr) 420px;min-height:58vh;align-items:end}
+  .page-hero-copy{padding:72px 56px 56px;min-width:0}
+  .page-hero h1{font-size:clamp(48px,7vw,88px);font-weight:900;text-transform:uppercase;letter-spacing:-.03em;line-height:.95;margin:14px 0 18px;overflow-wrap:break-word}
+  .page-hero h1 em{font-style:normal;color:var(--orange)}
+  .page-hero .lede{font-size:15px;line-height:1.85;color:var(--text-75);max-width:480px;margin-bottom:24px}
+  .page-hero-character{position:relative;height:100%;min-height:420px;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;border-left:var(--panel-line-w) solid var(--panel-line);padding:28px}
+  .hero-stat{padding:14px 0;border-bottom:1px solid var(--border)}
+  .hero-stat:last-child{border-bottom:none}
+  .hero-stat .s-num{font-size:clamp(28px,3.5vw,44px);font-weight:900;letter-spacing:-.02em;line-height:1;margin-bottom:6px}
+  .hero-stat .s-num span{color:var(--orange)}
+  .hero-stat .s-lab{font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--text-50)}
+
+  /* FORMATS STRIP */
+  .formats-strip{display:flex;align-items:center;gap:0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+  .format-item{flex:1;padding:18px 24px;border-right:1px solid var(--border);display:flex;align-items:center;gap:14px}
+  .format-item:last-child{border-right:none}
+  .format-icon{width:32px;height:32px;border:var(--panel-line-w) solid var(--panel-line);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .format-icon svg{width:14px;height:14px}
+  .format-label{font-size:10px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--text-50)}
+  .format-label span{display:block;font-size:9px;color:var(--text-30);letter-spacing:.18em;margin-top:2px}
+
+  /* SUBSCRIBE PANEL */
+  .subscribe-panel{padding:56px}
+  .subscribe-panel h2{font-size:clamp(28px,4vw,48px);font-weight:900;text-transform:uppercase;letter-spacing:-.02em;line-height:1;margin:10px 0 14px}
+  .subscribe-panel .sub-copy{font-size:14px;line-height:1.75;color:var(--text-75);max-width:520px;margin-bottom:28px}
+  .sub-form{display:flex;gap:10px;flex-wrap:wrap;max-width:520px}
+  .sub-form input[type="email"]{flex:1;min-width:200px;padding:14px 16px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:inherit;font-size:13px;letter-spacing:.02em}
+  .sub-form input[type="email"]::placeholder{color:var(--text-50)}
+  .sub-form button{background:var(--orange);color:#0d0d0d;border:none;padding:14px 28px;font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.14em;cursor:pointer;font-family:inherit;white-space:nowrap}
+  .sub-form button:hover{background:var(--text)}
+  .sub-note{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--text-30);margin-top:12px;font-weight:700}
+  .sub-msg{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;margin-top:12px;min-height:18px}
+  .sub-msg.ok{color:#22c55e}
+  .sub-msg.err{color:#ef4444}
+
+  /* PULSE CARD GRID */
+  .pulse-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:var(--gutter);margin-top:14px}
+  .pulse-card{position:relative;border:var(--panel-line-w) solid var(--panel-line);background:var(--bg);display:flex;flex-direction:column;min-height:260px;overflow:hidden;transition:border-color .18s}
+  .pulse-card:hover{border-color:var(--orange)}
+  .pulse-card-inner{padding:28px;flex:1;display:flex;flex-direction:column;justify-content:space-between}
+  .pulse-card .pc-num{font-size:10px;font-weight:800;letter-spacing:.28em;text-transform:uppercase;color:var(--orange);margin-bottom:10px}
+  .pulse-card .pc-title{font-size:clamp(20px,2.4vw,28px);font-weight:900;text-transform:uppercase;letter-spacing:-.01em;line-height:1.05;margin-bottom:12px;color:var(--text)}
+  .pulse-card .pc-sub{font-size:13px;font-weight:600;color:var(--text-50);line-height:1.5;text-transform:uppercase;letter-spacing:.06em;margin-bottom:16px}
+  .pulse-card .pc-desc{font-size:13px;line-height:1.8;color:var(--text-75);flex:1;margin-bottom:22px}
+  .pulse-card-footer{display:flex;align-items:center;justify-content:space-between;padding:14px 28px;border-top:1px solid var(--border);font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--text-50)}
+  .pulse-card-footer .read-link{color:var(--orange);display:inline-flex;align-items:center;gap:6px;transition:gap .15s}
+  .pulse-card-footer .read-link:hover{gap:10px}
+  .pulse-card .pc-formats{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+  .pc-format-tag{font-size:9px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;padding:4px 8px;border:1px solid var(--border);color:var(--text-50)}
+
+  /* SECTION HEADER */
+  .section-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:28px;gap:24px;flex-wrap:wrap;padding:48px 0 0}
+  .section-title{font-size:clamp(28px,4.5vw,48px);font-weight:900;text-transform:uppercase;letter-spacing:-.02em;line-height:1.0}
+
+  /* FOOTER */
+  footer{padding:36px 28px;border-top:1px solid var(--border);background:var(--bg);margin-top:var(--gutter)}
+  .foot-inner{max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:18px;font-size:11px;color:var(--text-50)}
+  .foot-wm{font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:.05em;color:var(--text-50)}
+  .foot-links{display:flex;gap:24px;font-weight:700;text-transform:uppercase;letter-spacing:.16em;font-size:10px}
+  .foot-links a:hover{color:var(--orange)}
+
+  @media(max-width:980px){
+    .nav-links,.nav-enter{display:none}
+    .nav-hamburger{display:flex}
+    .page-hero{grid-template-columns:1fr}
+    .page-hero-copy{padding:48px 28px}
+    .page-hero-character{border-left:none;border-top:var(--panel-line-w) solid var(--panel-line);min-height:auto;flex-direction:row;flex-wrap:wrap;gap:14px}
+    .formats-strip{flex-wrap:wrap}
+    .format-item{border-bottom:1px solid var(--border);min-width:calc(50% - 1px)}
+    .subscribe-panel{padding:28px}
+    .pulse-grid{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <a class="nav-brand" href="index.html">Sean A<span class="dot">.</span> Russell</a>
+  <nav class="nav-links" aria-label="Primary">
+    <div class="nav-dropdown">
+      <button class="nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false">Talents <span class="chevron" aria-hidden="true">&#9662;</span></button>
+      <div class="nav-dropdown-menu" role="menu">
+        <a class="nav-dropdown-item" href="author.html" role="menuitem">Author</a>
+        <a class="nav-dropdown-item" href="producer.html" role="menuitem">Producer</a>
+        <a class="nav-dropdown-item" href="speaker.html" role="menuitem">Speaker + Host</a>
+        <a class="nav-dropdown-item" href="on-camera.html" role="menuitem">On Camera</a>
+      </div>
+    </div>
+    <a class="nav-link" href="experience.html">Experience</a>
+    <a class="nav-link" href="consultant.html">Consultant</a>
+    <a class="nav-link" href="press.html">Press</a>
+    <a class="nav-link active" href="pulse.html">Pulse</a>
+  </nav>
+  <a class="nav-enter" href="book.html">Book Sean</a>
+  <button class="nav-hamburger" id="hamBtn" aria-label="Open navigation" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <div class="mobile-menu-section">Talents</div>
+  <a class="mobile-menu-link" href="author.html">Author</a>
+  <a class="mobile-menu-link" href="producer.html">Producer</a>
+  <a class="mobile-menu-link" href="speaker.html">Speaker + Host</a>
+  <a class="mobile-menu-link" href="on-camera.html">On Camera</a>
+  <div class="mobile-menu-section">Navigate</div>
+  <a class="mobile-menu-link" href="experience.html">Experience</a>
+  <a class="mobile-menu-link" href="consultant.html">Consultant</a>
+  <a class="mobile-menu-link" href="press.html">Press</a>
+  <a class="mobile-menu-link active-mobile" href="pulse.html">Founder Pulse</a>
+  <a class="mobile-menu-link book" href="book.html">Book Sean</a>
+</div>
+
+<div class="issue-bar">
+  <span class="red"></span>
+  <span class="ib-title">Founder Pulse</span>
+  <span>Ideas that start here and travel everywhere</span>
+  <span class="ib-right">Building LESARUSS. Out loud.</span>
+</div>
+
+<section class="spread">
+  <article class="panel">
+    <div class="halftone"></div>
+    <div class="sfx" style="bottom:-20px;right:24px">THINK.</div>
+    <div class="cap tl-inset">Where the thinking begins<span class="dot">.</span></div>
+    <div class="page-hero">
+      <div class="page-hero-copy">
+        <p class="eyebrow">Founder Pulse<span class="dot">.</span></p>
+        <h1>Not the conclusions.<br>The <em>thinking.</em></h1>
+        <p class="lede">Each Pulse entry starts as a conversation, a realization, or a pattern worth preserving. Then it becomes an article, a newsletter, a video, and a post. One idea. Every channel. Nothing filtered.</p>
+        <a class="cta" href="#subscribe">Subscribe</a>
+      </div>
+      <div class="page-hero-character" aria-hidden="true">
+        <div class="hero-stat">
+          <div class="s-num"><span>#001</span></div>
+          <div class="s-lab">First entry. July 1, 2026.</div>
+        </div>
+        <div class="hero-stat">
+          <div class="s-num">4</div>
+          <div class="s-lab">Formats per entry.</div>
+        </div>
+        <div class="hero-stat">
+          <div class="s-num">1</div>
+          <div class="s-lab">Idea. Fully unpacked.</div>
+        </div>
+      </div>
+    </div>
+  </article>
+</section>
+
+<div class="formats-strip" aria-label="Pulse delivery formats" role="list">
+  <div class="format-item" role="listitem">
+    <div class="format-icon" aria-hidden="true">
+      <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="2" width="12" height="10" rx="0" stroke="currentColor" stroke-width="1.5"/><path d="M1 5l6 4 6-4" stroke="currentColor" stroke-width="1.5"/></svg>
+    </div>
+    <div class="format-label">Newsletter<span>First to subscribers</span></div>
+  </div>
+  <div class="format-item" role="listitem">
+    <div class="format-icon" aria-hidden="true">
+      <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="1" width="12" height="12" stroke="currentColor" stroke-width="1.5"/><path d="M5 4.5l4.5 2.5L5 9.5V4.5z" fill="currentColor"/></svg>
+    </div>
+    <div class="format-label">Video<span>Full conversation on screen</span></div>
+  </div>
+  <div class="format-item" role="listitem">
+    <div class="format-icon" aria-hidden="true">
+      <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 1v12M1 7h12" stroke="currentColor" stroke-width="1.5"/></svg>
+    </div>
+    <div class="format-label">Web Article<span>Full read on this site</span></div>
+  </div>
+  <div class="format-item" role="listitem">
+    <div class="format-icon" aria-hidden="true">
+      <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.5"/><path d="M5 7h4M7 5v4" stroke="currentColor" stroke-width="1.5"/></svg>
+    </div>
+    <div class="format-label">Social<span>Clipped for every platform</span></div>
+  </div>
+</div>
+
+<section class="spread" id="entries">
+  <div class="panel" style="padding:48px 28px 28px">
+    <div class="cap tl">All Entries<span class="dot">.</span></div>
+    <div style="padding-top:32px">
+      <div class="pulse-grid">
+
+        <a href="pulse/001.html" class="pulse-card" aria-label="Read Founder Pulse #001: Speaking the Same Language">
+          <div class="pulse-card-inner">
+            <div>
+              <div class="pc-num">Founder Pulse #001</div>
+              <div class="pc-title">Speaking the Same Language.</div>
+              <div class="pc-sub">A Conversation Between Sean A. Russell and V</div>
+              <div class="pc-formats" aria-label="Available formats">
+                <span class="pc-format-tag">Article</span>
+                <span class="pc-format-tag">Newsletter</span>
+              </div>
+              <div class="pc-desc">One of the unexpected things about building alongside AI is not the speed. It is the conversations. This one started with a mistake, moved through stewardship and care, and ended somewhere neither of us expected.</div>
+            </div>
+          </div>
+          <div class="pulse-card-footer">
+            <span>July 1, 2026</span>
+            <span class="read-link" aria-hidden="true">Read the entry -&gt;</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="spread" id="subscribe">
+  <article class="panel subscribe-panel">
+    <div class="halftone"></div>
+    <div class="cap tl">Get the Next Entry<span class="dot">.</span></div>
+    <div style="padding-top:22px">
+      <p class="eyebrow">Subscribe<span class="dot">.</span></p>
+      <h2>Newsletter.<br>Video. Social<span class="dot">.</span></h2>
+      <p class="sub-copy">Subscribers get every Pulse entry before anyone else - as a newsletter, then article, then video. One idea fully unpacked, every time. No noise.</p>
+      <form class="sub-form" id="pulseSubForm" novalidate>
+        <input type="email" name="email" placeholder="Your email address" required aria-label="Email address">
+        <input type="text" name="website" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden" aria-hidden="true" tabindex="-1" autocomplete="off">
+        <button type="submit">Subscribe</button>
+      </form>
+      <div class="sub-msg" id="pulseSubMsg" role="status" aria-live="polite"></div>
+      <div class="sub-note">No spam. Unsubscribe any time.</div>
+    </div>
+  </article>
+</section>
+
+<footer>
+  <div class="foot-inner">
+    <a class="foot-wm" href="index.html">Sean A<span class="dot">.</span> Russell</a>
+    <div class="foot-links">
+      <a href="pulse.html">Founder Pulse</a>
+      <a href="speaker.html">Speaker + Host</a>
+      <a href="book.html">Book Sean</a>
+    </div>
+    <span>&copy; 2026<span class="dot">.</span> A LESARUSS production.</span>
+  </div>
+</footer>
+
+<script>
+  const hamBtn = document.getElementById('hamBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  if (hamBtn && mobileMenu) {
+    hamBtn.addEventListener('click', () => {
+      const open = mobileMenu.classList.toggle('open');
+      hamBtn.classList.toggle('open', open);
+      hamBtn.setAttribute('aria-expanded', open);
+      mobileMenu.setAttribute('aria-hidden', !open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    });
+  }
+  document.querySelectorAll('.nav-dropdown-trigger').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const exp = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!exp));
+    });
+  });
+
+  const pulseForm = document.getElementById('pulseSubForm');
+  const pulseMsg = document.getElementById('pulseSubMsg');
+  if (pulseForm) {
+    pulseForm.addEventListener('submit', async e => {
+      e.preventDefault();
+      const email = pulseForm.querySelector('[name="email"]').value.trim();
+      if (!email) { pulseMsg.textContent = 'Please enter your email.'; pulseMsg.className = 'sub-msg err'; return; }
+      pulseMsg.textContent = 'Subscribing...'; pulseMsg.className = 'sub-msg';
+      try {
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, source: 'pulse' })
+        });
+        if (res.ok) {
+          pulseMsg.textContent = 'You are in. Next entry comes to you first.';
+          pulseMsg.className = 'sub-msg ok';
+          pulseForm.reset();
+        } else {
+          pulseMsg.textContent = 'Something went wrong. Try again.';
+          pulseMsg.className = 'sub-msg err';
+        }
+      } catch (err) {
+        pulseMsg.textContent = 'Something went wrong. Try again.';
+        pulseMsg.className = 'sub-msg err';
+      }
+    });
+  }
+</script>
+</body>
+</html>
