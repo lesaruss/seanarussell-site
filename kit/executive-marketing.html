@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Sean A. Russell: Executive and Fractional CMO</title>
+<meta name="description" content="Sean A. Russell: CMO, VP Marketing, and Fractional CMO. Twenty years building brand and marketing systems, available full-time or as your Fractional CMO.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,600;0,800;0,900;1,400&display=swap" rel="stylesheet">
+<style>
+/* ---- TOKENS ---- */
+:root{
+  --bg:#ffffff;--surface:#ffffff;--surface2:#f5f5f5;
+  --border:rgba(0,0,0,0.09);
+  --text:#1a1a1a;--text-75:rgba(26,26,26,0.78);--text-50:rgba(26,26,26,0.55);--text-30:rgba(26,26,26,0.35);
+  --orange:#F69820;
+  --ink:#0d0d0d;--panel-line:#0d0d0d;--panel-line-w:1.5px;
+  --nav-bg:rgba(255,255,255,0.96);
+  --g:16px;
+}
+html[data-theme="dark"]{
+  --bg:#0d0d0d;--surface:#111111;--surface2:#161616;
+  --border:rgba(255,255,255,0.07);
+  --text:#ffffff;--text-75:rgba(255,255,255,0.75);--text-50:rgba(255,255,255,0.50);--text-30:rgba(255,255,255,0.30);
+  --ink:#ffffff;--panel-line:#ffffff;
+  --nav-bg:rgba(13,13,13,0.96);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Montserrat',Arial,sans-serif;overflow-x:hidden;transition:background .25s,color .25s}
+a{text-decoration:none;color:inherit}
+img,svg{display:block;max-width:100%}
+button{font-family:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--orange);outline-offset:3px}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
+
+/* ---- GLOBAL UTILS ---- */
+.dot{color:var(--orange);display:inline-block;margin-left:.06em;animation:pulse 2.8s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(1.3)}}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.spread{max-width:1280px;margin:0 auto;padding:0 var(--g)}
+.panel{position:relative;background:var(--bg);border:var(--panel-line-w) solid var(--panel-line);overflow:hidden}
+.cap{position:absolute;top:-1px;left:-1px;font-size:10px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--text);background:var(--bg);padding:8px 12px;border:var(--panel-line-w) solid var(--panel-line);z-index:5;line-height:1.5}
+.halftone{position:absolute;inset:0;opacity:.08;pointer-events:none;background-image:radial-gradient(var(--orange) 1.4px,transparent 1.6px);background-size:14px 14px}
+.section-gap{margin-top:48px}
+
+/* ---- NAV ---- */
+.nav{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--nav-bg);border-bottom:1px solid var(--border);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.nav-inner{max-width:1280px;margin:0 auto;padding:0 var(--g);height:62px;display:flex;align-items:center;gap:2px}
+.nav-brand{font-size:16px;font-weight:900;text-transform:uppercase;letter-spacing:.06em;flex-shrink:0;margin-right:auto;white-space:nowrap}
+.nav-link{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.13em;color:var(--text-50);padding:7px 11px;background:none;border:none;white-space:nowrap;transition:color .18s;text-decoration:none;display:inline-block}
+.nav-link:hover,.nav-link:focus{color:var(--text)}
+.nav-cta{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.14em;color:#0d0d0d;background:var(--orange);padding:9px 18px;border:none;flex-shrink:0;margin-left:6px;white-space:nowrap;text-decoration:none;display:inline-block;transition:background .18s,color .18s}
+.nav-cta:hover{background:var(--ink);color:var(--bg)}
+.theme-btn{background:none;border:1px solid var(--border);color:var(--text-50);padding:6px 10px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-left:8px;white-space:nowrap;transition:color .18s,border-color .18s;flex-shrink:0}
+.theme-btn:hover{color:var(--text);border-color:var(--text)}
+.hamburger{display:none;flex-direction:column;justify-content:center;align-items:center;width:40px;height:40px;background:none;border:none;gap:5px;padding:0;margin-left:auto;flex-shrink:0}
+.hamburger span{display:block;width:22px;height:2px;background:var(--text);transition:transform .22s,opacity .22s}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mobile-menu{display:none;position:fixed;top:62px;left:0;right:0;bottom:0;background:var(--nav-bg);z-index:199;padding:24px;overflow-y:auto;border-top:1px solid var(--border)}
+.mobile-menu.open{display:block}
+.mobile-menu a{display:block;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.13em;color:var(--text-50);padding:16px 0;border-bottom:1px solid var(--border);text-decoration:none}
+.mobile-menu a:hover{color:var(--orange)}
+
+/* ---- KIT BAR ---- */
+.kit-bar{margin-top:62px;border-bottom:1px solid var(--border)}
+.kit-bar-inner{max-width:1280px;margin:0 auto;padding:0 var(--g);display:flex;align-items:center;gap:16px;height:42px;font-size:10px;font-weight:800;letter-spacing:.28em;text-transform:uppercase}
+.kit-pulse{width:8px;height:8px;border-radius:50%;background:var(--orange);animation:pulse 2.8s ease-in-out infinite;flex-shrink:0}
+.kit-label{color:var(--text)}
+.kit-roles{margin-left:auto;display:flex;align-items:center;gap:10px;color:var(--text-30)}
+.kit-roles .sep{opacity:.4}
+
+/* ---- HERO ---- */
+.hero-wrap{padding:var(--g) var(--g) 0;max-width:1280px;margin:0 auto}
+.hero{display:grid;grid-template-columns:400px minmax(0,1fr);border:var(--panel-line-w) solid var(--panel-line);min-height:500px;overflow:hidden}
+.hero-photo-col{position:relative;overflow:hidden;background:#111;min-height:460px}
+.hero-photo-col img{width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0}
+.hero-photo-placeholder{width:100%;min-height:460px;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:linear-gradient(160deg,#111 0%,#1a1a1a 100%)}
+.hero-photo-placeholder svg{opacity:.35}
+.hero-photo-placeholder span{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.22em;color:rgba(255,255,255,.25)}
+.hero-copy{padding:52px 48px;display:flex;flex-direction:column;justify-content:flex-end}
+.hero-eyebrow{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.32em;color:var(--text-50);margin-bottom:18px}
+.hero-name{font-size:clamp(34px,4vw,58px);font-weight:900;text-transform:uppercase;letter-spacing:.01em;line-height:.95;margin-bottom:20px}
+.roles-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px}
+.role-pill{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.2em;padding:7px 14px;border:1.5px solid var(--panel-line);color:var(--text);line-height:1}
+.role-pill.filled{background:var(--panel-line);color:var(--bg)}
+.hero-tagline{font-size:14px;line-height:1.8;color:var(--text-75);margin-bottom:20px;max-width:520px}
+.hero-assets-btn{display:inline-flex;align-items:center;gap:9px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.22em;color:var(--text);text-decoration:none;border:var(--panel-line-w) solid var(--panel-line);padding:11px 18px;margin-bottom:32px;transition:border-color .18s,color .18s;background:none}
+.hero-assets-btn:hover{border-color:var(--orange);color:var(--orange)}
+.hero-stats{display:flex;border-top:var(--panel-line-w) solid var(--border)}
+.stat{flex:1;padding:20px 22px;border-right:var(--panel-line-w) solid var(--border)}
+.stat:last-child{border-right:none}
+.stat-n{display:block;font-size:28px;font-weight:900;letter-spacing:-.02em}
+.stat-l{display:block;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.24em;color:var(--text-30);margin-top:4px}
+
+/* ---- CRED STRIP ---- */
+.cred-strip{border:var(--panel-line-w) solid var(--panel-line)}
+.cred-strip-inner{padding:28px 48px;display:flex;align-items:center}
+.cred-label{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.28em;color:var(--text-30);flex-shrink:0;margin-right:40px;white-space:nowrap}
+.cred-logos{display:flex;align-items:center;justify-content:space-evenly;width:100%}
+.cred-logo-item{display:flex;flex-direction:column;align-items:center;gap:7px}
+.cred-logo-img{height:44px;width:44px;object-fit:contain;filter:grayscale(1);opacity:.5;transition:opacity .2s,filter .2s;border-radius:6px}
+.cred-logo-img:hover{filter:none;opacity:1}
+.cred-logo{height:22px;width:auto;object-fit:contain;filter:grayscale(1);opacity:.45;transition:opacity .2s,filter .2s}
+.cred-logo:hover{filter:none;opacity:1}
+/* Fallback text badges for logos that fail to load */
+.cred-text{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.18em;color:var(--text-30);transition:color .2s}
+.cred-text:hover{color:var(--text)}
+
+/* ---- BIO ---- */
+.bio-panel{padding:52px 48px}
+.bio-grid{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:48px;align-items:start}
+.bio-text{font-size:14px;line-height:1.85;color:var(--text-75)}
+.bio-text p+p{margin-top:16px}
+.bio-collapse{overflow:hidden;max-height:0;transition:max-height .5s ease}
+.bio-collapse.open{max-height:1200px}
+.bio-toggle{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.22em;color:var(--text);background:none;border:none;padding:0;margin-top:22px;border-bottom:1.5px solid var(--panel-line);padding-bottom:3px;transition:color .18s}
+.bio-toggle:hover{color:var(--orange)}
+.bio-toggle .arr{font-size:14px;font-weight:900;transition:transform .3s}
+.bio-toggle.open .arr{transform:rotate(45deg)}
+.sb-block{border:var(--panel-line-w) solid var(--panel-line);padding:18px 20px}
+.sb-block+.sb-block{margin-top:var(--g)}
+.sb-label{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.26em;color:var(--text-30);margin-bottom:10px}
+.sb-list{list-style:none}
+.sb-list li{font-size:12px;font-weight:600;color:var(--text-75);padding:5px 0;border-bottom:1px solid var(--border)}
+.sb-list li:last-child{border-bottom:none}
+
+/* ---- SECTION HEADING ---- */
+.sec-label{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.32em;color:var(--text-50);margin-bottom:10px}
+.sec-title{font-size:clamp(22px,2.8vw,34px);font-weight:900;text-transform:uppercase;letter-spacing:.01em;line-height:1}
+.sec-sub{font-size:13px;line-height:1.75;color:var(--text-50);max-width:600px;margin-top:12px;margin-bottom:28px}
+
+/* ---- FLIP CARDS ---- */
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--g)}
+.cases-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--g)}
+.flip-card{perspective:900px;height:300px}
+.flip-inner{width:100%;height:100%;transform-style:preserve-3d;transition:transform .6s cubic-bezier(.4,0,.2,1);position:relative}
+.flip-card.flipped .flip-inner{transform:rotateY(180deg)}
+.flip-front,.flip-back{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.flip-front{border:var(--panel-line-w) solid var(--panel-line);overflow:hidden;display:flex;flex-direction:column;background:var(--bg)}
+.flip-back{transform:rotateY(180deg);background:var(--ink);color:#ffffff;padding:28px;display:flex;flex-direction:column;overflow:auto}
+.flip-title-bar{padding:12px 16px;border-bottom:var(--panel-line-w) solid var(--panel-line);font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.18em;background:var(--bg);flex-shrink:0;display:flex;align-items:center;justify-content:space-between}
+.flip-hint{font-size:9px;font-weight:700;letter-spacing:.15em;color:var(--text-30);text-transform:uppercase}
+.flip-art{flex:1;position:relative;overflow:hidden}
+.flip-art svg{width:100%;height:100%;position:absolute;inset:0;object-fit:cover}
+.flip-art img{width:100%;height:100%;position:absolute;inset:0;object-fit:cover;object-position:center top;display:block}
+.flip-back-label{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.26em;opacity:.5;margin-bottom:10px}
+.flip-back h3{font-size:17px;font-weight:900;text-transform:uppercase;letter-spacing:.02em;line-height:1.15;margin-bottom:12px}
+.flip-back p{font-size:12px;line-height:1.75;opacity:.85;flex:1}
+.flip-back-foot{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.2em;opacity:.4;margin-top:auto;padding-top:14px;border-top:1px solid rgba(255,255,255,.15)}
+
+/* ---- THREE DECADES ---- */
+.decades-panel{padding:52px 48px}
+.skills-panel{padding:52px 48px}
+.decades-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--g);margin-top:28px}
+.decade-item{border:var(--panel-line-w) solid var(--panel-line);padding:22px 20px}
+.decade-year{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.26em;color:var(--orange);margin-bottom:8px}
+.decade-title{font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
+.decade-body{font-size:12px;line-height:1.7;color:var(--text-50)}
+
+/* ---- CONNECTED TO ---- */
+.logos-panel{padding:28px 48px;border:var(--panel-line-w) solid var(--panel-line)}
+.logos-flex{display:flex;align-items:center;justify-content:space-evenly;width:100%}
+.org-logo{height:30px;width:auto;object-fit:contain;filter:grayscale(1);opacity:.45;transition:opacity .2s,filter .2s}
+.org-logo:hover{filter:none;opacity:1}
+.org-name{font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:.16em;color:var(--text-30);transition:color .2s}
+.org-name:hover{color:var(--text)}
+.org-logo-item{display:flex;flex-direction:column;align-items:center;gap:8px}
+.org-logo-img{height:44px;width:44px;object-fit:contain;filter:grayscale(1);opacity:.55;transition:opacity .2s,filter .2s;border-radius:6px}
+.org-logo-img:hover{filter:none;opacity:1}
+
+/* ---- MEDIA ASSETS ---- */
+.assets-tabs{display:flex;border-bottom:var(--panel-line-w) solid var(--panel-line);margin-bottom:var(--g)}
+.a-tab{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.2em;padding:13px 22px;background:none;border:none;color:var(--text-50);border-bottom:2px solid transparent;margin-bottom:-1.5px;transition:color .18s}
+.a-tab.on{color:var(--text);border-bottom-color:var(--panel-line)}
+.a-tab:hover{color:var(--text)}
+.a-panel{display:none}
+.a-panel.on{display:block}
+.photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--g)}
+.photo-slot{aspect-ratio:3/2;background:var(--surface2);border:var(--panel-line-w) solid var(--border);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.photo-slot img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.photo-stub{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:var(--text-30);font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.2em}
+.photo-dl{position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,.75);color:#fff;font-size:9px;font-weight:800;letter-spacing:.15em;text-transform:uppercase;padding:6px 10px;border:none;opacity:0;transition:opacity .2s;text-decoration:none}
+.photo-slot:hover .photo-dl{opacity:1}
+.press-grid{display:grid;gap:1px;background:var(--border);border:var(--panel-line-w) solid var(--border)}
+.press-item{background:var(--bg);padding:20px 24px;display:grid;grid-template-columns:100px 1fr;gap:12px 20px;align-items:start;transition:background .15s}
+.press-item:hover{background:var(--surface2)}
+.press-meta{display:flex;flex-direction:column;gap:5px}
+.press-type-tag{display:inline-block;font-size:8px;font-weight:900;text-transform:uppercase;letter-spacing:.22em;padding:3px 8px;background:var(--ink);color:white;width:fit-content}
+html[data-theme="dark"] .press-type-tag{background:rgba(255,255,255,.12);color:rgba(255,255,255,.7)}
+.press-pub{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.14em;color:var(--text);margin-top:2px}
+.press-date{font-size:10px;font-weight:600;letter-spacing:.06em;color:var(--text-30)}
+.press-headline-text{font-size:13px;line-height:1.7;color:var(--text-50);align-self:center;padding-top:2px}
+
+/* ---- CONTACT FORM ---- */
+.contact-grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:48px;padding:52px 48px}
+.form-title{font-size:28px;font-weight:900;text-transform:uppercase;letter-spacing:.01em;line-height:1.05;margin-bottom:6px}
+.form-sub{font-size:13px;line-height:1.75;color:var(--text-50);margin-bottom:28px}
+.form-row{margin-bottom:18px}
+.form-label{display:block;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.26em;color:var(--text-50);margin-bottom:8px}
+.form-input,.form-select,.form-textarea{width:100%;background:transparent;border:var(--panel-line-w) solid var(--panel-line);color:var(--text);font-family:'Montserrat',sans-serif;font-size:14px;padding:13px 14px;outline:none;appearance:none;transition:border-color .18s}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--orange)}
+.form-textarea{resize:vertical;min-height:100px;line-height:1.65;font-size:13px}
+.opp-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.opp-opt{display:flex;align-items:center;gap:10px;padding:10px 12px;border:var(--panel-line-w) solid var(--border);cursor:pointer;transition:border-color .18s;user-select:none}
+.opp-opt:hover{border-color:var(--panel-line)}
+.opp-opt input{accent-color:var(--orange);width:14px;height:14px;flex-shrink:0}
+.opp-opt-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.14em}
+.form-submit{width:100%;background:var(--ink);color:var(--bg);font-family:'Montserrat',sans-serif;font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.22em;padding:18px;border:none;margin-top:22px;transition:background .18s}
+.form-submit:hover{background:var(--orange);color:#0d0d0d}
+.form-success{display:none;padding:16px;background:var(--surface2);border:var(--panel-line-w) solid var(--panel-line);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.18em;text-align:center;margin-top:16px}
+.contact-aside{display:flex;flex-direction:column;gap:var(--g)}
+.aside-block{padding:20px 22px;border:var(--panel-line-w) solid var(--panel-line)}
+.aside-label{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.26em;color:var(--text-30);margin-bottom:10px}
+.aside-val{font-size:13px;font-weight:600;line-height:1.6;color:var(--text-75)}
+.aside-link{color:var(--text);font-weight:700;border-bottom:1.5px solid var(--border);padding-bottom:1px;transition:border-color .18s}
+.aside-link:hover{border-color:var(--orange)}
+
+/* ---- FOOTER ---- */
+.footer{border-top:var(--panel-line-w) solid var(--panel-line);margin-top:64px}
+.footer-inner{max-width:1280px;margin:0 auto;padding:24px var(--g);display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.footer-brand{font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:.06em}
+.footer-note{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.18em;color:var(--text-30)}
+.footer-links{display:flex;gap:18px}
+.footer-links a{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.16em;color:var(--text-50);transition:color .18s}
+.footer-links a:hover{color:var(--text)}
+
+/* ---- RESPONSIVE ---- */
+@media(max-width:960px){
+  .nav-link,.nav-cta,.theme-btn{display:none}
+  .hamburger{display:flex}
+  .hero{grid-template-columns:1fr}
+  .hero-photo-col{aspect-ratio:3/4;height:auto;min-height:unset}
+  .hero-photo-col img{object-position:left top!important}
+  .hero-copy{padding:32px 28px}
+  .bio-grid{grid-template-columns:1fr}
+  .why-grid{grid-template-columns:1fr 1fr}
+  .cases-grid{grid-template-columns:1fr 1fr}
+  .decades-grid{grid-template-columns:repeat(2,1fr)}
+  .contact-grid{grid-template-columns:1fr;padding:28px 24px}
+  .photo-grid{grid-template-columns:repeat(2,1fr)}
+  .logos-panel{padding:24px}
+  .logos-flex{display:grid;grid-template-columns:repeat(3,1fr);justify-items:center;row-gap:24px}
+  .cred-strip-inner{padding:24px}
+  .cred-logos{display:grid;grid-template-columns:repeat(3,1fr);justify-items:center;row-gap:24px}
+  .bio-panel,.decades-panel,.skills-panel{padding:44px 24px 28px}
+  .kit-roles{display:none}
+}
+@media(max-width:580px){
+  .why-grid,.cases-grid{grid-template-columns:1fr}
+  .decades-grid{grid-template-columns:1fr}
+  .photo-grid{grid-template-columns:1fr}
+  .opp-grid{grid-template-columns:1fr}
+  .hero-stats{flex-wrap:wrap}
+  .stat{width:50%}
+  .flip-card{height:280px}
+}
+
+  /* ── Kit Press Cards ─────────────────────────────────────────────────── */
+  #kit-press-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:16px 0}
+  @media(max-width:900px){#kit-press-grid{grid-template-columns:repeat(3,1fr)}}
+  @media(max-width:600px){#kit-press-grid{grid-template-columns:repeat(2,1fr)}}
+  .kp-card{aspect-ratio:3/4;perspective:1000px;cursor:pointer;position:relative}
+  .kp-card-inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .5s cubic-bezier(.4,.2,.2,1)}
+  .kp-card.flipped .kp-card-inner{transform:rotateY(180deg)}
+  .kp-cf,.kp-cb{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+  .kp-cf{border:1.5px solid #1a1a1a;background:#fff;display:flex;flex-direction:column}
+  .kp-cb{transform:rotateY(180deg);background:#F69820;color:#0d0d0d;border:1.5px solid #F69820;display:flex;flex-direction:column;padding:14px 12px 12px}
+  .kp-badges{position:absolute;top:0;left:0;right:0;display:flex;align-items:flex-start;justify-content:space-between;padding:8px;z-index:2}
+  .kp-pill{font-size:8px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:3px 7px;border:1px solid;pointer-events:none}
+  .kp-pill-tv{border-color:#1a1a1a;color:#1a1a1a;background:#fff}
+  .kp-pill-print{border-color:rgba(26,26,26,.5);color:rgba(26,26,26,.5);background:#fff}
+  .kp-pill-pod{border-color:#F69820;color:#F69820;background:#fff}
+  .kp-ribbon{position:absolute;top:0;right:0;width:0;height:0;border-style:solid;border-width:0 28px 28px 0;border-color:transparent #F69820 transparent transparent;z-index:1}
+  .kp-logo-zone{flex:1;display:flex;align-items:center;justify-content:center;padding:20px 16px 12px;overflow:hidden;min-height:0}
+  .kp-logo-zone img{width:100%;max-height:100%;object-fit:contain}
+  .kp-logo-fb{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.12em;text-align:center;color:rgba(26,26,26,.5);line-height:1.5;padding:8px 14px;border:1.5px solid rgba(26,26,26,.1);max-width:80%;display:none}
+  .kp-logo-zone.no-logo{background:#fafafa}
+  .kp-cfoot{border-top:1px solid rgba(26,26,26,.08);padding:9px 10px 10px;display:flex;flex-direction:column;gap:3px}
+  .kp-ctitle{font-size:clamp(8px,1vw,10px);font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:#1a1a1a;line-height:1.25}
+  .kp-cdate{font-size:clamp(7px,.85vw,9px);font-weight:600;color:rgba(26,26,26,.5)}
+  .kp-fhint{position:absolute;bottom:5px;right:7px;font-size:7px;font-weight:600;color:rgba(26,26,26,.3);letter-spacing:.08em;text-transform:uppercase;pointer-events:none}
+  .kp-btitle{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:#0d0d0d;margin-bottom:5px;line-height:1.2}
+  .kp-bsub{font-size:8px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:rgba(0,0,0,.6);margin-bottom:8px;line-height:1.4}
+  .kp-bdesc{font-size:9px;font-weight:400;color:rgba(0,0,0,.8);line-height:1.7;flex:1;overflow:hidden;display:-webkit-box;-webkit-line-clamp:7;-webkit-box-orient:vertical}
+  .kp-bcta{display:block;margin-top:10px;flex-shrink:0;font-size:8px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:#F69820;background:#0d0d0d;padding:7px 10px;text-decoration:none;text-align:center}
+  .kp-pagination{display:flex;align-items:center;justify-content:center;gap:16px;padding:20px 0 8px;border-top:1px solid rgba(26,26,26,.08);margin-top:4px}
+  .kp-pg-btn{font-family:inherit;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.16em;padding:7px 18px;border:1.5px solid #1a1a1a;background:transparent;color:#1a1a1a;cursor:pointer;transition:all .15s}
+  .kp-pg-btn:disabled{border-color:rgba(26,26,26,.2);color:rgba(26,26,26,.3);cursor:not-allowed}
+  .kp-pg-btn:not(:disabled):hover{background:#1a1a1a;color:#fff}
+  .kp-pg-info{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(26,26,26,.5);min-width:60px;text-align:center}
+  .kp-state-msg{padding:40px;text-align:center;font-size:12px;color:rgba(26,26,26,.5)}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" aria-label="Primary navigation">
+  <div class="nav-inner">
+    <a href="#" class="nav-brand">SEAN A<span class="dot">.</span> RUSSELL</a>
+    <a href="#cases" class="nav-link">Results</a>
+    <a href="#assets" class="nav-link">Assets</a>
+    <a href="#contact" class="nav-link">Contact</a>
+    <a href="#bio" class="nav-link">Full Bio</a>
+    <a href="#contact" class="nav-cta">Connect</a>
+    <button class="theme-btn" id="themeBtn" aria-label="Toggle dark mode">DARK</button>
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Mobile navigation">
+  <a href="#cases">Results</a>
+  <a href="#assets">Assets</a>
+  <a href="#contact">Contact</a>
+  <a href="#bio">Full Bio</a>
+</div>
+
+<!-- KIT BAR -->
+<div class="kit-bar">
+  <div class="kit-bar-inner">
+    <div class="kit-pulse" aria-hidden="true"></div>
+    <span class="kit-label">EXECUTIVE MARKETING KIT</span>
+    <div class="kit-roles" aria-label="Role categories">
+      <span>CMO</span><span class="sep">/</span>
+      <span>VP MARKETING</span><span class="sep">/</span>
+      <span>FRACTIONAL CMO</span>
+    </div>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero-wrap">
+  <div class="hero">
+    <div class="hero-photo-col" aria-label="Photo of Sean A. Russell">
+      <img src="../assets/photos/2023-seanarussell-credit-xavier-russell-01.jpg" alt="Sean A. Russell, professional headshot." style="object-position:center top;">
+    </div>
+    <div class="hero-copy">
+      <p class="hero-eyebrow">Executive Marketing Kit</p>
+      <h1 class="hero-name">Sean A<span class="dot">.</span><br>Russell</h1>
+      <div class="roles-row" role="list" aria-label="Available roles">
+        <span class="role-pill filled" role="listitem">Fractional CMO</span>
+        <span class="role-pill" role="listitem">VP Marketing / CMO</span>
+        <span class="role-pill" role="listitem">Marketing Systems Executive</span>
+      </div>
+      <p class="hero-tagline">Twenty years leading marketing, content, and production teams, most recently as the strategist behind an $800M voter-approved bond campaign. Available as a full-time marketing executive, remote only, or as your Fractional CMO, backed by an AI-powered team and a track record across civic, beauty, wellness, and entertainment brands.</p>
+      <a href="#cases" class="hero-assets-btn" aria-label="Jump to case studies and results">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="1" y="1" width="5" height="5" stroke="currentColor" stroke-width="1.5"/><rect x="8" y="1" width="5" height="5" stroke="currentColor" stroke-width="1.5"/><rect x="1" y="8" width="5" height="5" stroke="currentColor" stroke-width="1.5"/><rect x="8" y="8" width="5" height="5" fill="currentColor"/></svg>
+        View Results
+      </a>
+      <div class="hero-stats" role="list" aria-label="Key metrics">
+        <div class="stat" role="listitem">
+          <span class="stat-n">$800M</span>
+          <span class="stat-l">Bond Campaign Led</span>
+        </div>
+        <div class="stat" role="listitem">
+          <span class="stat-n">100+</span>
+          <span class="stat-l">Clients Served</span>
+        </div>
+        <div class="stat" role="listitem">
+          <span class="stat-n">20+</span>
+          <span class="stat-l">Years Executive Experience</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- RESULTS FOR -->
+<div class="spread" style="margin-top:var(--g)">
+<p class="sec-label" style="margin-bottom:8px">RESULTS FOR</p>
+<div class="cred-strip" aria-label="Results for">
+  <div class="cred-strip-inner">
+    <div class="cred-logos">
+      <a class="cred-text" href="https://lesaruss.com/case-studies/broward-county-public-schools" target="_blank" rel="noopener">Broward County Public Schools</a>
+      <a class="cred-text" href="https://lesaruss.com/case-studies/lashmakers" target="_blank" rel="noopener">LashMakers</a>
+      <a class="cred-text" href="https://lesaruss.com/case-studies/balance-for-life-florida" target="_blank" rel="noopener">Balance for Life Florida</a>
+      <span class="cred-text">SoFlo Vegans</span>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- BIO -->
+<section id="bio" class="spread section-gap" aria-labelledby="bio-heading">
+  <div class="panel bio-panel">
+    <span class="cap">ABOUT</span>
+    <div class="halftone" aria-hidden="true"></div>
+    <div class="bio-grid">
+      <div>
+        <div class="bio-text">
+          <p>Sean A. Russell is a marketing and media executive with twenty years building brand, content, and operations systems from the ground up, most recently as the strategist behind an $800M voter-approved bond campaign for the sixth-largest school district in the United States.</p>
+          <p>He is the founder and CEO of Lesaruss Inc., a media and marketing company he has led since 2007, and the architect of LESARUSS, an AI-powered production system that lets a small team run a full marketing department for organizations of any size.</p>
+          <div class="bio-collapse open" id="bioExpand">
+            <p style="margin-top:16px">As District Webmaster for Broward County Public Schools, Sean led the year-long integrated campaign behind an $800,000,000 voter-approved bond, serving as Lead Webmaster, video producer, and web migration lead across 75 departments and 200+ schools.</p>
+            <p>His client work spans industries: growing LashMakers, a global beauty brand, from $167K to $262K+ in quarterly revenue, a 10.16x return on ad spend; taking Balance for Life Florida, a wellness retreat, from $12.9K to $107K in quarterly revenue, 730% growth; and building South Florida's largest Vegan community and media channel over 10+ years.</p>
+            <p>Sean is available for full-time executive marketing roles, remote only, or as a Fractional CMO: he becomes an organization's chief marketing officer, running its full stack of content, brand, and campaigns on LESARUSS's AI-powered systems, backed by community managers who handle the human side of every relationship. The model is built to scale: as client organizations grow, so does the team behind them, coordinators and additional CMOs brought on as needed, all compounding off the same body of case studies and best practices.</p>
+          </div>
+          <button class="bio-toggle open" id="bioToggle" aria-expanded="true" aria-controls="bioExpand">
+            COLLAPSE BIO <span class="arr" aria-hidden="true">+</span>
+          </button>
+        </div>
+      </div>
+      <div>
+        <div class="sb-block">
+          <div class="sb-label">BASED IN</div>
+          <ul class="sb-list">
+            <li>Miami-Fort Lauderdale Area</li>
+            <li>Remote Only, Available Worldwide</li>
+          </ul>
+        </div>
+        <div class="sb-block">
+          <div class="sb-label">DISCIPLINES</div>
+          <ul class="sb-list">
+            <li>Marketing Strategy</li>
+            <li>Content &amp; Brand Systems</li>
+            <li>Paid Media &amp; SEO</li>
+            <li>Email &amp; CRM</li>
+            <li>AI-Driven Operations</li>
+            <li>Team &amp; Community Building</li>
+          </ul>
+        </div>
+        <div class="sb-block">
+          <div class="sb-label">AVAILABLE FOR</div>
+          <ul class="sb-list">
+            <li>Full-Time CMO / VP Marketing</li>
+            <li>Fractional CMO Engagements</li>
+            <li>Marketing Systems Consulting</li>
+            <li>Board / Advisory Roles</li>
+          </ul>
+        </div>
+        <div class="sb-block">
+          <div class="sb-label">EDUCATION</div>
+          <ul class="sb-list">
+            <li>B.S., Television Production</li>
+            <li>Florida International University</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY THIS WORKS -->
+<section class="spread section-gap" aria-labelledby="why-heading">
+  <p class="sec-label" id="why-heading">WHY THIS WORKS</p>
+  <h2 class="sec-title">What You're Getting</h2>
+  <p class="sec-sub">Tap any card to see why Sean brings something most marketing hires can't offer.</p>
+  <div class="why-grid" role="list">
+
+    <!-- Card 1: Systems Thinker -->
+    <div class="flip-card" role="listitem" tabindex="0" aria-label="Systems Thinker - tap to learn more">
+      <div class="flip-inner">
+        <div class="flip-front">
+          <div class="flip-title-bar">
+            <span>Systems Thinker</span>
+            <span class="flip-hint">TAP</span>
+          </div>
+          <div class="flip-art" aria-hidden="true">
+            <img src="../assets/photos/geekfon/systems-thinker.png" alt="">
+          </div>
+        </div>
+        <div class="flip-back" role="note">
+          <p class="flip-back-label">Why It Works</p>
+          <h3>Systems Thinker</h3>
+          <p>Sean doesn't just run campaigns, he builds the infrastructure that runs them. Every engagement becomes a repeatable system: less management overhead, faster iteration, and marketing that keeps compounding after the first quarter.</p>
+          <p class="flip-back-foot">TAP TO FLIP BACK</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2: AI-Powered, Human-Backed -->
+    <div class="flip-card" role="listitem" tabindex="0" aria-label="AI-Powered, Human-Backed - tap to learn more">
+      <div class="flip-inner">
+        <div class="flip-front">
+          <div class="flip-title-bar">
+            <span>AI-Powered, Human-Backed</span>
+            <span class="flip-hint">TAP</span>
+          </div>
+          <div class="flip-art" aria-hidden="true">
+            <img src="../assets/photos/geekfon/30-years-proven.png" alt="" loading="lazy">
+          </div>
+        </div>
+        <div class="flip-back" role="note">
+          <p class="flip-back-label">Why It Works</p>
+          <h3>AI-Powered, Human-Backed</h3>
+          <p>The Fractional CMO model runs on LESARUSS: AI executing against Sean's best practices and case studies, with community managers handling the relationships and judgment calls that need a human. It feels like a full internal team, not a subcontractor.</p>
+          <p class="flip-back-foot">TAP TO FLIP BACK</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3: Proven at Scale -->
+    <div class="flip-card" role="listitem" tabindex="0" aria-label="Proven at Scale - tap to learn more">
+      <div class="flip-inner">
+        <div class="flip-front">
+          <div class="flip-title-bar">
+            <span>Proven at Scale</span>
+            <span class="flip-hint">TAP</span>
+          </div>
+          <div class="flip-art" aria-hidden="true">
+            <img src="../assets/photos/geekfon/audience-builder.png" alt="" loading="lazy">
+          </div>
+        </div>
+        <div class="flip-back" role="note">
+          <p class="flip-back-label">Why It Works</p>
+          <h3>Proven at Scale</h3>
+          <p>From an $800M voter-approved bond campaign to a 10.16x return on ad spend for a global beauty brand, Sean's work is judged on delivered numbers, not activity. Twenty years, real budgets, real results.</p>
+          <p class="flip-back-foot">TAP TO FLIP BACK</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 4: Cross-Industry Range -->
+    <div class="flip-card" role="listitem" tabindex="0" aria-label="Cross-Industry Range - tap to learn more">
+      <div class="flip-inner">
+        <div class="flip-front">
+          <div class="flip-title-bar">
+            <span>Cross-Industry Range</span>
+            <span class="flip-hint">TAP</span>
+          </div>
+          <div class="flip-art" aria-hidden="true">
+            <img src="../assets/photos/geekfon/cross-discipline.png" alt="" loading="lazy">
+          </div>
+        </div>
+        <div class="flip-back" role="note">
+          <p class="flip-back-label">Why It Works</p>
+          <h3>Cross-Industry Range</h3>
+          <p>Civic and government, beauty and eCommerce, wellness and hospitality, entertainment and nonprofit: Sean has run marketing for all of them. That range means faster ramp-up and best practices that cross-pollinate instead of staying siloed.</p>
+          <p class="flip-back-foot">TAP TO FLIP BACK</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 5: Remote-Native Operator -->
+    <div class="flip-card" role="listitem" tabindex="0" aria-label="Remote-Native Operator - tap to learn more">
+      <div class="flip-inner">
+        <div class="flip-front">
+          <div class="flip-title-bar">
+            <span>Remote-Native Operator</span>
+            <span class="flip-hint">TAP</span>
+          </div>
+          <div class="flip-art" aria-hidden="true">
+            <img src="../assets/photos/geekfon/proven-storyteller.png" alt="" loading="lazy">
+          </div>
+        </div>
+        <div class="flip-back" role="note">
+          <p class="flip-back-label">Why It Works</p>
+          <h3>Remote-Native Operator</h3>
+          <p>Sean has built and scaled brands to $800M-scale outcomes without needing to be in one office. Every engagement is run remotely, with the same rigor and availability as an in-house hire, minus the commute and the overhead.</p>
+          <p class="flip-back-foot">TAP TO FLIP BACK</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 6: Built to Scale -->
+    <div class="flip-card" role="listitem" tabindex="0" aria-label="Built to Scale - tap to learn more">
+      <div class="flip-inner">
+        <div class="flip-front">
+          <div class="flip-title-bar">
+            <span>Built to Scale</span>
+            <span class="flip-hint">TAP</span>
+          </div>
+          <div class="flip-art" aria-hidden="true">
+            <img src="../assets/photos/geekfon/community-first.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+          </div>
+        </div>
+        <div class="flip-back" role="note">
+          <p class="flip-back-label">Why It Works</p>
+          <h3>Built to Scale</h3>
+          <p>This isn't one person juggling clients. It's a system: Sean today, coordinators and additional CMOs as client volume grows, all trained on the same playbooks and case studies. An organization gets senior-level marketing leadership without needing to build it themselves.</p>
+          <p class="flip-back-foot">TAP TO FLIP BACK</p>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /why-grid -->
+</section>
+
+<!-- CASE STUDIES -->
+<section id="cases" class="spread section-gap" aria-labelledby="cases-heading">
+  <p class="sec-label" id="cases-heading">SELECTED RESULTS</p>
+  <h2 class="sec-title">Projects That Prove It</h2>
+  <p class="sec-sub">Tap any card to see the details behind the work.</p>
+  <div class="cases-grid" role="list">
+
+    <!-- Case 1: LashMakers -->
+    <div class="flip-card" role="listitem" tabindex="0" aria-label="LashMakers case study - tap to open">
+      <div class="flip-inner">
+        <div class="flip-front">
+          <div class="flip-title-bar">
+            <span>LashMakers</span>
+            <span class="flip-hint">TAP</span>
+          </div>
+          <div class="flip-art" aria-hidden="true">
+            <img src="../assets/photos/2023-seanarussell-credit-xavier-russell-02.jpg" alt="" loading="lazy">
+          </div>
+        </div>
+        <div class="flip-back" role="note">
+          <p class="flip-back-label">Case Study &middot; Beauty / Global Brand</p>
+          <h3>LashMakers</h3>
+          <p>A global beauty brand with real demand and a scattered marketing system. Sean rebuilt the ad, email, and SEO funnel end to end, growing quarterly revenue from $167K to $262K+, a 10.16x return on ad spend.</p>
+          <p class="flip-back-foot">TAP TO FLIP BACK</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Case 2: Balance for Life Florida -->
+    <div class="flip-card" role="listitem" tabindex="0" aria-label="Balance for Life Florida case study - tap to open">
+      <div class="flip-inner">
+        <div class="flip-front">
+          <div class="flip-title-bar">
+            <span>Balance for Life Florida</span>
+            <span class="flip-hint">TAP</span>
+          </div>
+          <div class="flip-art" aria-hidden="true">
+            <img src="../assets/photos/2023-seanarussell-credit-xavier-russell-03.jpg" alt="" loading="lazy">
+          </div>
+        </div>
+        <div class="flip-back" role="note">
+          <p class="flip-back-label">Case Study &middot; Wellness Retreat</p>
+          <h3>Balance for Life Florida</h3>
+          <p>A wellness retreat with no digital growth system. Sean built its first one from scratch, taking quarterly revenue from $12.9K to $107K, 730% growth and 6x bookings.</p>
+          <p class="flip-back-foot">TAP TO FLIP BACK</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Case 3: Broward County Public Schools -->
+    <div class="flip-card" role="listitem" tabindex="0" aria-label="Broward County Public Schools case study - tap to open">
+      <div class="flip-inner">
+        <div class="flip-front">
+          <div class="flip-title-bar">
+            <span>Broward County Public Schools</span>
+            <span class="flip-hint">TAP</span>
+          </div>
+          <div class="flip-art" aria-hidden="true">
+            <img src="../assets/photos/2016-10-16_SeanARussell_BCPS_Education_Production_v01.jpg" alt="" loading="lazy">
+          </div>
+        </div>
+        <div class="flip-back" role="note">
+          <p class="flip-back-label">Case Study &middot; K-12 / Civic, 250K+ Students</p>
+          <h3>Broward County Public Schools</h3>
+          <p>As District Webmaster for the sixth-largest school district in the U.S., Sean led the year-long integrated campaign behind an $800,000,000 voter-approved bond, across 75 departments and 200+ schools.</p>
+          <p class="flip-back-foot">TAP TO FLIP BACK</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Case 4: LESARUSS -->
+    <div class="flip-card" role="listitem" tabindex="0" aria-label="LESARUSS case study - tap to open">
+      <div class="flip-inner">
+        <div class="flip-front">
+          <div class="flip-title-bar">
+            <span>LESARUSS</span>
+            <span class="flip-hint">TAP</span>
+          </div>
+          <div class="flip-art" aria-hidden="true">
+            <img src="../assets/photos/2026-05-20_seanarussell-Hero_v08.png" alt="" loading="lazy" style="object-position:center top;">
+          </div>
+        </div>
+        <div class="flip-back" role="note">
+          <p class="flip-back-label">Case Study &middot; The System</p>
+          <h3>LESARUSS</h3>
+          <p>The operating system behind all of it: an AI-powered production company Sean founded and built, designed to let a small team run marketing at enterprise scale for organizations of any size.</p>
+          <p class="flip-back-foot">TAP TO FLIP BACK</p>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /cases-grid -->
+</section>
+
+<!-- THREE DECADES -->
+<section class="spread section-gap" aria-labelledby="decades-heading">
+  <div class="panel decades-panel">
+    <span class="cap">EXPERIENCE</span>
+    <div class="halftone" aria-hidden="true"></div>
+    <p class="sec-label" id="decades-heading" style="margin-bottom:6px">TWO DECADES</p>
+    <h2 class="sec-title">Built Over Time</h2>
+    <div class="decades-grid">
+      <div class="decade-item">
+        <div class="decade-year">LATE 90s</div>
+        <div class="decade-title">Professional Before Graduation</div>
+        <div class="decade-body">Before finishing high school, Sean was already working as a webmaster and a junior reporter, early credentials in digital communication and systems management before most people had built a website.</div>
+      </div>
+      <div class="decade-item">
+        <div class="decade-year">2000s</div>
+        <div class="decade-title">Community + Systems</div>
+        <div class="decade-body">Founded Anime3000 and early digital communities. Learned audience architecture, and how to turn a small team into a channel that could compete with much bigger media budgets.</div>
+      </div>
+      <div class="decade-item">
+        <div class="decade-year">2010s</div>
+        <div class="decade-title">Marketing at Institutional Scale</div>
+        <div class="decade-body">Led marketing and communications for Broward County Public Schools, including the campaign behind an $800M voter-approved bond. Launched Vegans Explore and SoFlo Vegans.</div>
+      </div>
+      <div class="decade-item">
+        <div class="decade-year">2020s</div>
+        <div class="decade-title">The System, Productized</div>
+        <div class="decade-body">Founded LESARUSS, an AI-powered marketing operating system. Delivered double-digit ROAS for beauty and wellness clients. Now building the Fractional CMO model that scales the same results to any organization.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- SKILLS -->
+<section id="skills" class="spread section-gap" aria-labelledby="skills-heading">
+  <div class="panel skills-panel">
+    <span class="cap">SKILLS</span>
+    <div class="halftone" aria-hidden="true"></div>
+    <p class="sec-label" id="skills-heading" style="margin-bottom:6px">EDUCATION + EXPERTISE</p>
+    <h2 class="sec-title">The Range Behind the Work</h2>
+    <p class="sec-sub">Formal training, deep industry fluency, and hands-on execution across more disciplines than most marketing hires bring. Tap any card.</p>
+    <div class="why-grid" role="list" style="margin-top:28px">
+
+      <!-- Skills Card 1: Formally Trained -->
+      <div class="flip-card" role="listitem" tabindex="0" aria-label="Formally Trained - tap to learn more" style="height:360px">
+        <div class="flip-inner">
+          <div class="flip-front">
+            <div class="flip-title-bar">
+              <span>Formally Trained</span>
+              <span class="flip-hint">TAP</span>
+            </div>
+            <div class="flip-art" aria-hidden="true">
+            <img src="../assets/photos/2026-05-21_seanarussell-Hero_v01a.jpg" alt="Formally Trained - FIU TV Production studio" loading="lazy" style="object-position:center center;">
+          </div>
+          </div>
+          <div class="flip-back" role="note">
+            <p class="flip-back-label">Foundation</p>
+            <h3>Formally Trained</h3>
+            <p>Four years studying TV Production, Web Development, and Graphic Design at a magnet school, followed by a degree in Television Production from Florida International University. Twenty years applying that formal training to brand, content, and marketing systems at every scale.</p>
+            <p class="flip-back-foot">TAP TO FLIP BACK</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Skills Card 2: Industry Expertise -->
+      <div class="flip-card" role="listitem" tabindex="0" aria-label="Industry Expertise - tap to learn more" style="height:360px">
+        <div class="flip-inner">
+          <div class="flip-front">
+            <div class="flip-title-bar">
+              <span>Industry Expertise</span>
+              <span class="flip-hint">TAP</span>
+            </div>
+            <div class="flip-art" aria-hidden="true">
+            <img src="../assets/photos/2026-05-21_seanarussell-Hero_v02a.jpg" alt="Industry Expertise - years across marketing verticals" loading="lazy" style="object-position:center center;">
+          </div>
+          </div>
+          <div class="flip-back" role="note">
+            <p class="flip-back-label">Years Active by Industry</p>
+            <h3>Industry Expertise</h3>
+            <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:11px;margin:14px 0 10px">
+              <!-- Education & Civic: 16 yrs = 100% -->
+              <div>
+                <div style="display:flex;justify-content:space-between;align-items:baseline;font-size:8.5px;font-weight:800;text-transform:uppercase;letter-spacing:.16em;margin-bottom:5px">
+                  <span>Education &amp; Civic</span><span style="opacity:.55;font-weight:700">16 yrs</span>
+                </div>
+                <div style="height:5px;background:rgba(255,255,255,.08);border-radius:2px">
+                  <div style="height:100%;width:100%;background:#F69820;border-radius:2px"></div>
+                </div>
+              </div>
+              <!-- Entertainment & Media: 12 yrs = 75% -->
+              <div>
+                <div style="display:flex;justify-content:space-between;align-items:baseline;font-size:8.5px;font-weight:800;text-transform:uppercase;letter-spacing:.16em;margin-bottom:5px">
+                  <span>Entertainment &amp; Media</span><span style="opacity:.55;font-weight:700">12 yrs</span>
+                </div>
+                <div style="height:5px;background:rgba(255,255,255,.08);border-radius:2px">
+                  <div style="height:100%;width:75%;background:rgba(255,255,255,.65);border-radius:2px"></div>
+                </div>
+              </div>
+              <!-- Community & Nonprofit: 10 yrs = 63% -->
+              <div>
+                <div style="display:flex;justify-content:space-between;align-items:baseline;font-size:8.5px;font-weight:800;text-transform:uppercase;letter-spacing:.16em;margin-bottom:5px">
+                  <span>Community &amp; Nonprofit</span><span style="opacity:.55;font-weight:700">10 yrs</span>
+                </div>
+                <div style="height:5px;background:rgba(255,255,255,.08);border-radius:2px">
+                  <div style="height:100%;width:63%;background:rgba(255,255,255,.55);border-radius:2px"></div>
+                </div>
+              </div>
+              <!-- Beauty & Wellness: 2 yrs = 13% -->
+              <div>
+                <div style="display:flex;justify-content:space-between;align-items:baseline;font-size:8.5px;font-weight:800;text-transform:uppercase;letter-spacing:.16em;margin-bottom:5px">
+                  <span>Beauty &amp; Wellness</span><span style="opacity:.55;font-weight:700">2 yrs</span>
+                </div>
+                <div style="height:5px;background:rgba(255,255,255,.08);border-radius:2px">
+                  <div style="height:100%;width:13%;background:#F69820;opacity:.6;border-radius:2px"></div>
+                </div>
+              </div>
+            </div>
+            <p class="flip-back-foot">TAP TO FLIP BACK</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Skills Card 3: Full-Stack Marketer -->
+      <div class="flip-card" role="listitem" tabindex="0" aria-label="Full-Stack Marketer - tap to learn more" style="height:360px">
+        <div class="flip-inner">
+          <div class="flip-front">
+            <div class="flip-title-bar">
+              <span>Full-Stack Marketer</span>
+              <span class="flip-hint">TAP</span>
+            </div>
+            <div class="flip-art" aria-hidden="true">
+            <img src="../assets/photos/2026-05-21_seanarussell-Hero_v03a.jpg" alt="Full-Stack Marketer - disciplines" loading="lazy" style="object-position:center center;">
+          </div>
+          </div>
+          <div class="flip-back" role="note">
+            <p class="flip-back-label">Disciplines</p>
+            <h3>Full-Stack Marketer</h3>
+            <p style="font-size:10.5px;line-height:1.85;opacity:.88;flex:1;columns:2;column-gap:14px">
+              Paid Media &amp; Performance<br>
+              Email &amp; CRM Automation<br>
+              SEO &amp; Content Strategy<br>
+              Brand &amp; Systems Design<br>
+              AI-Driven Operations<br>
+              Community Management<br>
+              Event &amp; Campaign Production<br>
+              Web &amp; Platform Migration<br>
+              Video Production<br>
+              Public Speaking<br>
+              Crisis Communications<br>
+              Team Building
+            </p>
+            <p class="flip-back-foot">TAP TO FLIP BACK</p>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /why-grid -->
+  </div>
+</section>
+
+<!-- CONNECTED TO -->
+<section class="spread section-gap" aria-labelledby="connected-heading">
+  <p class="sec-label" id="connected-heading" style="margin-bottom:8px">CONNECTED TO</p>
+  <div class="logos-panel">
+    <div class="logos-flex">
+      <span class="org-name">Miami Marlins</span>
+      <span class="org-name">Florida International University</span>
+      <span class="org-name">SoFlo Vegans</span>
+      <span class="org-name">Anime3000</span>
+    </div>
+  </div>
+</section>
+
+<!-- MEDIA ASSETS -->
+<section id="assets" class="spread section-gap" aria-labelledby="assets-heading">
+  <p class="sec-label" id="assets-heading" style="margin-bottom:8px">MEDIA ASSETS</p>
+  <h2 class="sec-title" style="margin-bottom:24px">Download + Use</h2>
+  <div class="assets-tabs" role="tablist">
+    <button class="a-tab on" role="tab" aria-selected="true" aria-controls="panel-photos" id="tab-photos">Photos</button>
+    <button class="a-tab" role="tab" aria-selected="false" aria-controls="panel-press" id="tab-press">Press</button>
+  </div>
+
+  <!-- Photos -->
+  <div class="a-panel on" id="panel-photos" role="tabpanel" aria-labelledby="tab-photos">
+    <div class="photo-grid">
+
+      <div class="photo-slot">
+        <img src="../assets/photos/2023-seanarussell-credit-xavier-russell-01.jpg" alt="Sean A. Russell professional headshot 2023. Photo credit: Xavier Russell" loading="lazy">
+        <a class="photo-dl" href="../assets/photos/2023-seanarussell-credit-xavier-russell-01.jpg" download aria-label="Download headshot 2023 high-res">Download</a>
+      </div>
+
+      <div class="photo-slot">
+        <img src="../assets/photos/2023-seanarussell-credit-xavier-russell-02.jpg" alt="Sean A. Russell professional headshot 2023. Photo credit: Xavier Russell" loading="lazy">
+        <a class="photo-dl" href="../assets/photos/2023-seanarussell-credit-xavier-russell-02.jpg" download aria-label="Download headshot 2023 alternate">Download</a>
+      </div>
+
+      <div class="photo-slot">
+        <img src="../assets/photos/2023-seanarussell-credit-xavier-russell-03.jpg" alt="Sean A. Russell professional headshot 2023. Photo credit: Xavier Russell" loading="lazy" style="object-position:center top">
+        <a class="photo-dl" href="../assets/photos/2023-seanarussell-credit-xavier-russell-03.jpg" download aria-label="Download headshot 2023 third option">Download</a>
+      </div>
+
+      <div class="photo-slot">
+        <img src="../assets/photos/2017-11-14_SeanARussell_LESARUSS_Education_Speaker_v01.jpg" alt="Sean A. Russell speaking at a LESARUSS education event 2017" loading="lazy" style="object-position:center top">
+        <a class="photo-dl" href="../assets/photos/2017-11-14_SeanARussell_LESARUSS_Education_Speaker_v01.jpg" download aria-label="Download education speaker photo 2017">Download</a>
+      </div>
+
+      <div class="photo-slot">
+        <img src="../assets/photos/2016-10-16_SeanARussell_BCPS_Education_Production_v01.jpg" alt="Sean A. Russell at a Broward County Public Schools production 2016" loading="lazy">
+        <a class="photo-dl" href="../assets/photos/2016-10-16_SeanARussell_BCPS_Education_Production_v01.jpg" download aria-label="Download BCPS education production photo 2016">Download</a>
+      </div>
+
+      <div class="photo-slot">
+        <img src="../assets/photos/2019-seanarussell-credit-xavier-russell-01.jpg" alt="Sean A. Russell professional headshot 2019. Photo credit: Xavier Russell" loading="lazy">
+        <a class="photo-dl" href="../assets/photos/2019-seanarussell-credit-xavier-russell-01.jpg" download aria-label="Download headshot 2019">Download</a>
+      </div>
+
+    </div>
+    <p style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.18em;color:var(--text-30);margin-top:16px;text-align:center">Portrait series: photo credit Xavier Russell (@Zayruss.photo)</p>
+  </div>
+
+  <!-- Press -->
+  <div class="a-panel" id="panel-press" role="tabpanel" aria-labelledby="tab-press">
+    <div id="kit-press-grid" aria-label="Press and media coverage"><div class="kp-state-msg">Loading coverage...</div></div>
+    <div class="kp-pagination">
+      <button class="kp-pg-btn" id="kp-prev" aria-label="Previous page">&larr; Prev</button>
+      <span class="kp-pg-info" id="kp-pg-info"></span>
+      <button class="kp-pg-btn" id="kp-next" aria-label="Next page">Next &rarr;</button>
+    </div>
+  </div>
+</section>
+
+<!-- GET IN TOUCH -->
+<section id="contact" class="spread section-gap" aria-labelledby="contact-heading">
+  <div class="panel">
+    <div class="halftone" aria-hidden="true"></div>
+    <div class="contact-grid">
+      <div>
+        <p class="sec-label" id="contact-heading" style="margin-bottom:6px">GET IN TOUCH</p>
+        <h2 class="form-title">Let's Build Your<br>Marketing<span class="dot">.</span></h2>
+        <p class="form-sub">Tell me about the role, or the engagement, and I'll respond within one business day.</p>
+        <form id="contactForm" novalidate>
+          <div class="form-row">
+            <label class="form-label" for="f-name">Your Name</label>
+            <input class="form-input" type="text" id="f-name" name="name" placeholder="Full Name" required autocomplete="name">
+          </div>
+          <div class="form-row">
+            <label class="form-label" for="f-email">Email Address</label>
+            <input class="form-input" type="email" id="f-email" name="email" placeholder="you@company.com" required autocomplete="email">
+          </div>
+          <div class="form-row">
+            <label class="form-label" for="f-org">Organization / Search Firm</label>
+            <input class="form-input" type="text" id="f-org" name="org" placeholder="Company, agency, or search firm name" autocomplete="organization">
+          </div>
+          <div class="form-row">
+            <label class="form-label" id="opp-label">Opportunity Type (select all that apply)</label>
+            <div class="opp-grid" role="group" aria-labelledby="opp-label">
+              <label class="opp-opt"><input type="checkbox" name="type" value="fulltime"><span class="opp-opt-label">Full-Time Executive Role</span></label>
+              <label class="opp-opt"><input type="checkbox" name="type" value="fractional"><span class="opp-opt-label">Fractional CMO Engagement</span></label>
+              <label class="opp-opt"><input type="checkbox" name="type" value="consulting"><span class="opp-opt-label">Marketing Systems Consulting</span></label>
+              <label class="opp-opt"><input type="checkbox" name="type" value="speaking"><span class="opp-opt-label">Speaking Engagement</span></label>
+              <label class="opp-opt"><input type="checkbox" name="type" value="advisory"><span class="opp-opt-label">Board / Advisory</span></label>
+              <label class="opp-opt"><input type="checkbox" name="type" value="other"><span class="opp-opt-label">Other</span></label>
+            </div>
+          </div>
+          <div class="form-row">
+            <label class="form-label" for="f-msg">Message</label>
+            <textarea class="form-textarea" id="f-msg" name="message" placeholder="Tell me about the role, the engagement, and the timeline..." rows="4"></textarea>
+          </div>
+          <button type="submit" class="form-submit" id="formSubmit">SEND MESSAGE &rarr;</button>
+          <div class="form-success" id="formSuccess" role="alert" aria-live="polite">Message received. Sean will be in touch within one business day.</div>
+          <div class="form-success" id="formError" role="alert" aria-live="polite" style="background:transparent;border-color:var(--orange);display:none">Something went wrong. Email <a href="mailto:contact@lesaruss.com" style="color:var(--orange)">contact@lesaruss.com</a> directly.</div>
+        </form>
+      </div>
+      <div class="contact-aside">
+        <div class="aside-block">
+          <div class="aside-label">EMAIL</div>
+          <div class="aside-val"><a href="mailto:contact@lesaruss.com" class="aside-link">contact@lesaruss.com</a></div>
+        </div>
+        <div class="aside-block">
+          <div class="aside-label">BASED IN</div>
+          <div class="aside-val">Miami-Fort Lauderdale Area<br><span style="color:var(--text-30);font-size:12px">Remote only, available worldwide</span></div>
+        </div>
+        <div class="aside-block">
+          <div class="aside-label">RESPONSE TIME</div>
+          <div class="aside-val">Within 1 business day</div>
+        </div>
+        <div class="aside-block">
+          <div class="aside-label">ENGAGEMENT</div>
+          <div class="aside-val" style="color:var(--text-50);font-size:12px">Open to full-time and fractional engagements. Recruiter and agency inquiries welcome.</div>
+        </div>
+        <div class="aside-block" style="background:var(--ink);border-color:var(--ink)">
+          <div class="aside-label" style="color:rgba(255,255,255,.4)">COMMUNITY</div>
+          <div class="aside-val" style="color:#fff;font-size:12px;line-height:1.65">Interested in connecting beyond this opportunity? Join the LESARUSS universe.</div>
+          <a href="https://lesaruss.com" class="nav-cta" style="display:inline-block;margin-top:14px;font-size:10px;padding:9px 16px" target="_blank" rel="noopener">EXPLORE LESARUSS</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <span class="footer-brand">Sean A<span class="dot">.</span> Russell</span>
+    <span class="footer-note">&copy; 2026 Sean A. Russell / LESARUSS</span>
+    <div class="footer-links">
+      <a href="https://seanarussell.com" target="_blank" rel="noopener">seanarussell.com</a>
+      <a href="https://lesaruss.com" target="_blank" rel="noopener">lesaruss.com</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  'use strict';
+
+  /* ---- THEME ---- */
+  var html = document.documentElement;
+  var themeBtn = document.getElementById('themeBtn');
+  var saved = localStorage.getItem('sar-kit-theme') || 'light';
+  html.setAttribute('data-theme', saved);
+  themeBtn.textContent = saved === 'light' ? 'DARK' : 'LIGHT';
+  themeBtn.addEventListener('click', function(){
+    var next = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('sar-kit-theme', next);
+    themeBtn.textContent = next === 'light' ? 'DARK' : 'LIGHT';
+  });
+
+  /* ---- HAMBURGER ---- */
+  var hamburger = document.getElementById('hamburger');
+  var mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', function(){
+    var open = hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open', open);
+    hamburger.setAttribute('aria-expanded', String(open));
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+  mobileMenu.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    });
+  });
+
+  /* ---- FLIP CARDS ---- */
+  document.querySelectorAll('.flip-card').forEach(function(card){
+    function toggleFlip(){
+      card.classList.toggle('flipped');
+    }
+    card.addEventListener('click', toggleFlip);
+    card.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' || e.key === ' '){
+        e.preventDefault();
+        toggleFlip();
+      }
+    });
+  });
+
+  /* ---- BIO TOGGLE ---- */
+  var bioToggle = document.getElementById('bioToggle');
+  var bioExpand = document.getElementById('bioExpand');
+  if(bioToggle && bioExpand){
+    bioToggle.addEventListener('click', function(){
+      var isOpen = bioExpand.classList.toggle('open');
+      bioToggle.classList.toggle('open', isOpen);
+      bioToggle.setAttribute('aria-expanded', String(isOpen));
+      bioToggle.innerHTML = isOpen
+        ? 'COLLAPSE BIO <span class="arr" aria-hidden="true">+</span>'
+        : 'READ FULL BIO <span class="arr" aria-hidden="true">+</span>';
+    });
+  }
+
+  /* ---- ASSET TABS ---- */
+  var tabs = document.querySelectorAll('.a-tab');
+  var panels = document.querySelectorAll('.a-panel');
+  tabs.forEach(function(tab){
+    tab.addEventListener('click', function(){
+      var target = tab.getAttribute('aria-controls');
+      tabs.forEach(function(t){ t.classList.remove('on'); t.setAttribute('aria-selected','false'); });
+      panels.forEach(function(p){ p.classList.remove('on'); });
+      tab.classList.add('on');
+      tab.setAttribute('aria-selected','true');
+      var p = document.getElementById(target);
+      if(p) p.classList.add('on');
+    });
+  });
+
+  /* ---- CONTACT FORM ---- */
+  var form = document.getElementById('contactForm');
+  var submitBtn = document.getElementById('formSubmit');
+  var successMsg = document.getElementById('formSuccess');
+  var errorMsg = document.getElementById('formError');
+  if(form){
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      // Basic validation
+      var name = form.querySelector('[name="name"]').value.trim();
+      var email = form.querySelector('[name="email"]').value.trim();
+      if(!name || !email){ return; }
+      var types = Array.from(form.querySelectorAll('[name="type"]:checked')).map(function(c){ return c.value; });
+      var payload = {
+        name: name,
+        email: email,
+        org: form.querySelector('[name="org"]').value.trim(),
+        types: types,
+        message: form.querySelector('[name="message"]').value.trim(),
+        source: 'executive-marketing-kit'
+      };
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'SENDING...';
+      fetch('/api/contact', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(payload)
+      }).then(function(r){
+        if(r.ok){
+          form.style.display = 'none';
+          successMsg.style.display = 'block';
+        } else {
+          throw new Error('server error');
+        }
+      }).catch(function(){
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'SEND MESSAGE →';
+        errorMsg.style.display = 'block';
+      });
+    });
+  }
+
+})();
+
+  // ── Kit Press: fetch from API, 4-col flip cards, paginated ──────────────
+  (function(){
+    var API = 'https://lesaruss.ai/api/press';
+    var PER_PAGE = 8;
+    var FEATURED = ['local-10-news','abc-television','deco-drive','nbc-news','miami-new-times-black-voices','sun-sentinel-veg-night-out-2022','delray-magazine','vegworld-magazine','veggies-abroad','plant-powered-athlete','voyagemia-rising-stars','canvas-rebel'];
+    var PILL_CLASS = {television:'kp-pill-tv',print:'kp-pill-print',podcast:'kp-pill-pod'};
+    var PILL_LABEL = {television:'TV',print:'Print',podcast:'Podcast'};
+    var ALL = [], page = 0;
+
+    function makeCard(e){
+      var feat = FEATURED.indexOf(e.id) > -1;
+      var card = document.createElement('div');
+      card.className = 'kp-card';
+      card.setAttribute('role','button');
+      card.setAttribute('tabindex','0');
+      card.setAttribute('aria-label', e.title + ', ' + e.date + '. Press Enter to flip.');
+      card.innerHTML =
+        '<div class="kp-card-inner">' +
+          '<div class="kp-cf">' +
+            '<div class="kp-badges"><span class="kp-pill ' + (PILL_CLASS[e.type]||'') + '" aria-hidden="true">' + (PILL_LABEL[e.type]||e.type) + '</span></div>' +
+            (feat ? '<div class="kp-ribbon" aria-hidden="true"></div>' : '') +
+            '<div class="kp-logo-zone">' +
+              '<img src="' + e.img + '" alt="' + e.title + ' logo" loading="lazy" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'block\';this.parentElement.classList.add(\'no-logo\')">' +
+              '<span class="kp-logo-fb">' + e.title + '</span>' +
+            '</div>' +
+            '<div class="kp-cfoot">' +
+              '<div class="kp-ctitle">' + e.title + '</div>' +
+              '<div class="kp-cdate">' + e.date + '</div>' +
+            '</div>' +
+            '<span class="kp-fhint" aria-hidden="true">Tap to flip</span>' +
+          '</div>' +
+          '<div class="kp-cb" aria-hidden="true">' +
+            '<div class="kp-btitle">' + e.title + '</div>' +
+            (e.subtitle ? '<div class="kp-bsub">' + e.subtitle + '</div>' : '') +
+            '<div class="kp-bdesc">' + e.desc + '</div>' +
+            '<a href="' + e.href + '" target="_blank" rel="noopener noreferrer" class="kp-bcta">Read More &rarr;</a>' +
+          '</div>' +
+        '</div>';
+      card.addEventListener('click', function(ev){ if(ev.target.closest('a'))return; card.classList.toggle('flipped'); });
+      card.addEventListener('keydown', function(ev){
+        if(ev.target.closest('a'))return;
+        if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();card.classList.toggle('flipped');}
+        if(ev.key==='Escape')card.classList.remove('flipped');
+      });
+      return card;
+    }
+
+    function renderPage(){
+      var grid = document.getElementById('kit-press-grid');
+      var prev = document.getElementById('kp-prev');
+      var next = document.getElementById('kp-next');
+      var info = document.getElementById('kp-pg-info');
+      var totalPages = Math.ceil(ALL.length / PER_PAGE);
+      var slice = ALL.slice(page * PER_PAGE, (page + 1) * PER_PAGE);
+      grid.innerHTML = '';
+      slice.forEach(function(e){ grid.appendChild(makeCard(e)); });
+      info.textContent = (page + 1) + ' / ' + totalPages;
+      prev.disabled = page === 0;
+      next.disabled = page >= totalPages - 1;
+    }
+
+    var prevBtn = document.getElementById('kp-prev');
+    var nextBtn = document.getElementById('kp-next');
+    if(prevBtn) prevBtn.addEventListener('click', function(){ if(page > 0){ page--; renderPage(); } });
+    if(nextBtn) nextBtn.addEventListener('click', function(){ if((page+1)*PER_PAGE < ALL.length){ page++; renderPage(); } });
+
+    fetch(API)
+      .then(function(r){ if(!r.ok) throw new Error(); return r.json(); })
+      .then(function(data){
+        ALL = data;
+        renderPage();
+      })
+      .catch(function(){
+        var grid = document.getElementById('kit-press-grid');
+        if(grid) grid.innerHTML = '<div class="kp-state-msg">Coverage could not be loaded.</div>';
+        if(prevBtn) prevBtn.disabled = true;
+        if(nextBtn) nextBtn.disabled = true;
+        var info = document.getElementById('kp-pg-info');
+        if(info) info.textContent = '';
+      });
+  })();
+</script>
+</body>
+</html>
