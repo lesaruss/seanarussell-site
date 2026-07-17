@@ -18,7 +18,11 @@ export default async function handler(req, res) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        brand: source === 'media-industry-kit' ? 'sar-media-kit' : 'sar-contact',
+        brand: source === 'media-industry-kit'
+          ? 'sar-media-kit'
+          : source === 'executive-marketing-kit'
+          ? 'sar-executive-kit'
+          : 'sar-contact',
         name: body.name || null,
         email,
         org: body.org || null,
