@@ -22,6 +22,8 @@ export default async function handler(req, res) {
           ? 'sar-media-kit'
           : source === 'executive-marketing-kit'
           ? 'sar-executive-kit'
+          : source === 'blur-to-blueprint-waitlist'
+          ? 'sar-book-waitlist'
           : 'sar-contact',
         name: body.name || null,
         email,
