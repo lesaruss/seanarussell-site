@@ -8,6 +8,8 @@ export default async function handler(req, res) {
 
   const email = (body.email || '').trim();
   if (!email) return res.status(400).json({ error: 'Email is required.' });
+  // Basic format check - rejects bot-fuzzed garbage before it ever reaches the CRM or Beehiiv
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return res.status(400).json({ error: 'Invalid email address.' });
 
   const source = body.source || 'sar-contact';
 
