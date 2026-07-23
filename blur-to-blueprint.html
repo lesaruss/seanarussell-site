@@ -164,6 +164,37 @@
     .panel.copy{padding:28px}
     .panel.booking-form{padding:28px}
   }
+
+  .book-experience{position:relative}
+  .book-step{display:none}
+  .book-step.active{display:block}
+  .step-nav{position:sticky;bottom:0;left:0;right:0;display:flex;align-items:center;gap:6px;padding:14px 20px;background:var(--bg);border-top:var(--panel-line-w) solid var(--panel-line);z-index:60;max-width:1280px;margin:0 auto}
+  .step-nav-btn{flex-shrink:0;width:38px;height:38px;border:var(--panel-line-w) solid var(--panel-line);background:var(--bg);color:var(--text);font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s,color .15s;font-family:inherit}
+  .step-nav-btn:hover:not(:disabled){background:var(--text);color:var(--bg)}
+  .step-nav-btn:disabled{opacity:.22;cursor:default}
+  .step-nav-dots{flex:1;display:flex;justify-content:center;gap:2px;flex-wrap:wrap}
+  .step-dot{font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--text-30);background:none;border:none;padding:10px 13px;cursor:pointer;transition:color .15s;white-space:nowrap;font-family:inherit}
+  .step-dot:hover{color:var(--text-50)}
+  .step-dot.active{color:var(--orange)}
+  .chapter-one-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--gutter);align-items:start;margin-top:24px}
+  .video-module{position:relative;aspect-ratio:16/9;background:#111;display:flex;align-items:center;justify-content:center;overflow:hidden;border:var(--panel-line-w) solid var(--panel-line)}
+  .video-module .vm-inner{text-align:center}
+  .video-module .vm-play{width:52px;height:52px;border-radius:50%;background:var(--orange);display:flex;align-items:center;justify-content:center;margin:0 auto 14px}
+  .video-module .vm-play svg{margin-left:3px}
+  .video-module .vm-label{color:#fff;font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase}
+  .video-module .vm-sub{color:rgba(255,255,255,.5);font-size:10px;margin-top:6px;letter-spacing:.08em;text-transform:uppercase}
+  .toc-list{margin-top:8px}
+  .toc-part-divider{font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);margin:26px 0 10px;padding-top:18px;border-top:1px solid var(--border)}
+  .toc-part-divider:first-child{margin-top:0;padding-top:0;border-top:none}
+  .toc-row{display:flex;gap:18px;padding:14px 0;border-bottom:1px solid var(--border)}
+  .toc-row-num{flex-shrink:0;width:34px;font-size:20px;font-weight:900;color:var(--text-30)}
+  .toc-row-title{font-size:15px;font-weight:800;text-transform:uppercase;letter-spacing:.01em;margin-bottom:4px;color:var(--text)}
+  .toc-row-blurb{font-size:13px;line-height:1.6;color:var(--text-50);max-width:640px}
+  @media (max-width:980px){
+    .chapter-one-grid{grid-template-columns:1fr}
+    .step-nav{padding:10px 14px}
+    .step-dot{padding:8px 7px;font-size:9px}
+  }
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
@@ -218,7 +249,9 @@
   <span class="right">Page 04 . From Blur to Blueprint</span>
 </div>
 
-<section class="spread">
+<div class="book-experience" id="bookExperience">
+
+<section class="spread book-step active" data-step="0" data-label="The Book">
   <article class="panel">
     <div class="cap tl-inset">The Book<span class="dot">.</span></div>
     <div class="halftone faint"></div>
@@ -228,21 +261,21 @@
         <h1>From Blur<br>to <em>Blueprint</em><span class="dot">.</span></h1>
         <p class="lede">A coming-of-age story for builders. Thirty years of momentum that kept stalling, ventures that kept collapsing, and the moment the pattern finally came into focus. This is the origin story of the Lesaruss Blueprint and the 111 Day Theory, told the way it actually happened.</p>
         <div style="display:flex;gap:14px;flex-wrap:wrap">
-          <a class="cta" href="#waitlist">Join the list<span class="dot">.</span></a>
-          <a class="cta-ghost" href="#excerpt">Read Chapter 1<span class="dot">.</span></a>
+          <button type="button" class="cta" data-goto-step="4">Join the list<span class="dot">.</span></button>
+          <button type="button" class="cta-ghost" data-goto-step="2">Read Chapter 1<span class="dot">.</span></button>
         </div>
       </div>
       <div class="page-hero-character">
         <div class="book3d-wrap">
           <div class="book3d-canvas-wrap" id="book3d-canvas-wrap"></div>
-          <p class="book3d-hint">Drag to explore<span class="dot">.</span> Click to open<span class="dot">.</span></p>
+          <p class="book3d-hint" id="book3dHint">Drag to explore<span class="dot">.</span> Click to freeze<span class="dot">.</span></p>
         </div>
       </div>
     </div>
   </article>
 </section>
 
-<section class="spread">
+<section class="spread book-step" data-step="1" data-label="The Story">
   <article class="panel copy">
     <div class="cap tl">The story<span class="dot">.</span></div>
     <div class="section-header">
@@ -257,73 +290,237 @@
   </article>
 </section>
 
-<section class="spread">
-  <article class="panel copy">
-    <div class="cap tl">Table of contents<span class="dot">.</span></div>
-    <p class="eyebrow">Inside the book</p>
-    <h2>Six parts<span class="dot">.</span> Twenty-seven chapters<span class="dot">.</span></h2>
-    <div class="toc-part">
-      <div class="toc-part-name">Part I - Seeing Without Seeing (Foundation)</div>
-      <ul class="toc-chapters">
-        <li><b>1.</b> The Blur</li><li><b>2.</b> The First Transaction</li><li><b>3.</b> The Question No One Answered</li><li><b>4.</b> The Quiet Room</li><li><b>5.</b> Worlds Before Reality</li><li><b>6.</b> The Line You Don&rsquo;t Cross</li>
-      </ul>
-    </div>
-    <div class="toc-part">
-      <div class="toc-part-name">Part II - Building the Toolset (Formation)</div>
-      <ul class="toc-chapters">
-        <li><b>7.</b> The Camera Changes Everything</li><li><b>8.</b> The Worst Day, The First Break</li><li><b>9.</b> Choosing the Path</li><li><b>10.</b> The First Network</li><li><b>11.</b> I Only Learn What Matters</li><li><b>12.</b> Proof</li>
-      </ul>
-    </div>
-    <div class="toc-part">
-      <div class="toc-part-name">Part III - Work, Reality, and Repetition</div>
-      <ul class="toc-chapters">
-        <li><b>13.</b> The Shift</li><li><b>14.</b> The First Hustle</li><li><b>15.</b> Silver Ridge</li><li><b>16.</b> Russell&rsquo;s Roving Reporters</li>
-      </ul>
-    </div>
-    <div class="toc-part">
-      <div class="toc-part-name">Part IV - Systems, Scale, and Creation</div>
-      <ul class="toc-chapters">
-        <li><b>17.</b> Anime 3000</li><li><b>18.</b> TopSpot USA</li>
-      </ul>
-    </div>
-    <div class="toc-part">
-      <div class="toc-part-name">Part V - Collapse and Reconstruction</div>
-      <ul class="toc-chapters">
-        <li><b>19.</b> Burnout and Breakdown</li><li><b>20.</b> The Next Level</li>
-      </ul>
-    </div>
-    <div class="toc-part">
-      <div class="toc-part-name">Part VI - The Odyssey</div>
-      <ul class="toc-chapters">
-        <li><b>21.</b> The Decision</li><li><b>22.</b> In the Spotlight</li><li><b>23.</b> Lesaruss</li><li><b>24.</b> The Inner Work</li><li><b>25.</b> Building Community</li><li><b>26.</b> The Return</li><li><b>27.</b> The System Revealed</li>
-      </ul>
-    </div>
-    <div class="toc-part">
-      <div class="toc-part-name">Closing</div>
-      <ul class="toc-chapters">
-        <li><b>&mdash;</b> The Blueprint</li><li><b>&mdash;</b> About the Author</li>
-      </ul>
-    </div>
-  </article>
-</section>
-
-<section class="spread" id="excerpt">
+<section class="spread book-step" data-step="2" data-label="Chapter One">
   <article class="panel copy">
     <div class="cap tl">Chapter 1<span class="dot">.</span></div>
     <p class="eyebrow">Read an excerpt</p>
     <h2>The Blur<span class="dot">.</span></h2>
-    <div class="excerpt">
-      <p>I remember sitting there, small enough that my feet didn&rsquo;t even touch the ground, hearing everything before I could fully understand it.</p>
-      <p>The music. The laughter. The gasps from the crowd. It was loud. Exciting. Alive. Everyone around me was locked in, reacting, pointing, smiling, fully in it. And I couldn&rsquo;t see any of it clearly. Not the performers. Not the details. Just shapes. Movement. Color blending into color.</p>
-      <p>So I did what made the most sense. I watched everyone else. They were reacting in real time, laughing when something hit, gasping when it got intense, tracking something I couldn&rsquo;t fully see. Something felt off. I just didn&rsquo;t have the words for it yet.</p>
-      <p>I didn&rsquo;t find out until later that I couldn&rsquo;t actually see properly. That I needed glasses. That what I thought was normal&hellip; wasn&rsquo;t. That everyone else had been experiencing the world in a completely different way the entire time.</p>
-      <p>What you see isn&rsquo;t always the problem. How clearly you see it is. Most people don&rsquo;t question what they&rsquo;re looking at. They assume it&rsquo;s accurate. But it&rsquo;s not reality. It&rsquo;s just their current level of clarity. And if your view is off, your decisions follow.</p>
-      <p style="color:var(--text-30);font-style:italic">Continued in the full book&hellip;</p>
+    <div class="chapter-one-grid">
+      <div class="video-module">
+        <div class="vm-inner">
+          <div class="vm-play"><svg width="16" height="16" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 2L15 9L4 16V2Z" fill="#0d0d0d"/></svg></div>
+          <div class="vm-label">Chapter One<span class="dot">.</span></div>
+          <div class="vm-sub">Video in production</div>
+        </div>
+      </div>
+      <div class="excerpt">
+        <p>I remember sitting there, small enough that my feet didn&rsquo;t even touch the ground, hearing everything before I could fully understand it.</p>
+        <p>The music. The laughter. The gasps from the crowd. It was loud. Exciting. Alive. Everyone around me was locked in, reacting, pointing, smiling, fully in it. And I couldn&rsquo;t see any of it clearly. Not the performers. Not the details. Just shapes. Movement. Color blending into color.</p>
+        <p>So I did what made the most sense. I watched everyone else. They were reacting in real time, laughing when something hit, gasping when it got intense, tracking something I couldn&rsquo;t fully see. Something felt off. I just didn&rsquo;t have the words for it yet.</p>
+        <p>I didn&rsquo;t find out until later that I couldn&rsquo;t actually see properly. That I needed glasses. That what I thought was normal&hellip; wasn&rsquo;t. That everyone else had been experiencing the world in a completely different way the entire time.</p>
+        <p>What you see isn&rsquo;t always the problem. How clearly you see it is. Most people don&rsquo;t question what they&rsquo;re looking at. They assume it&rsquo;s accurate. But it&rsquo;s not reality. It&rsquo;s just their current level of clarity. And if your view is off, your decisions follow.</p>
+        <p style="color:var(--text-30);font-style:italic">Continued in the full book&hellip;</p>
+      </div>
     </div>
   </article>
 </section>
 
-<section class="spread" id="waitlist">
+<section class="spread book-step" data-step="3" data-label="Table of Contents">
+  <article class="panel copy">
+    <div class="cap tl">Table of contents<span class="dot">.</span></div>
+    <p class="eyebrow">Inside the book</p>
+    <h2>Twenty-seven chapters<span class="dot">.</span></h2>
+    <div class="toc-list">
+      <div class="toc-part-divider">Part I - Seeing Without Seeing (Foundation)</div>
+      <div class="toc-row">
+        <div class="toc-row-num">01</div>
+        <div class="toc-row-body">
+          <div class="toc-row-title">The Blur</div>
+          <p class="toc-row-blurb">I remember sitting there, small enough that my feet didn&rsquo;t even touch the ground, hearing everything before I could fully understand it. The music. The laughter. The gasps from the crowd.</p>
+        </div>
+      </div>
+      <div class="toc-row">
+        <div class="toc-row-num">02</div>
+        <div class="toc-row-body">
+          <div class="toc-row-title">The First Transaction</div>
+          <p class="toc-row-blurb">I was sitting in the back of the class, not really paying attention, just trying to stay quiet and out of trouble. My hands were busy.</p>
+        </div>
+      </div>
+      <div class="toc-row">
+        <div class="toc-row-num">03</div>
+        <div class="toc-row-body">
+          <div class="toc-row-title">The Question No One Answered</div>
+          <p class="toc-row-blurb">I remember sitting in my fifth-grade math class, staring at the board, half listening, half somewhere else.</p>
+        </div>
+      </div>
+      <div class="toc-row">
+        <div class="toc-row-num">04</div>
+        <div class="toc-row-body">
+          <div class="toc-row-title">The Quiet Room</div>
+          <p class="toc-row-blurb">I was standing in the hallway outside Mr. Becker&rsquo;s fifth-grade class, back against the wall, staring at the floor tiles.</p>
+        </div>
+      </div>
+      <div class="toc-row">
+        <div class="toc-row-num">05</div>
+        <div class="toc-row-body">
+          <div class="toc-row-title">Worlds Before Reality</div>
+          <p class="toc-row-blurb">I used to sit on the floor for hours on this Dijon mustard-colored shag carpet, surrounded by my Transformers, G.I. Joes, and He-Man figures. There was always a story.</p>
+        </div>
+      </div>
+      <div class="toc-row">
+        <div class="toc-row-num">06</div>
+        <div class="toc-row-body">
+          <div class="toc-row-title">The Line You Don&rsquo;t Cross</div>
+          <p class="toc-row-blurb">I was in a portable classroom, hot, a little cramped, desks slightly out of place. The substitute had lost control of the class.</p>
+        </div>
+      </div>
+      <div class="toc-part-divider">Part II - Building the Toolset (Formation)</div>
+      <div class="toc-row">
+        <div class="toc-row-num">07</div>
+        <div class="toc-row-body">
+          <div class="toc-row-title">The Camera Changes Everything</div>
+          <p class="toc-row-blurb">I remember saving up my money, week after week, working at Winn-Dixie. I wanted a camera.</p>
+        </div>
+      </div>
+      <div class="toc-row">
+        <div class="toc-row-num">08</div>
+        <div class="toc-row-body">
+          <div class="toc-row-title">The Worst Day, The First Break</div>
+          <p class="toc-row-blurb">I was outside playing basketball with my friend Caesar. It was a normal day. Then everything shifted.</p>
+        </div>
+      </div>
+      <div class="toc-row">
+        <div class="toc-row-num">09</div>
+        <div class="toc-row-body">
+          <div class="toc-row-title">Choosing the Path</div>
+          <p class="toc-row-blurb">By the time I got to high school, something had already shifted in me. It wasn&rsquo;t loud, but it was there.</p>
+        </div>
+      </div>
+      <div class="toc-row">
+        <div class="toc-row-num">10</div>
+        <div class="toc-row-body">
+          <div class="toc-row-title">The First Network</div>
+          <p class="toc-row-blurb">It started with a computer we got from Rent-A-Center. And for me, it changed everything.</p>
+        </div>
+      </div>
+      <div class="toc-row">
+        <div class="toc-row-num">11</div>
+        <div class="toc-row-body">
+          <div class="toc-row-title">I Only Learn What Matters</div>
+          <p class="toc-row-blurb">By the time I got into high school, something about me was already set. If I cared about something, I locked in. If I didn&rsquo;t, I checked out.</p>
+        </div>
+      </div>
+      <div class="toc-row">
+        <div class="toc-row-num">12</div>
+        <div class="toc-row-body">
+          <div class="toc-row-title">Proof</div>
+          <p class="toc-row-blurb">I remember seeing it on TV. Not in class, not on a school monitor. On the actual news. NBC. Something I created was airing for everyone.</p>
+        </div>
+      </div>
+      <div class="toc-part-divider">Part III - Work, Reality, and Repetition</div>
+      <div class="toc-row">
+        <div class="toc-row-num">13</div>
+        <div class="toc-row-body">
+          <div class="toc-row-title">The Shift</div>
+          <p class="toc-row-blurb">I didn&rsquo;t walk into college empty-handed. After my internship with the Florida Marlins, they offered me something I didn&rsquo;t expect. A job.</p>
+        </div>
+      </div>
+      <div class="toc-row">
+        <div class="toc-row-num">14</div>
+        <div class="toc-row-body">
+          <div class="toc-row-title">The First Hustle</div>
+          <p class="toc-row-blurb">The first time I had a job, I was knocking on strangers&rsquo; doors. Sun beating down, clipboard in hand.</p>
+        </div>
+      </div>
+      <div class="toc-row">
+        <div class="toc-row-num">15</div>
+        <div class="toc-row-body">
+          <div class="toc-row-title">Silver Ridge</div>
+          <p class="toc-row-blurb">I was 21 when I started at Silver Ridge Elementary. Then they&rsquo;d bring them to me, drop them off, and once they let go, they were mine.</p>
+        </div>
+      </div>
+      <div class="toc-row">
+        <div class="toc-row-num">16</div>
+        <div class="toc-row-body">
+          <div class="toc-row-title">Russell&rsquo;s Roving Reporters</div>
+          <p class="toc-row-blurb">I remember handing the camera to a student for the first time. They hesitated. Held it like it didn&rsquo;t belong to them. So I told them: &ldquo;Just try something.&rdquo;</p>
+        </div>
+      </div>
+      <div class="toc-part-divider">Part IV - Systems, Scale, and Creation</div>
+      <div class="toc-row">
+        <div class="toc-row-num">17</div>
+        <div class="toc-row-body">
+          <div class="toc-row-title">Anime 3000</div>
+          <p class="toc-row-blurb">It started with a post. Not a plan, not a strategy. Just a post. At that point, I was already deep into anime.</p>
+        </div>
+      </div>
+      <div class="toc-row">
+        <div class="toc-row-num">18</div>
+        <div class="toc-row-body">
+          <div class="toc-row-title">TopSpot USA</div>
+          <p class="toc-row-blurb">I didn&rsquo;t look like I belonged there. Long hair, rock shows, loud guitars. TopSpot USA didn&rsquo;t start as a brand. It started as a way in.</p>
+        </div>
+      </div>
+      <div class="toc-part-divider">Part V - Collapse and Reconstruction</div>
+      <div class="toc-row">
+        <div class="toc-row-num">19</div>
+        <div class="toc-row-body">
+          <div class="toc-row-title">Burnout and Breakdown</div>
+          <p class="toc-row-blurb">At first, it didn&rsquo;t feel like burnout. It felt like momentum. Different worlds, all pulling from the same place.</p>
+        </div>
+      </div>
+      <div class="toc-row">
+        <div class="toc-row-num">20</div>
+        <div class="toc-row-body">
+          <div class="toc-row-title">The Next Level</div>
+          <p class="toc-row-blurb">The first time I thought I was going to lose my job, I was still at Silver Ridge. The recession hit.</p>
+        </div>
+      </div>
+      <div class="toc-part-divider">Part VI - The Odyssey</div>
+      <div class="toc-row">
+        <div class="toc-row-num">21</div>
+        <div class="toc-row-body">
+          <div class="toc-row-title">The Decision</div>
+          <p class="toc-row-blurb">I remember the room. A coworking space with exposed brick, long tables, and people I didn&rsquo;t know. The energy was different. Focused. Intentional.</p>
+        </div>
+      </div>
+      <div class="toc-row">
+        <div class="toc-row-num">22</div>
+        <div class="toc-row-body">
+          <div class="toc-row-title">In the Spotlight</div>
+          <p class="toc-row-blurb">I got the call that I was going to be on a primetime television show. ABC. The Hustler. They were flying me to Hollywood.</p>
+        </div>
+      </div>
+      <div class="toc-row">
+        <div class="toc-row-num">23</div>
+        <div class="toc-row-body">
+          <div class="toc-row-title">Lesaruss</div>
+          <p class="toc-row-blurb">I was sitting in my room, staring at my laptop. No plan. Just pressure. Everything was running through me.</p>
+        </div>
+      </div>
+      <div class="toc-row">
+        <div class="toc-row-num">24</div>
+        <div class="toc-row-body">
+          <div class="toc-row-title">The Inner Work</div>
+          <p class="toc-row-blurb">It didn&rsquo;t start as a phase. It started as a choice. Not around me. In me.</p>
+        </div>
+      </div>
+      <div class="toc-row">
+        <div class="toc-row-num">25</div>
+        <div class="toc-row-body">
+          <div class="toc-row-title">Building Community</div>
+          <p class="toc-row-blurb">I remember the moment clearly. My dad was visiting. He didn&rsquo;t come around often. So when he showed up, it meant something.</p>
+        </div>
+      </div>
+      <div class="toc-row">
+        <div class="toc-row-num">26</div>
+        <div class="toc-row-body">
+          <div class="toc-row-title">The Return</div>
+          <p class="toc-row-blurb">It didn&rsquo;t start with clarity. It started with pressure. I had been building, traveling, expanding Vegans Explore.</p>
+        </div>
+      </div>
+      <div class="toc-row">
+        <div class="toc-row-num">27</div>
+        <div class="toc-row-body">
+          <div class="toc-row-title">The System Revealed</div>
+          <p class="toc-row-blurb">I was in the car, driving from Orlando to South Florida. Three hours and twenty-eight minutes. What mattered was what I did with the drive.</p>
+        </div>
+      </div>
+    </div>
+  </article>
+</section>
+
+<section class="spread book-step" data-step="4" data-label="Join the List">
   <div class="grid booking-spread">
     <article class="panel" style="display:flex;align-items:center;justify-content:center;padding:40px;background:var(--surface2)">
       <div class="book-mock" style="width:260px;height:364px">
@@ -349,6 +546,21 @@
     </article>
   </div>
 </section>
+
+</div>
+
+<nav class="step-nav" aria-label="Book navigation">
+  <button type="button" class="step-nav-btn" id="stepPrev" aria-label="Previous step">&#8249;</button>
+  <div class="step-nav-dots" id="stepDots">
+    <button type="button" class="step-dot active" data-step="0">The Book<span class="dot">.</span></button>
+    <button type="button" class="step-dot" data-step="1">The Story<span class="dot">.</span></button>
+    <button type="button" class="step-dot" data-step="2">Chapter One<span class="dot">.</span></button>
+    <button type="button" class="step-dot" data-step="3">Contents<span class="dot">.</span></button>
+    <button type="button" class="step-dot" data-step="4">Join the List<span class="dot">.</span></button>
+  </div>
+  <button type="button" class="step-nav-btn" id="stepNext" aria-label="Next step">&#8250;</button>
+</nav>
+
 
 <footer>
   <div class="foot-inner">
@@ -460,7 +672,7 @@
     var lines = [
       '“I didn’t know the world was blurry',
       'until someone finally corrected it for',
-      'me. Structure works the same way —',
+      'me. Structure works the same way,',
       'you don’t know what you’re missing',
       'until you can suddenly see it.”'
     ];
@@ -523,8 +735,8 @@
   var dragging = false, moved = false;
   var lastX = 0, lastY = 0, startX = 0, startY = 0;
   var velX = 0, velY = 0;
-  var isOpen = false;
-  var targetCoverAngle = 0;
+  var autoRotate = true;
+  var hintEl = document.getElementById('book3dHint');
 
   function clamp(v, lo, hi){ return Math.max(lo, Math.min(hi, v)); }
 
@@ -548,8 +760,13 @@
     if (!dragging) return;
     dragging = false;
     if (!moved){
-      isOpen = !isOpen;
-      targetCoverAngle = isOpen ? -2.7 : 0;
+      autoRotate = !autoRotate;
+      if (!autoRotate){
+        velX = 0; velY = 0;
+        if (hintEl) hintEl.innerHTML = 'Frozen<span class="dot">.</span> Click to explore again<span class="dot">.</span>';
+      } else {
+        if (hintEl) hintEl.innerHTML = 'Drag to explore<span class="dot">.</span> Click to freeze<span class="dot">.</span>';
+      }
     }
   }
   wrap.addEventListener('pointerup', endDrag);
@@ -558,21 +775,70 @@
 
   function animate(){
     requestAnimationFrame(animate);
-    if (dragging){
-      // handled directly in pointermove
-    } else {
+    if (!dragging){
       if (Math.abs(velX) > 0.0002 || Math.abs(velY) > 0.0002){
         bookGroup.rotation.y += velX;
         bookGroup.rotation.x = clamp(bookGroup.rotation.x + velY, -0.6, 0.6);
         velX *= 0.92; velY *= 0.92;
-      } else {
+      } else if (autoRotate) {
         bookGroup.rotation.y += 0.0016;
       }
     }
-    coverPivot.rotation.y += (targetCoverAngle - coverPivot.rotation.y) * 0.09;
     renderer.render(scene, camera);
   }
   animate();
+})();
+</script>
+<script>
+(function(){
+  var steps = Array.prototype.slice.call(document.querySelectorAll('.book-step'));
+  var dots = Array.prototype.slice.call(document.querySelectorAll('.step-dot'));
+  var prevBtn = document.getElementById('stepPrev');
+  var nextBtn = document.getElementById('stepNext');
+  var issueRight = document.querySelector('.issue-bar .right');
+  var experience = document.getElementById('bookExperience');
+  if (!steps.length || !prevBtn || !nextBtn) return;
+  var total = steps.length;
+
+  function clampStep(n){ return Math.max(0, Math.min(total - 1, n)); }
+
+  function currentStep(){
+    for (var i = 0; i < steps.length; i++){
+      if (steps[i].classList.contains('active')) return i;
+    }
+    return 0;
+  }
+
+  function goToStep(n, opts){
+    opts = opts || {};
+    n = clampStep(n);
+    steps.forEach(function(s, i){ s.classList.toggle('active', i === n); });
+    dots.forEach(function(d, i){ d.classList.toggle('active', i === n); });
+    prevBtn.disabled = (n === 0);
+    nextBtn.disabled = (n === total - 1);
+    var label = steps[n].getAttribute('data-label') || '';
+    if (issueRight) issueRight.textContent = 'Page 0' + (n + 1) + ' . ' + label;
+    if (opts.pushHash !== false && history.replaceState) {
+      history.replaceState(null, '', '#step-' + n);
+    }
+    if (!opts.skipScroll && experience) {
+      window.scrollTo({ top: experience.offsetTop - 90, behavior: 'smooth' });
+    }
+  }
+
+  prevBtn.addEventListener('click', function(){ goToStep(currentStep() - 1); });
+  nextBtn.addEventListener('click', function(){ goToStep(currentStep() + 1); });
+  dots.forEach(function(d){
+    d.addEventListener('click', function(){ goToStep(parseInt(d.getAttribute('data-step'), 10)); });
+  });
+  document.querySelectorAll('[data-goto-step]').forEach(function(btn){
+    btn.addEventListener('click', function(){ goToStep(parseInt(btn.getAttribute('data-goto-step'), 10)); });
+  });
+
+  var initial = 0;
+  var hashMatch = /^#step-(\d+)$/.exec(location.hash);
+  if (hashMatch) initial = clampStep(parseInt(hashMatch[1], 10));
+  goToStep(initial, { skipScroll: true, pushHash: false });
 })();
 </script>
 <script src="assets/js/contact-form.js"></script>
