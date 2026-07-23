@@ -118,6 +118,31 @@
   .form .submit:hover{background:var(--text)}
   .form-msg{font-size:13px;margin-top:12px;padding:10px 14px;background:var(--bg);border-left:3px solid var(--orange);color:var(--text)}
   .form-msg.error{border-left-color:#c43c3c}
+  .book3d-wrap{display:flex;flex-direction:column;align-items:center;gap:16px}
+  .book3d-hint{font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--text-50);text-align:center}
+  .book3d-canvas-wrap{width:300px;height:420px;cursor:grab;touch-action:none}
+  .book3d-canvas-wrap:active{cursor:grabbing}
+  .book3d-canvas-wrap canvas{display:block;width:100%;height:100%}
+  .book3d-stage{width:230px;height:322px;perspective:1400px;cursor:grab}
+  .book3d-stage:active{cursor:grabbing}
+  .book3d{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .12s ease-out;transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,-18deg));}
+  .book3d.open{transition:transform .55s cubic-bezier(.2,.8,.2,1)}
+  .b3-face{position:absolute;top:0;left:0;width:100%;height:100%;backface-visibility:hidden}
+  .b3-back{background:#111111;transform:translateZ(-14px);box-shadow:inset 0 0 40px rgba(0,0,0,.4)}
+  .b3-pages{width:calc(100% - 6px);height:calc(100% - 6px);top:3px;left:3px;background:repeating-linear-gradient(90deg,#f2ede2,#f2ede2 2px,#e6dfd0 2px,#e6dfd0 3px);transform:translateZ(-6px)}
+  .b3-spine{width:16px;height:100%;left:0;background:#151515;transform:rotateY(90deg) translateZ(-8px) translateX(-8px);transform-origin:left}
+  .b3-cover{background:#1a1a1a;display:flex;flex-direction:column;align-items:center;justify-content:center;transform-origin:left;transform:translateZ(0);box-shadow:6px 8px 24px rgba(0,0,0,.35);transition:transform .55s cubic-bezier(.2,.8,.2,1);z-index:5}
+  .book3d.open .b3-cover{transform:rotateY(-155deg)}
+  .b3-cover .k{font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#F69820;margin-bottom:12px}
+  .b3-cover .t{font-size:26px;font-weight:900;text-transform:uppercase;letter-spacing:-.02em;color:#ffffff;text-align:center;line-height:1.1;margin-bottom:8px}
+  .b3-cover .r{width:40px;height:2px;background:#F69820;margin:10px 0}
+  .b3-cover .a{font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+  .b3-page-inside{position:absolute;inset:6px;background:#f7f3ea;padding:26px 20px;opacity:0;transition:opacity .3s ease .2s;transform:translateZ(-4px)}
+  .book3d.open .b3-page-inside{opacity:1}
+  .pi-eyebrow{font-size:9px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:#F69820;margin-bottom:10px}
+  .pi-text{font-size:12px;line-height:1.65;color:#2a2a2a;font-style:italic}
+  .book3d-toggle{font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--text-30)}
+
   .book-mock{width:220px;height:308px;background:#1a1a1a;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:6px 8px 24px rgba(0,0,0,0.28)}
   .book-mock .k{font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#F69820;margin-bottom:12px}
   .book-mock .t{font-size:26px;font-weight:900;text-transform:uppercase;letter-spacing:-.02em;color:#ffffff;text-align:center;line-height:1.1;margin-bottom:8px}
@@ -140,6 +165,7 @@
     .panel.booking-form{padding:28px}
   }
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
 <header class="nav">
@@ -207,11 +233,9 @@
         </div>
       </div>
       <div class="page-hero-character">
-        <div class="book-mock">
-          <div class="k">LESARUSS</div>
-          <div class="t">From Blur<br>to Blueprint</div>
-          <div class="r"></div>
-          <div class="a">Sean A. Russell</div>
+        <div class="book3d-wrap">
+          <div class="book3d-canvas-wrap" id="book3d-canvas-wrap"></div>
+          <p class="book3d-hint">Drag to explore<span class="dot">.</span> Click to open<span class="dot">.</span></p>
         </div>
       </div>
     </div>
@@ -349,6 +373,207 @@
       document.body.style.overflow = open ? 'hidden' : '';
     });
   }
+</script>
+<script>
+(function(){
+  var wrap = document.getElementById('book3d-canvas-wrap');
+  if (!wrap || typeof THREE === 'undefined') return;
+
+  var W = 1.0, H = 1.42, D = 0.16;
+
+  function makeCoverTexture(){
+    var cv = document.createElement('canvas');
+    cv.width = 512; cv.height = 728;
+    var ctx = cv.getContext('2d');
+    ctx.fillStyle = '#1a1a1a';
+    ctx.fillRect(0, 0, cv.width, cv.height);
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#F69820';
+    ctx.font = '700 20px Montserrat, sans-serif';
+    ctx.save();
+    ctx.translate(cv.width / 2, 210);
+    ctx.letterSpacing = '6px';
+    ctx.fillText('LESARUSS', 0, 0);
+    ctx.restore();
+    ctx.fillStyle = '#ffffff';
+    ctx.font = '900 54px Montserrat, sans-serif';
+    ctx.fillText('FROM BLUR', cv.width / 2, 320);
+    ctx.fillText('TO BLUEPRINT', cv.width / 2, 385);
+    ctx.fillStyle = '#F69820';
+    ctx.fillRect(cv.width / 2 - 46, 420, 92, 5);
+    ctx.fillStyle = 'rgba(255,255,255,0.62)';
+    ctx.font = '700 17px Montserrat, sans-serif';
+    ctx.save();
+    ctx.translate(cv.width / 2, 470);
+    ctx.letterSpacing = '3px';
+    ctx.fillText('SEAN A. RUSSELL', 0, 0);
+    ctx.restore();
+    return new THREE.CanvasTexture(cv);
+  }
+
+  function makeSpineTexture(){
+    var cv = document.createElement('canvas');
+    cv.width = 96; cv.height = 728;
+    var ctx = cv.getContext('2d');
+    ctx.fillStyle = '#151515';
+    ctx.fillRect(0, 0, cv.width, cv.height);
+    ctx.save();
+    ctx.translate(cv.width / 2, cv.height / 2);
+    ctx.rotate(-Math.PI / 2);
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#ffffff';
+    ctx.font = '900 30px Montserrat, sans-serif';
+    ctx.fillText('FROM BLUR TO BLUEPRINT', 0, 8);
+    ctx.restore();
+    return new THREE.CanvasTexture(cv);
+  }
+
+  function makePagesTexture(){
+    var cv = document.createElement('canvas');
+    cv.width = 64; cv.height = 64;
+    var ctx = cv.getContext('2d');
+    ctx.fillStyle = '#f2ede2';
+    ctx.fillRect(0, 0, cv.width, cv.height);
+    ctx.strokeStyle = 'rgba(150,135,105,0.5)';
+    ctx.lineWidth = 1;
+    for (var x = 0; x < cv.width; x += 3){
+      ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, cv.height); ctx.stroke();
+    }
+    var tex = new THREE.CanvasTexture(cv);
+    tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+    tex.repeat.set(4, 1);
+    return tex;
+  }
+
+  function makePageInsideTexture(){
+    var cv = document.createElement('canvas');
+    cv.width = 512; cv.height = 728;
+    var ctx = cv.getContext('2d');
+    ctx.fillStyle = '#f7f3ea';
+    ctx.fillRect(0, 0, cv.width, cv.height);
+    ctx.textAlign = 'left';
+    ctx.fillStyle = '#F69820';
+    ctx.font = '800 16px Montserrat, sans-serif';
+    ctx.save(); ctx.translate(48, 90); ctx.letterSpacing = '3px'; ctx.fillText('CHAPTER ONE', 0, 0); ctx.restore();
+    ctx.fillStyle = '#2a2a2a';
+    ctx.font = 'italic 400 22px Georgia, serif';
+    var lines = [
+      '“I didn’t know the world was blurry',
+      'until someone finally corrected it for',
+      'me. Structure works the same way —',
+      'you don’t know what you’re missing',
+      'until you can suddenly see it.”'
+    ];
+    lines.forEach(function(line, i){ ctx.fillText(line, 48, 150 + i * 34); });
+    return new THREE.CanvasTexture(cv);
+  }
+
+  var scene = new THREE.Scene();
+  var camera = new THREE.PerspectiveCamera(32, 300 / 420, 0.1, 100);
+  camera.position.set(0, 0.08, 3.1);
+
+  var renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  renderer.setSize(300, 420);
+  wrap.appendChild(renderer.domElement);
+
+  scene.add(new THREE.AmbientLight(0xffffff, 0.75));
+  var key = new THREE.DirectionalLight(0xffffff, 0.65);
+  key.position.set(2.2, 2.4, 2.6);
+  scene.add(key);
+  var fill = new THREE.DirectionalLight(0xffffff, 0.25);
+  fill.position.set(-2, -1, 1.5);
+  scene.add(fill);
+
+  var bookGroup = new THREE.Group();
+  scene.add(bookGroup);
+
+  var pagesTex = makePagesTexture();
+  var baseMaterials = [
+    new THREE.MeshStandardMaterial({ map: pagesTex, roughness: 0.9 }),
+    new THREE.MeshStandardMaterial({ map: makeSpineTexture(), roughness: 0.6 }),
+    new THREE.MeshStandardMaterial({ map: pagesTex, roughness: 0.9 }),
+    new THREE.MeshStandardMaterial({ map: pagesTex, roughness: 0.9 }),
+    new THREE.MeshStandardMaterial({ map: makePageInsideTexture(), roughness: 0.85 }),
+    new THREE.MeshStandardMaterial({ color: 0x111111, roughness: 0.6 })
+  ];
+  var baseMesh = new THREE.Mesh(new THREE.BoxGeometry(W, H, D * 0.86), baseMaterials);
+  baseMesh.position.z = -D * 0.07;
+  bookGroup.add(baseMesh);
+
+  var coverPivot = new THREE.Group();
+  coverPivot.position.set(-W / 2, 0, D * 0.36);
+  bookGroup.add(coverPivot);
+
+  var coverMaterials = [
+    new THREE.MeshStandardMaterial({ color: 0x1a1a1a, roughness: 0.45 }),
+    new THREE.MeshStandardMaterial({ color: 0x1a1a1a, roughness: 0.45 }),
+    new THREE.MeshStandardMaterial({ color: 0x1a1a1a, roughness: 0.45 }),
+    new THREE.MeshStandardMaterial({ color: 0x1a1a1a, roughness: 0.45 }),
+    new THREE.MeshStandardMaterial({ map: makeCoverTexture(), roughness: 0.4 }),
+    new THREE.MeshStandardMaterial({ color: 0x111111, roughness: 0.5 })
+  ];
+  var coverMesh = new THREE.Mesh(new THREE.BoxGeometry(W, H, D * 0.14), coverMaterials);
+  coverMesh.position.x = W / 2;
+  coverPivot.add(coverMesh);
+
+  bookGroup.rotation.y = -0.55;
+  bookGroup.rotation.x = 0.08;
+
+  var dragging = false, moved = false;
+  var lastX = 0, lastY = 0, startX = 0, startY = 0;
+  var velX = 0, velY = 0;
+  var isOpen = false;
+  var targetCoverAngle = 0;
+
+  function clamp(v, lo, hi){ return Math.max(lo, Math.min(hi, v)); }
+
+  wrap.addEventListener('pointerdown', function(e){
+    dragging = true; moved = false;
+    lastX = startX = e.clientX;
+    lastY = startY = e.clientY;
+    velX = velY = 0;
+    wrap.setPointerCapture(e.pointerId);
+  });
+  wrap.addEventListener('pointermove', function(e){
+    if (!dragging) return;
+    var dx = e.clientX - lastX, dy = e.clientY - lastY;
+    if (Math.abs(e.clientX - startX) > 4 || Math.abs(e.clientY - startY) > 4) moved = true;
+    bookGroup.rotation.y += dx * 0.008;
+    bookGroup.rotation.x = clamp(bookGroup.rotation.x + dy * 0.008, -0.6, 0.6);
+    velX = dx * 0.008; velY = dy * 0.008;
+    lastX = e.clientX; lastY = e.clientY;
+  });
+  function endDrag(e){
+    if (!dragging) return;
+    dragging = false;
+    if (!moved){
+      isOpen = !isOpen;
+      targetCoverAngle = isOpen ? -2.7 : 0;
+    }
+  }
+  wrap.addEventListener('pointerup', endDrag);
+  wrap.addEventListener('pointercancel', endDrag);
+  wrap.addEventListener('pointerleave', function(){ dragging = false; });
+
+  function animate(){
+    requestAnimationFrame(animate);
+    if (dragging){
+      // handled directly in pointermove
+    } else {
+      if (Math.abs(velX) > 0.0002 || Math.abs(velY) > 0.0002){
+        bookGroup.rotation.y += velX;
+        bookGroup.rotation.x = clamp(bookGroup.rotation.x + velY, -0.6, 0.6);
+        velX *= 0.92; velY *= 0.92;
+      } else {
+        bookGroup.rotation.y += 0.0016;
+      }
+    }
+    coverPivot.rotation.y += (targetCoverAngle - coverPivot.rotation.y) * 0.09;
+    renderer.render(scene, camera);
+  }
+  animate();
+})();
 </script>
 <script src="assets/js/contact-form.js"></script>
 </body>
