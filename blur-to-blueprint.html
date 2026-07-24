@@ -176,7 +176,9 @@
   .step-dot{font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--text-30);background:none;border:none;padding:10px 13px;cursor:pointer;transition:color .15s;white-space:nowrap;font-family:inherit}
   .step-dot:hover{color:var(--text-50)}
   .step-dot.active{color:var(--orange)}
-  .chapter-one-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--gutter);align-items:start;margin-top:24px}
+  .chapter-one-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--gutter);align-items:stretch;margin-top:24px}
+  .chapter-one-grid .excerpt{height:100%;overflow-y:auto;padding-right:10px}
+  .chapter-one-grid .video-module{align-self:stretch}
   .video-module{position:relative;aspect-ratio:16/9;background:#111;display:flex;align-items:center;justify-content:center;overflow:hidden;border:var(--panel-line-w) solid var(--panel-line)}
   .video-module .vm-inner{text-align:center}
   .video-module .vm-play{width:52px;height:52px;border-radius:50%;background:var(--orange);display:flex;align-items:center;justify-content:center;margin:0 auto 14px}
@@ -195,6 +197,25 @@
     .step-nav{padding:10px 14px}
     .step-dot{padding:8px 7px;font-size:9px}
   }
+
+  .story-spread{grid-template-columns:1.4fr 1fr}
+  .story-image{position:relative;display:flex;align-items:center;justify-content:center;background:var(--surface2);min-height:320px}
+  .story-image-label{font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--text-30);z-index:2}
+  @media (max-width:980px){ .story-spread{grid-template-columns:1fr} }
+
+  .sar-news-cta{display:none !important}
+  .foot-subscribe{border:var(--panel-line-w) solid var(--panel-line);background:none;color:var(--text-50);font:inherit;font-size:11px;letter-spacing:.02em;cursor:pointer;padding:6px 14px}
+  .foot-subscribe:hover{background:var(--text);color:var(--bg);border-color:var(--text)}
+  .lightbox{position:fixed;inset:0;background:rgba(13,13,13,.62);display:none;align-items:center;justify-content:center;z-index:900;padding:24px}
+  .lightbox.open{display:flex}
+  .lightbox-panel{position:relative;background:var(--bg);border:var(--panel-line-w) solid var(--panel-line);max-width:520px;width:100%;max-height:86vh;overflow-y:auto;padding:48px 36px}
+  .lightbox-close{position:absolute;top:12px;right:12px;width:34px;height:34px;border:none;background:none;font-size:24px;line-height:1;cursor:pointer;color:var(--text-50);font-family:inherit}
+  .lightbox-close:hover{color:var(--text)}
+  .narration-btn{position:relative}
+  .narration-btn .ic-pause{display:none}
+  .narration-btn.playing .ic-play{display:none}
+  .narration-btn.playing .ic-pause{display:block}
+  .narration-btn svg{width:14px;height:14px;fill:currentColor}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
@@ -276,18 +297,24 @@
 </section>
 
 <section class="spread book-step" data-step="1" data-label="The Story">
-  <article class="panel copy">
-    <div class="cap tl">The story<span class="dot">.</span></div>
-    <div class="section-header">
-      <div>
-        <p class="eyebrow">Synopsis</p>
-        <h2 class="section-title">Not knowing why things work<br>when they do<span class="dot">.</span></h2>
+  <div class="grid story-spread">
+    <article class="panel copy">
+      <div class="cap tl">The story<span class="dot">.</span></div>
+      <div class="section-header">
+        <div>
+          <p class="eyebrow">Synopsis</p>
+          <h2 class="section-title">Not knowing why things work<br>when they do<span class="dot">.</span></h2>
+        </div>
+        <p class="section-sub">For builders, founders, and creators who keep generating momentum that stalls.</p>
       </div>
-      <p class="section-sub">For builders, founders, and creators who keep generating momentum that stalls.</p>
-    </div>
-    <p>From childhood, before glasses corrected a blur he assumed was just how the world looked, through a wrestling role-play federation, Anime 3000, TopSpot USA, Chester, and the ventures that came after, Sean traces the same pattern showing up again and again: real projects, real wins, real collapses, and no way to explain why it kept repeating.</p>
-    <p>The story bottoms out living in his car, having chosen to pay his team instead of his rent, and turns on a single decision: never again. What follows is the inner work, the rebuild, and the moment the pattern finally got a name. Not talent. Not access. Structure. This book is what happens when you can finally see it.</p>
-  </article>
+      <p>From childhood, before glasses corrected a blur he assumed was just how the world looked, through a wrestling role-play federation, Anime 3000, TopSpot USA, Chester, and the ventures that came after, Sean traces the same pattern showing up again and again: real projects, real wins, real collapses, and no way to explain why it kept repeating.</p>
+      <p>The story bottoms out living in his car, having chosen to pay his team instead of his rent, and turns on a single decision: never again. What follows is the inner work, the rebuild, and the moment the pattern finally got a name. Not talent. Not access. Structure. This book is what happens when you can finally see it.</p>
+    </article>
+    <article class="panel story-image">
+      <div class="halftone faint"></div>
+      <div class="story-image-label">Image placeholder<span class="dot">.</span></div>
+    </article>
+  </div>
 </section>
 
 <section class="spread book-step" data-step="2" data-label="Chapter One">
@@ -558,8 +585,17 @@
     <button type="button" class="step-dot" data-step="3">Contents<span class="dot">.</span></button>
     <button type="button" class="step-dot" data-step="4">Join the List<span class="dot">.</span></button>
   </div>
+  <button type="button" class="step-nav-btn narration-btn" id="narrationBtn" aria-label="Play narration for this page">
+    <svg class="ic-play" viewBox="0 0 16 16"><polygon points="3,2 14,8 3,14"></polygon></svg>
+    <svg class="ic-pause" viewBox="0 0 16 16"><rect x="3" y="2" width="3" height="12"></rect><rect x="10" y="2" width="3" height="12"></rect></svg>
+  </button>
   <button type="button" class="step-nav-btn" id="stepNext" aria-label="Next step">&#8250;</button>
 </nav>
+<audio id="audioStep0" preload="none" src="/audio/blur-to-blueprint/01.mp3"></audio>
+<audio id="audioStep1" preload="none" src="/audio/blur-to-blueprint/02.mp3"></audio>
+<audio id="audioStep2" preload="none" src="/audio/blur-to-blueprint/03.mp3"></audio>
+<audio id="audioStep3" preload="none" src="/audio/blur-to-blueprint/04.mp3"></audio>
+<audio id="audioStep4" preload="none" src="/audio/blur-to-blueprint/05.mp3"></audio>
 
 
 <footer>
@@ -570,9 +606,17 @@
       <a href="speaker.html">Speaker + Host</a>
       <a href="book.html">Book Sean</a>
     </div>
+    <button type="button" class="foot-subscribe" id="footSubscribeBtn">Subscribe<span class="dot">.</span></button>
     <span>&copy; 2026<span class="dot">.</span> A LESARUSS production.</span>
   </div>
 </footer>
+
+<div class="lightbox" id="subscribeLightbox" role="dialog" aria-modal="true" aria-hidden="true">
+  <div class="lightbox-panel">
+    <button type="button" class="lightbox-close" id="subscribeLightboxClose" aria-label="Close">&times;</button>
+    <div id="subscribeLightboxContent"></div>
+  </div>
+</div>
 <script>
   const hamBtn = document.getElementById('hamBtn');
   const mobileMenu = document.getElementById('mobileMenu');
@@ -824,6 +868,7 @@
     if (!opts.skipScroll && experience) {
       window.scrollTo({ top: experience.offsetTop - 90, behavior: 'smooth' });
     }
+    if (window.__stopNarration) window.__stopNarration();
   }
 
   prevBtn.addEventListener('click', function(){ goToStep(currentStep() - 1); });
@@ -839,6 +884,113 @@
   var hashMatch = /^#step-(\d+)$/.exec(location.hash);
   if (hashMatch) initial = clampStep(parseInt(hashMatch[1], 10));
   goToStep(initial, { skipScroll: true, pushHash: false });
+})();
+</script>
+<script>
+(function(){
+  var narrationBtn = document.getElementById('narrationBtn');
+  var audios = [
+    document.getElementById('audioStep0'),
+    document.getElementById('audioStep1'),
+    document.getElementById('audioStep2'),
+    document.getElementById('audioStep3'),
+    document.getElementById('audioStep4')
+  ];
+  if (!narrationBtn) return;
+  var playing = false;
+
+  function activeStepIndex(){
+    var steps = document.querySelectorAll('.book-step');
+    for (var i = 0; i < steps.length; i++){
+      if (steps[i].classList.contains('active')) return i;
+    }
+    return 0;
+  }
+
+  function stopNarration(){
+    audios.forEach(function(a){ if (a) { a.pause(); } });
+    playing = false;
+    narrationBtn.classList.remove('playing');
+  }
+  window.__stopNarration = stopNarration;
+
+  narrationBtn.addEventListener('click', function(){
+    var au = audios[activeStepIndex()];
+    if (!au) return;
+    if (playing) {
+      stopNarration();
+    } else {
+      stopNarration();
+      au.currentTime = 0;
+      au.play().catch(function(){});
+      playing = true;
+      narrationBtn.classList.add('playing');
+    }
+  });
+
+  audios.forEach(function(a){
+    if (a) a.addEventListener('ended', stopNarration);
+  });
+})();
+</script>
+<script>
+(function(){
+  var footBtn = document.getElementById('footSubscribeBtn');
+  var lightbox = document.getElementById('subscribeLightbox');
+  var lightboxContent = document.getElementById('subscribeLightboxContent');
+  var closeBtn = document.getElementById('subscribeLightboxClose');
+  if (!footBtn || !lightbox || !lightboxContent) return;
+
+  var newsCta = null;
+  var homeParent = null;
+  var homeNext = null;
+
+  function findNewsCta(){
+    if (newsCta) return newsCta;
+    var el = document.querySelector('.sar-news-cta');
+    if (el) {
+      newsCta = el;
+      homeParent = el.parentNode;
+      homeNext = el.nextSibling;
+    }
+    return newsCta;
+  }
+
+  var pollId = setInterval(function(){
+    if (findNewsCta()) clearInterval(pollId);
+  }, 300);
+  setTimeout(function(){ clearInterval(pollId); }, 15000);
+
+  function openLightbox(){
+    var el = findNewsCta();
+    if (el) {
+      lightboxContent.appendChild(el);
+      el.style.display = '';
+    } else {
+      lightboxContent.innerHTML = '<p style="font-size:14px;color:var(--text-50)">Sign-up is loading, one moment.</p>';
+    }
+    lightbox.classList.add('open');
+    lightbox.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox(){
+    lightbox.classList.remove('open');
+    lightbox.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    if (newsCta && homeParent) {
+      homeParent.insertBefore(newsCta, homeNext);
+    }
+  }
+
+  footBtn.addEventListener('click', openLightbox);
+  if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', function(e){
+    if (e.target === lightbox) closeLightbox();
+  });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox();
+  });
 })();
 </script>
 <script src="assets/js/contact-form.js"></script>
