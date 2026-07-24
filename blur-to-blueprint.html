@@ -168,7 +168,7 @@
   .book-experience{position:relative}
   .book-step{display:none}
   .book-step.active{display:block}
-  .step-nav{position:sticky;bottom:0;left:0;right:0;display:flex;align-items:center;gap:6px;padding:14px 20px;background:var(--bg);border-top:var(--panel-line-w) solid var(--panel-line);z-index:60;max-width:1280px;margin:0 auto}
+  .step-nav{position:sticky;bottom:0;left:0;right:0;display:flex;align-items:center;gap:6px;padding:14px 20px;background:var(--bg);z-index:60;max-width:1280px;margin:0 auto}
   .step-nav-btn{flex-shrink:0;width:38px;height:38px;border:var(--panel-line-w) solid var(--panel-line);background:var(--bg);color:var(--text);font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s,color .15s;font-family:inherit}
   .step-nav-btn:hover:not(:disabled){background:var(--text);color:var(--bg)}
   .step-nav-btn:disabled{opacity:.22;cursor:default}
@@ -204,8 +204,9 @@
   @media (max-width:980px){ .story-spread{grid-template-columns:1fr} }
 
   .sar-news-cta{display:none !important}
-  .foot-subscribe{border:var(--panel-line-w) solid var(--panel-line);background:none;color:var(--text-50);font:inherit;font-size:11px;letter-spacing:.02em;cursor:pointer;padding:6px 14px}
-  .foot-subscribe:hover{background:var(--text);color:var(--bg);border-color:var(--text)}
+  #signalPopupContent .sar-news-inner{grid-template-columns:1fr;gap:20px}
+  #signalPopupContent .sar-news-form{flex-direction:column}
+  #signalPopupContent .sar-news-btn{padding:14px 24px}
   .lightbox{position:fixed;inset:0;background:rgba(13,13,13,.62);display:none;align-items:center;justify-content:center;z-index:900;padding:24px}
   .lightbox.open{display:flex}
   .lightbox-panel{position:relative;background:var(--bg);border:var(--panel-line-w) solid var(--panel-line);max-width:520px;width:100%;max-height:86vh;overflow-y:auto;padding:48px 36px}
@@ -606,15 +607,14 @@
       <a href="speaker.html">Speaker + Host</a>
       <a href="book.html">Book Sean</a>
     </div>
-    <button type="button" class="foot-subscribe" id="footSubscribeBtn">Subscribe<span class="dot">.</span></button>
     <span>&copy; 2026<span class="dot">.</span> A LESARUSS production.</span>
   </div>
 </footer>
 
-<div class="lightbox" id="subscribeLightbox" role="dialog" aria-modal="true" aria-hidden="true">
+<div class="lightbox" id="signalPopup" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Signal from the source newsletter signup">
   <div class="lightbox-panel">
-    <button type="button" class="lightbox-close" id="subscribeLightboxClose" aria-label="Close">&times;</button>
-    <div id="subscribeLightboxContent"></div>
+    <button type="button" class="lightbox-close" id="signalPopupClose" aria-label="Close">&times;</button>
+    <div id="signalPopupContent"></div>
   </div>
 </div>
 <script>
@@ -935,11 +935,12 @@
 </script>
 <script>
 (function(){
-  var footBtn = document.getElementById('footSubscribeBtn');
-  var lightbox = document.getElementById('subscribeLightbox');
-  var lightboxContent = document.getElementById('subscribeLightboxContent');
-  var closeBtn = document.getElementById('subscribeLightboxClose');
-  if (!footBtn || !lightbox || !lightboxContent) return;
+  var POPUP_DELAY_MS = 6000;
+  var SESSION_KEY = 'sarSignalPopupShown_blurToBlueprint';
+  var popup = document.getElementById('signalPopup');
+  var popupContent = document.getElementById('signalPopupContent');
+  var closeBtn = document.getElementById('signalPopupClose');
+  if (!popup || !popupContent) return;
 
   var newsCta = null;
   var homeParent = null;
@@ -956,41 +957,46 @@
     return newsCta;
   }
 
-  var pollId = setInterval(function(){
-    if (findNewsCta()) clearInterval(pollId);
-  }, 300);
-  setTimeout(function(){ clearInterval(pollId); }, 15000);
-
-  function openLightbox(){
+  function openPopup(){
     var el = findNewsCta();
     if (el) {
-      lightboxContent.appendChild(el);
+      popupContent.appendChild(el);
       el.style.display = '';
     } else {
-      lightboxContent.innerHTML = '<p style="font-size:14px;color:var(--text-50)">Sign-up is loading, one moment.</p>';
+      popupContent.innerHTML = '<p style="font-size:14px;color:var(--text-50)">Sign-up is loading, one moment.</p>';
     }
-    lightbox.classList.add('open');
-    lightbox.setAttribute('aria-hidden', 'false');
+    popup.classList.add('open');
+    popup.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
+    try { sessionStorage.setItem(SESSION_KEY, '1'); } catch(e){}
   }
 
-  function closeLightbox(){
-    lightbox.classList.remove('open');
-    lightbox.setAttribute('aria-hidden', 'true');
+  function closePopup(){
+    popup.classList.remove('open');
+    popup.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
     if (newsCta && homeParent) {
       homeParent.insertBefore(newsCta, homeNext);
     }
   }
 
-  footBtn.addEventListener('click', openLightbox);
-  if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
-  lightbox.addEventListener('click', function(e){
-    if (e.target === lightbox) closeLightbox();
+  if (closeBtn) closeBtn.addEventListener('click', closePopup);
+  popup.addEventListener('click', function(e){
+    if (e.target === popup) closePopup();
   });
   document.addEventListener('keydown', function(e){
-    if (e.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox();
+    if (e.key === 'Escape' && popup.classList.contains('open')) closePopup();
   });
+
+  var alreadyShown = false;
+  try { alreadyShown = sessionStorage.getItem(SESSION_KEY) === '1'; } catch(e){}
+  if (!alreadyShown) {
+    var pollId = setInterval(function(){
+      if (findNewsCta()) clearInterval(pollId);
+    }, 300);
+    setTimeout(function(){ clearInterval(pollId); }, 15000);
+    setTimeout(openPopup, POPUP_DELAY_MS);
+  }
 })();
 </script>
 <script src="assets/js/contact-form.js"></script>
