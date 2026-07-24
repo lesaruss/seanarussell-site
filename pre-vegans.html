@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pre-Vegans. Sean A. Russell.</title>
+<meta name="description" content="Pre-Vegans: Inspirational Stories to Help You on Your Vegan Journey. Sean A. Russell's first book, featuring conversations with well-known voices in the vegan movement.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0d0d0d; --surface:#111111; --surface2:#161616;
+    --border:rgba(255,255,255,0.07);
+    --text:#ffffff; --text-75:rgba(255,255,255,0.75); --text-50:rgba(255,255,255,0.50); --text-30:rgba(255,255,255,0.30);
+    --orange:#F69820;
+    --panel-line:var(--text);
+    --panel-line-w:1.5px;
+    --gutter:14px;
+    --nav-bg:rgba(13,13,13,0.96);
+  }
+  html[data-theme="light"]{
+    --bg:#ffffff; --surface:#ffffff; --surface2:#fafafa;
+    --border:rgba(0,0,0,0.08);
+    --text:#1a1a1a; --text-75:rgba(26,26,26,0.78); --text-50:rgba(26,26,26,0.55); --text-30:rgba(26,26,26,0.35);
+    --orange:#F69820;
+    --panel-line:#0d0d0d;
+    --nav-bg:rgba(255,255,255,0.96);
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:'Montserrat',Arial,Helvetica,sans-serif;overflow-x:hidden;transition:background .25s ease,color .25s ease}
+  a{text-decoration:none;color:inherit}
+  img,svg{display:block;max-width:100%}
+  button{font-family:inherit}
+  :focus-visible{outline:3px solid var(--orange);outline-offset:3px}
+  @media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
+  .dot{color:var(--orange);display:inline-block;margin-left:0.06em;animation:dotPulse 2s ease-in-out infinite}
+  @keyframes dotPulse{0%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(1.3)}100%{opacity:1;transform:scale(1)}}
+
+  .nav{position:fixed;top:0;left:0;right:0;z-index:200;height:62px;display:flex;align-items:center;padding:0 28px;background:var(--nav-bg);border-bottom:1px solid var(--border);backdrop-filter:blur(10px)}
+  .nav-brand{font-size:17px;font-weight:900;text-transform:uppercase;letter-spacing:.05em;flex-shrink:0;margin-right:36px}
+  .nav-links{display:flex;align-items:center;gap:4px;flex:1}
+  .nav-link{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.13em;color:var(--text-50);padding:6px 12px;background:none;border:none;cursor:pointer;transition:color .18s;white-space:nowrap;flex-shrink:0}
+  .nav-link:hover{color:var(--text)}
+  .nav-link.active{color:var(--orange)}
+  .nav-enter{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.14em;color:#0d0d0d;background:var(--orange);padding:9px 20px;border:none;cursor:pointer;flex-shrink:0}
+  .nav-enter:hover{background:var(--text);color:var(--bg)}
+  .nav-hamburger{display:none;flex-direction:column;justify-content:center;align-items:center;width:40px;height:40px;background:none;border:none;cursor:pointer;gap:5px;padding:0;margin-left:auto;flex-shrink:0}
+  .nav-hamburger span{display:block;width:22px;height:2px;background:var(--text);transition:transform .22s,opacity .22s}
+  .nav-hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .nav-hamburger.open span:nth-child(2){opacity:0}
+  .nav-hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  .mobile-menu{display:none;position:fixed;top:62px;left:0;right:0;bottom:0;background:var(--nav-bg);z-index:199;padding:28px 24px;overflow-y:auto;border-top:1px solid var(--border)}
+  .mobile-menu.open{display:block}
+  .mobile-menu-section{font-size:10px;font-weight:800;letter-spacing:.28em;text-transform:uppercase;color:var(--text-30);padding:22px 0 10px}
+  .mobile-menu-section:first-child{padding-top:8px}
+  .mobile-menu-link{display:block;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.13em;color:var(--text-50);padding:15px 0;border-bottom:1px solid var(--border);transition:color .15s}
+  .mobile-menu-link:hover{color:var(--orange)}
+  .mobile-menu-link.book{color:var(--orange);font-weight:900}
+  .mobile-menu-link.active-mobile{color:var(--orange)}
+  .nav-dropdown{position:relative;display:inline-flex;align-items:center}
+  .nav-dropdown-trigger{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.13em;color:var(--text-50);padding:6px 12px;background:none;border:none;cursor:pointer;display:flex;align-items:center;gap:5px;white-space:nowrap;flex-shrink:0;font-family:inherit;transition:color .18s}
+  .nav-dropdown-trigger:hover,.nav-dropdown:hover .nav-dropdown-trigger{color:var(--text)}
+  .nav-dropdown-trigger.active{color:var(--orange)}
+  .nav-dropdown-trigger .chevron{font-size:9px;line-height:1;transition:transform .18s;display:inline-block}
+  .nav-dropdown:hover .chevron{transform:rotate(180deg)}
+  .nav-dropdown-menu{position:absolute;top:100%;left:0;background:var(--nav-bg);border:1px solid var(--border);backdrop-filter:blur(10px);min-width:150px;padding:4px 0 6px;display:none;z-index:300}
+  .nav-dropdown:hover .nav-dropdown-menu,.nav-dropdown:focus-within .nav-dropdown-menu{display:block}
+  .nav-dropdown-item{display:block;padding:9px 16px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.13em;color:var(--text-50);transition:color .15s}
+  .nav-dropdown-item:hover{color:var(--orange)}
+  .nav-dropdown-item.active{color:var(--orange)}
+
+  .issue-bar{position:relative;display:flex;align-items:center;gap:18px;padding:10px 28px;border-bottom:1px solid var(--border);font-size:10px;font-weight:800;letter-spacing:.32em;text-transform:uppercase;color:var(--text-50);margin-top:62px}
+  .issue-bar .red{width:8px;height:8px;border-radius:50%;background:var(--orange);animation:dotPulse 2s ease-in-out infinite;flex-shrink:0}
+  .issue-bar .title{color:var(--text)}
+  .issue-bar .right{margin-left:auto;color:var(--text-30)}
+
+  .spread{padding:var(--gutter);max-width:1280px;margin:0 auto}
+  .spread + .spread{padding-top:0}
+  .panel{position:relative;background:var(--bg);border:var(--panel-line-w) solid var(--panel-line);overflow:hidden}
+  .grid{display:grid;gap:var(--gutter)}
+  .cap{position:absolute;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--text);background:var(--bg);padding:8px 12px;border:var(--panel-line-w) solid var(--panel-line);z-index:5;line-height:1.5;max-width:280px}
+  .cap.tl{top:-1px;left:-1px}
+  .halftone{position:absolute;inset:0;opacity:.16;pointer-events:none;background-image:radial-gradient(var(--orange) 1.4px, transparent 1.6px);background-size:14px 14px}
+  .halftone.faint{opacity:.08}
+  .eyebrow{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.32em;color:var(--orange);margin-bottom:22px}
+  .cta{display:inline-block;font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.14em;color:#0d0d0d;background:var(--orange);padding:14px 32px;border:none;cursor:pointer;font-family:inherit;transition:background .18s,color .18s}
+  .cta:hover{background:var(--text);color:var(--bg)}
+  .cta-ghost{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--text-50);cursor:pointer;border:1px solid var(--text-30);padding:13px 22px}
+  .cta-ghost:hover{color:var(--text)}
+
+  .book-hero{display:grid;grid-template-columns:340px 1fr;gap:var(--gutter);align-items:stretch}
+  .book-hero-cover{display:flex;align-items:center;justify-content:center;padding:40px;background:var(--surface2)}
+  .book-hero-cover a{display:block;box-shadow:6px 8px 24px rgba(0,0,0,0.28);transform:rotate(-1.5deg);transition:transform .2s ease}
+  .book-hero-cover a:hover{transform:rotate(0deg) scale(1.03)}
+  .book-hero-copy{padding:48px}
+  .book-hero-copy h1{font-size:clamp(36px,5.5vw,64px);font-weight:900;text-transform:uppercase;letter-spacing:-.03em;line-height:.98;margin:14px 0 18px}
+  .book-hero-copy .lede{font-size:15px;line-height:1.85;color:var(--text-75);max-width:560px;margin-bottom:24px}
+  .book-hero-copy .facts{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-50);margin-bottom:24px}
+  .book-hero-copy .facts span{color:var(--text-30);margin:0 8px}
+
+  .panel.copy{padding:48px}
+  .panel.copy h2{font-size:clamp(28px,4vw,42px);font-weight:900;text-transform:uppercase;letter-spacing:-.02em;line-height:1;margin:8px 0 18px}
+  .panel.copy p{font-size:14px;line-height:1.85;color:var(--text-75);margin-bottom:18px;max-width:680px}
+  .voices-grid{list-style:none;padding:0;margin:18px 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+  .voices-grid li{padding:18px;border:1px solid var(--border);position:relative}
+  .voices-grid li .vname{font-size:14px;font-weight:900;text-transform:uppercase;letter-spacing:.02em;display:block;margin-bottom:6px}
+  .voices-grid li .vdesc{font-size:12px;line-height:1.6;color:var(--text-75)}
+
+  footer{padding:36px 28px;border-top:1px solid var(--border);background:var(--bg);margin-top:var(--gutter)}
+  .foot-inner{max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:18px;font-size:11px;color:var(--text-50)}
+  .foot-wm{font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:.05em;color:var(--text-50)}
+  .foot-links{display:flex;gap:24px;font-weight:700;text-transform:uppercase;letter-spacing:.16em;font-size:10px}
+  .foot-links a:hover{color:var(--orange)}
+
+  @media (max-width:980px){
+    .nav-links{display:none}
+    .nav-enter{display:none}
+    .nav-hamburger{display:flex}
+    .book-hero{grid-template-columns:1fr}
+    .book-hero-copy{padding:28px}
+    .panel.copy{padding:28px}
+  }
+</style>
+</head>
+<body>
+<header class="nav">
+  <a class="nav-brand" href="index.html">Sean A<span class="dot">.</span> Russell</a>
+  <nav class="nav-links" aria-label="Primary">
+    <div class="nav-dropdown">
+      <button class="nav-dropdown-trigger active" aria-haspopup="true" aria-expanded="false">Talents <span class="chevron" aria-hidden="true">&#9662;</span></button>
+      <div class="nav-dropdown-menu" role="menu">
+        <a class="nav-dropdown-item active" href="author.html" role="menuitem">Author</a>
+        <a class="nav-dropdown-item" href="producer.html" role="menuitem">Producer</a>
+        <a class="nav-dropdown-item" href="speaker.html" role="menuitem">Speaker + Host</a>
+        <a class="nav-dropdown-item" href="on-camera.html" role="menuitem">On Camera</a>
+      </div>
+    </div>
+    <div class="nav-dropdown">
+      <button class="nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false">Media Kit <span class="chevron" aria-hidden="true">&#9662;</span></button>
+      <div class="nav-dropdown-menu" role="menu">
+        <a class="nav-dropdown-item" href="kit/media-industry.html" role="menuitem">Media Industry Kit</a>
+        <a class="nav-dropdown-item" href="kit/executive-marketing.html" role="menuitem">Executive Marketing Kit</a>
+      </div>
+    </div>
+    <a class="nav-link" href="experience.html">Experience</a>
+    <a class="nav-link" href="consultant.html">Consultant</a>
+    <a class="nav-link" href="press.html">Press</a>
+    <a class="nav-link" href="pulse.html">Pulse</a>
+  </nav>
+  <a class="nav-enter" href="book.html">Book Sean</a>
+  <button class="nav-hamburger" id="hamBtn" aria-label="Open navigation" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <div class="mobile-menu-section">Talents</div>
+  <a class="mobile-menu-link active-mobile" href="author.html">Author</a>
+  <a class="mobile-menu-link" href="producer.html">Producer</a>
+  <a class="mobile-menu-link" href="speaker.html">Speaker + Host</a>
+  <a class="mobile-menu-link" href="on-camera.html">On Camera</a>
+  <div class="mobile-menu-section">Media Kit</div>
+  <a class="mobile-menu-link" href="kit/media-industry.html">Media Industry Kit</a>
+  <a class="mobile-menu-link" href="kit/executive-marketing.html">Executive Marketing Kit</a>
+  <div class="mobile-menu-section">Navigate</div>
+  <a class="mobile-menu-link" href="experience.html">Experience</a>
+  <a class="mobile-menu-link" href="consultant.html">Consultant</a>
+  <a class="mobile-menu-link" href="press.html">Press</a>
+  <a class="mobile-menu-link" href="pulse.html">Founder Pulse</a>
+  <a class="mobile-menu-link book" href="book.html">Book Sean</a>
+</div>
+
+<div class="issue-bar">
+  <span class="red"></span>
+  <span class="title">Pre-Vegans</span>
+  <span>Sean A. Russell</span>
+  <span class="right">76 pages . Paperback + Kindle</span>
+</div>
+
+<section class="spread">
+  <article class="panel book-hero">
+    <div class="book-hero-cover">
+      <a href="https://www.amazon.com/dp/B0B1CD57RW" target="_blank" rel="noopener">
+        <img src="assets/prevegans-cover.webp?v=3" alt="Pre-Vegans book cover" width="260" height="364">
+      </a>
+    </div>
+    <div class="book-hero-copy">
+      <p class="eyebrow">On the shelf<span class="dot">.</span></p>
+      <h1>Pre-Vegans<span class="dot">.</span></h1>
+      <p class="lede">The on-ramp for people who have not stepped into the room yet. The curious. The half-convinced. The ones who already know something has to change but have not found the language for it. Field-tested across festivals, podcasts, and the Vegans Explore tour.</p>
+      <p class="facts">76 Pages<span>.</span> Published May 2022<span>.</span> Lesaruss Media</p>
+      <div style="display:flex;gap:14px;flex-wrap:wrap">
+        <a class="cta" href="https://www.amazon.com/dp/B0B1CD57RW" target="_blank" rel="noopener">Buy the book<span class="dot">.</span></a>
+        <a class="cta-ghost" href="author.html#contact">Book Sean<span class="dot">.</span></a>
+      </div>
+    </div>
+  </article>
+</section>
+
+<section class="spread">
+  <article class="panel copy">
+    <div class="cap tl">The Book<span class="dot">.</span></div>
+    <p class="eyebrow">What it answers<span class="dot">.</span></p>
+    <h2>Why go vegan<span class="dot">.</span> How<span class="dot">.</span> What&rsquo;s in it for you<span class="dot">.</span></h2>
+    <p>Pre-Vegans is built around a simple observation: the questions people actually ask before going vegan rarely get a straight answer. This book is a set of real conversations with people who have lived every side of that journey, told so someone standing at the very start can find their own way in.</p>
+  </article>
+</section>
+
+<section class="spread">
+  <article class="panel copy">
+    <div class="cap tl">Featured Voices<span class="dot">.</span></div>
+    <p class="eyebrow">Inside the book<span class="dot">.</span></p>
+    <h2>Eight conversations<span class="dot">.</span></h2>
+    <p>Vegan veterans, physicians, and advocates share the stories and reasoning that shaped their own path, in their own words.</p>
+    <ul class="voices-grid">
+      <li><span class="vname">Ingrid Newkirk</span><span class="vdesc">Co-founder and president of PETA.</span></li>
+      <li><span class="vname">Earthling Ed</span><span class="vdesc">Vegan educator and public speaker.</span></li>
+      <li><span class="vname">Dr. Michael Klaper</span><span class="vdesc">Physician specializing in plant-based nutrition.</span></li>
+      <li><span class="vname">Jane Velez-Mitchell</span><span class="vdesc">Journalist and founder of JaneUnChained.</span></li>
+      <li><span class="vname">Dr. Neal Barnard</span><span class="vdesc">Physician, Physicians Committee for Responsible Medicine.</span></li>
+      <li><span class="vname">John Lewis</span><span class="vdesc">"Bad Ass Vegan," fitness coach and author.</span></li>
+      <li><span class="vname">Dr. Angie Sadeghi</span><span class="vdesc">Physician focused on plant-based health.</span></li>
+      <li><span class="vname">Robert Cheeke</span><span class="vdesc">Vegan bodybuilding pioneer and author.</span></li>
+    </ul>
+    <p style="margin-top:18px">The book closes with a practical Getting Started guide, built for anyone ready to take their first real step.</p>
+  </article>
+</section>
+
+<section class="spread">
+  <article class="panel copy" style="text-align:center;padding:56px 40px">
+    <p class="eyebrow" style="justify-content:center">Start reading<span class="dot">.</span></p>
+    <h2>Get your copy<span class="dot">.</span></h2>
+    <p style="margin:0 auto 24px">Available now in paperback and Kindle.</p>
+    <a class="cta" href="https://www.amazon.com/dp/B0B1CD57RW" target="_blank" rel="noopener">Buy on Amazon<span class="dot">.</span></a>
+  </article>
+</section>
+
+<footer>
+  <div class="foot-inner">
+    <a class="foot-wm" href="index.html">Sean A<span class="dot">.</span> Russell</a>
+    <div class="foot-links">
+      <a href="author.html">Author</a>
+      <a href="speaker.html">Speaker + Host</a>
+      <a href="book.html">Book Sean</a>
+    </div>
+    <span>&copy; 2026<span class="dot">.</span> A LESARUSS production.</span>
+  </div>
+</footer>
+
+<script>
+  const hamBtn = document.getElementById('hamBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  if (hamBtn && mobileMenu) {
+    hamBtn.addEventListener('click', () => {
+      const open = mobileMenu.classList.toggle('open');
+      hamBtn.classList.toggle('open', open);
+      hamBtn.setAttribute('aria-expanded', open);
+      mobileMenu.setAttribute('aria-hidden', !open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    });
+  }
+  document.querySelectorAll('.nav-dropdown-trigger').forEach(btn => {
+    btn.addEventListener('click', () => {
+      btn.setAttribute('aria-expanded', String(btn.getAttribute('aria-expanded') !== 'true'));
+    });
+  });
+</script>
+<script src="assets/js/contact-form.js"></script>
+</body>
+</html>
