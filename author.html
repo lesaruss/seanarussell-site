@@ -134,6 +134,16 @@
   .foot-wm{font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:.05em;color:var(--text-50)}
   .foot-links{display:flex;gap:24px;font-weight:700;text-transform:uppercase;letter-spacing:.16em;font-size:10px}
   .foot-links a:hover{color:var(--orange)}
+
+  .book-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gutter)}
+  .book-card{padding:24px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:16px;background:var(--surface2)}
+  .book-card .cover-wrap{width:100%;max-width:180px;display:flex;align-items:center;justify-content:center}
+  .book-card .cover-wrap img,.book-card .cover-mock{box-shadow:6px 8px 24px rgba(0,0,0,0.28);transform:rotate(-1.5deg);transition:transform .2s ease}
+  .book-card:hover .cover-wrap img,.book-card:hover .cover-mock{transform:rotate(0deg) scale(1.03)}
+  .book-card .cover-mock{width:100%;aspect-ratio:220/308;background:#1a1a1a;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px}
+  .book-card .cta{width:100%}
+  @media (max-width:980px){.book-grid{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:560px){.book-grid{grid-template-columns:1fr}}
   @media (max-width:980px){
     .page-hero{grid-template-columns:1fr}
     .page-hero-copy{padding:48px 28px}
@@ -214,7 +224,7 @@
     <div class="page-hero">
       <div class="page-hero-copy">
         <h1>Books<br>The <em>shelf</em><span class="dot">.</span></h1>
-        <p class="lede">Pre-Vegans is on the shelf. From Blur to Blueprint is the second. The 111 Day Theory companion and the LESARUSS field guide follow. Each one is a chapter in the same story.</p>
+        <p class="lede">Pre-Vegans is on the shelf. From Blur to Blueprint is next. More titles are in active development.</p>
       </div>
       <div class="page-hero-character">
         <img class="lesa-svg" src="assets/poses/lesaruss-author-hero.png?v=2" alt="Sean A. Russell, author." width="360" height="480">
@@ -223,68 +233,30 @@
   </article>
 </section>
 <section class="spread">
-  <div class="grid" style="grid-template-columns:300px 1fr;gap:var(--gutter)">
-    <article class="panel" style="display:flex;align-items:center;justify-content:center;padding:28px;background:var(--surface2)">
-      <a href="https://www.amazon.com/dp/B0B1CD57RW" target="_blank" rel="noopener" style="display:block;box-shadow:6px 8px 24px rgba(0,0,0,0.28);transform:rotate(-1.5deg);transition:transform .2s ease" onmouseover="this.style.transform='rotate(0deg) scale(1.03)'" onmouseout="this.style.transform='rotate(-1.5deg)'">
-        <img src="assets/prevegans-cover.webp?v=3" alt="Pre-Vegans book cover" width="220" height="308" style="display:block">
-      </a>
-    </article>
-    <article class="panel copy">
-      <div class="cap tl">On the shelf<span class="dot">.</span></div>
-      <div class="section-header">
-        <div>
-          <p class="eyebrow">Featured</p>
-          <h2 class="section-title">Pre-Vegans<span class="dot">.</span></h2>
-        </div>
-        <p class="section-sub">Sean&rsquo;s first book. The on-ramp to the vegan movement for people who do not yet identify with it.</p>
+  <div class="book-grid">
+
+    <a class="panel book-card" href="pre-vegans.html">
+      <div class="cover-wrap">
+        <img src="assets/prevegans-cover.webp?v=3" alt="Pre-Vegans book cover" width="220" height="308">
       </div>
-      <p>Pre-Vegans speaks to the audience that has not stepped into the room yet. The curious. The half-convinced. The ones who already know something has to change but have not picked up the language for it. Field-tested across festivals, podcasts, and the Vegans Explore tour.</p>
-      <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:14px">
-        <a class="cta" href="https://www.amazon.com/dp/B0B1CD57RW" target="_blank" rel="noopener">Buy on Amazon<span class="dot">.</span></a>
-        <a class="cta-ghost" href="#contact">Book Sean<span class="dot">.</span></a>
-      </div>
-    </article>
-  </div>
-</section>
-<section class="spread">
-  <div class="grid" style="grid-template-columns:300px 1fr;gap:var(--gutter)">
-    <a href="blur-to-blueprint.html" class="panel" style="display:flex;align-items:center;justify-content:center;padding:28px;background:var(--surface2)">
-      <div style="width:220px;height:308px;background:#1a1a1a;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:6px 8px 24px rgba(0,0,0,0.28);transform:rotate(-1.5deg);transition:transform .2s ease" onmouseover="this.style.transform='rotate(0deg) scale(1.03)'" onmouseout="this.style.transform='rotate(-1.5deg)'">
-        <div style="font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#F69820;margin-bottom:12px">LESARUSS</div>
-        <div style="font-size:22px;font-weight:900;text-transform:uppercase;letter-spacing:-.02em;color:#ffffff;text-align:center;line-height:1.1;margin-bottom:8px">From Blur<br>to Blueprint</div>
-        <div style="width:40px;height:2px;background:#F69820;margin:10px 0"></div>
-        <div style="font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.55)">Sean A. Russell</div>
-        <div style="font-size:8px;font-weight:400;color:#F69820;margin-top:16px;letter-spacing:.1em;text-transform:uppercase">Preview live</div>
-      </div>
+      <div style="font-size:15px;font-weight:900;text-transform:uppercase;letter-spacing:-.01em">Pre-Vegans<span class="dot">.</span></div>
+      <span class="cta">Read the story<span class="dot">.</span></span>
     </a>
-    <article class="panel copy">
-      <div class="cap tl">Preview<span class="dot">.</span></div>
-      <div class="section-header">
-        <div>
-          <p class="eyebrow">Preview live</p>
-          <h2 class="section-title">From Blur to Blueprint<span class="dot">.</span></h2>
+
+    <a class="panel book-card" href="blur-to-blueprint.html">
+      <div class="cover-wrap">
+        <div class="cover-mock">
+          <div style="font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#F69820;margin-bottom:12px">LESARUSS</div>
+          <div style="font-size:20px;font-weight:900;text-transform:uppercase;letter-spacing:-.02em;color:#ffffff;text-align:center;line-height:1.1;margin-bottom:8px">From Blur<br>to Blueprint</div>
+          <div style="width:36px;height:2px;background:#F69820;margin:10px 0"></div>
+          <div style="font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.55)">Sean A. Russell</div>
         </div>
-        <p class="section-sub">The origin story of the LESARUSS universe. Sean&rsquo;s second book. Read the synopsis, the table of contents, and a Chapter 1 excerpt now. Pre-order list opens with the soft launch.</p>
       </div>
-      <p>A coming-of-age narrative for builders. The story of unlimited potential, repeated failure, and the system that finally unlocked both. The realization that the missing piece was architecture, not effort.</p>
-      <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:14px">
-        <a class="cta" href="blur-to-blueprint.html">Read the story<span class="dot">.</span></a>
-        <a class="cta-ghost" href="blur-to-blueprint.html#waitlist">Get on the pre-order list<span class="dot">.</span></a>
-      </div>
-    </article>
+      <div style="font-size:15px;font-weight:900;text-transform:uppercase;letter-spacing:-.01em">From Blur to Blueprint<span class="dot">.</span></div>
+      <span class="cta">Read the story<span class="dot">.</span></span>
+    </a>
+
   </div>
-</section>
-<section class="spread">
-  <article class="panel copy">
-    <div class="cap tl">Next up<span class="dot">.</span></div>
-    <p class="eyebrow">Coming soon</p>
-    <h2>More on the way<span class="dot">.</span></h2>
-    <p>Two more titles queued and in active development. Different audiences, same architecture.</p>
-    <ul class="beats">
-      <li><span class="num">Coming soon</span><span class="nm">The Architect&rsquo;s Shadow<span class="dot">.</span></span><span class="ds">The fiction. The universe in story form. Part blueprint, part mythology. The story underneath the story.</span></li>
-      <li><span class="num">Coming soon</span><span class="nm">Pre-Vegans Toolkit<span class="dot">.</span></span><span class="ds">The companion to Pre-Vegans. Practical, accessible, designed for the community builder and the curious convert.</span></li>
-    </ul>
-  </article>
 </section>
 <section class="spread" id="contact">
   <div class="grid booking-spread">
