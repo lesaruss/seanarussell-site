@@ -137,7 +137,8 @@
 
   .book-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gutter)}
   .book-card{padding:24px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:16px;background:var(--surface2)}
-  .book-card .cover-wrap{width:100%;max-width:180px;display:flex;align-items:center;justify-content:center}
+  .book-card .cover-wrap{width:100%;max-width:180px;aspect-ratio:220/308;display:flex;align-items:center;justify-content:center;overflow:hidden}
+  .book-card .cover-wrap img{width:100%;height:100%;object-fit:cover}
   .book-card .cover-wrap img,.book-card .cover-mock{box-shadow:6px 8px 24px rgba(0,0,0,0.28);transform:rotate(-1.5deg);transition:transform .2s ease}
   .book-card:hover .cover-wrap img,.book-card:hover .cover-mock{transform:rotate(0deg) scale(1.03)}
   .book-card .cover-mock{width:100%;aspect-ratio:220/308;background:#1a1a1a;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px}
