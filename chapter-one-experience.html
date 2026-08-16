@@ -216,9 +216,9 @@
   </nav>
 
   <div class="beat-end" id="beatEnd">
-    <h2>Want the rest of the story<span class="dot">.</span></h2>
-    <p>The full book, the audiobook, and the video series that breaks down every chapter — all unlocked at once for $11.</p>
-    <a class="cta" href="/blur-to-blueprint-offer.html">Get instant access &mdash; $11</a>
+    <h2>The story keeps going<span class="dot">.</span></h2>
+    <p>Chapter Two &mdash; The First Transaction &mdash; is next. New chapters drop on a rolling release.</p>
+    <a class="cta" href="/chapter-two-experience.html">Read Chapter Two &rarr;</a>
   </div>
 </div>
 
@@ -236,7 +236,7 @@ function render() {
   beats.forEach(function(b, i){ b.classList.toggle('active', i === current); });
   dots.forEach(function(d, i){ d.classList.toggle('active', i === current); });
   prevBtn.disabled = current === 0;
-  nextBtn.textContent = current === beats.length - 1 ? '✓' : '›';
+  nextBtn.textContent = current === beats.length - 1 ? '→' : '›';
   beatEnd.classList.toggle('hidden', current !== beats.length - 1);
 }
 
@@ -247,7 +247,7 @@ function goTo(i) {
 
 prevBtn.addEventListener('click', function(){ goTo(current - 1); });
 nextBtn.addEventListener('click', function(){
-  if (current === beats.length - 1) { window.location.href = '/blur-to-blueprint-offer.html'; return; }
+  if (current === beats.length - 1) { window.location.href = '/chapter-two-experience.html'; return; }
   goTo(current + 1);
 });
 dots.forEach(function(d){ d.addEventListener('click', function(){ goTo(parseInt(d.dataset.goto, 10)); }); });
@@ -267,4 +267,4 @@ render();
 </body>
 </html>
 
-<!-- build 2026-08-16T21:05Z v3.1: clean part tags, P3 starts past intro transition -->
+<!-- build 2026-08-16T21:25Z v3.2: end mechanic routes to Chapter Two -->
