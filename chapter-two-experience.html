@@ -83,11 +83,26 @@
 </div>
 
 <script>
-// Set by the access page after a successful sign-in on this device.
-if (localStorage.getItem('b2b_member') === '1') {
-  document.getElementById('state-guest').classList.add('hidden');
-  document.getElementById('state-member').classList.remove('hidden');
-}
+// Member detection: real LESARUSS universe login (lr_token from the access page),
+// verified against book-auth + the purchase record. Legacy b2b_member flag kept
+// as an instant-render hint only.
+(function () {
+  function showMember() {
+    document.getElementById('state-guest').classList.add('hidden');
+    document.getElementById('state-member').classList.remove('hidden');
+  }
+  if (localStorage.getItem('b2b_member') === '1') showMember();
+  var token = localStorage.getItem('lr_token');
+  if (!token) return;
+  var ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ3Ymh3ZnhwbmNyc2ZodHRpbW5hIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ2NjAxMzksImV4cCI6MjA5MDIzNjEzOX0.9mxjK0bn5WATCbNLWrHPakD6yHUDtHFHrOaklPnWkOA';
+  fetch('https://fwbhwfxpncrsfhttimna.supabase.co/functions/v1/book-auth?action=book_access', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + ANON, 'apikey': ANON },
+    body: JSON.stringify({ token: token, property_slug: 'blur-to-blueprint' })
+  }).then(function (r) { return r.json().then(function (d) { return { s: r.status, d: d }; }); })
+    .then(function (res) { if (res.s === 200 && res.d.purchased) showMember(); })
+    .catch(function () {});
+})();
 </script>
 </body>
 </html>
