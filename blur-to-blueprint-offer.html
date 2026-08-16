@@ -16,55 +16,157 @@
     --orange:#F69820;
     --panel-line:var(--text);
     --panel-line-w:1.5px;
+    --gutter:14px;
+    --nav-bg:rgba(13,13,13,0.96);
+  }
+  html[data-theme="light"]{
+    --bg:#ffffff; --surface:#ffffff; --surface2:#fafafa;
+    --border:rgba(0,0,0,0.08);
+    --text:#1a1a1a; --text-75:rgba(26,26,26,0.78); --text-50:rgba(26,26,26,0.55); --text-30:rgba(26,26,26,0.35);
+    --orange:#F69820;
+    --panel-line:#0d0d0d;
+    --nav-bg:rgba(255,255,255,0.96);
   }
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
-  body{background:var(--bg);color:var(--text);font-family:'Montserrat',Arial,Helvetica,sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+  body{background:var(--bg);color:var(--text);font-family:'Montserrat',Arial,Helvetica,sans-serif;overflow-x:hidden;transition:background .25s ease,color .25s ease}
   a{text-decoration:none;color:inherit}
-  .wrap{max-width:520px;width:100%}
-  .k{font-size:10px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--orange);margin-bottom:14px;text-align:center}
-  h1{font-size:32px;font-weight:900;letter-spacing:-.01em;line-height:1.15;margin-bottom:14px;text-align:center}
-  p.sub{font-size:15px;line-height:1.6;color:var(--text-50);margin-bottom:32px;text-align:center}
-  .panel{border:var(--panel-line-w) solid var(--panel-line);background:var(--surface);padding:32px 28px}
-  .price-row{display:flex;align-items:baseline;justify-content:center;gap:8px;margin-bottom:24px}
-  .price{font-size:48px;font-weight:900;color:var(--orange)}
-  .price-note{font-size:12px;color:var(--text-50);text-transform:uppercase;letter-spacing:.08em}
-  ul.includes{list-style:none;margin-bottom:28px}
-  ul.includes li{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);font-size:14px;line-height:1.5}
-  ul.includes li:last-child{border-bottom:none}
-  ul.includes li .check{color:var(--orange);font-weight:900;flex-shrink:0}
+  img,svg{display:block;max-width:100%}
+  button{font-family:inherit}
+  :focus-visible{outline:3px solid var(--orange);outline-offset:3px}
+  .dot{color:var(--orange);display:inline-block;margin-left:0.06em;animation:dotPulse 2s ease-in-out infinite}
+  @keyframes dotPulse{0%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(1.3)}100%{opacity:1;transform:scale(1)}}
+
+  .nav{position:fixed;top:0;left:0;right:0;z-index:200;height:62px;display:flex;align-items:center;padding:0 28px;background:var(--nav-bg);border-bottom:1px solid var(--border);backdrop-filter:blur(10px)}
+  .nav-brand{font-size:17px;font-weight:900;text-transform:uppercase;letter-spacing:.05em;flex-shrink:0}
+  .nav-back{margin-left:auto;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.13em;color:var(--text-50)}
+  .nav-back:hover{color:var(--text)}
+
+  .spread{padding:var(--gutter);max-width:1280px;margin:0 auto}
+  .panel{position:relative;background:var(--bg);border:var(--panel-line-w) solid var(--panel-line);overflow:hidden}
+  .cap{position:absolute;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--text);background:var(--bg);padding:8px 12px;border:var(--panel-line-w) solid var(--panel-line);z-index:5;line-height:1.5;max-width:280px}
+  .cap.tl-inset{top:14px;left:14px}
+  .halftone{position:absolute;inset:0;opacity:.16;pointer-events:none;background-image:radial-gradient(var(--orange) 1.4px, transparent 1.6px);background-size:14px 14px}
+  .halftone.faint{opacity:.08}
+  .eyebrow{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.32em;color:var(--orange);margin-bottom:18px}
+  .cta{display:inline-block;font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.14em;color:#0d0d0d;background:var(--orange);padding:16px 32px;border:none;cursor:pointer;font-family:inherit;transition:background .18s,color .18s;width:100%;text-align:center}
+  .cta:hover{background:var(--text);color:var(--bg)}
+  .cta:disabled{opacity:.5;cursor:default}
+
+  .offer-hero{display:grid;grid-template-columns:1.15fr 420px;min-height:520px;align-items:stretch}
+  .offer-copy{padding:64px 56px;min-width:0;display:flex;flex-direction:column;justify-content:center}
+  .offer-copy h1{font-size:clamp(30px,4.6vw,52px);font-weight:900;text-transform:uppercase;letter-spacing:-.02em;line-height:1.04;margin-bottom:16px}
+  .offer-copy h1 em{font-style:normal;color:var(--orange)}
+  .offer-copy .lede{font-size:15px;line-height:1.85;color:var(--text-75);max-width:480px;margin-bottom:8px}
+  .price-tag{display:flex;align-items:baseline;gap:10px;margin:22px 0 30px}
+  .price-tag .amt{font-size:56px;font-weight:900;color:var(--orange);line-height:1}
+  .price-tag .note{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:var(--text-50)}
+  .offer-book-side{position:relative;border-left:var(--panel-line-w) solid var(--panel-line);background:var(--surface2);display:flex;align-items:center;justify-content:center}
+  .book-mock{width:220px;height:308px;background:#1a1a1a;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:6px 8px 24px rgba(0,0,0,0.28)}
+  .book-mock .k{font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#F69820;margin-bottom:12px}
+  .book-mock .t{font-size:26px;font-weight:900;text-transform:uppercase;letter-spacing:-.02em;color:#ffffff;text-align:center;line-height:1.1;margin-bottom:8px}
+  .book-mock .r{width:40px;height:2px;background:#F69820;margin:10px 0}
+  .book-mock .a{font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+
+  .includes-grid{grid-template-columns:repeat(3,1fr);display:grid;gap:var(--gutter)}
+  .include-panel{padding:32px 26px}
+  .include-panel .num{font-size:11px;font-weight:900;color:var(--orange);letter-spacing:.14em;margin-bottom:14px}
+  .include-panel h3{font-size:17px;font-weight:800;text-transform:uppercase;letter-spacing:-.01em;margin-bottom:10px}
+  .include-panel p{font-size:13px;line-height:1.7;color:var(--text-50)}
+
+  .checkout-spread{grid-template-columns:1fr;display:grid}
+  .panel.checkout{padding:44px 48px;max-width:560px;margin:0 auto}
+  .panel.checkout h2{font-size:clamp(24px,3.2vw,32px);font-weight:900;text-transform:uppercase;letter-spacing:-.02em;margin:6px 0 20px}
   label{display:block;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-50);margin-bottom:8px}
   input{width:100%;padding:14px 16px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:inherit;font-size:14px;letter-spacing:.02em;margin-bottom:20px}
-  .btn{width:100%;background:var(--orange);color:#0d0d0d;border:none;padding:18px;font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:.14em;cursor:pointer}
-  .btn:hover{background:var(--text)}
-  .btn:disabled{opacity:.5;cursor:default}
-  .msg{font-size:13px;margin-top:14px;padding:12px 14px;background:var(--bg);border-left:3px solid #e05252;color:var(--text-75);display:none}
+  .msg{font-size:13px;margin-top:14px;padding:12px 14px;background:var(--surface2);border-left:3px solid #e05252;color:var(--text-75);display:none}
   .msg.show{display:block}
-  .fine{font-size:11px;color:var(--text-30);text-align:center;margin-top:16px;line-height:1.5}
+  .fine{font-size:11px;color:var(--text-30);text-align:center;margin-top:18px;line-height:1.6}
+  .fine a{text-decoration:underline;color:var(--text-50)}
+
+  footer{padding:36px 28px;border-top:1px solid var(--border);background:var(--bg);margin-top:var(--gutter)}
+  .foot-inner{max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:18px;font-size:11px;color:var(--text-50)}
+  .foot-wm{font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:.05em;color:var(--text-50)}
+
+  @media (max-width:980px){
+    .offer-hero{grid-template-columns:1fr}
+    .offer-copy{padding:48px 28px}
+    .offer-book-side{border-left:none;border-top:var(--panel-line-w) solid var(--panel-line);min-height:280px;padding:32px 0}
+    .includes-grid{grid-template-columns:1fr}
+    .panel.checkout{padding:32px 24px}
+  }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <div class="k">Sean A. Russell</div>
-  <h1>Get instant access to the full world of From Blur to Blueprint.</h1>
-  <p class="sub">One purchase. Everything unlocked. No subscription.</p>
+<header class="nav">
+  <a class="nav-brand" href="index.html">Sean A<span class="dot">.</span> Russell</a>
+  <a class="nav-back" href="blur-to-blueprint.html">&larr; Back to the book</a>
+</header>
 
-  <div class="panel">
-    <div class="price-row"><span class="price">$11</span><span class="price-note">one-time</span></div>
-    <ul class="includes">
-      <li><span class="check">&#10003;</span><span>The full digital book &mdash; instant download</span></li>
-      <li><span class="check">&#10003;</span><span>The complete audiobook</span></li>
-      <li><span class="check">&#10003;</span><span>The chapter-by-chapter video series on YouTube, as new episodes release</span></li>
-      <li><span class="check">&#10003;</span><span>Lifetime access through your member page &mdash; sign in anytime with just your email</span></li>
-    </ul>
+<div class="spread" style="margin-top:82px">
+  <article class="panel">
+    <div class="cap tl-inset">Get Instant Access<span class="dot">.</span></div>
+    <div class="halftone faint"></div>
+    <div class="offer-hero">
+      <div class="offer-copy">
+        <p class="eyebrow">Sean A. Russell &middot; From Blur to Blueprint</p>
+        <h1>Get instant access<br>to the full <em>world</em><span class="dot">.</span></h1>
+        <p class="lede">One purchase. Everything unlocked. No subscription. Read the book, listen to the audiobook, and follow along as each chapter unfolds in its own video series &mdash; all through your own member access page.</p>
+        <div class="price-tag">
+          <span class="amt">$11</span>
+          <span class="note">one-time &middot; not a subscription</span>
+        </div>
+      </div>
+      <div class="offer-book-side">
+        <div class="book-mock">
+          <div class="k">Sean A. Russell</div>
+          <div class="t">From Blur<br>to Blueprint</div>
+          <div class="r"></div>
+          <div class="a">Full Access Edition</div>
+        </div>
+      </div>
+    </div>
+  </article>
+</div>
 
-    <label for="email">Your email</label>
-    <input type="email" id="email" placeholder="you@email.com" autocomplete="email">
-    <button class="btn" id="checkout-btn">Get instant access &mdash; $11</button>
-    <div class="msg" id="checkout-msg"></div>
-    <p class="fine">Secure checkout via Stripe. Already purchased? <a href="/blur-to-blueprint-access.html" style="text-decoration:underline;color:var(--text-50)">Go to your access page</a>.</p>
+<div class="spread">
+  <div class="includes-grid">
+    <article class="panel include-panel">
+      <div class="num">01</div>
+      <h3>The Digital Book</h3>
+      <p>The complete manuscript, instantly downloadable from your access page. Read it on any device, keep it forever.</p>
+    </article>
+    <article class="panel include-panel">
+      <div class="num">02</div>
+      <h3>The Audiobook</h3>
+      <p>The full story narrated start to finish, for whenever reading isn&rsquo;t the moment &mdash; on a walk, a drive, or a quiet morning.</p>
+    </article>
+    <article class="panel include-panel">
+      <div class="num">03</div>
+      <h3>The Video Series</h3>
+      <p>A chapter-by-chapter breakdown on YouTube, released in batches as new episodes go live &mdash; Sean on camera, unpacking the story as it unfolds.</p>
+    </article>
   </div>
 </div>
+
+<div class="spread checkout-spread">
+  <article class="panel checkout">
+    <p class="eyebrow">Checkout</p>
+    <h2>Get instant access &mdash; $11<span class="dot">.</span></h2>
+    <label for="email">Your email</label>
+    <input type="email" id="email" placeholder="you@email.com" autocomplete="email">
+    <button class="cta" id="checkout-btn">Get instant access &mdash; $11</button>
+    <div class="msg" id="checkout-msg"></div>
+    <p class="fine">Secure checkout via Stripe. Already purchased? <a href="/blur-to-blueprint-access.html">Go to your access page</a>.</p>
+  </article>
+</div>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-wm">Sean A<span class="dot">.</span> Russell</div>
+    <div>From Blur to Blueprint</div>
+  </div>
+</footer>
 
 <script>
 const FN_BASE = 'https://fwbhwfxpncrsfhttimna.supabase.co/functions/v1';
