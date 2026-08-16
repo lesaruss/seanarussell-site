@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&display=swap" rel="stylesheet">
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 <style>
   :root{
     --bg:#0d0d0d; --surface:#111111; --surface2:#161616;
@@ -16,7 +17,6 @@
     --orange:#F69820;
     --panel-line:var(--text);
     --panel-line-w:1.5px;
-    --gutter:14px;
     --nav-bg:rgba(13,13,13,0.96);
   }
   html[data-theme="light"]{
@@ -53,13 +53,21 @@
   .msg.show{display:block}
   .msg.error{border-left-color:#e05252}
   .link-btn{background:none;border:none;color:var(--text-50);font-size:12px;text-decoration:underline;cursor:pointer;margin-top:14px;display:block;font-family:inherit}
+  .auth-tabs{display:flex;margin-bottom:22px;border:1px solid var(--border)}
+  .auth-tab{flex:1;padding:12px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:var(--text-50);background:none;border:none;cursor:pointer}
+  .auth-tab.active{background:var(--panel-line);color:var(--bg)}
+  .divider{display:flex;align-items:center;gap:12px;margin:20px 0;color:var(--text-30);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.16em}
+  .divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--border)}
+  .gsi-holder{display:flex;justify-content:center;margin-bottom:4px;min-height:44px}
   .access-list{list-style:none;margin-top:8px}
   .access-item{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 0;border-bottom:1px solid var(--border)}
   .access-item:last-child{border-bottom:none}
   .access-item .label{font-size:14px;font-weight:700}
   .access-item .status{font-size:11px;color:var(--text-30);text-transform:uppercase;letter-spacing:.08em}
-  .access-cta{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.12em;color:#0d0d0d;background:var(--orange);padding:10px 18px;white-space:nowrap}
+  .access-cta{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.12em;color:#0d0d0d;background:var(--orange);padding:10px 18px;white-space:nowrap;border:none;cursor:pointer}
   .access-cta:hover{background:var(--text);color:var(--bg)}
+  .member-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px;font-size:13px;color:var(--text-50)}
+  .member-bar strong{color:var(--text)}
   .hidden{display:none}
 </style>
 </head>
@@ -72,18 +80,47 @@
 <div class="wrap">
   <div class="eyebrow">Sean A. Russell &middot; From Blur to Blueprint</div>
 
-  <div id="step-email">
-    <h1>Enter your access page.</h1>
-    <p class="sub">Enter the email you used at checkout. We'll send a one-time code &mdash; no password to remember.</p>
+  <!-- Logged out: create account or sign in -->
+  <div id="step-auth">
+    <h1>One login for the whole universe.</h1>
+    <p class="sub">Your LESARUSS account unlocks your books here and everything else across the ecosystem. Create one or sign in.</p>
     <div class="panel">
+      <div class="auth-tabs">
+        <button type="button" class="auth-tab active" id="tab-signin">Sign in</button>
+        <button type="button" class="auth-tab" id="tab-signup">Create account</button>
+      </div>
+
+      <div class="gsi-holder" id="googleBtn"></div>
+      <div class="divider">or with email</div>
+
+      <div id="field-name" class="hidden">
+        <label for="name">Name</label>
+        <input type="text" id="name" placeholder="Your name" autocomplete="name">
+      </div>
       <label for="email">Email</label>
       <input type="email" id="email" placeholder="you@email.com" autocomplete="email">
-      <button class="btn" id="send-code-btn">Send my code</button>
-      <div class="msg" id="email-msg"></div>
+      <label for="password">Password</label>
+      <input type="password" id="password" placeholder="••••••••" autocomplete="current-password">
+      <button class="btn" id="auth-btn">Sign in</button>
+      <div class="msg" id="auth-msg"></div>
+      <button class="link-btn" id="otp-fallback">Trouble signing in? Email me a one-time code instead</button>
     </div>
   </div>
 
-  <div id="step-code" class="hidden">
+  <!-- OTP fallback (original flow, kept as recovery path) -->
+  <div id="step-otp-email" class="hidden">
+    <h1>Get a one-time code.</h1>
+    <p class="sub">Enter the email you used at checkout. We'll send a one-time code.</p>
+    <div class="panel">
+      <label for="otp-email-input">Email</label>
+      <input type="email" id="otp-email-input" placeholder="you@email.com" autocomplete="email">
+      <button class="btn" id="send-code-btn">Send my code</button>
+      <div class="msg" id="otp-email-msg"></div>
+      <button class="link-btn" id="back-to-auth">Back to sign in</button>
+    </div>
+  </div>
+
+  <div id="step-otp-code" class="hidden">
     <h1>Check your email.</h1>
     <p class="sub">Enter the 6-digit code we just sent.</p>
     <div class="panel">
@@ -91,18 +128,20 @@
       <input type="text" id="code" placeholder="123456" inputmode="numeric" maxlength="8">
       <button class="btn" id="verify-btn">Enter</button>
       <div class="msg" id="code-msg"></div>
-      <button class="link-btn" id="back-btn">Use a different email</button>
+      <button class="link-btn" id="otp-back-btn">Use a different email</button>
     </div>
   </div>
 
+  <!-- Logged in: access list -->
   <div id="step-access" class="hidden">
     <h1>You're in.</h1>
     <p class="sub" id="access-product-name">Everything you purchased is below.</p>
     <div class="panel">
+      <div class="member-bar"><span>Signed in as <strong id="member-email"></strong></span><button class="link-btn" style="margin:0" id="logout-btn">Log out</button></div>
       <ul class="access-list">
         <li class="access-item">
-          <div><div class="label">Digital Book (PDF)</div><div class="status">Ready</div></div>
-          <a class="access-cta" id="book-link" href="#" target="_blank" rel="noopener">Download</a>
+          <div><div class="label">Digital Book (PDF)</div><div class="status" id="book-status">Ready</div></div>
+          <a class="access-cta hidden" id="book-link" href="#" target="_blank" rel="noopener">Download</a>
         </li>
         <li class="access-item">
           <div><div class="label">Audiobook</div><div class="status" id="audio-status">Coming soon</div></div>
@@ -116,27 +155,149 @@
     </div>
   </div>
 
+  <!-- Logged in, but no purchase on this account -->
   <div id="step-no-purchase" class="hidden">
-    <h1>We couldn't find your order.</h1>
-    <p class="sub" id="no-purchase-msg">Make sure you're using the same email you checked out with.</p>
+    <h1>You're signed in &mdash; no order yet.</h1>
+    <p class="sub" id="no-purchase-msg">This account doesn't have a paid order for this book. If you purchased with a different email, sign in with that one instead.</p>
     <div class="panel">
       <a class="btn" style="display:block;text-align:center" href="/blur-to-blueprint-offer.html">Get instant access &mdash; $11</a>
-      <button class="link-btn" id="try-again-btn">Try a different email</button>
+      <button class="link-btn" id="switch-account-btn">Sign in with a different account</button>
     </div>
   </div>
 </div>
 
 <script>
 const FN_BASE = 'https://fwbhwfxpncrsfhttimna.supabase.co/functions/v1';
+const ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ3Ymh3ZnhwbmNyc2ZodHRpbW5hIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ2NjAxMzksImV4cCI6MjA5MDIzNjEzOX0.9mxjK0bn5WATCbNLWrHPakD6yHUDtHFHrOaklPnWkOA';
+const GOOGLE_CLIENT_ID = '450477549015-ioh43e9qi7m89qknkoo318b2geejja4t.apps.googleusercontent.com';
 const PROPERTY_SLUG = 'blur-to-blueprint';
-let currentEmail = '';
+const TOKEN_KEY = 'lr_token';
 
 const $ = (id) => document.getElementById(id);
-function show(id){ ['step-email','step-code','step-access','step-no-purchase'].forEach(s => $(s).classList.toggle('hidden', s !== id)); }
+const STEPS = ['step-auth','step-otp-email','step-otp-code','step-access','step-no-purchase'];
+function show(id){ STEPS.forEach(s => $(s).classList.toggle('hidden', s !== id)); }
 function setMsg(el, text, isError){ el.textContent = text; el.className = 'msg show' + (isError ? ' error' : ''); }
 
-$('send-code-btn').addEventListener('click', async () => {
+async function authCall(action, body) {
+  const res = await fetch(`${FN_BASE}/book-auth?action=${action}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${ANON_KEY}`, 'apikey': ANON_KEY },
+    body: JSON.stringify(body),
+  });
+  const data = await res.json().catch(() => ({}));
+  return { ok: res.ok, status: res.status, data };
+}
+
+// ---- mode toggle (sign in / create account) ----
+let mode = 'signin';
+function setMode(m) {
+  mode = m;
+  $('tab-signin').classList.toggle('active', m === 'signin');
+  $('tab-signup').classList.toggle('active', m === 'signup');
+  $('field-name').classList.toggle('hidden', m !== 'signup');
+  $('auth-btn').textContent = m === 'signup' ? 'Create account' : 'Sign in';
+  $('password').autocomplete = m === 'signup' ? 'new-password' : 'current-password';
+}
+$('tab-signin').addEventListener('click', () => setMode('signin'));
+$('tab-signup').addEventListener('click', () => setMode('signup'));
+
+// ---- email/password auth ----
+$('auth-btn').addEventListener('click', async () => {
   const email = $('email').value.trim();
+  const password = $('password').value;
+  const name = $('name').value.trim();
+  if (!email || !password) return setMsg($('auth-msg'), 'Email and password are required.', true);
+  if (mode === 'signup' && !name) return setMsg($('auth-msg'), 'Name is required to create your account.', true);
+  $('auth-btn').disabled = true;
+  try {
+    const action = mode === 'signup' ? 'signup' : 'login';
+    const { ok, data } = await authCall(action, { email, password, name, property_slug: PROPERTY_SLUG });
+    if (!ok) throw new Error(data.error || 'Could not sign in');
+    localStorage.setItem(TOKEN_KEY, data.token);
+    await loadAccess(data.token, data.member);
+  } catch (e) {
+    setMsg($('auth-msg'), e.message, true);
+  } finally {
+    $('auth-btn').disabled = false;
+  }
+});
+
+// ---- Google sign-in ----
+function initGoogle() {
+  if (!window.google || !google.accounts?.id) { setTimeout(initGoogle, 300); return; }
+  google.accounts.id.initialize({
+    client_id: GOOGLE_CLIENT_ID,
+    callback: async (resp) => {
+      try {
+        const { ok, data } = await authCall('google', { id_token: resp.credential, property_slug: PROPERTY_SLUG });
+        if (!ok) throw new Error(data.error || 'Google sign-in failed');
+        localStorage.setItem(TOKEN_KEY, data.token);
+        await loadAccess(data.token, data.member);
+      } catch (e) { setMsg($('auth-msg'), e.message, true); }
+    },
+  });
+  google.accounts.id.renderButton($('googleBtn'), { theme: 'outline', size: 'large', width: 360, text: 'continue_with' });
+}
+initGoogle();
+
+// ---- entitlement load after any successful auth ----
+async function loadAccess(token, member) {
+  if (member?.email) $('member-email').textContent = member.email;
+  const { ok, status, data } = await authCall('book_access', { token, property_slug: PROPERTY_SLUG });
+  if (status === 401) { localStorage.removeItem(TOKEN_KEY); show('step-auth'); return; }
+  if (status === 402 || !data.purchased) { show('step-no-purchase'); return; }
+  if (!ok) { setMsg($('auth-msg'), data.error || 'Could not load your access.', true); return; }
+  $('access-product-name').textContent = `Everything in ${data.product_name} is below.`;
+  if (data.access.digital_book_url) {
+    $('book-link').href = data.access.digital_book_url;
+    $('book-link').classList.remove('hidden');
+    $('book-status').textContent = 'Ready';
+  } else {
+    $('book-status').textContent = 'Coming soon';
+  }
+  if (data.access.audiobook_url) {
+    $('audio-status').textContent = 'Ready';
+    $('audio-link').href = data.access.audiobook_url;
+    $('audio-link').classList.remove('hidden');
+  }
+  if (data.access.video_series_url) {
+    $('video-status').textContent = 'Ready';
+    $('video-link').href = data.access.video_series_url;
+    $('video-link').classList.remove('hidden');
+  }
+  show('step-access');
+}
+
+// ---- session resume on page load ----
+(async () => {
+  const token = localStorage.getItem(TOKEN_KEY);
+  if (!token) return;
+  const { ok, data } = await authCall('me', { token });
+  if (ok && data.member) {
+    await loadAccess(token, data.member);
+  } else {
+    localStorage.removeItem(TOKEN_KEY);
+  }
+})();
+
+$('logout-btn').addEventListener('click', () => {
+  localStorage.removeItem(TOKEN_KEY);
+  localStorage.removeItem('b2b_member');
+  show('step-auth');
+});
+$('switch-account-btn').addEventListener('click', () => {
+  localStorage.removeItem(TOKEN_KEY);
+  show('step-auth');
+});
+
+// ---- OTP fallback (original flow) ----
+let currentEmail = '';
+$('otp-fallback').addEventListener('click', () => show('step-otp-email'));
+$('back-to-auth').addEventListener('click', () => show('step-auth'));
+$('otp-back-btn').addEventListener('click', () => show('step-otp-email'));
+
+$('send-code-btn').addEventListener('click', async () => {
+  const email = $('otp-email-input').value.trim();
   if (!email) return;
   currentEmail = email;
   $('send-code-btn').disabled = true;
@@ -148,17 +309,14 @@ $('send-code-btn').addEventListener('click', async () => {
     });
     const data = await res.json();
     if (!res.ok || data.error) throw new Error(data.error || 'Could not send code');
-    show('step-code');
+    show('step-otp-code');
   } catch (e) {
-    setMsg($('email-msg'), e.message, true);
+    setMsg($('otp-email-msg'), e.message, true);
   } finally {
     $('send-code-btn').disabled = false;
     $('send-code-btn').textContent = 'Send my code';
   }
 });
-
-$('back-btn').addEventListener('click', () => show('step-email'));
-$('try-again-btn').addEventListener('click', () => show('step-email'));
 
 $('verify-btn').addEventListener('click', async () => {
   const code = $('code').value.trim();
@@ -177,22 +335,12 @@ $('verify-btn').addEventListener('click', async () => {
       return;
     }
     if (!res.ok || data.error) throw new Error(data.error || 'Invalid code');
-
-    $('access-product-name').textContent = `Everything in ${data.product_name} is below.`;
-    if (data.access.digital_book_url) {
-      $('book-link').href = data.access.digital_book_url;
-    }
-    if (data.access.audiobook_url) {
-      $('audio-status').textContent = 'Ready';
-      $('audio-link').href = data.access.audiobook_url;
-      $('audio-link').classList.remove('hidden');
-    }
-    if (data.access.video_series_url) {
-      $('video-status').textContent = 'Ready';
-      $('video-link').href = data.access.video_series_url;
-      $('video-link').classList.remove('hidden');
-    }
     localStorage.setItem('b2b_member', '1');
+    $('member-email').textContent = currentEmail;
+    $('access-product-name').textContent = `Everything in ${data.product_name} is below.`;
+    if (data.access.digital_book_url) { $('book-link').href = data.access.digital_book_url; $('book-link').classList.remove('hidden'); }
+    if (data.access.audiobook_url) { $('audio-status').textContent = 'Ready'; $('audio-link').href = data.access.audiobook_url; $('audio-link').classList.remove('hidden'); }
+    if (data.access.video_series_url) { $('video-status').textContent = 'Ready'; $('video-link').href = data.access.video_series_url; $('video-link').classList.remove('hidden'); }
     show('step-access');
   } catch (e) {
     setMsg($('code-msg'), e.message, true);
