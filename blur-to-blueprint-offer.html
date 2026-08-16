@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<script src="/analytics.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Get Instant Access — From Blur to Blueprint. Sean A. Russell.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0d0d0d; --surface:#111111; --surface2:#161616;
+    --border:rgba(255,255,255,0.07);
+    --text:#ffffff; --text-75:rgba(255,255,255,0.75); --text-50:rgba(255,255,255,0.50); --text-30:rgba(255,255,255,0.30);
+    --orange:#F69820;
+    --panel-line:var(--text);
+    --panel-line-w:1.5px;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:'Montserrat',Arial,Helvetica,sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+  a{text-decoration:none;color:inherit}
+  .wrap{max-width:520px;width:100%}
+  .k{font-size:10px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--orange);margin-bottom:14px;text-align:center}
+  h1{font-size:32px;font-weight:900;letter-spacing:-.01em;line-height:1.15;margin-bottom:14px;text-align:center}
+  p.sub{font-size:15px;line-height:1.6;color:var(--text-50);margin-bottom:32px;text-align:center}
+  .panel{border:var(--panel-line-w) solid var(--panel-line);background:var(--surface);padding:32px 28px}
+  .price-row{display:flex;align-items:baseline;justify-content:center;gap:8px;margin-bottom:24px}
+  .price{font-size:48px;font-weight:900;color:var(--orange)}
+  .price-note{font-size:12px;color:var(--text-50);text-transform:uppercase;letter-spacing:.08em}
+  ul.includes{list-style:none;margin-bottom:28px}
+  ul.includes li{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);font-size:14px;line-height:1.5}
+  ul.includes li:last-child{border-bottom:none}
+  ul.includes li .check{color:var(--orange);font-weight:900;flex-shrink:0}
+  label{display:block;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-50);margin-bottom:8px}
+  input{width:100%;padding:14px 16px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:inherit;font-size:14px;letter-spacing:.02em;margin-bottom:20px}
+  .btn{width:100%;background:var(--orange);color:#0d0d0d;border:none;padding:18px;font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:.14em;cursor:pointer}
+  .btn:hover{background:var(--text)}
+  .btn:disabled{opacity:.5;cursor:default}
+  .msg{font-size:13px;margin-top:14px;padding:12px 14px;background:var(--bg);border-left:3px solid #e05252;color:var(--text-75);display:none}
+  .msg.show{display:block}
+  .fine{font-size:11px;color:var(--text-30);text-align:center;margin-top:16px;line-height:1.5}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="k">Sean A. Russell</div>
+  <h1>Get instant access to the full world of From Blur to Blueprint.</h1>
+  <p class="sub">One purchase. Everything unlocked. No subscription.</p>
+
+  <div class="panel">
+    <div class="price-row"><span class="price">$11</span><span class="price-note">one-time</span></div>
+    <ul class="includes">
+      <li><span class="check">&#10003;</span><span>The full digital book &mdash; instant download</span></li>
+      <li><span class="check">&#10003;</span><span>The complete audiobook</span></li>
+      <li><span class="check">&#10003;</span><span>The chapter-by-chapter video series on YouTube, as new episodes release</span></li>
+      <li><span class="check">&#10003;</span><span>Lifetime access through your member page &mdash; sign in anytime with just your email</span></li>
+    </ul>
+
+    <label for="email">Your email</label>
+    <input type="email" id="email" placeholder="you@email.com" autocomplete="email">
+    <button class="btn" id="checkout-btn">Get instant access &mdash; $11</button>
+    <div class="msg" id="checkout-msg"></div>
+    <p class="fine">Secure checkout via Stripe. Already purchased? <a href="/blur-to-blueprint-access.html" style="text-decoration:underline;color:var(--text-50)">Go to your access page</a>.</p>
+  </div>
+</div>
+
+<script>
+const FN_BASE = 'https://fwbhwfxpncrsfhttimna.supabase.co/functions/v1';
+
+document.getElementById('checkout-btn').addEventListener('click', async () => {
+  const email = document.getElementById('email').value.trim();
+  const btn = document.getElementById('checkout-btn');
+  const msg = document.getElementById('checkout-msg');
+  btn.disabled = true;
+  btn.textContent = 'Redirecting to secure checkout…';
+  try {
+    const res = await fetch(`${FN_BASE}/book-tripwire-checkout`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ property_slug: 'blur-to-blueprint', email: email || undefined, base_url: window.location.origin })
+    });
+    const data = await res.json();
+    if (!res.ok || data.error || !data.url) throw new Error(data.error || 'Could not start checkout');
+    window.location.href = data.url;
+  } catch (e) {
+    msg.textContent = e.message;
+    msg.className = 'msg show';
+    btn.disabled = false;
+    btn.textContent = 'Get instant access — $11';
+  }
+});
+</script>
+</body>
+</html>
