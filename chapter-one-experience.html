@@ -53,7 +53,7 @@
   .beat-copy{font-size:16px;line-height:1.85;color:var(--text-75);max-width:520px}
   .beat-copy p{margin-bottom:16px}
   .beat-copy p:last-child{margin-bottom:0}
-  .beat-image{position:relative;background:var(--surface2);border-left:var(--panel-line-w) solid var(--panel-line);display:flex;align-items:center;justify-content:center;overflow:hidden;min-height:340px}
+  .beat-image{position:relative;background:var(--surface2);border-left:var(--panel-line-w) solid var(--panel-line);display:flex;align-items:center;justify-content:center;overflow:hidden;padding:28px}
   .img-slot{width:100%;height:100%;min-height:340px;background:
       radial-gradient(var(--orange) 1.4px, transparent 1.6px);
       background-size:16px 16px;
@@ -66,7 +66,7 @@
   html[data-theme="light"] .img-slot-desc{color:rgba(0,0,0,.55)}
   .vm-play{width:52px;height:52px;border-radius:50%;background:var(--orange);display:flex;align-items:center;justify-content:center;margin:0 auto 14px}
   .vm-play svg{margin-left:3px;width:16px;height:16px;fill:#0d0d0d}
-  .beat-video{width:100%;height:100%;min-height:340px;object-fit:cover;display:block;background:#141414}
+  .beat-video{width:100%;max-width:440px;aspect-ratio:1/1;object-fit:cover;display:block;background:#141414;border:var(--panel-line-w) solid var(--panel-line)}
   .beat-video-tag{position:absolute;top:14px;left:14px;z-index:3;font-size:9px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#fff;background:rgba(0,0,0,.55);padding:6px 10px}
 
   .step-nav{position:sticky;bottom:0;left:0;right:0;display:flex;align-items:center;gap:6px;padding:14px 20px;background:var(--bg);z-index:60;max-width:1280px;margin:0 auto;width:100%}
@@ -93,7 +93,7 @@
   @media (max-width:900px){
     .beat{grid-template-columns:1fr}
     .beat-text{padding:36px 24px}
-    .beat-image{border-left:none;border-top:var(--panel-line-w) solid var(--panel-line);min-height:240px}
+    .beat-image{border-left:none;border-top:var(--panel-line-w) solid var(--panel-line);padding:20px}
     .img-slot{min-height:240px}
     .step-dot{padding:8px 7px;font-size:9px}
   }
@@ -126,7 +126,7 @@
       <div class="beat-image">
         <span class="beat-video-tag">Recycled clip &middot; Part 1 of 5</span>
         <video class="beat-video" controls playsinline preload="metadata" poster="https://d8j0ntlcm91z4.cloudfront.net/user_3CDGnUNmLloVUBJsrfOxR8cZFdv/hf_20260719_162227_4f665c2a-81ff-4593-b21c-5bea4cf60606.png">
-          <source src="https://d8j0ntlcm91z4.cloudfront.net/user_3CDGnUNmLloVUBJsrfOxR8cZFdv/hf_20260721_025608_de8a0426-c171-4eef-b2a7-bcd2918af2c4.mp4" type="video/mp4">
+          <source src="https://d8j0ntlcm91z4.cloudfront.net/user_3CDGnUNmLloVUBJsrfOxR8cZFdv/hf_20260720_121638_1216d80f-2170-44a3-8470-3d46b3bc524a.mp4" type="video/mp4">
         </video>
       </div>
     </section>
@@ -143,7 +143,7 @@
       <div class="beat-image">
         <span class="beat-video-tag">Recycled clip &middot; Part 2 of 5</span>
         <video class="beat-video" controls playsinline preload="metadata" poster="https://d8j0ntlcm91z4.cloudfront.net/user_3CDGnUNmLloVUBJsrfOxR8cZFdv/hf_20260719_162227_4f665c2a-81ff-4593-b21c-5bea4cf60606.png">
-          <source src="https://d8j0ntlcm91z4.cloudfront.net/user_3CDGnUNmLloVUBJsrfOxR8cZFdv/hf_20260720_121638_1216d80f-2170-44a3-8470-3d46b3bc524a.mp4" type="video/mp4">
+          <source src="https://d8j0ntlcm91z4.cloudfront.net/user_3CDGnUNmLloVUBJsrfOxR8cZFdv/hf_20260719_163831_89721fde-27bd-47d2-89c9-3dbaeeeca121.mp4" type="video/mp4">
         </video>
       </div>
     </section>
@@ -194,7 +194,7 @@
       <div class="beat-image">
         <span class="beat-video-tag">Recycled clip &middot; Part 5 of 5</span>
         <video class="beat-video" controls playsinline preload="metadata" poster="https://d8j0ntlcm91z4.cloudfront.net/user_3CDGnUNmLloVUBJsrfOxR8cZFdv/hf_20260719_162227_4f665c2a-81ff-4593-b21c-5bea4cf60606.png">
-          <source src="https://d8j0ntlcm91z4.cloudfront.net/user_3CDGnUNmLloVUBJsrfOxR8cZFdv/hf_20260719_163831_89721fde-27bd-47d2-89c9-3dbaeeeca121.mp4" type="video/mp4">
+          <source src="https://d8j0ntlcm91z4.cloudfront.net/user_3CDGnUNmLloVUBJsrfOxR8cZFdv/hf_20260721_025608_de8a0426-c171-4eef-b2a7-bcd2918af2c4.mp4" type="video/mp4">
         </video>
       </div>
     </section>
@@ -269,4 +269,4 @@ render();
 </body>
 </html>
 
-<!-- build 2026-08-16T17:20Z -->
+<!-- build 2026-08-16T17:45Z square-video + clip reorder -->
