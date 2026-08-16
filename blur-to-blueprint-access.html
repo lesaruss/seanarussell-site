@@ -192,6 +192,7 @@ $('verify-btn').addEventListener('click', async () => {
       $('video-link').href = data.access.video_series_url;
       $('video-link').classList.remove('hidden');
     }
+    localStorage.setItem('b2b_member', '1');
     show('step-access');
   } catch (e) {
     setMsg($('code-msg'), e.message, true);
