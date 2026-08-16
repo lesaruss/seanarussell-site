@@ -16,22 +16,40 @@
     --orange:#F69820;
     --panel-line:var(--text);
     --panel-line-w:1.5px;
+    --gutter:14px;
+    --nav-bg:rgba(13,13,13,0.96);
+  }
+  html[data-theme="light"]{
+    --bg:#ffffff; --surface:#ffffff; --surface2:#fafafa;
+    --border:rgba(0,0,0,0.08);
+    --text:#1a1a1a; --text-75:rgba(26,26,26,0.78); --text-50:rgba(26,26,26,0.55); --text-30:rgba(26,26,26,0.35);
+    --orange:#F69820;
+    --panel-line:#0d0d0d;
+    --nav-bg:rgba(255,255,255,0.96);
   }
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
-  body{background:var(--bg);color:var(--text);font-family:'Montserrat',Arial,Helvetica,sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+  body{background:var(--bg);color:var(--text);font-family:'Montserrat',Arial,Helvetica,sans-serif;overflow-x:hidden}
   a{text-decoration:none;color:inherit}
-  .wrap{max-width:460px;width:100%}
-  .k{font-size:10px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--orange);margin-bottom:14px}
-  h1{font-size:26px;font-weight:900;letter-spacing:-.01em;line-height:1.2;margin-bottom:10px}
-  p.sub{font-size:14px;line-height:1.6;color:var(--text-50);margin-bottom:28px}
-  .panel{border:var(--panel-line-w) solid var(--panel-line);background:var(--surface);padding:28px 26px}
+  button{font-family:inherit}
+  .dot{color:var(--orange);display:inline-block;margin-left:0.06em}
+
+  .nav{position:fixed;top:0;left:0;right:0;z-index:200;height:62px;display:flex;align-items:center;padding:0 28px;background:var(--nav-bg);border-bottom:1px solid var(--border);backdrop-filter:blur(10px)}
+  .nav-brand{font-size:17px;font-weight:900;text-transform:uppercase;letter-spacing:.05em}
+  .nav-back{margin-left:auto;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.13em;color:var(--text-50)}
+  .nav-back:hover{color:var(--text)}
+
+  .wrap{max-width:460px;width:100%;margin:0 auto;padding:120px 20px 60px}
+  .eyebrow{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.32em;color:var(--orange);margin-bottom:16px;text-align:center}
+  h1{font-size:26px;font-weight:900;letter-spacing:-.01em;line-height:1.2;margin-bottom:10px;text-align:center}
+  p.sub{font-size:14px;line-height:1.6;color:var(--text-50);margin-bottom:28px;text-align:center}
+  .panel{position:relative;border:1.5px solid var(--panel-line);background:var(--bg);padding:28px 26px}
   label{display:block;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-50);margin-bottom:8px}
   input{width:100%;padding:14px 16px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:inherit;font-size:14px;letter-spacing:.02em;margin-bottom:16px}
   .btn{width:100%;background:var(--orange);color:#0d0d0d;border:none;padding:16px;font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.14em;cursor:pointer}
-  .btn:hover{background:var(--text)}
+  .btn:hover{background:var(--text);color:var(--bg)}
   .btn:disabled{opacity:.5;cursor:default}
-  .msg{font-size:13px;margin-top:14px;padding:12px 14px;background:var(--bg);border-left:3px solid var(--orange);color:var(--text-75);display:none}
+  .msg{font-size:13px;margin-top:14px;padding:12px 14px;background:var(--surface2);border-left:3px solid var(--orange);color:var(--text-75);display:none}
   .msg.show{display:block}
   .msg.error{border-left-color:#e05252}
   .link-btn{background:none;border:none;color:var(--text-50);font-size:12px;text-decoration:underline;cursor:pointer;margin-top:14px;display:block;font-family:inherit}
@@ -41,13 +59,18 @@
   .access-item .label{font-size:14px;font-weight:700}
   .access-item .status{font-size:11px;color:var(--text-30);text-transform:uppercase;letter-spacing:.08em}
   .access-cta{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.12em;color:#0d0d0d;background:var(--orange);padding:10px 18px;white-space:nowrap}
-  .access-cta:hover{background:var(--text)}
+  .access-cta:hover{background:var(--text);color:var(--bg)}
   .hidden{display:none}
 </style>
 </head>
 <body>
+<header class="nav">
+  <a class="nav-brand" href="index.html">Sean A<span class="dot">.</span> Russell</a>
+  <a class="nav-back" href="blur-to-blueprint.html">&larr; Back to the book</a>
+</header>
+
 <div class="wrap">
-  <div class="k">Sean A. Russell &middot; From Blur to Blueprint</div>
+  <div class="eyebrow">Sean A. Russell &middot; From Blur to Blueprint</div>
 
   <div id="step-email">
     <h1>Enter your access page.</h1>
@@ -97,7 +120,7 @@
     <h1>We couldn't find your order.</h1>
     <p class="sub" id="no-purchase-msg">Make sure you're using the same email you checked out with.</p>
     <div class="panel">
-      <a class="btn" style="display:block;text-align:center;text-decoration:none" href="/blur-to-blueprint-offer.html">Get instant access &mdash; $11</a>
+      <a class="btn" style="display:block;text-align:center" href="/blur-to-blueprint-offer.html">Get instant access &mdash; $11</a>
       <button class="link-btn" id="try-again-btn">Try a different email</button>
     </div>
   </div>
