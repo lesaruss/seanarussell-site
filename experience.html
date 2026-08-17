@@ -121,6 +121,7 @@
 
   /* Stylized video player */
   .exp-video-wrap{position:relative;width:100%;height:100%}
+  .exp-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
   .signal-player{position:relative;width:100%;height:100%;background:#0d0d0d;border:none;border-left:2px solid var(--orange);outline:none;overflow:hidden;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;font-family:inherit}
   html[data-theme="light"] .signal-player{background:#0a0a0a}
   .signal-thumb{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:.55;z-index:0;pointer-events:none}
@@ -210,13 +211,6 @@
         <a class="nav-dropdown-item" href="on-camera.html" role="menuitem">On Camera</a>
       </div>
     </div>
-    <div class="nav-dropdown">
-      <button class="nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false">Media Kit <span class="chevron" aria-hidden="true">&#9662;</span></button>
-      <div class="nav-dropdown-menu" role="menu">
-        <a class="nav-dropdown-item" href="kit/media-industry.html" role="menuitem">Media Industry Kit</a>
-        <a class="nav-dropdown-item" href="kit/executive-marketing.html" role="menuitem">Executive Marketing Kit</a>
-      </div>
-    </div>
     <a class="nav-link active" href="experience.html">Experience</a>
     <a class="nav-link" href="consultant.html">Consultant</a>
     <a class="nav-link" href="press.html">Press</a>
@@ -232,9 +226,6 @@
   <a class="mobile-menu-link" href="producer.html">Producer</a>
   <a class="mobile-menu-link" href="speaker.html">Speaker + Host</a>
   <a class="mobile-menu-link" href="on-camera.html">On Camera</a>
-  <div class="mobile-menu-section">Media Kit</div>
-  <a class="mobile-menu-link" href="kit/media-industry.html">Media Industry Kit</a>
-  <a class="mobile-menu-link" href="kit/executive-marketing.html">Executive Marketing Kit</a>
   <div class="mobile-menu-section">Navigate</div>
   <a class="mobile-menu-link" href="experience.html">Experience</a>
   <a class="mobile-menu-link" href="consultant.html">Consultant</a>
@@ -257,7 +248,7 @@
       <div class="page-hero-copy">
         <p class="eyebrow">The Work<span class="dot">.</span> By Industry<span class="dot">.</span></p>
         <h1>The <em>work</em><span class="dot">.</span></h1>
-        <p class="lede">Two decades across education systems and entertainment. Each vertical is documented here. Watch the work in context.</p>
+        <p class="lede">Two decades across education systems, entertainment, media, and marketing. Each vertical is documented here, with the media kits one click away.</p>
         <a class="btn-book" href="booking.html">Book Sean</a>
       </div>
       <div class="page-hero-character">
@@ -328,6 +319,42 @@
           <span class="player-tag bl" aria-hidden="true">Entertainment Reel</span>
           <span class="player-tag br" aria-hidden="true">Play</span>
         </button>
+      </div>
+    </div>
+  </article>
+</section>
+
+<!-- Media Industry Kit -->
+<section class="spread">
+  <article class="panel">
+    <div class="cap tl">Media Industry<span class="dot">.</span></div>
+    <div class="grid exp-row">
+      <div class="exp-text">
+        <p class="exp-industry">Vertical 03<span class="dot">.</span> Media Industry Kit</p>
+        <h2 class="exp-title">Media Industry<span class="dot">.</span></h2>
+        <p class="exp-body">Thirty years building systems, communities, and stories that move culture. Producer, on-camera talent, and actor, with 300+ projects produced and content featured on NBC, ABC, MTV, and Crunchyroll. The full one-sheet: credentials, case studies, and media assets.</p>
+        <a class="cta-ghost" href="kit/media-industry.html">View Media Industry Kit</a>
+      </div>
+      <div class="exp-video-wrap">
+        <img class="exp-img" src="assets/photos/2026-05-20_seanarussell-Hero_v01.png" alt="Sean A. Russell, illustrated portrait in GeekFon style, Media Industry Kit." style="object-position:left center;">
+      </div>
+    </div>
+  </article>
+</section>
+
+<!-- Executive Marketing Kit -->
+<section class="spread">
+  <article class="panel">
+    <div class="cap tl">Executive Marketing<span class="dot">.</span></div>
+    <div class="grid exp-row">
+      <div class="exp-text">
+        <p class="exp-industry">Vertical 04<span class="dot">.</span> Executive Marketing Kit</p>
+        <h2 class="exp-title">Executive Marketing<span class="dot">.</span></h2>
+        <p class="exp-body">Twenty years leading marketing, content, and production teams, most recently as the strategist behind an $800M voter-approved bond campaign. Available as a full-time marketing executive or Fractional CMO, backed by an AI-powered team. The full one-sheet: results, case studies, and a downloadable PDF.</p>
+        <a class="cta-ghost" href="kit/executive-marketing.html">View Executive Marketing Kit</a>
+      </div>
+      <div class="exp-video-wrap">
+        <img class="exp-img" src="assets/photos/executive/hero-executive.png" alt="Sean A. Russell, illustrated portrait in an executive look, Executive Marketing Kit." style="object-position:center top;">
       </div>
     </div>
   </article>
