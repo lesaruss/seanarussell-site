@@ -70,8 +70,9 @@
   .beat-video-tag{position:absolute;top:14px;left:14px;z-index:3;font-size:9px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#fff;background:rgba(0,0,0,.55);padding:6px 10px}
 
   .nav-stack{position:sticky;bottom:0;left:0;right:0;z-index:60;background:var(--bg);width:100%}
-  .step-nav{position:static;display:flex;align-items:center;gap:6px;padding:14px 20px;background:var(--bg);max-width:1280px;margin:0 auto;width:100%}
-  .book-nav{border-top:1px solid var(--border)}
+  .beat-nav-row{display:flex;padding:14px 20px 4px;max-width:1280px;margin:0 auto;width:100%}
+  .step-nav{position:static;display:flex;align-items:center;gap:6px;padding:4px 20px 14px;background:var(--bg);max-width:1280px;margin:0 auto;width:100%}
+  .book-nav{border-top:1px solid var(--border);padding-top:10px}
   .book-nav .step-dot.current{color:var(--orange);cursor:default}
   .step-nav-btn{flex-shrink:0;width:38px;height:38px;border:var(--panel-line-w) solid var(--panel-line);background:var(--bg);color:var(--text);font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s,color .15s;font-family:inherit}
   .step-nav-btn:hover:not(:disabled){background:var(--text);color:var(--bg)}
@@ -105,7 +106,8 @@
     .beat-image{border-left:none;border-top:var(--panel-line-w) solid var(--panel-line)}
     .img-slot{min-height:240px}
     .step-dot{padding:8px 7px;font-size:9px}
-    .step-nav{padding:10px 14px}
+    .step-nav{padding:4px 14px 10px}
+    .beat-nav-row{padding:10px 14px 2px}
   }
 </style>
 </head>
@@ -209,8 +211,7 @@
   </div>
 
   <div class="nav-stack">
-    <nav class="step-nav" aria-label="Chapter One navigation">
-      <button type="button" class="step-nav-btn" id="prevBtn" aria-label="Previous beat" disabled>&#8249;</button>
+    <div class="beat-nav-row" aria-label="Chapter One parts">
       <div class="step-nav-dots" id="stepDots">
         <button type="button" class="step-dot active" data-goto="0">Part 1<span class="dot">.</span></button>
         <button type="button" class="step-dot" data-goto="1">Part 2<span class="dot">.</span></button>
@@ -218,12 +219,7 @@
         <button type="button" class="step-dot" data-goto="3">Part 4<span class="dot">.</span></button>
         <button type="button" class="step-dot" data-goto="4">Part 5<span class="dot">.</span></button>
       </div>
-      <button type="button" class="step-nav-btn narration-btn" id="narrationBtn" aria-label="Play narration for this chapter">
-        <svg class="ic-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-        <svg class="ic-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg>
-      </button>
-      <button type="button" class="step-nav-btn" id="nextBtn" aria-label="Next beat">&#8250;</button>
-    </nav>
+    </div>
     <nav class="step-nav book-nav" aria-label="Book navigation">
       <a class="step-nav-btn" href="/blur-to-blueprint.html#step-1" aria-label="Previous section">&#8249;</a>
       <div class="step-nav-dots">
@@ -233,6 +229,10 @@
         <a class="step-dot" href="/blur-to-blueprint.html#step-2">Contents<span class="dot">.</span></a>
         <a class="step-dot" href="/blur-to-blueprint.html#step-3">Join the List<span class="dot">.</span></a>
       </div>
+      <button type="button" class="step-nav-btn narration-btn" id="narrationBtn" aria-label="Play narration for this chapter">
+        <svg class="ic-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="ic-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg>
+      </button>
       <a class="step-nav-btn" href="/blur-to-blueprint.html#step-2" aria-label="Next section">&#8250;</a>
     </nav>
   </div>
@@ -260,9 +260,7 @@
 
 <script>
 var beats = Array.prototype.slice.call(document.querySelectorAll('.beat'));
-var dots = Array.prototype.slice.call(document.querySelectorAll('.step-dot'));
-var prevBtn = document.getElementById('prevBtn');
-var nextBtn = document.getElementById('nextBtn');
+var dots = Array.prototype.slice.call(document.querySelectorAll('#stepDots .step-dot'));
 var beatEnd = document.getElementById('beatEnd');
 var current = 0;
 
@@ -280,8 +278,6 @@ var narrationBtn = document.getElementById('narrationBtn');
 function render() {
   beats.forEach(function(b, i){ b.classList.toggle('active', i === current); });
   dots.forEach(function(d, i){ d.classList.toggle('active', i === current); });
-  prevBtn.disabled = current === 0;
-  nextBtn.textContent = current === beats.length - 1 ? '→' : '›';
   beatEnd.classList.toggle('hidden', current !== beats.length - 1);
 }
 
@@ -302,11 +298,6 @@ function goTo(i) {
   loadNarrationForCurrent();
 }
 
-prevBtn.addEventListener('click', function(){ goTo(current - 1); });
-nextBtn.addEventListener('click', function(){
-  if (current === beats.length - 1) { window.location.href = '/chapter-two-experience.html'; return; }
-  goTo(current + 1);
-});
 dots.forEach(function(d){ d.addEventListener('click', function(){ goTo(parseInt(d.dataset.goto, 10)); }); });
 
 narrationBtn.addEventListener('click', function(){
