@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<script src="/analytics.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter One — The Blur. From Blur to Blueprint. Sean A. Russell.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0d0d0d; --surface:#111111; --surface2:#161616;
+    --border:rgba(255,255,255,0.07);
+    --text:#ffffff; --text-75:rgba(255,255,255,0.75); --text-50:rgba(255,255,255,0.50); --text-30:rgba(255,255,255,0.30);
+    --orange:#F69820;
+    --panel-line:var(--text);
+    --panel-line-w:1.5px;
+    --gutter:14px;
+    --nav-bg:rgba(13,13,13,0.96);
+  }
+  html[data-theme="light"]{
+    --bg:#ffffff; --surface:#ffffff; --surface2:#fafafa;
+    --border:rgba(0,0,0,0.08);
+    --text:#1a1a1a; --text-75:rgba(26,26,26,0.78); --text-50:rgba(26,26,26,0.55); --text-30:rgba(26,26,26,0.35);
+    --orange:#F69820;
+    --panel-line:#0d0d0d;
+    --nav-bg:rgba(255,255,255,0.96);
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;height:100%}
+  body{background:var(--bg);color:var(--text);font-family:'Montserrat',Arial,Helvetica,sans-serif;overflow-x:hidden;min-height:100%;display:flex;flex-direction:column}
+  a{text-decoration:none;color:inherit}
+  button{font-family:inherit}
+  .dot{color:var(--orange);display:inline-block;margin-left:0.06em}
+
+  .nav{position:fixed;top:0;left:0;right:0;z-index:200;height:62px;display:flex;align-items:center;padding:0 28px;background:var(--nav-bg);border-bottom:1px solid var(--border);backdrop-filter:blur(10px)}
+  .nav-brand{font-size:17px;font-weight:900;text-transform:uppercase;letter-spacing:.05em}
+  .nav-back{margin-left:auto;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.13em;color:var(--text-50)}
+  .nav-back:hover{color:var(--text)}
+
+  .main{flex:1;display:flex;flex-direction:column;margin-top:62px}
+  .eyebrow{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.32em;color:var(--orange);margin-bottom:14px}
+  .header-bar{max-width:1280px;width:100%;margin:0 auto;padding:32px 28px 0;text-align:center}
+  .header-bar h1{font-size:clamp(24px,3.6vw,36px);font-weight:900;text-transform:uppercase;letter-spacing:-.01em;margin-bottom:8px}
+  .header-bar p{font-size:13px;color:var(--text-50);max-width:520px;margin:0 auto}
+
+  .beat-stage{flex:1;display:flex;align-items:stretch;max-width:1280px;width:100%;margin:24px auto;padding:0 14px}
+  .beat{display:none;grid-template-columns:1fr 1fr;gap:var(--gutter);width:100%;border:var(--panel-line-w) solid var(--panel-line)}
+  .beat.active{display:grid}
+  .beat-text{padding:56px 52px;display:flex;flex-direction:column;justify-content:center;min-width:0}
+  .beat-num{font-size:11px;font-weight:900;letter-spacing:.18em;color:var(--orange);margin-bottom:18px}
+  .beat-copy{font-size:16px;line-height:1.85;color:var(--text-75);max-width:520px}
+  .beat-copy p{margin-bottom:16px}
+  .beat-copy p:last-child{margin-bottom:0}
+  .beat-image{position:relative;background:var(--surface2);border-left:var(--panel-line-w) solid var(--panel-line);overflow:hidden;aspect-ratio:1/1}
+  .img-slot{width:100%;height:100%;min-height:340px;background:
+      radial-gradient(var(--orange) 1.4px, transparent 1.6px);
+      background-size:16px 16px;
+      background-color:#141414;
+      display:flex;align-items:center;justify-content:center;position:relative;opacity:.9}
+  html[data-theme="light"] .img-slot{background-color:#ececec}
+  .img-slot-label{position:relative;z-index:2;text-align:center;padding:0 32px}
+  .img-slot-tag{font-size:9px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);margin-bottom:10px;display:block}
+  .img-slot-desc{font-size:12px;color:rgba(255,255,255,.7);line-height:1.6;max-width:280px}
+  html[data-theme="light"] .img-slot-desc{color:rgba(0,0,0,.55)}
+  .vm-play{width:52px;height:52px;border-radius:50%;background:var(--orange);display:flex;align-items:center;justify-content:center;margin:0 auto 14px}
+  .vm-play svg{margin-left:3px;width:16px;height:16px;fill:#0d0d0d}
+  .beat-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;background:#141414}
+  .beat-video-tag{position:absolute;top:14px;left:14px;z-index:3;font-size:9px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#fff;background:rgba(0,0,0,.55);padding:6px 10px}
+
+  .step-nav{position:sticky;bottom:0;left:0;right:0;display:flex;align-items:center;gap:6px;padding:14px 20px;background:var(--bg);z-index:60;max-width:1280px;margin:0 auto;width:100%}
+  .step-nav-btn{flex-shrink:0;width:38px;height:38px;border:var(--panel-line-w) solid var(--panel-line);background:var(--bg);color:var(--text);font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s,color .15s;font-family:inherit}
+  .step-nav-btn:hover:not(:disabled){background:var(--text);color:var(--bg)}
+  .step-nav-btn:disabled{opacity:.22;cursor:default}
+  .step-nav-dots{flex:1;display:flex;justify-content:center;gap:2px;flex-wrap:wrap}
+  .step-dot{font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--text-30);background:none;border:none;padding:10px 13px;cursor:pointer;transition:color .15s;white-space:nowrap;font-family:inherit}
+  .step-dot:hover{color:var(--text-50)}
+  .step-dot.active{color:var(--orange)}
+  .narration-btn{position:relative}
+  .narration-btn .ic-pause{display:none}
+  .narration-btn.playing .ic-play{display:none}
+  .narration-btn.playing .ic-pause{display:block}
+  .narration-btn svg{width:14px;height:14px;fill:currentColor}
+
+  .beat-end{max-width:720px;margin:40px auto 0;padding:40px 24px 60px;text-align:center}
+  .beat-end h2{font-size:clamp(22px,3.2vw,32px);font-weight:900;text-transform:uppercase;letter-spacing:-.01em;margin-bottom:14px}
+  .beat-end p{font-size:14px;line-height:1.75;color:var(--text-50);margin-bottom:24px}
+  .cta{display:inline-block;font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.14em;color:#0d0d0d;background:var(--orange);padding:16px 32px;border:none;cursor:pointer}
+  .cta:hover{background:var(--text);color:var(--bg)}
+  .hidden{display:none}
+
+  @media (max-width:900px){
+    .beat{grid-template-columns:1fr}
+    .beat-text{padding:36px 24px}
+    .beat-image{border-left:none;border-top:var(--panel-line-w) solid var(--panel-line)}
+    .img-slot{min-height:240px}
+    .step-dot{padding:8px 7px;font-size:9px}
+  }
+</style>
+</head>
+<body>
+<header class="nav">
+  <a class="nav-brand" href="index.html">Sean A<span class="dot">.</span> Russell</a>
+  <a class="nav-back" href="blur-to-blueprint.html">&larr; Back to the book</a>
+</header>
+
+<div class="main">
+  <div class="header-bar">
+    <p class="eyebrow">Chapter One &middot; Prototype format</p>
+    <h1>The Blur<span class="dot">.</span></h1>
+    <p>Click the arrows below to advance part by part, same as the page navigation on the main book experience. Each part gets its own image or video &mdash; text on the left, visual on the right.</p>
+  </div>
+
+  <div class="beat-stage" id="beatStage">
+
+    <section class="beat active" data-beat="0">
+      <div class="beat-text">
+        <div class="beat-num">Part 1 of 5</div>
+        <div class="beat-copy">
+          <p>I remember sitting there, small enough that my feet didn&rsquo;t even touch the ground, hearing everything. The music. The laughter. The gasps from the crowd.</p>
+          <p>It was loud. Exciting. Alive. Everyone around me was locked in, reacting, pointing, smiling, fully in it.</p>
+          <p>And I couldn&rsquo;t see any of it clearly. Not the performers. Not the details. Just shapes. Movement. Color blending into color.</p>
+        </div>
+      </div>
+      <div class="beat-image">
+        <span class="beat-video-tag">Part 1 of 5</span>
+        <video class="beat-video" controls playsinline preload="metadata">
+          <source src="https://d8j0ntlcm91z4.cloudfront.net/user_3CDGnUNmLloVUBJsrfOxR8cZFdv/hf_20260816_203945_0f725c54-6d78-48e2-bedc-6ba793b3b7b8.mp4#t=0.9" type="video/mp4">
+        </video>
+      </div>
+    </section>
+
+    <section class="beat" data-beat="1">
+      <div class="beat-text">
+        <div class="beat-num">Part 2 of 5</div>
+        <div class="beat-copy">
+          <p>Then I heard it. A motorcycle revving, loud and aggressive, getting faster. I could make out the outline of something, like a cage, a sphere. And inside it, something was moving.</p>
+          <p>The crowd built with it, cheering louder, reacting bigger, rising with whatever was happening inside. I leaned forward, squinting, trying to lock in. Trying to catch up.</p>
+          <p>I could see flashes of motion. Something circling. Maybe upside down. But I couldn&rsquo;t follow it. Not really.</p>
+        </div>
+      </div>
+      <div class="beat-image">
+        <span class="beat-video-tag">Part 2 of 5</span>
+        <img class="beat-video" src="https://d8j0ntlcm91z4.cloudfront.net/user_3CDGnUNmLloVUBJsrfOxR8cZFdv/hf_20260816_204016_3cd73de7-d830-4382-ad7d-863796ee6a90.png" alt="The Globe of Death — riders looping inside the steel sphere as the crowd rises">
+      </div>
+    </section>
+
+    <section class="beat" data-beat="2">
+      <div class="beat-text">
+        <div class="beat-num">Part 3 of 5</div>
+        <div class="beat-copy">
+          <p>So I did what made the most sense. I watched everyone else. They were reacting in real time, laughing when something hit, gasping when it got intense.</p>
+          <p>Something felt off. I just didn&rsquo;t have the words for it yet. I remember thinking, <em>How are people this impressed by this? What am I missing?</em></p>
+          <p>It wasn&rsquo;t like I was blind. I could see. Just not like them. Not sharp. Not clear. Just&hellip; a blur.</p>
+        </div>
+      </div>
+      <div class="beat-image">
+        <span class="beat-video-tag">Part 3 of 5</span>
+        <video class="beat-video" controls playsinline preload="metadata">
+          <source src="https://d8j0ntlcm91z4.cloudfront.net/user_3CDGnUNmLloVUBJsrfOxR8cZFdv/hf_20260816_201427_e966b3ef-ef6a-47e7-a4b8-ea8e26e00c2d.mp4#t=1.2" type="video/mp4">
+        </video>
+      </div>
+    </section>
+
+    <section class="beat" data-beat="3">
+      <div class="beat-text">
+        <div class="beat-num">Part 4 of 5</div>
+        <div class="beat-copy">
+          <p>I didn&rsquo;t find out until later that I couldn&rsquo;t actually see properly. That I needed glasses. That everyone else had been experiencing the world in a completely different way the entire time.</p>
+          <p>Looking back now, that moment hits differently. Because it wasn&rsquo;t just about eyesight. I was present, but not fully connected. Close, but something wasn&rsquo;t lining up.</p>
+          <p>And that feeling followed me. Into other rooms. Other moments. Other stages of my life.</p>
+        </div>
+      </div>
+      <div class="beat-image">
+        <span class="beat-video-tag">Part 4 of 5</span>
+        <video class="beat-video" controls playsinline preload="metadata">
+          <source src="https://d8j0ntlcm91z4.cloudfront.net/user_3CDGnUNmLloVUBJsrfOxR8cZFdv/hf_20260816_204036_771627db-d44e-4f13-83a1-002686a20302.mp4#t=0.1" type="video/mp4">
+        </video>
+      </div>
+    </section>
+
+    <section class="beat" data-beat="4">
+      <div class="beat-text">
+        <div class="beat-num">Part 5 of 5</div>
+        <div class="beat-copy">
+          <p>What you see isn&rsquo;t always the problem. How clearly you see it is. Most people don&rsquo;t question what they&rsquo;re looking at. They assume it&rsquo;s accurate. But it&rsquo;s not reality. It&rsquo;s just their current level of clarity.</p>
+          <p>Looking back, The Blur wasn&rsquo;t a limitation. It was an introduction. Because once things started to come into focus, I didn&rsquo;t just accept what was in front of me. I started questioning it.</p>
+          <p>That instinct didn&rsquo;t start later. It started here. Before I had the language for it. Before I could see clearly.</p>
+        </div>
+      </div>
+      <div class="beat-image">
+        <span class="beat-video-tag">Part 5 of 5</span>
+        <video class="beat-video" controls playsinline preload="metadata">
+          <source src="https://d8j0ntlcm91z4.cloudfront.net/user_3CDGnUNmLloVUBJsrfOxR8cZFdv/hf_20260816_204036_ef8c1365-1671-4afb-a61a-3fd2d2dfe50d.mp4#t=0.1" type="video/mp4">
+        </video>
+      </div>
+    </section>
+
+  </div>
+
+  <nav class="step-nav" aria-label="Chapter One navigation">
+    <button type="button" class="step-nav-btn" id="prevBtn" aria-label="Previous beat" disabled>&#8249;</button>
+    <button type="button" class="step-nav-btn narration-btn" id="narrationBtn" aria-label="Play narration for this chapter">
+      <svg class="ic-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      <svg class="ic-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg>
+    </button>
+    <div class="step-nav-dots" id="stepDots">
+      <button type="button" class="step-dot active" data-goto="0">Part 1<span class="dot">.</span></button>
+      <button type="button" class="step-dot" data-goto="1">Part 2<span class="dot">.</span></button>
+      <button type="button" class="step-dot" data-goto="2">Part 3<span class="dot">.</span></button>
+      <button type="button" class="step-dot" data-goto="3">Part 4<span class="dot">.</span></button>
+      <button type="button" class="step-dot" data-goto="4">Part 5<span class="dot">.</span></button>
+    </div>
+    <button type="button" class="step-nav-btn" id="nextBtn" aria-label="Next beat">&#8250;</button>
+  </nav>
+
+  <div class="beat-end" id="beatEnd">
+    <h2>The story keeps going<span class="dot">.</span></h2>
+    <p>Chapter Two &mdash; The First Transaction &mdash; is next. New chapters drop on a rolling release.</p>
+    <a class="cta" href="/chapter-two-experience.html">Read Chapter Two &rarr;</a>
+  </div>
+</div>
+
+<audio id="chapterAudio" preload="none" src="/audio/blur-to-blueprint/03.mp3"></audio>
+
+<script>
+var beats = Array.prototype.slice.call(document.querySelectorAll('.beat'));
+var dots = Array.prototype.slice.call(document.querySelectorAll('.step-dot'));
+var prevBtn = document.getElementById('prevBtn');
+var nextBtn = document.getElementById('nextBtn');
+var beatEnd = document.getElementById('beatEnd');
+var current = 0;
+
+function render() {
+  beats.forEach(function(b, i){ b.classList.toggle('active', i === current); });
+  dots.forEach(function(d, i){ d.classList.toggle('active', i === current); });
+  prevBtn.disabled = current === 0;
+  nextBtn.textContent = current === beats.length - 1 ? '→' : '›';
+  beatEnd.classList.toggle('hidden', current !== beats.length - 1);
+}
+
+function goTo(i) {
+  current = Math.max(0, Math.min(beats.length - 1, i));
+  render();
+}
+
+prevBtn.addEventListener('click', function(){ goTo(current - 1); });
+nextBtn.addEventListener('click', function(){
+  if (current === beats.length - 1) { window.location.href = '/chapter-two-experience.html'; return; }
+  goTo(current + 1);
+});
+dots.forEach(function(d){ d.addEventListener('click', function(){ goTo(parseInt(d.dataset.goto, 10)); }); });
+
+// Single continuous narration track for the whole chapter (existing Chapter One
+// audio, reused here as-is — not yet re-cut per beat).
+var audio = document.getElementById('chapterAudio');
+var narrationBtn = document.getElementById('narrationBtn');
+narrationBtn.addEventListener('click', function(){
+  if (audio.paused) { audio.play(); narrationBtn.classList.add('playing'); }
+  else { audio.pause(); narrationBtn.classList.remove('playing'); }
+});
+audio.addEventListener('ended', function(){ narrationBtn.classList.remove('playing'); });
+
+render();
+</script>
+</body>
+</html>
+
+<!-- build 2026-08-16T21:25Z v3.2: end mechanic routes to Chapter Two -->

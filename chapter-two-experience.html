@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<script src="/analytics.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter Two — The First Transaction. From Blur to Blueprint. Sean A. Russell.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0d0d0d; --surface:#111111; --surface2:#161616;
+    --border:rgba(255,255,255,0.07);
+    --text:#ffffff; --text-75:rgba(255,255,255,0.75); --text-50:rgba(255,255,255,0.50); --text-30:rgba(255,255,255,0.30);
+    --orange:#F69820;
+    --panel-line:var(--text);
+    --panel-line-w:1.5px;
+    --nav-bg:rgba(13,13,13,0.96);
+  }
+  html[data-theme="light"]{
+    --bg:#ffffff; --surface:#ffffff; --surface2:#fafafa;
+    --border:rgba(0,0,0,0.08);
+    --text:#1a1a1a; --text-75:rgba(26,26,26,0.78); --text-50:rgba(26,26,26,0.55); --text-30:rgba(26,26,26,0.35);
+    --orange:#F69820;
+    --panel-line:#0d0d0d;
+    --nav-bg:rgba(255,255,255,0.96);
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:'Montserrat',Arial,Helvetica,sans-serif;overflow-x:hidden;min-height:100vh;display:flex;flex-direction:column}
+  a{text-decoration:none;color:inherit}
+  .dot{color:var(--orange);display:inline-block;margin-left:0.06em}
+
+  .nav{position:fixed;top:0;left:0;right:0;z-index:200;height:62px;display:flex;align-items:center;padding:0 28px;background:var(--nav-bg);border-bottom:1px solid var(--border);backdrop-filter:blur(10px)}
+  .nav-brand{font-size:17px;font-weight:900;text-transform:uppercase;letter-spacing:.05em}
+  .nav-back{margin-left:auto;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.13em;color:var(--text-50)}
+  .nav-back:hover{color:var(--text)}
+
+  .main{flex:1;display:flex;align-items:center;justify-content:center;padding:110px 20px 60px}
+  .panel{position:relative;border:var(--panel-line-w) solid var(--panel-line);background:var(--bg);max-width:680px;width:100%;padding:64px 56px;text-align:center;overflow:hidden}
+  .halftone{position:absolute;inset:0;opacity:.07;pointer-events:none;background-image:radial-gradient(var(--orange) 1.4px, transparent 1.6px);background-size:14px 14px}
+  .inner{position:relative;z-index:2}
+  .eyebrow{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.32em;color:var(--orange);margin-bottom:16px}
+  h1{font-size:clamp(28px,4.4vw,44px);font-weight:900;text-transform:uppercase;letter-spacing:-.02em;line-height:1.06;margin-bottom:18px}
+  .tease{font-size:15px;line-height:1.85;color:var(--text-75);max-width:480px;margin:0 auto 26px}
+  .drop-note{display:inline-block;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.16em;color:var(--orange);border:1.5px solid var(--orange);padding:10px 18px;margin-bottom:30px}
+  .cta{display:inline-block;font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.14em;color:#0d0d0d;background:var(--orange);padding:16px 32px;cursor:pointer}
+  .cta:hover{background:var(--text);color:var(--bg)}
+  .sub-line{font-size:13px;line-height:1.7;color:var(--text-50);max-width:420px;margin:18px auto 0}
+  .sub-line a{text-decoration:underline;color:var(--text-75)}
+  .hidden{display:none}
+
+  @media (max-width:640px){ .panel{padding:44px 26px} }
+</style>
+</head>
+<body>
+<header class="nav">
+  <a class="nav-brand" href="index.html">Sean A<span class="dot">.</span> Russell</a>
+  <a class="nav-back" href="chapter-one-experience.html">&larr; Back to Chapter One</a>
+</header>
+
+<div class="main">
+  <article class="panel">
+    <div class="halftone"></div>
+    <div class="inner">
+      <p class="eyebrow">From Blur to Blueprint &middot; Chapter Two</p>
+      <h1>The First Transaction<span class="dot">.</span></h1>
+      <p class="tease">The back of a classroom. A single sheet of college-ruled paper. Fold. Press. Shape. What starts as a way to pass the time becomes the first time Sean discovers that something he made with his own hands is something other people want &mdash; and will trade for. The blur hasn&rsquo;t lifted yet. But the instinct is already at work.</p>
+      <div class="drop-note">Chapter Two is in production &mdash; releasing soon</div>
+
+      <!-- Default: not yet registered/purchased -->
+      <div id="state-guest">
+        <div><a class="cta" href="/blur-to-blueprint-offer.html">Register to keep reading &mdash; $11</a></div>
+        <p class="sub-line">One purchase unlocks every chapter as it drops &mdash; plus the full digital book on release, the audiobook, and the chapter video series. New chapters are announced right here. <a href="/blur-to-blueprint-access.html">Already purchased? Sign in.</a></p>
+      </div>
+
+      <!-- Member: purchased and verified on this device -->
+      <div id="state-member" class="hidden">
+        <p class="sub-line" style="margin-top:0;font-size:14px;color:var(--text-75)">You&rsquo;re in. Chapter Two will unlock here the moment it drops &mdash; it&rsquo;s already included in your purchase, nothing more to do. Check back soon, or revisit <a href="/blur-to-blueprint-access.html">your access page</a> anytime.</p>
+      </div>
+    </div>
+  </article>
+</div>
+
+<script>
+// Member detection: real LESARUSS universe login (lr_token from the access page),
+// verified against book-auth + the purchase record. Legacy b2b_member flag kept
+// as an instant-render hint only.
+(function () {
+  function showMember() {
+    document.getElementById('state-guest').classList.add('hidden');
+    document.getElementById('state-member').classList.remove('hidden');
+  }
+  if (localStorage.getItem('b2b_member') === '1') showMember();
+  var token = localStorage.getItem('lr_token');
+  if (!token) return;
+  var ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ3Ymh3ZnhwbmNyc2ZodHRpbW5hIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ2NjAxMzksImV4cCI6MjA5MDIzNjEzOX0.9mxjK0bn5WATCbNLWrHPakD6yHUDtHFHrOaklPnWkOA';
+  fetch('https://fwbhwfxpncrsfhttimna.supabase.co/functions/v1/book-auth?action=book_access', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + ANON, 'apikey': ANON },
+    body: JSON.stringify({ token: token, property_slug: 'blur-to-blueprint' })
+  }).then(function (r) { return r.json().then(function (d) { return { s: r.status, d: d }; }); })
+    .then(function (res) { if (res.s === 200 && res.d.purchased) showMember(); })
+    .catch(function () {});
+})();
+</script>
+</body>
+</html>
