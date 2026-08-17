@@ -244,6 +244,37 @@ function initGoogle() {
 }
 initGoogle();
 
+// ---- Apple sign-in ----
+function initApple() {
+  if (!window.AppleID) { setTimeout(initApple, 300); return; }
+  AppleID.auth.init({
+    clientId: APPLE_CLIENT_ID,
+    scope: 'name email',
+    redirectURI: APPLE_REDIRECT_URI,
+    usePopup: true,
+  });
+}
+initApple();
+
+document.addEventListener('AppleIDSignInOnSuccess', async (event) => {
+  try {
+    const idToken = event.detail?.authorization?.id_token;
+    if (!idToken) throw new Error('Apple did not return a sign-in token.');
+    const givenName = event.detail?.user?.name?.firstName;
+    const familyName = event.detail?.user?.name?.lastName;
+    const name = [givenName, familyName].filter(Boolean).join(' ');
+    const { ok, data } = await authCall('apple', { id_token: idToken, name, property_slug: PROPERTY_SLUG });
+    if (!ok) throw new Error(data.error || 'Apple sign-in failed');
+    localStorage.setItem(TOKEN_KEY, data.token);
+    await loadAccess(data.token, data.member);
+  } catch (e) { setMsg($('auth-msg'), e.message, true); }
+});
+
+document.addEventListener('AppleIDSignInOnFailure', (event) => {
+  console.error('Apple sign-in error', event.detail);
+  setMsg($('auth-msg'), 'Apple sign-in failed or was cancelled.', true);
+});
+
 // ---- entitlement load after any successful auth ----
 async function loadAccess(token, member) {
   if (member?.email) $('member-email').textContent = member.email;
