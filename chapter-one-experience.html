@@ -70,17 +70,18 @@
   .beat-video-tag{position:absolute;top:14px;left:14px;z-index:3;font-size:9px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#fff;background:rgba(0,0,0,.55);padding:6px 10px}
 
   .nav-stack{position:sticky;bottom:0;left:0;right:0;z-index:60;background:var(--bg);width:100%}
-  .beat-nav-row{display:flex;padding:14px 20px 4px;max-width:1280px;margin:0 auto;width:100%}
+  .beat-nav-row{display:flex;align-items:center;gap:6px;padding:14px 20px 4px;max-width:1280px;margin:0 auto;width:100%}
   .step-nav{position:static;display:flex;align-items:center;gap:6px;padding:4px 20px 14px;background:var(--bg);max-width:1280px;margin:0 auto;width:100%}
-  .book-nav{border-top:1px solid var(--border);padding-top:10px}
+  .book-nav{border-top:1px solid var(--border);padding-top:10px;justify-content:center}
   .book-nav .step-dot.current{color:var(--orange);cursor:default}
   .step-nav-btn{flex-shrink:0;width:38px;height:38px;border:var(--panel-line-w) solid var(--panel-line);background:var(--bg);color:var(--text);font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s,color .15s;font-family:inherit}
   .step-nav-btn:hover:not(:disabled){background:var(--text);color:var(--bg)}
   .step-nav-btn:disabled{opacity:.22;cursor:default}
-  .step-nav-dots{flex:1;display:flex;justify-content:center;gap:2px;flex-wrap:wrap}
+  .step-nav-dots{flex:1;display:flex;justify-content:center;align-items:center;gap:2px;flex-wrap:wrap}
   .step-dot{font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--text-30);background:none;border:none;padding:10px 13px;cursor:pointer;transition:color .15s;white-space:nowrap;font-family:inherit}
   .step-dot:hover{color:var(--text-50)}
   .step-dot.active{color:var(--orange)}
+  .step-dot-label{font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--text-30);padding:10px 2px 10px 13px;white-space:nowrap}
   .narration-btn{position:relative}
   .narration-btn .ic-pause{display:none}
   .narration-btn.playing .ic-play{display:none}
@@ -106,6 +107,7 @@
     .beat-image{border-left:none;border-top:var(--panel-line-w) solid var(--panel-line)}
     .img-slot{min-height:240px}
     .step-dot{padding:8px 7px;font-size:9px}
+    .step-dot-label{padding:8px 2px 8px 7px;font-size:9px}
     .step-nav{padding:4px 14px 10px}
     .beat-nav-row{padding:10px 14px 2px}
   }
@@ -212,16 +214,22 @@
 
   <div class="nav-stack">
     <div class="beat-nav-row" aria-label="Chapter One parts">
+      <button type="button" class="step-nav-btn" id="prevBtn" aria-label="Previous part">&#8249;</button>
       <div class="step-nav-dots" id="stepDots">
-        <button type="button" class="step-dot active" data-goto="0">Part 1<span class="dot">.</span></button>
-        <button type="button" class="step-dot" data-goto="1">Part 2<span class="dot">.</span></button>
-        <button type="button" class="step-dot" data-goto="2">Part 3<span class="dot">.</span></button>
-        <button type="button" class="step-dot" data-goto="3">Part 4<span class="dot">.</span></button>
-        <button type="button" class="step-dot" data-goto="4">Part 5<span class="dot">.</span></button>
+        <span class="step-dot-label">Part<span class="dot">:</span></span>
+        <button type="button" class="step-dot active" data-goto="0">1</button>
+        <button type="button" class="step-dot" data-goto="1">2</button>
+        <button type="button" class="step-dot" data-goto="2">3</button>
+        <button type="button" class="step-dot" data-goto="3">4</button>
+        <button type="button" class="step-dot" data-goto="4">5</button>
       </div>
+      <button type="button" class="step-nav-btn narration-btn" id="narrationBtn" aria-label="Play narration for this part">
+        <svg class="ic-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="ic-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg>
+      </button>
+      <button type="button" class="step-nav-btn" id="nextBtn" aria-label="Next part">&#8250;</button>
     </div>
     <nav class="step-nav book-nav" aria-label="Book navigation">
-      <a class="step-nav-btn" href="/blur-to-blueprint.html#step-1" aria-label="Previous section">&#8249;</a>
       <div class="step-nav-dots">
         <a class="step-dot" href="/blur-to-blueprint.html#step-0">The Book<span class="dot">.</span></a>
         <a class="step-dot" href="/blur-to-blueprint.html#step-1">The Story<span class="dot">.</span></a>
@@ -229,11 +237,6 @@
         <a class="step-dot" href="/blur-to-blueprint.html#step-2">Contents<span class="dot">.</span></a>
         <a class="step-dot" href="/blur-to-blueprint.html#step-3">Join the List<span class="dot">.</span></a>
       </div>
-      <button type="button" class="step-nav-btn narration-btn" id="narrationBtn" aria-label="Play narration for this chapter">
-        <svg class="ic-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-        <svg class="ic-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg>
-      </button>
-      <a class="step-nav-btn" href="/blur-to-blueprint.html#step-2" aria-label="Next section">&#8250;</a>
     </nav>
   </div>
 
@@ -262,6 +265,8 @@
 var beats = Array.prototype.slice.call(document.querySelectorAll('.beat'));
 var dots = Array.prototype.slice.call(document.querySelectorAll('#stepDots .step-dot'));
 var beatEnd = document.getElementById('beatEnd');
+var prevBtn = document.getElementById('prevBtn');
+var nextBtn = document.getElementById('nextBtn');
 var current = 0;
 
 // Real per-Part narration recordings (2026-08-17).
@@ -279,6 +284,8 @@ function render() {
   beats.forEach(function(b, i){ b.classList.toggle('active', i === current); });
   dots.forEach(function(d, i){ d.classList.toggle('active', i === current); });
   beatEnd.classList.toggle('hidden', current !== beats.length - 1);
+  prevBtn.disabled = current === 0;
+  nextBtn.disabled = current === beats.length - 1;
 }
 
 function loadNarrationForCurrent(forcePlay) {
@@ -299,6 +306,8 @@ function goTo(i) {
 }
 
 dots.forEach(function(d){ d.addEventListener('click', function(){ goTo(parseInt(d.dataset.goto, 10)); }); });
+prevBtn.addEventListener('click', function(){ goTo(current - 1); });
+nextBtn.addEventListener('click', function(){ goTo(current + 1); });
 
 narrationBtn.addEventListener('click', function(){
   if (!audio.src) { loadNarrationForCurrent(true); return; }
@@ -313,4 +322,4 @@ render();
 </body>
 </html>
 
-<!-- build 2026-08-17T08:30Z v3.3: nav button order matches main page (dots between prev/narration, narration before next), footer added, matches blur-to-blueprint.html chrome -->
+<!-- build 2026-08-17T14:10Z v3.4: nav split per Sean - top row is Part:1-5 (truncated labels) with prev/play/next controls driving the story; second row is the plain book-wide link nav with no buttons -->
