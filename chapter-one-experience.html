@@ -239,7 +239,7 @@
   </div>
 </footer>
 
-<audio id="chapterAudio" preload="none" src="/audio/blur-to-blueprint/03.mp3"></audio>
+<audio id="chapterAudio" preload="none"></audio>
 
 <script>
 var beats = Array.prototype.slice.call(document.querySelectorAll('.beat'));
@@ -249,6 +249,17 @@ var nextBtn = document.getElementById('nextBtn');
 var beatEnd = document.getElementById('beatEnd');
 var current = 0;
 
+// Real per-Part narration recordings (2026-08-17).
+var partAudio = [
+  '/audio/blur-to-blueprint/part-1.mp3',
+  '/audio/blur-to-blueprint/part-2.mp3',
+  '/audio/blur-to-blueprint/part-3.mp3',
+  '/audio/blur-to-blueprint/part-4.mp3',
+  '/audio/blur-to-blueprint/part-5.mp3'
+];
+var audio = document.getElementById('chapterAudio');
+var narrationBtn = document.getElementById('narrationBtn');
+
 function render() {
   beats.forEach(function(b, i){ b.classList.toggle('active', i === current); });
   dots.forEach(function(d, i){ d.classList.toggle('active', i === current); });
@@ -257,9 +268,21 @@ function render() {
   beatEnd.classList.toggle('hidden', current !== beats.length - 1);
 }
 
+function loadNarrationForCurrent(forcePlay) {
+  var wasPlaying = forcePlay || !audio.paused;
+  audio.pause();
+  narrationBtn.classList.remove('playing');
+  audio.src = partAudio[current];
+  if (wasPlaying) {
+    audio.play();
+    narrationBtn.classList.add('playing');
+  }
+}
+
 function goTo(i) {
   current = Math.max(0, Math.min(beats.length - 1, i));
   render();
+  loadNarrationForCurrent();
 }
 
 prevBtn.addEventListener('click', function(){ goTo(current - 1); });
@@ -269,16 +292,14 @@ nextBtn.addEventListener('click', function(){
 });
 dots.forEach(function(d){ d.addEventListener('click', function(){ goTo(parseInt(d.dataset.goto, 10)); }); });
 
-// Single continuous narration track for the whole chapter (existing Chapter One
-// audio, reused here as-is — not yet re-cut per beat).
-var audio = document.getElementById('chapterAudio');
-var narrationBtn = document.getElementById('narrationBtn');
 narrationBtn.addEventListener('click', function(){
+  if (!audio.src) { loadNarrationForCurrent(true); return; }
   if (audio.paused) { audio.play(); narrationBtn.classList.add('playing'); }
   else { audio.pause(); narrationBtn.classList.remove('playing'); }
 });
 audio.addEventListener('ended', function(){ narrationBtn.classList.remove('playing'); });
 
+audio.src = partAudio[current];
 render();
 </script>
 </body>
