@@ -991,8 +991,8 @@
     if (e.key === 'Escape' && popup.classList.contains('open')) closePopup();
   });
 
-  var alreadyShown = false;
-  try { alreadyShown = sessionStorage.getItem(SESSION_KEY) === '1'; } catch(e){}
+  // Disabled per Sean 2026-08-17: auto-popup was competing with the real $11 offer CTA on this page.
+  var alreadyShown = true;
   if (!alreadyShown) {
     var pollId = setInterval(function(){
       if (findNewsCta()) clearInterval(pollId);
