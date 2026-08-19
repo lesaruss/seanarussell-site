@@ -191,6 +191,10 @@
   .toc-frame::-webkit-scrollbar{width:6px}
   .toc-frame::-webkit-scrollbar-thumb{background:var(--text-30)}
   .toc-scroll-hint{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--text-30);margin-top:12px;text-align:center}
+  .toc-part-page{display:none}
+  .toc-part-page.active{display:block}
+  .toc-part-nav{display:flex;align-items:center;gap:6px;margin-top:16px}
+  .toc-part-nav .step-nav-dots{flex:1;justify-content:center;flex-wrap:wrap}
   .toc-part-divider{font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);margin:26px 0 10px;padding-top:18px;border-top:1px solid var(--border)}
   .toc-part-divider:first-child{margin-top:0;padding-top:0;border-top:none}
   .toc-row{display:flex;gap:18px;padding:14px 0;border-bottom:1px solid var(--border)}
@@ -319,7 +323,8 @@
     <div class="cap tl">Table of contents<span class="dot">.</span></div>
     <p class="eyebrow">Inside the book</p>
     <h2>Twenty-seven chapters<span class="dot">.</span></h2>
-    <div class="toc-list toc-frame" id="tocFrame">
+    <div class="toc-frame" id="tocFrame">
+      <div class="toc-part-page active" data-toc-part="0">
       <div class="toc-part-divider">Part I - Seeing Without Seeing (Foundation)</div>
       <div class="toc-row">
         <div class="toc-row-num">01</div>
@@ -363,6 +368,8 @@
           <p class="toc-row-blurb">I was in a portable classroom, hot, a little cramped, desks slightly out of place. The substitute had lost control of the class.</p>
         </div>
       </div>
+      </div>
+      <div class="toc-part-page" data-toc-part="1">
       <div class="toc-part-divider">Part II - Building the Toolset (Formation)</div>
       <div class="toc-row">
         <div class="toc-row-num">07</div>
@@ -406,6 +413,8 @@
           <p class="toc-row-blurb">I remember seeing it on TV. Not in class, not on a school monitor. On the actual news. NBC. Something I created was airing for everyone.</p>
         </div>
       </div>
+      </div>
+      <div class="toc-part-page" data-toc-part="2">
       <div class="toc-part-divider">Part III - Work, Reality, and Repetition</div>
       <div class="toc-row">
         <div class="toc-row-num">13</div>
@@ -435,6 +444,8 @@
           <p class="toc-row-blurb">I remember handing the camera to a student for the first time. They hesitated. Held it like it didn&rsquo;t belong to them. So I told them: &ldquo;Just try something.&rdquo;</p>
         </div>
       </div>
+      </div>
+      <div class="toc-part-page" data-toc-part="3">
       <div class="toc-part-divider">Part IV - Systems, Scale, and Creation</div>
       <div class="toc-row">
         <div class="toc-row-num">17</div>
@@ -450,6 +461,8 @@
           <p class="toc-row-blurb">I didn&rsquo;t look like I belonged there. Long hair, rock shows, loud guitars. TopSpot USA didn&rsquo;t start as a brand. It started as a way in.</p>
         </div>
       </div>
+      </div>
+      <div class="toc-part-page" data-toc-part="4">
       <div class="toc-part-divider">Part V - Collapse and Reconstruction</div>
       <div class="toc-row">
         <div class="toc-row-num">19</div>
@@ -465,6 +478,8 @@
           <p class="toc-row-blurb">The first time I thought I was going to lose my job, I was still at Silver Ridge. The recession hit.</p>
         </div>
       </div>
+      </div>
+      <div class="toc-part-page" data-toc-part="5">
       <div class="toc-part-divider">Part VI - The Odyssey</div>
       <div class="toc-row">
         <div class="toc-row-num">21</div>
@@ -515,8 +530,20 @@
           <p class="toc-row-blurb">I was in the car, driving from Orlando to South Florida. Three hours and twenty-eight minutes. What mattered was what I did with the drive.</p>
         </div>
       </div>
+      </div>
     </div>
-    <p class="toc-scroll-hint">Scroll for more<span class="dot">.</span></p>
+    <div class="toc-part-nav" aria-label="Table of contents parts">
+      <button type="button" class="step-nav-btn" id="tocPartPrev" aria-label="Previous part" disabled>&#8249;</button>
+      <div class="step-nav-dots" id="tocPartDots">
+        <button type="button" class="step-dot active" data-toc-part="0">Part I</button>
+        <button type="button" class="step-dot" data-toc-part="1">Part II</button>
+        <button type="button" class="step-dot" data-toc-part="2">Part III</button>
+        <button type="button" class="step-dot" data-toc-part="3">Part IV</button>
+        <button type="button" class="step-dot" data-toc-part="4">Part V</button>
+        <button type="button" class="step-dot" data-toc-part="5">Part VI</button>
+      </div>
+      <button type="button" class="step-nav-btn" id="tocPartNext" aria-label="Next part">&#8250;</button>
+    </div>
   </article>
 </section>
 
@@ -856,6 +883,39 @@
   var hashMatch = /^#step-(\d+)$/.exec(location.hash);
   if (hashMatch) initial = clampStep(parseInt(hashMatch[1], 10));
   goToStep(initial, { skipScroll: true, pushHash: false });
+})();
+</script>
+<script>
+(function(){
+  var pages = Array.prototype.slice.call(document.querySelectorAll('.toc-part-page'));
+  var dots = Array.prototype.slice.call(document.querySelectorAll('#tocPartDots .step-dot'));
+  var prevBtn = document.getElementById('tocPartPrev');
+  var nextBtn = document.getElementById('tocPartNext');
+  var frame = document.getElementById('tocFrame');
+  if (!pages.length || !prevBtn || !nextBtn) return;
+  var total = pages.length;
+  var current = 0;
+
+  function render(){
+    pages.forEach(function(p, i){ p.classList.toggle('active', i === current); });
+    dots.forEach(function(d, i){ d.classList.toggle('active', i === current); });
+    prevBtn.disabled = (current === 0);
+    nextBtn.disabled = (current === total - 1);
+    if (frame) frame.scrollTop = 0;
+  }
+
+  function goTocPart(n){
+    current = Math.max(0, Math.min(total - 1, n));
+    render();
+  }
+
+  prevBtn.addEventListener('click', function(){ goTocPart(current - 1); });
+  nextBtn.addEventListener('click', function(){ goTocPart(current + 1); });
+  dots.forEach(function(d){
+    d.addEventListener('click', function(){ goTocPart(parseInt(d.getAttribute('data-toc-part'), 10)); });
+  });
+
+  render();
 })();
 </script>
 <script>
