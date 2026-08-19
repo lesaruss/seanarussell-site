@@ -187,6 +187,10 @@
   .video-module .vm-label{color:#fff;font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase}
   .video-module .vm-sub{color:rgba(255,255,255,.5);font-size:10px;margin-top:6px;letter-spacing:.08em;text-transform:uppercase}
   .toc-list{margin-top:8px}
+  .toc-frame{max-height:640px;overflow-y:auto;padding-right:16px;border-top:var(--panel-line-w) solid var(--panel-line);border-bottom:var(--panel-line-w) solid var(--panel-line)}
+  .toc-frame::-webkit-scrollbar{width:6px}
+  .toc-frame::-webkit-scrollbar-thumb{background:var(--text-30)}
+  .toc-scroll-hint{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--text-30);margin-top:12px;text-align:center}
   .toc-part-divider{font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);margin:26px 0 10px;padding-top:18px;border-top:1px solid var(--border)}
   .toc-part-divider:first-child{margin-top:0;padding-top:0;border-top:none}
   .toc-row{display:flex;gap:18px;padding:14px 0;border-bottom:1px solid var(--border)}
@@ -195,6 +199,7 @@
   .toc-row-blurb{font-size:13px;line-height:1.6;color:var(--text-50);max-width:640px}
   @media (max-width:980px){
     .chapter-one-grid{grid-template-columns:1fr}
+    .toc-frame{max-height:460px}
     .step-nav{padding:10px 14px}
     .step-dot{padding:8px 7px;font-size:9px}
   }
@@ -314,7 +319,7 @@
     <div class="cap tl">Table of contents<span class="dot">.</span></div>
     <p class="eyebrow">Inside the book</p>
     <h2>Twenty-seven chapters<span class="dot">.</span></h2>
-    <div class="toc-list">
+    <div class="toc-list toc-frame" id="tocFrame">
       <div class="toc-part-divider">Part I - Seeing Without Seeing (Foundation)</div>
       <div class="toc-row">
         <div class="toc-row-num">01</div>
@@ -511,6 +516,7 @@
         </div>
       </div>
     </div>
+    <p class="toc-scroll-hint">Scroll for more<span class="dot">.</span></p>
   </article>
 </section>
 
