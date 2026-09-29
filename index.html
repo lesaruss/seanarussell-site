@@ -289,6 +289,7 @@
     <a class="nav-link" href="consultant.html">Consultant</a>
     <a class="nav-link" href="press.html">Press</a>
     <a class="nav-link" href="pulse.html">Pulse</a>
+    <a class="nav-link" href="/dashboard" data-lr-member="lr_token">Log In</a>
   </nav>
   <a class="nav-enter" href="book.html">Book Sean</a>
   <button class="nav-hamburger" id="hamBtn" aria-label="Open navigation" aria-expanded="false">
@@ -306,6 +307,7 @@
   <a class="mobile-menu-link" href="consultant.html">Consultant</a>
   <a class="mobile-menu-link" href="press.html">Press</a>
   <a class="mobile-menu-link" href="pulse.html">Founder Pulse</a>
+  <a class="mobile-menu-link" href="/dashboard" data-lr-member="lr_token">Log In</a>
   <a class="mobile-menu-link book" href="book.html">Book Sean</a>
 </div>
 <div class="issue-bar">
@@ -563,5 +565,20 @@
   </div>
 </div>
 <script src="assets/js/contact-form.js"></script>
+<script>
+  // Front end -> dashboard (2026-09-29). Links marked data-lr-member read
+  // "Log In" and open the member dashboard, where members sign in; once this
+  // browser holds the member token they read "Dashboard" instead.
+  (function () {
+    try {
+      document.querySelectorAll('[data-lr-member]').forEach(function (a) {
+        if (localStorage.getItem(a.getAttribute('data-lr-member'))) {
+          a.textContent = 'Dashboard';
+          if (a.getAttribute('data-lr-member-href')) a.setAttribute('href', a.getAttribute('data-lr-member-href'));
+        }
+      });
+    } catch (e) {}
+  })();
+</script>
 </body>
 </html>

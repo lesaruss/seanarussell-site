@@ -34,6 +34,9 @@
   the book page is signed in here, and a member handed in from another brand
   through the universal bar (?lrsso=, redeemed into lr_token by
   data-lr-redeem below) is signed in on the book page too.
+  Members can also sign in right on this page (the form in #gate, added
+  2026-09-29): a member password via ve-auth, or a LESARUSS HQ account
+  traded for this site's token by lr-shell's `session` action.
 
   Everything brand-specific is in BRAND below, so another brand's dashboard
   starts from this file with that block changed.
@@ -146,6 +149,16 @@
   [hidden]{display:none !important;}
   #gate{text-align:center;padding:80px 20px;max-width:560px;margin:0 auto;}
   #gate p{font-size:15px;line-height:1.6;color:var(--text-75);margin:8px 0 22px;}
+  /* Sign-in on the dashboard itself (2026-09-29). */
+  .signin{display:grid;gap:6px;text-align:left;max-width:360px;margin:0 auto 14px;}
+  .signin label{font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-75);margin-top:8px;}
+  .signin input{font:inherit;font-size:16px;padding:11px 12px;border:1.5px solid var(--border);border-radius:8px;background:#fff;color:inherit;width:100%;box-sizing:border-box;}
+  .signin input:focus{outline:2px solid var(--brand);outline-offset:1px;border-color:var(--brand);}
+  .signin .btn{margin-top:14px;width:100%;}
+  .signin .btn[disabled]{opacity:0.6;cursor:wait;}
+  #gate p.si-error{color:#B42318;font-size:13.5px;font-weight:600;margin:8px 0 0;}
+  #gate p.si-help{font-size:13px;margin:6px 0;}
+  #gate p.si-help a{color:var(--brand);font-weight:700;}
   .tour-step{font-size:11px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent-ink);margin-bottom:6px;}
 </style>
 </head>
@@ -187,8 +200,18 @@
     <section id="gate" hidden>
       <p class="eyebrow">Sean A. Russell</p>
       <h1>Your dashboard<span class="dot">.</span></h1>
-      <p>Your dashboard opens with your LESARUSS account, the same one that unlocks your books. Sign in on your book access page, then come back here and you will already be signed in.</p>
-      <div class="row" style="justify-content:center"><a class="btn" href="/blur-to-blueprint-access">Sign in</a><a class="btn ghost" href="https://hq.lesaruss.ai/login">Sign in at LESARUSS HQ</a></div>
+      <p>Sign in with your LESARUSS member account, the same email and password you use across the LESARUSS brands.</p>
+      <form id="signin" class="signin" novalidate>
+        <label for="si-email">Email</label>
+        <input id="si-email" type="email" autocomplete="email" inputmode="email" required>
+        <label for="si-pass">Password</label>
+        <input id="si-pass" type="password" autocomplete="current-password" required>
+        <p class="si-error" id="si-error" role="alert" hidden></p>
+        <button class="btn" type="submit" id="si-submit">Sign in</button>
+      </form>
+      <p class="si-help"><a href="https://www.vegansexplore.com/forgot-password">Forgot your password?</a></p>
+      <p class="si-help">Bought one of Sean's books? <a href="/blur-to-blueprint-access">Open your book access</a> with the email you used at checkout.</p>
+      <p class="si-help">Already signed in at LESARUSS HQ? <a href="https://hq.lesaruss.ai/mission-control">Open HQ</a> and tap Sean A. Russell in the bar at the bottom to come straight back.</p>
     </section>
 
     <div id="content" hidden>
@@ -549,6 +572,51 @@
   if (window.LRUniversalBar) {
     LRUniversalBar.mount({ mount: document.getElementById('lr-dock-mount'), current: BRAND.slug, accent: BRAND.accent, getToken: getToken });
   }
+</script>
+<script>
+  // ---- Sign in right here (2026-09-29, "Connect the dashboards to their front ends") ----
+  // One form, both account kinds a LESARUSS member can hold:
+  //   1. a member password (ve-auth login, members.password_hash; most members)
+  //   2. a LESARUSS HQ account (Supabase Auth, the email + password HQ's /login
+  //      uses), traded for this site's token by lr-shell's `session` action.
+  // Either way the result is the same member token the rest of this page and
+  // the shared bar already read from localStorage[BRAND.tokenKey].
+  (function initSignIn() {
+    var form = document.getElementById('signin');
+    if (!form) return;
+    var err = document.getElementById('si-error'), btn = document.getElementById('si-submit');
+    function post(url, body) {
+      return fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + ANON_KEY, 'apikey': ANON_KEY },
+        body: JSON.stringify(body),
+      }).then(function (r) {
+        return r.json().catch(function () { return {}; }).then(function (d) { return { ok: r.ok, d: d || {} }; });
+      });
+    }
+    function fail(msg) { err.textContent = msg; err.hidden = false; btn.disabled = false; btn.textContent = 'Sign in'; }
+    function finish(token) { try { localStorage.setItem(BRAND.tokenKey, token); } catch (e) {} window.location.reload(); }
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var email = document.getElementById('si-email').value.trim().toLowerCase();
+      var pw = document.getElementById('si-pass').value;
+      if (!email || !pw) { fail('Enter your email and password.'); return; }
+      err.hidden = true; btn.disabled = true; btn.textContent = 'Signing in...';
+      post(SUPABASE_URL + '/functions/v1/ve-auth?action=login', { email: email, password: pw }).then(function (a) {
+        if (a.ok && a.d.token) { finish(a.d.token); return; }
+        return post(SUPABASE_URL + '/auth/v1/token?grant_type=password', { email: email, password: pw }).then(function (b) {
+          if (!(b.ok && b.d.access_token)) {
+            fail(a.d.error === 'Incorrect password.' ? 'That password did not match.' : (a.d.error || 'That email and password did not match.'));
+            return;
+          }
+          return post(SUPABASE_URL + '/functions/v1/lr-shell?action=session', { access_token: b.d.access_token, current: BRAND.slug }).then(function (s) {
+            if (s.ok && s.d.token) finish(s.d.token);
+            else fail(s.d.error || 'Could not open your dashboard. Try again.');
+          });
+        });
+      }).catch(function () { fail('Could not reach sign-in. Check your connection and try again.'); });
+    });
+  })();
 </script>
 </body>
 </html>
