@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<title>Unsubscribe. Sean A. Russell.</title>
+<link rel="canonical" href="https://seanarussell.com/unsubscribe">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#ffffff;--surface:#ffffff;--border:rgba(0,0,0,0.10);--text:#1a1a1a;--text-75:rgba(26,26,26,0.78);--text-60:rgba(26,26,26,0.66);
+        --accent-text:#9A5A00;--link:#9A5A00;--btn:#0d0d0d;--btn-hover:#2a2a2a;--btn-text:#ffffff}
+
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:'Montserrat',system-ui,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+  a{color:var(--link)}
+  .top{padding:20px 16px;border-bottom:1px solid var(--border);text-align:center}
+  .top a{font-weight:900;font-size:15px;letter-spacing:.14em;text-transform:uppercase;color:var(--text);text-decoration:none}
+  main{flex:1;display:flex;align-items:center;justify-content:center;padding:48px 16px}
+  .card{width:100%;max-width:520px;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:40px 36px}
+  .eyebrow{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.28em;color:var(--accent-text);margin-bottom:16px}
+  h1{font-size:clamp(24px,6vw,32px);font-weight:900;line-height:1.1;margin-bottom:16px}
+  p{font-size:15px;line-height:1.7;color:var(--text-75);margin-bottom:14px}
+  .who{font-weight:700;color:var(--text);overflow-wrap:anywhere}
+  .actions{margin-top:22px}
+  .btn{font-family:inherit;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:var(--btn-text);background:var(--btn);border:none;border-radius:8px;padding:15px 28px;min-height:44px;cursor:pointer}
+  .btn:hover{background:var(--btn-hover)}
+  .btn:disabled,.link-btn:disabled{opacity:.6;cursor:wait}
+  .link-btn{font-family:inherit;font-size:14px;font-weight:600;background:none;border:none;color:var(--link);text-decoration:underline;cursor:pointer;padding:8px 0;min-height:44px}
+  footer{border-top:1px solid var(--border);padding:22px 16px;text-align:center;font-size:12px;color:var(--text-60)}
+  @media (max-width:420px){.card{padding:30px 20px}.btn{width:100%}}
+</style>
+</head>
+<body>
+<header class="top"><a href="/">Sean A. Russell</a></header>
+<main>
+  <section class="card" aria-live="polite">
+    <p class="eyebrow">Email preferences</p>
+
+    <div id="st-loading">
+      <h1>One moment.</h1>
+      <p>Checking your link.</p>
+    </div>
+
+    <div id="st-confirm" hidden>
+      <h1>Unsubscribe?</h1>
+      <p>This will stop emails from <span class="who" data-list></span> to <span class="who" data-email></span>.</p>
+      <div class="actions">
+        <button type="button" class="btn" id="do-unsub">Unsubscribe</button>
+      </div>
+    </div>
+
+    <div id="st-done" hidden>
+      <h1>You&rsquo;re unsubscribed.</h1>
+      <p><span class="who" data-email></span> will not receive any more emails from <span class="who" data-list></span>.</p>
+      <p>Thank you for reading. Everything Sean is working on is always at <a href="/">seanarussell.com</a>.</p>
+      <div class="actions">
+        <button type="button" class="link-btn" id="do-resub">Changed your mind? Stay on the list</button>
+      </div>
+    </div>
+
+    <div id="st-resubbed" hidden>
+      <h1>You&rsquo;re back on the list.</h1>
+      <p><span class="who" data-email></span> will keep receiving emails from <span class="who" data-list></span>.</p>
+      <div class="actions">
+        <button type="button" class="link-btn" id="do-unsub-again">Unsubscribe instead</button>
+      </div>
+    </div>
+
+    <div id="st-error" hidden>
+      <h1>This link isn&rsquo;t working.</h1>
+      <p id="err-msg">The unsubscribe link may be incomplete. Try opening it again from the email, or use the unsubscribe option in your email app.</p>
+    </div>
+  </section>
+</main>
+<footer>LESARUSS Inc., 300 SW 1st Ave, Suite 155, Fort Lauderdale, FL 33301</footer>
+<script>
+(function(){
+  var API = 'https://fwbhwfxpncrsfhttimna.supabase.co/functions/v1/email-unsubscribe';
+  var token = new URLSearchParams(location.search).get('t');
+  var states = ['loading','confirm','done','resubbed','error'];
+
+  function show(name){
+    states.forEach(function(s){ document.getElementById('st-' + s).hidden = (s !== name); });
+  }
+  function fill(r){
+    document.querySelectorAll('[data-email]').forEach(function(el){ el.textContent = r.email_masked; });
+    document.querySelectorAll('[data-list]').forEach(function(el){ el.textContent = r.list_name; });
+  }
+  function call(action){
+    return fetch(API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ t: token, action: action })
+    }).then(function(res){ return res.json().then(function(j){ if (!res.ok || !j.ok) throw j; return j; }); });
+  }
+  function fail(){
+    document.getElementById('err-msg').textContent = 'Something went wrong on our end. Please try again in a moment, or use the unsubscribe option in your email app.';
+    show('error');
+  }
+  function run(action, btn){
+    if (btn) btn.disabled = true;
+    call(action).then(function(r){
+      fill(r);
+      show(r.unsubscribed ? 'done' : (action === 'resubscribe' ? 'resubbed' : 'confirm'));
+    }).catch(function(e){
+      if (e && e.error === 'invalid_link') show('error'); else fail();
+    }).then(function(){ if (btn) btn.disabled = false; });
+  }
+
+  if (!token) { show('error'); return; }
+  document.getElementById('do-unsub').addEventListener('click', function(){ run('unsubscribe', this); });
+  document.getElementById('do-unsub-again').addEventListener('click', function(){ run('unsubscribe', this); });
+  document.getElementById('do-resub').addEventListener('click', function(){ run('resubscribe', this); });
+  run('status');
+})();
+</script>
+</body>
+</html>
