@@ -43,41 +43,26 @@ export default async function handler(req, res) {
     console.error('inbound-lead fetch error:', err.message);
   }
 
-  // Also subscribe to Beehiiv newsletter (secondary — captures email for list)
-  const KEY = process.env.BEEHIIV_API_KEY;
-  const PUB = process.env.BEEHIIV_PUBLICATION_ID;
-  if (KEY && PUB) {
-    const isBooking = source === 'booking' || (source && source.startsWith('booking'));
-    const utmSource = isBooking ? 'sar-booking' : 'sar-newsletter';
-    const TAG_UNIVERSE  = '03738f37-bba0-4bb4-ac9a-d286e97354ba';
-    const TAG_NEWSLETTER = '60c48efd-255b-4062-b0c9-554b34c146a8';
-    const TAG_BOOKING   = '2a4bead6-ce49-4f5b-9691-a84f0f2958cd';
-    try {
-      const resp = await fetch('https://api.beehiiv.com/v2/publications/' + PUB + '/subscriptions', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + KEY },
-        body: JSON.stringify({
-          email,
-          reactivate_existing: true,
-          send_welcome_email: false,
-          utm_source: utmSource,
-          utm_medium: 'organic',
-          utm_campaign: 'seanarussell-site'
-        })
-      });
-      let subId = null;
-      try { const d = await resp.json(); subId = d && d.data && d.data.id; } catch (e) {}
-      if (subId) {
-        const tagIds = isBooking ? [TAG_UNIVERSE, TAG_BOOKING] : [TAG_UNIVERSE, TAG_NEWSLETTER];
-        await fetch('https://api.beehiiv.com/v2/publications/' + PUB + '/subscriptions/' + subId + '/tags', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + KEY },
-          body: JSON.stringify({ tag_ids: tagIds })
-        });
-      }
-    } catch (err) {
-      console.error('Beehiiv error', err.message);
-    }
+  // Also add them to the LESARUSS Pulse list (the LESARUSS email system's
+  // email-subscribe endpoint, which replaced Beehiiv). It is idempotent,
+  // holds bot-looking signups for review, and never re-adds anyone who
+  // unsubscribed. A failure here never fails the form.
+  const isBooking = source === 'booking' || (source && source.startsWith('booking'));
+  try {
+    const subRes = await fetch('https://fwbhwfxpncrsfhttimna.supabase.co/functions/v1/email-subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-Signup-Ip': String(req.headers['x-forwarded-for'] || '').split(',')[0].trim() },
+      body: JSON.stringify({
+        list: 'lesaruss-pulse',
+        email,
+        name: body.name || null,
+        source: isBooking ? 'sar-booking' : 'sar-newsletter',
+        source_detail: 'seanarussell.com ' + source,
+      })
+    });
+    if (!subRes.ok) console.error('email-subscribe error:', subRes.status, await subRes.text().catch(() => ''));
+  } catch (err) {
+    console.error('email-subscribe fetch error:', err.message);
   }
 
   return res.status(200).json({ ok: true });
