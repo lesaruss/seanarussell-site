@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <script src="/analytics.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Case Studies. Sean A. Russell.</title>
+<meta name="description" content="Case studies from every project Sean A. Russell built, read live from lesaruss.com.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0d0d0d;--surface:#111111;--surface2:#161616;
+    --border:rgba(255,255,255,0.07);
+    --text:#ffffff;--text-75:rgba(255,255,255,0.75);--text-50:rgba(255,255,255,0.50);--text-30:rgba(255,255,255,0.30);
+    --orange:#F69820;
+    --panel-line:var(--text);--panel-line-w:1.5px;
+    --gutter:14px;
+    --nav-bg:rgba(13,13,13,0.96);
+  }
+  html[data-theme="light"]{
+    --bg:#ffffff;--surface:#ffffff;--surface2:#fafafa;
+    --border:rgba(0,0,0,0.08);
+    --text:#1a1a1a;--text-75:rgba(26,26,26,0.78);--text-50:rgba(26,26,26,0.55);--text-30:rgba(26,26,26,0.35);
+    --orange:#F69820;
+    --panel-line:#0d0d0d;
+    --nav-bg:rgba(255,255,255,0.96);
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:'Montserrat',Arial,Helvetica,sans-serif;overflow-x:hidden;transition:background .25s ease,color .25s ease}
+  a{text-decoration:none;color:inherit}
+  img,svg{display:block;max-width:100%}
+  button{font-family:inherit}
+  :focus-visible{outline:3px solid var(--orange);outline-offset:3px}
+  @media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
+
+  .dot{color:var(--orange);display:inline-block;margin-left:0.06em;animation:dotPulse 2s ease-in-out infinite}
+  @keyframes dotPulse{0%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(1.3)}100%{opacity:1;transform:scale(1)}}
+
+  /* Nav */
+  .nav{position:fixed;top:0;left:0;right:0;z-index:200;height:62px;display:flex;align-items:center;padding:0 28px;background:var(--nav-bg);border-bottom:1px solid var(--border);backdrop-filter:blur(10px)}
+  .nav-brand{font-size:17px;font-weight:900;text-transform:uppercase;letter-spacing:.05em;flex-shrink:0;margin-right:36px}
+  .nav-links{display:flex;align-items:center;gap:4px;flex:1}
+  .nav-link{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.13em;color:var(--text-50);padding:6px 12px;background:none;border:none;cursor:pointer;transition:color .18s;white-space:nowrap;flex-shrink:0}
+  .nav-link:hover{color:var(--text)}
+  .nav-link.active{color:var(--orange)}
+  .nav-enter{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.14em;color:#0d0d0d;background:var(--orange);padding:9px 20px;border:none;cursor:pointer;flex-shrink:0}
+  .nav-enter:hover{background:var(--text);color:var(--bg)}
+
+  /* Hamburger + mobile menu */
+  .nav-hamburger{display:none;flex-direction:column;justify-content:center;align-items:center;width:40px;height:40px;background:none;border:none;cursor:pointer;gap:5px;padding:0;margin-left:auto;flex-shrink:0}
+  .nav-hamburger span{display:block;width:22px;height:2px;background:var(--text);transition:transform .22s,opacity .22s}
+  .nav-hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .nav-hamburger.open span:nth-child(2){opacity:0}
+  .nav-hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  .mobile-menu{display:none;position:fixed;top:62px;left:0;right:0;bottom:0;background:var(--nav-bg);z-index:199;padding:28px 24px;overflow-y:auto;border-top:1px solid var(--border)}
+  .mobile-menu.open{display:block}
+  .mobile-menu-section{font-size:10px;font-weight:800;letter-spacing:.28em;text-transform:uppercase;color:var(--text-30);padding:22px 0 10px}
+  .mobile-menu-section:first-child{padding-top:8px}
+  .mobile-menu-link{display:block;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.13em;color:var(--text-50);padding:15px 0;border-bottom:1px solid var(--border);transition:color .15s}
+  .mobile-menu-link:hover{color:var(--orange)}
+  .mobile-menu-link.book{color:var(--orange);font-weight:900}
+  .nav-dropdown{position:relative;display:inline-flex;align-items:center}
+  .nav-dropdown-trigger{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.13em;color:var(--text-50);padding:6px 12px;background:none;border:none;cursor:pointer;display:flex;align-items:center;gap:5px;white-space:nowrap;flex-shrink:0;font-family:inherit;transition:color .18s}
+  .nav-dropdown-trigger:hover,.nav-dropdown:hover .nav-dropdown-trigger{color:var(--text)}
+  .nav-dropdown-menu{position:absolute;top:100%;left:0;background:var(--nav-bg);border:1px solid var(--border);backdrop-filter:blur(10px);min-width:150px;padding:4px 0 6px;display:none;z-index:300}
+  .nav-dropdown:hover .nav-dropdown-menu,.nav-dropdown:focus-within .nav-dropdown-menu{display:block}
+  .nav-dropdown-item{display:block;padding:9px 16px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.13em;color:var(--text-50);transition:color .15s}
+  .nav-dropdown-item:hover{color:var(--orange)}
+  .nav-dropdown-trigger .chevron{font-size:9px;line-height:1;transition:transform .18s;display:inline-block}
+  .nav-dropdown:hover .chevron{transform:rotate(180deg)}
+  @media(max-width:980px){.nav-links{display:none}.nav-enter{display:none}.nav-hamburger{display:flex}}
+
+  /* Issue bar */
+  .issue-bar{position:relative;display:flex;align-items:center;gap:18px;padding:10px 28px;border-bottom:1px solid var(--border);font-size:10px;font-weight:800;letter-spacing:.32em;text-transform:uppercase;color:var(--text-50);margin-top:62px}
+  .issue-bar .pulse{width:8px;height:8px;border-radius:50%;background:var(--orange);animation:dotPulse 2s ease-in-out infinite;flex-shrink:0}
+  .issue-bar span.title{color:var(--text)}
+  .issue-bar .right{margin-left:auto;color:var(--text-30)}
+
+
+
+  @media(max-width:980px){.nav-links{display:none}.nav-enter{display:none}.nav-hamburger{display:flex}}
+  .wrap{padding:0 28px}
+  @media(max-width:640px){.wrap{padding:0 16px}}
+  .hero{padding:48px 0 28px;border-bottom:1px solid var(--border);margin-bottom:28px}
+  .hero h1{font-size:clamp(40px,7vw,84px);font-weight:900;text-transform:uppercase;letter-spacing:-.03em;line-height:.95;margin:10px 0 18px}
+  .hero h1 em{font-style:normal;color:var(--orange)}
+  .hero .lede{font-size:15px;line-height:1.85;color:var(--text-75);max-width:62ch}
+  .eyebrow{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.32em;color:var(--orange)}
+  main{padding-bottom:80px}
+
+
+  .people-link{margin-top:40px;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.12em}
+  .people-link a{color:var(--orange)}
+
+  /* Loading / empty */
+  .state-msg{padding:80px 28px;text-align:center;font-size:13px;font-weight:400;color:var(--text-50)}
+
+  /* Footer */
+  footer{background:var(--surface2);border-top:1px solid var(--border);padding:48px 28px 32px}
+  footer .fw{font-size:18px;font-weight:900;text-transform:uppercase;letter-spacing:.05em;margin-bottom:20px}
+  footer .flinks{display:flex;flex-wrap:wrap;gap:20px;margin-bottom:24px}
+  footer .flink{font-size:11px;font-weight:600;letter-spacing:.10em;text-transform:uppercase;color:var(--text-50)}
+  footer .flink:hover{color:var(--text)}
+  footer .fcopy{font-size:10px;color:var(--text-30)}
+
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <a class="nav-brand" href="index.html">Sean A<span class="dot">.</span> Russell</a>
+  <nav class="nav-links" aria-label="Primary">
+    <div class="nav-dropdown">
+      <button class="nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false">Talents <span class="chevron" aria-hidden="true">▾</span></button>
+      <div class="nav-dropdown-menu" role="menu">
+        <a class="nav-dropdown-item" href="author.html" role="menuitem">Author</a>
+        <a class="nav-dropdown-item" href="producer.html" role="menuitem">Producer</a>
+        <a class="nav-dropdown-item" href="speaker.html" role="menuitem">Speaker + Host</a>
+        <a class="nav-dropdown-item" href="on-camera.html" role="menuitem">On Camera</a>
+      </div>
+    </div>
+    <a class="nav-link" href="experience.html">Experience</a>
+    <a class="nav-link" href="consultant.html">Consultant</a>
+    <a class="nav-link" href="press.html">Press</a>
+    <a class="nav-link active" href="case-studies.html" aria-current="page">Case Studies</a>
+      <a class="nav-link" href="pulse.html">Pulse</a>
+    <a class="nav-link" href="/dashboard" data-lr-member="lr_token">Log In</a>
+  </nav>
+  <a class="nav-enter" href="book.html">Book Sean</a>
+  <button class="nav-hamburger" id="hamBtn" aria-label="Open navigation" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <div class="mobile-menu-section">Talents</div>
+  <a class="mobile-menu-link" href="author.html">Author</a>
+  <a class="mobile-menu-link" href="producer.html">Producer</a>
+  <a class="mobile-menu-link" href="speaker.html">Speaker + Host</a>
+  <a class="mobile-menu-link" href="on-camera.html">On Camera</a>
+  <div class="mobile-menu-section">Navigate</div>
+  <a class="mobile-menu-link" href="experience.html">Experience</a>
+  <a class="mobile-menu-link" href="consultant.html">Consultant</a>
+  <a class="mobile-menu-link" href="press.html">Press</a>
+  <a class="mobile-menu-link" href="case-studies.html">Case Studies</a>
+  <a class="mobile-menu-link" href="people.html">People</a>
+  <a class="mobile-menu-link" href="pulse.html">Founder Pulse</a>
+  <a class="mobile-menu-link" href="/dashboard" data-lr-member="lr_token">Log In</a>
+  <a class="mobile-menu-link book" href="book.html">Book Sean</a>
+</div>
+
+<div class="issue-bar" aria-hidden="true">
+  <span class="pulse"></span>
+  <span class="title">Case Studies</span>
+  <span>Built by Sean A. Russell</span>
+</div>
+
+<main class="wrap">
+  <header class="hero">
+    <p class="eyebrow">The Work</p>
+    <h1>Case <em>Studies</em><span class="dot">.</span></h1>
+    <p class="lede">Every project Sean A. Russell built, across every brand. Each card opens the full story on lesaruss.com.</p>
+  </header>
+
+  <!-- Playbook case-study-publishing: these cards are read live from the
+       case_studies rows through lesaruss.com/api/case-studies. Nothing here is
+       copied; publishing or correcting a story on lesaruss.com updates this page. -->
+  <section data-lr-cs-section hidden aria-label="Case studies">
+    <div data-lr-case-studies data-filter="true"></div>
+  </section>
+  <p class="state-msg" id="cs-empty">New stories are on the way. <a href="https://lesaruss.com/case-studies" style="color:var(--orange);font-weight:700">See the case studies on lesaruss.com</a>.</p>
+
+  <p class="people-link"><a href="people.html">The people Sean has interviewed on Top Spot USA &rarr;</a></p>
+</main>
+
+<footer>
+  <div>
+    <div class="fw">Sean A<span class="dot">.</span> Russell</div>
+    <div class="flinks">
+      <a href="author.html" class="flink">Author</a>
+      <a href="producer.html" class="flink">Producer</a>
+      <a href="speaker.html" class="flink">Speaker + Host</a>
+      <a href="on-camera.html" class="flink">On Camera</a>
+      <a href="experience.html" class="flink">Experience</a>
+      <a href="consultant.html" class="flink">Consultant</a>
+      <a href="press.html" class="flink">Press</a>
+      <a href="case-studies.html" class="flink">Case Studies</a>
+      <a href="people.html" class="flink">People</a>
+      <a href="booking.html" class="flink">Book Sean</a>
+    </div>
+    <p class="fcopy">&copy; 2026 Sean A. Russell. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  const hamBtn = document.getElementById('hamBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  if (hamBtn) {
+    hamBtn.addEventListener('click', () => {
+      const open = mobileMenu.classList.toggle('open');
+      hamBtn.classList.toggle('open', open);
+      hamBtn.setAttribute('aria-expanded', open);
+      mobileMenu.setAttribute('aria-hidden', !open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    });
+  }
+</script>
+<script src="https://lesaruss.com/embed/case-studies.js" defer></script>
+<script>
+  // Hide the fallback line once the shared embed has shown at least one card.
+  (function(){
+    var section=document.querySelector('[data-lr-cs-section]');
+    var empty=document.getElementById('cs-empty');
+    new MutationObserver(function(){ if(!section.hidden) empty.hidden=true; })
+      .observe(section,{attributes:true,attributeFilter:['hidden']});
+  })();
+</script>
+</body>
+</html>
