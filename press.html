@@ -70,7 +70,7 @@
   .nav-dropdown-item:hover{color:var(--orange)}
   .nav-dropdown-trigger .chevron{font-size:9px;line-height:1;transition:transform .18s;display:inline-block}
   .nav-dropdown:hover .chevron{transform:rotate(180deg)}
-  @media(max-width:768px){.nav-links{display:none}}
+  @media(max-width:980px){.nav-links{display:none}.nav-enter{display:none}.nav-hamburger{display:flex}}
 
   /* Issue bar */
   .issue-bar{position:relative;display:flex;align-items:center;gap:18px;padding:10px 28px;border-bottom:1px solid var(--border);font-size:10px;font-weight:800;letter-spacing:.32em;text-transform:uppercase;color:var(--text-50);margin-top:62px}
@@ -171,8 +171,12 @@
     <a class="nav-link" href="experience.html">Experience</a>
     <a class="nav-link" href="consultant.html">Consultant</a>
     <a class="nav-link active" href="press.html">Press</a>
+    <a class="nav-link" href="case-studies.html">Case Studies</a>
   </nav>
   <a class="nav-enter" href="booking.html">Book Sean</a>
+  <button class="nav-hamburger" id="hamBtn" aria-label="Open navigation" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
 </header>
 <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
   <div class="mobile-menu-section">Talents</div>
@@ -184,6 +188,7 @@
   <a class="mobile-menu-link" href="experience.html">Experience</a>
   <a class="mobile-menu-link" href="consultant.html">Consultant</a>
   <a class="mobile-menu-link" href="press.html">Press</a>
+  <a class="mobile-menu-link" href="case-studies.html">Case Studies</a>
   <a class="mobile-menu-link book" href="book.html">Book Sean</a>
 </div>
 
@@ -204,7 +209,7 @@
     <div class="press-hero-copy">
       <p class="eyebrow">LESARUSS Production House</p>
       <h1>Press <em>&amp;</em><br>Media<span class="dot">.</span></h1>
-      <p class="lede">Television, print, podcast, and digital coverage of Sean A. Russell spanning 25+ years across South Florida, national networks, and the global Vegan movement.</p>
+      <p class="lede">Television, print, podcast, and digital coverage of Sean A. Russell spanning thirty years across South Florida, national networks, and the global Vegan movement.</p>
     </div>
   </div>
 </div>
