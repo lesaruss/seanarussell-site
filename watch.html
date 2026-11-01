@@ -46,8 +46,25 @@
   .facts{display:flex;flex-wrap:wrap;gap:6px}
   .fact{font-weight:700;font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:6px 9px;border-radius:6px;background:rgba(255,255,255,.1);color:#fff}
   .fact.on{background:var(--orange);color:#1a1a1a}
-  .crumb{font-size:12.5px;font-weight:700;color:var(--ink2);padding-top:16px}
-  .crumb a{color:var(--orange-ink);text-decoration:none}.crumb a:hover{text-decoration:underline}
+  /* A show's header and sections follow a Vegans Explore listing page (vegansexplore.com directory/listing.html): the path in
+     the header, pill badges, then About, Listen on (square icons) and Episodes. The header stays black until Sean picks a
+     background (2026-11-01: "leave it black for now, but I do want to put something there"). */
+  .path{font-weight:800;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.7)}
+  .path a{color:var(--orange);text-decoration:none}.path a:hover{text-decoration:underline}
+  .pill{font-weight:800;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;padding:5px 12px;border-radius:999px;background:var(--orange);color:#1a1a1a}
+  .pill.line{background:none;border:1.5px solid var(--orange);color:var(--orange)}
+  .pill.dim{background:none;border:1.5px solid rgba(255,255,255,.35);color:rgba(255,255,255,.85)}
+  .sec{margin:0 0 26px}
+  .sec-t{font-size:12px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--ink2);margin:0 0 14px;padding-bottom:10px;border-bottom:2px solid var(--orange-wash)}
+  .icons{display:flex;flex-wrap:wrap;gap:12px}
+  .icon{display:flex;flex-direction:column;align-items:center;gap:6px;width:76px;text-decoration:none;color:var(--ink)}
+  .icon span{width:56px;height:56px;border-radius:12px;display:flex;align-items:center;justify-content:center;border:1px solid var(--hair);background:#fff;transition:.15s}
+  .icon span img{width:28px;height:28px}
+  .icon:hover span{border-color:var(--orange);transform:translateY(-1px)}
+  .icon:focus-visible{outline:3px solid var(--orange);outline-offset:3px;border-radius:12px}
+  .icon small{font-size:10.5px;font-weight:700;text-align:center;line-height:1.25;color:var(--ink2)}
+  /* The player sits above the episodes and changes with each Play (Vegans Explore's .vep-dock[data-vep-always]). */
+  #vep-player.docked{border-color:var(--orange) !important}
   .body{padding-block:22px 56px}
   .vear-layout{--ve-nav-h:var(--navh,0px)}
   h2{font-weight:900;font-size:18px;text-transform:uppercase;letter-spacing:.02em;margin:0 0 12px}
@@ -63,13 +80,9 @@
   .tile:focus-visible{outline:3px solid var(--orange);outline-offset:3px}
   .badge{position:absolute;left:8px;top:8px;font:800 10px/1 var(--font);letter-spacing:.1em;text-transform:uppercase;padding:6px 7px;border-radius:6px;background:rgba(0,0,0,.72);color:#fff}
   .net{grid-template-columns:1fr}
-  .about{max-width:72ch;margin:0 0 18px;color:var(--ink2);white-space:pre-line}
+  .about{max-width:72ch;margin:0 0 12px;color:var(--ink2);white-space:pre-line}
   .about.clip{display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
-  .more{background:none;border:0;padding:0;font:800 11px/1 var(--font);letter-spacing:.1em;text-transform:uppercase;color:var(--orange-ink);cursor:pointer;margin:-8px 0 18px}
-  .listen{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 24px}
-  .listen span{font-weight:800;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3)}
-  .listen a{font:700 12px/1 var(--font);padding:9px 11px;border:1.5px solid var(--line);border-radius:6px;text-decoration:none;color:var(--ink)}
-  .listen a:hover{background:var(--orange-wash)}
+  .more{background:none;border:0;padding:0;font:800 11px/1 var(--font);letter-spacing:.1em;text-transform:uppercase;color:var(--orange-ink);cursor:pointer;margin:0}
   .muted{color:var(--ink3);font-style:italic}
   /* The video show: the player up top, every video under it (Brooke Sellers' series pages). */
   .player{display:grid;grid-template-columns:minmax(0,1fr);gap:10px;margin-bottom:26px}
@@ -91,6 +104,7 @@
   .vid[aria-current=true] .th{outline:3px solid var(--orange);outline-offset:-3px}
   .vid:hover b{text-decoration:underline}
   .vid:focus-visible{outline:3px solid var(--orange);outline-offset:3px}
+  .vcount{margin:0 0 12px;font-size:12.5px;font-weight:700;color:var(--ink2)}
   .showall{margin-top:20px;display:flex;justify-content:center}
   footer{border-top:1px solid var(--hair);padding-block:22px;font-size:12px;color:var(--ink3)}
   /* Vegans Explore's player, in Sean's colors. */
@@ -120,7 +134,6 @@
   <span class="eyebrow">Watch and listen</span>
   <h1>Loading</h1>
 </section>
-<div class="crumb wrap" id="crumb" hidden></div>
 <div class="body wrap">
   <div class="vear-layout">
     <main class="vear-main" id="main"><p class="muted">Loading.</p></main>
@@ -136,7 +149,7 @@
   // Sean's credits for a network as a whole, where he gave them that way (Top Spot USA, 2026-10-31). A show's own roles live on
   // the show (sar_watch_shows.roles).
   var NET_ROLES = { 'top-spot-usa': ['Co-founder', 'Executive Producer', 'Producer', 'Host', 'Editor', 'Videographer', 'Writer'] };
-  var head = document.getElementById('head'), main = document.getElementById('main'), crumb = document.getElementById('crumb');
+  var head = document.getElementById('head'), main = document.getElementById('main');
 
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
   function fn(name, action, body) {
@@ -160,10 +173,6 @@
   function setHead(html, art, wide) {
     head.className = 'head wrap' + (art ? ' withart' : '');
     head.innerHTML = (art ? '<img class="art' + (wide ? ' wide' : '') + '" src="' + esc(art) + '" alt="">' : '') + '<div>' + html + '</div>';
-  }
-  function setCrumb(parts) {
-    crumb.hidden = !parts; if (!parts) return;
-    crumb.innerHTML = parts.map(function (p) { return p[1] ? '<a href="' + esc(p[1]) + '">' + esc(p[0]) + '</a>' : '<span>' + esc(p[0]) + '</span>'; }).join(' / ');
   }
   function notFound(what) {
     setHead('<span class="eyebrow">Watch and listen</span><h1>Not found</h1>');
@@ -196,9 +205,8 @@
       if (!d || !d.network) return notFound('network');
       var n = d.network, shows = d.shows || [], roles = NET_ROLES[n.slug];
       document.title = n.name + '. Watch. Sean A. Russell.';
-      setHead('<span class="eyebrow"><a href="/watch">Watch and listen</a></span><h1>' + esc(n.name) + '</h1>' + (n.tagline ? '<p>' + esc(n.tagline) + '</p>' : '') +
+      setHead('<span class="path"><a href="/watch">Watch</a> / ' + esc(n.name) + '</span><h1>' + esc(n.name) + '</h1>' + (n.tagline ? '<p>' + esc(n.tagline) + '</p>' : '') +
         (roles ? '<div class="facts">' + roles.map(function (r) { return '<span class="fact">' + esc(r) + '</span>'; }).join('') + '</div>' : ''), n.logo, true);
-      setCrumb([['Watch', '/watch'], [n.name]]);
       main.innerHTML = '<h2>' + esc(plural(shows.length, 'show', 'shows')) + '</h2><div class="tiles">' + shows.map(function (s) {
         return '<a class="tile" href="/watch/' + esc(n.slug) + '/' + esc(s.slug) + '"><div class="th">' + thumb(s.cover, s.name) +
           '<span class="badge">' + (s.kind === 'podcast' ? 'Podcast' : 'Video') + '</span></div>' +
@@ -213,15 +221,20 @@
       if (!d || !d.show || !d.network || d.network.slug !== net) return notFound('show');
       var s = d.show, n = d.network;
       document.title = s.name + '. ' + n.name + '. Sean A. Russell.';
-      var facts = [s.kind === 'podcast' ? 'Podcast' : 'Video', count(s), status(s), s.latest ? 'Latest ' + when(s.latest) : ''].filter(Boolean);
-      setHead('<span class="eyebrow"><a href="/watch/' + esc(n.slug) + '">' + esc(n.name) + '</a></span><h1>' + esc(s.name) + '</h1>' +
-        '<div class="facts">' + facts.map(function (f) { return '<span class="fact' + (f === 'Active' ? ' on' : '') + '">' + esc(f) + '</span>'; }).join('') + '</div>' +
+      var pills = '<span class="pill">' + (s.kind === 'podcast' ? 'Podcast' : 'Video') + '</span>' +
+        (s.active == null ? '' : '<span class="pill ' + (s.active ? '' : 'line') + '">' + (s.active ? 'Active' : 'On hiatus') + '</span>') +
+        (count(s) ? '<span class="pill dim">' + esc(count(s)) + '</span>' : '') + (s.latest ? '<span class="pill dim">Latest ' + esc(when(s.latest)) + '</span>' : '');
+      setHead('<span class="path"><a href="/watch">Watch</a> / <a href="/watch/' + esc(n.slug) + '">' + esc(n.name) + '</a> / ' + esc(s.name) + '</span>' +
+        '<h1>' + esc(s.name) + '</h1><div class="facts">' + pills + '</div>' +
         (s.roles && s.roles.length ? '<p>Sean: ' + esc(s.roles.join(', ')) + '</p>' : ''), s.cover, s.kind !== 'podcast');
-      setCrumb([['Watch', '/watch'], [n.name, '/watch/' + n.slug], [s.name]]);
-      main.innerHTML = (s.about ? '<p class="about clip" id="about">' + esc(s.about) + '</p><button class="more" type="button" id="more" hidden>Read more</button>' : '') +
-        (s.listen_on && s.listen_on.length ? '<div class="listen"><span>' + (s.kind === 'podcast' ? 'Listen on' : 'Watch on') + '</span>' +
-          s.listen_on.map(function (l) { return '<a href="' + esc(l.url) + '" target="_blank" rel="noopener">' + esc(l.label) + '</a>'; }).join('') + '</div>' : '') +
-        '<div id="eps"><p class="muted">Loading the episodes.</p></div>';
+      var ICON = { 'Website': 'website', 'Spotify': 'spotify', 'Apple Podcasts': 'apple-podcasts', 'Amazon Music': 'amazon-music', 'YouTube': 'youtube', 'RSS feed': 'rss' };
+      main.innerHTML = (s.about ? '<div class="sec"><h2 class="sec-t">About</h2><p class="about clip" id="about">' + esc(s.about) + '</p><button class="more" type="button" id="more" hidden>Read more</button></div>' : '') +
+        (s.listen_on && s.listen_on.length ? '<div class="sec"><h2 class="sec-t">' + (s.kind === 'podcast' ? 'Listen on' : 'Watch on') + '</h2><div class="icons">' +
+          s.listen_on.map(function (l) {
+            return '<a class="icon" href="' + esc(l.url) + '" target="_blank" rel="noopener" aria-label="' + esc(l.label) + '"><span><img src="/assets/img/platforms/' + (ICON[l.label] || 'website') + '.svg" alt="" width="28" height="28"></span><small>' + esc(l.label) + '</small></a>';
+          }).join('') + '</div></div>' : '') +
+        '<div class="sec"><h2 class="sec-t">' + (s.kind === 'podcast' ? 'Episodes' : 'Videos') + '</h2>' + (s.kind === 'podcast' ? '<div class="vep-dock" data-vep-always></div>' : '') +
+        '<div id="eps"><p class="muted">Loading the episodes.</p></div></div>';
       var ab = document.getElementById('about'), more = document.getElementById('more');
       if (ab && ab.scrollHeight > ab.clientHeight + 2) { more.hidden = false; more.onclick = function () { ab.classList.remove('clip'); more.hidden = true; }; }
       var box = document.getElementById('eps');
@@ -280,7 +293,7 @@
     function draw() {
       var shown = open ? list : list.slice(0, SHOW);
       box.innerHTML = '<div class="player" id="player">' + playerHtml(cur, false) + '</div>' +
-        '<h2>' + esc(plural(total || list.length, 'video', 'videos')) + '</h2><div class="vids">' + shown.map(card).join('') + '</div>' +
+        '<p class="vcount">' + esc(plural(total || list.length, 'video', 'videos')) + '</p><div class="vids">' + shown.map(card).join('') + '</div>' +
         (!open && list.length > SHOW ? '<div class="showall"><button type="button" class="btn ghost" id="all">Show all ' + list.length + ' videos</button></div>' : '');
       wire();
     }
