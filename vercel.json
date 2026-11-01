@@ -2,6 +2,7 @@
   "cleanUrls": true,
   "rewrites": [
     { "source": "/kits/:slug", "destination": "/kit-page" },
-    { "source": "/watch/manage", "destination": "/watch-manage" }
+    { "source": "/watch/manage", "destination": "/watch-manage" },
+    { "source": "/directory/:slug", "destination": "/directory-profile" }
   ]
 }

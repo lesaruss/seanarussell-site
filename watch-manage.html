@@ -83,6 +83,7 @@
   <a class="brand" href="/">Sean A<span>.</span> Russell</a>
   <nav aria-label="Primary">
     <a href="/watch">Watch</a>
+    <a href="/directory">Directory</a>
     <a href="/watch/manage#featured">Picker</a>
     <a href="/kits">Media Kits</a>
     <a href="/dashboard">Dashboard</a>
@@ -117,6 +118,25 @@
   function sources() {
     if (SOURCES) return Promise.resolve(SOURCES);
     return call('sources').then(function (r) { SOURCES = (r.body && r.body.sources) || []; return SOURCES; });
+  }
+  // Directory profiles a clip can also show on (sar-directory list, owner view).
+  var DIRFN = 'https://fwbhwfxpncrsfhttimna.supabase.co/functions/v1/sar-directory', DIRL = null;
+  function dirList() {
+    if (DIRL) return Promise.resolve(DIRL);
+    return fetch(DIRFN + '?action=list', { method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + ANON, 'apikey': ANON }, body: JSON.stringify({ token: token() }) })
+      .then(function (r) { return r.json(); }).then(function (j) { DIRL = (j && j.items) || []; return DIRL; }).catch(function () { DIRL = []; return DIRL; });
+  }
+  function profileBoxes(name, selected, src) {
+    var own = (DIRL || []).filter(function (d) { return d.slug === src; })[0];
+    var list = (DIRL || []).filter(function (d) { return d.kind === 'brand' || d.kind === 'youtube' || d.slug === src || (own && d.slug === own.parent_slug); });
+    if (!list.length) return '';
+    return '<span class="l" style="font-weight:700;font-size:12px">Show it on these Directory profiles</span><div class="kits">' + list.map(function (d) {
+      return '<label><input type="checkbox" name="' + name + '" value="' + esc(d.slug) + '"' + (selected.indexOf(d.slug) > -1 ? ' checked' : '') + '> ' + esc(d.name) + '</label>';
+    }).join('') + '</div>';
+  }
+  function defaultProfiles(src) {
+    var own = (DIRL || []).filter(function (d) { return d.slug === src; })[0];
+    return own ? [own.slug].concat(own.parent_slug ? [own.parent_slug] : []) : [];
   }
   function srcOf(slug) { return (SOURCES || []).filter(function (s) { return s.slug === slug; })[0]; }
   function crumbs(parts) { return '<div class="crumbs">' + parts.map(function (p) { return p[1] ? '<a href="' + p[1] + '">' + esc(p[0]) + '</a>' : '<span>' + esc(p[0]) + '</span>'; }).join('<span aria-hidden="true">/</span>') + '</div>'; }
@@ -209,6 +229,7 @@
       '<label class="l" for="' + prefix + '-t">Title (optional)</label><input type="text" id="' + prefix + '-t" maxlength="200" value="' + esc(opts.title || '') + '" placeholder="The episode title is used when this is empty">' +
       '<label class="l" for="' + prefix + '-d">One line about it (optional)</label><input type="text" id="' + prefix + '-d" maxlength="400" value="' + esc(opts.summary || '') + '">' +
       '<span class="l" style="font-weight:700;font-size:12px">Show it on these kits</span>' + kitBoxes(prefix + '-k', opts.kits || []) +
+      profileBoxes(prefix + '-p', opts.profiles || [], opts.src || '') +
       '<div class="acts" style="justify-content:flex-start"><button class="btn" type="submit">' + esc(opts.button || 'Feature it') + '</button></div><div data-msg></div></form>';
   }
   function bindForm(form, base) {
@@ -216,7 +237,7 @@
       e.preventDefault();
       var p = form.getAttribute('data-form'), msg = form.querySelector('[data-msg]'), btn = form.querySelector('button[type=submit]');
       var body = Object.assign({}, base, {
-        title: document.getElementById(p + '-t').value, summary: document.getElementById(p + '-d').value, kits: checked(form, p + '-k'),
+        title: document.getElementById(p + '-t').value, summary: document.getElementById(p + '-d').value, kits: checked(form, p + '-k'), profiles: checked(form, p + '-p'),
       });
       if (base.format === 'highlight') {
         body.start_s = parseTime((document.getElementById(p + '-s') || {}).value);
@@ -234,16 +255,17 @@
   function viewEpisode(id) {
     var ep = EPCACHE[id];
     if (!ep) return viewShows({ bad: true, text: 'Open the episode from its show.' });
-    sources().then(function () {
+    Promise.all([sources(), dirList()]).then(function () {
       var s = srcOf(ep.source_slug) || { name: 'Show', kits: [] };
+      var pf = { src: ep.source_slug, profiles: defaultProfiles(ep.source_slug) };
       main.innerHTML = crumbs([['Featured', '#featured'], ['Shows', '#shows'], [s.name, '#show/' + ep.source_slug], [ep.title, '']]) +
         '<div class="top"><div><h1>' + esc(ep.title) + '</h1><p class="sub">' + esc(fmtDate(ep.published_at)) + (ep.duration_s ? ' &middot; ' + clock(ep.duration_s) : '') + ' &middot; ' + (ep.youtube_id ? 'Plays as video' : 'Plays as audio') + '</p></div>' +
         '<div class="acts"><button type="button" class="btn ghost" id="preview">Play the episode</button></div></div>' +
         '<div class="two"><div style="display:grid;gap:16px">' +
           '<div class="box"><h2>Tagged moments</h2><div id="moments"><p class="muted">' + (ep.content_id ? 'Loading.' : 'No tagged moments for this episode. Use your own start and end.') + '</p></div></div>' +
         '</div><div style="display:grid;gap:16px">' +
-          '<div class="box"><h2>Feature the full episode</h2>' + featureForm('full', { kits: s.kits || [] }) + '</div>' +
-          '<div class="box"><h2>Feature your own stretch</h2>' + featureForm('own', { times: true, kits: s.kits || [] }) + '</div>' +
+          '<div class="box"><h2>Feature the full episode</h2>' + featureForm('full', Object.assign({ kits: s.kits || [] }, pf)) + '</div>' +
+          '<div class="box"><h2>Feature your own stretch</h2>' + featureForm('own', Object.assign({ times: true, kits: s.kits || [] }, pf)) + '</div>' +
         '</div></div>';
       var item = { title: ep.title, show: s.name, format: 'full', youtube_id: ep.youtube_id, audio_url: ep.audio_url, duration_s: ep.duration_s, image: ep.image };
       document.getElementById('preview').onclick = function () { SARPlayer.play(item); };
@@ -261,7 +283,7 @@
           if (pl) { var m = ms[+pl.getAttribute('data-mplay')]; SARPlayer.play(Object.assign({}, item, { format: 'highlight', start_s: m.start_s, end_s: m.end_s, title: m.summary || ep.title })); }
           if (pk) {
             var i = +pk.getAttribute('data-mpick'), m2 = ms[i], slot = box.querySelector('[data-mform="' + i + '"]');
-            slot.innerHTML = featureForm('m' + i, { times: true, start: clock(m2.start_s), end: clock(m2.end_s), summary: m2.summary || '', kits: s.kits || [] });
+            slot.innerHTML = featureForm('m' + i, { times: true, start: clock(m2.start_s), end: clock(m2.end_s), summary: m2.summary || '', kits: s.kits || [], src: pf.src, profiles: pf.profiles });
             bindForm(slot.querySelector('form'), { episode_id: id, format: 'highlight', moment_id: m2.id });
             pk.hidden = true;
           }
@@ -272,18 +294,19 @@
 
   // #edit/<id>
   function viewEdit(fid) {
-    call('featured', {}).then(function (r) {
+    Promise.all([call('featured', {}), dirList()]).then(function (res) {
+      var r = res[0];
       var f = ((r.body && r.body.items) || []).filter(function (i) { return i.id === fid; })[0];
       if (!f) return viewFeatured();
       main.innerHTML = crumbs([['Featured', '#featured'], ['Edit', '']]) +
         '<div class="top"><div><h1>' + esc(f.title) + '</h1><p class="sub">' + esc(f.show) + ' &middot; from ' + esc(f.episode_title) + '</p></div></div>' +
         '<div class="box" style="max-width:720px"><h2>' + (f.format === 'highlight' ? 'Highlight' : 'Full episode') + '</h2>' +
-        featureForm('ed', { times: f.format === 'highlight', start: f.format === 'highlight' ? clock(f.start_s) : '', end: f.format === 'highlight' ? clock(f.end_s) : '', title: f.title === f.episode_title ? '' : f.title, summary: f.summary || '', kits: f.kits || [], button: 'Save changes' }) + '</div>';
+        featureForm('ed', { times: f.format === 'highlight', start: f.format === 'highlight' ? clock(f.start_s) : '', end: f.format === 'highlight' ? clock(f.end_s) : '', title: f.title === f.episode_title ? '' : f.title, summary: f.summary || '', kits: f.kits || [], profiles: f.profiles || [], src: f.show_slug, button: 'Save changes' }) + '</div>';
       var form = main.querySelector('[data-form="ed"]');
       form.onsubmit = function (e) {
         e.preventDefault();
         var msg = form.querySelector('[data-msg]'), btn = form.querySelector('button[type=submit]');
-        var body = { id: fid, episode_id: f.episode_id, format: f.format, title: document.getElementById('ed-t').value, summary: document.getElementById('ed-d').value, kits: checked(form, 'ed-k') };
+        var body = { id: fid, episode_id: f.episode_id, format: f.format, title: document.getElementById('ed-t').value, summary: document.getElementById('ed-d').value, kits: checked(form, 'ed-k'), profiles: checked(form, 'ed-p') };
         if (f.format === 'highlight') { body.start_s = parseTime(document.getElementById('ed-s').value); body.end_s = parseTime(document.getElementById('ed-e').value); if (!(body.end_s > body.start_s)) { msg.innerHTML = '<div class="note bad">The end has to be after the start, as m:ss.</div>'; return; } }
         btn.disabled = true;
         call('feature_save', body).then(function (r2) { btn.disabled = false; if (r2.status === 403) return gate(); msg.innerHTML = r2.status === 200 ? '<div class="note">Saved. <a href="#featured">Back to everything featured</a></div>' : '<div class="note bad">That did not save.</div>'; });

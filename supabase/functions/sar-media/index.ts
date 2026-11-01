@@ -20,7 +20,7 @@
 //   refresh {source?}              owner or ops: read feeds and channels again
 //   catalog {source, q?, offset?}  owner: episodes to pick from
 //   moments {episode_id}           owner: the tagged moments in an episode
-//   feature_save {...}             owner: create or update a feature
+//   feature_save {...}             owner: create or update a feature (kits, profiles)
 //   feature_remove {id}            owner
 
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
@@ -225,6 +225,14 @@ function cleanKits(k: unknown): string[] {
   return Array.isArray(k) ? [...new Set(k.filter((x) => typeof x === 'string' && KITS.includes(x)))] as string[] : [];
 }
 
+// Directory profiles (sar_directory) a feature also shows on, Phase 2b.
+async function cleanProfiles(p: unknown): Promise<string[]> {
+  const want = Array.isArray(p) ? [...new Set(p.filter((x) => typeof x === 'string' && /^[a-z0-9-]{1,80}$/.test(x)))] as string[] : [];
+  if (!want.length) return [];
+  const { data } = await db.from('sar_directory').select('slug').in('slug', want);
+  return (data ?? []).map((r: any) => r.slug);
+}
+
 serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: cors });
   const action = new URL(req.url).searchParams.get('action') ?? '';
@@ -239,7 +247,7 @@ serve(async (req) => {
     if (action === 'featured') {
       const kit = typeof body.kit === 'string' ? body.kit : '';
       let q = db.from('sar_media_features')
-        .select('id, format, start_s, end_s, title, summary, kits, sort, created_at, sar_media_episodes!inner(id, title, published_at, duration_s, audio_url, youtube_id, image, link, source_slug, sar_media_sources!inner(slug, name, kind, network, cover))')
+        .select('id, format, start_s, end_s, title, summary, kits, profiles, sort, created_at, sar_media_episodes!inner(id, title, published_at, duration_s, audio_url, youtube_id, image, link, source_slug, sar_media_sources!inner(slug, name, kind, network, cover))')
         .order('sort').order('created_at', { ascending: false });
       if (kit) q = q.contains('kits', [kit]);
       const { data, error } = await q;
@@ -248,7 +256,7 @@ serve(async (req) => {
         items: (data ?? []).map((f: any) => {
           const e = f.sar_media_episodes, s = e.sar_media_sources;
           return {
-            id: f.id, episode_id: e.id, format: f.format, start_s: f.start_s, end_s: f.end_s, kits: f.kits,
+            id: f.id, episode_id: e.id, format: f.format, start_s: f.start_s, end_s: f.end_s, kits: f.kits, profiles: f.profiles,
             title: f.title || e.title, summary: f.summary, episode_title: e.title, published_at: e.published_at,
             duration_s: e.duration_s, audio_url: e.audio_url, youtube_id: e.youtube_id, link: e.link,
             image: e.image || s.cover, show: s.name, show_slug: s.slug, network: s.network,
@@ -310,6 +318,7 @@ serve(async (req) => {
         title: typeof body.title === 'string' && body.title.trim() ? body.title.trim().slice(0, 200) : null,
         summary: typeof body.summary === 'string' && body.summary.trim() ? body.summary.trim().slice(0, 400) : null,
         kits: cleanKits(body.kits),
+        profiles: await cleanProfiles(body.profiles),
         sort: Number.isFinite(+body.sort) ? +body.sort : 100,
       };
       if (format === 'highlight' && !(Number.isFinite(row.start_s as number) && Number.isFinite(row.end_s as number) && (row.end_s as number) > (row.start_s as number) && (row.start_s as number) >= 0))
