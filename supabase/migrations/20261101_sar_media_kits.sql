@@ -156,3 +156,15 @@ update public.sar_kits set fees = '["Fractional CMO: from $7,500 a month, 3-mont
 update public.sar_kits set fees = '["District consulting: from $10,000 per engagement","CMS migration leadership: from $25,000, scoped per project","Program design and rollout: from $7,500","Staff workshop: $2,500 per half day"]'::jsonb, updated_at = now() where slug = 'education';
 update public.sar_kits set fees = '["Producer: from $5,000 per project","Host and on-camera talent: $2,500 a day","Podcast production: from $3,500 a month, four episodes"]'::jsonb, updated_at = now() where slug = 'media-production';
 update public.sar_kits set fees = '["Keynote: from $7,500 plus travel","Virtual keynote: $5,000","Panel or moderation: $3,500","Host or MC: $5,000 a day"]'::jsonb, updated_at = now() where slug = 'speaker';
+
+-- Phase 1 additions (Sean, 2026-11-01, after the scope diff against the mock-up):
+-- the headline number on each featured-work card, taken from that case study's
+-- own results, and the press coverage (lesaruss.com/api/press ids) per kit.
+alter table public.sar_kits add column if not exists highlights jsonb not null default '{}'::jsonb;
+alter table public.sar_kits add column if not exists press_ids text[] not null default '{}';
+update public.sar_kits set highlights='{"broward-county-public-schools":"$800M","lashmakers":"10.16x","balance-for-life-florida":"730%"}', press_ids='{voyagemia-lesaruss-ai-2026,namaste-bosses,canvas-rebel,sun-sentinel-2000}' where slug='executive-marketing';
+update public.sar_kits set highlights='{"broward-county-public-schools":"$800M","bcps-summer-program":"~30","bcps-wcm-community-transformation":"230+","russells-roving-reporters":"12 yrs"}', press_ids='{nbc-news,sun-sentinel-2000,panther-now}' where slug='education';
+update public.sar_kits set highlights='{"anime-3000-podcast-downloads":"1M+","top-spot-usa":"2007-12","klaper-moving-medicine-forward":"4-5 mo","sean-140-day-social-sprint":"140 days"}', press_ids='{abc-television,nbc-news,deco-drive,local-10-news,broward-new-times,anncast}' where slug='media-production';
+update public.sar_kits set highlights='{"seed-food-and-wine-marketing":"7 yrs"}', press_ids='{plant-powered-athlete,veggies-abroad,vegan-linked,love-this-food-thing,vkind-live,revolutionary-change}' where slug='speaker';
+update public.sar_kits set highlights='{"soflo-vegans":"10 yrs","seed-food-and-wine-marketing":"7 yrs","klaper-moving-medicine-forward":"4-5 mo"}', press_ids='{local-10-news,deco-drive,miami-new-times-black-voices,sun-sentinel-ivff,delray-magazine,miami-new-times-tailgate}' where slug='vegan-movement';
+update public.sar_kits set highlights='{"ucf":"5 yrs","anime-3000-podcast-downloads":"1M+","top-spot-usa":"2007-12"}', press_ids='{blerds-online,anncast,broward-new-times,abc-television}' where slug='entertainment';

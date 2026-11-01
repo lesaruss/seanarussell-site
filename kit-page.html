@@ -52,6 +52,12 @@
   .seg button[aria-pressed="true"]{background:var(--orange)}
   .vbar p{margin:0;font-size:12.5px;color:var(--ink2);flex:1;min-width:220px}
   .banner{background:var(--ok-wash);border-bottom:1px solid var(--hair);padding-block:10px;font-size:13px}
+  /* kit tabs: one strip across every kit; scrolls sideways inside itself on a phone */
+  .ktabs{display:flex;gap:0;overflow-x:auto;border-bottom:1.5px solid var(--line);background:#fff;scrollbar-width:thin}
+  .ktabs a{flex:0 0 auto;font:800 11px/1 var(--font);text-transform:uppercase;letter-spacing:.08em;padding:14px 16px;text-decoration:none;color:var(--ink2);border-bottom:3px solid transparent;white-space:nowrap}
+  .ktabs a:hover{color:var(--ink)}
+  .ktabs a[aria-current="page"]{color:var(--ink);border-bottom-color:var(--orange)}
+  .ktabs a .dr{font-weight:700;color:var(--warn);margin-left:6px}
   /* hero */
   .hero{background:var(--dark);color:#fff;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:28px;align-items:center;padding-block:36px}
   .hero-main{display:grid;grid-template-columns:200px minmax(0,1fr);gap:28px;align-items:center;min-width:0}
@@ -83,7 +89,9 @@
   .pillars b{font-size:14px}
   .pillars span{font-size:13px;color:var(--ink2)}
   .cs{display:grid;gap:10px}
-  .card{border:1px solid var(--hair);border-radius:6px;padding:12px 14px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center}
+  .card{border:1px solid var(--hair);border-radius:6px;padding:12px 14px;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:14px;align-items:center}
+  .card .val{font-weight:900;font-size:22px;line-height:1;color:var(--orange-ink);font-variant-numeric:tabular-nums;min-width:84px}
+  .card.noval{grid-template-columns:minmax(0,1fr) auto}
   .card b{display:block;font-size:14.5px}
   .card span{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:13px;color:var(--ink2)}
   .card a{font-weight:800;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--orange-ink);text-decoration:none;white-space:nowrap}
@@ -92,6 +100,12 @@
   .pill.ok{background:var(--ok-wash);color:var(--ok)}
   blockquote{margin:0;border-left:3px solid var(--orange);padding:8px 12px;background:var(--surface2);border-radius:0 6px 6px 0;font-size:14px}
   blockquote cite{display:block;margin-top:6px;font-style:normal;font-weight:700;font-size:12px;color:var(--ink2)}
+  .press{display:grid;gap:8px}
+  .prow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;border-top:1px solid var(--hair);padding-top:8px}
+  .prow:first-child{border-top:0;padding-top:0}
+  .prow b{display:block;font-size:14px}
+  .prow span{display:block;font-size:12.5px;color:var(--ink2)}
+  .prow a{font-weight:800;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--orange-ink);text-decoration:none;white-space:nowrap}
   .chips{display:flex;flex-wrap:wrap;gap:6px}
   .chips span{font-weight:700;font-size:11px;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--hair);padding:7px 9px;border-radius:6px}
   ul.req{list-style:none;margin:0;padding:0;display:grid;gap:8px;font-size:13.5px}
@@ -122,7 +136,7 @@
     .hero-main{grid-template-columns:1fr;gap:18px}
     .pose{width:160px}
     .pillars{grid-template-columns:1fr}
-    .card{grid-template-columns:1fr}
+    .card,.card.noval{grid-template-columns:1fr;gap:8px}
   }
   @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
@@ -148,6 +162,7 @@
   </div>
   <p id="vnote"></p>
 </div>
+<nav class="ktabs wrap" id="ktabs" aria-label="Media kits" data-scroll-strip hidden></nav>
 <div class="banner wrap" id="shared-banner" hidden>This is a private copy of the kit, shared with you directly. It includes how we can work together.</div>
 
 <main id="main">
@@ -218,7 +233,7 @@
     else if (showDrafts) left += '<div class="box"><h2>Scene</h2><p class="muted">New artwork needed for this kit, in the same illustrated style.</p></div>';
     if ((k.pillars || []).length) left += '<div class="box"><h2>What I do here</h2><div class="pillars">' + k.pillars.map(function (p) { return '<div><b>' + esc(p[0]) + '</b><span>' + esc(p[1]) + '</span></div>'; }).join('') + '</div></div>';
     left += '<div class="box"><h2>Featured work</h2>' + (studies.length ? '<div class="cs">' + studies.map(function (s) {
-      return '<div class="card"><div><b>' + esc(clientName(s.client)) + '</b>' + (s.headline ? '<span>' + esc(s.headline) + '</span>' : '') +
+      return '<div class="card' + (s.value ? '' : ' noval') + '">' + (s.value ? '<div class="val">' + esc(s.value) + '</div>' : '') + '<div><b>' + esc(clientName(s.client)) + '</b>' + (s.headline ? '<span>' + esc(s.headline) + '</span>' : '') +
         (s.draft ? '<em class="pill warn">Draft, confirm before it goes public</em>' : '') + '</div>' +
         (s.story_url && !s.draft ? '<a href="' + esc(s.story_url) + '" target="_blank" rel="noopener">Read the story</a>' : '') + '</div>';
     }).join('') + '</div>' : '<p class="muted">Published stories for this kit are on the way.</p>') +
@@ -239,7 +254,7 @@
         (Array.isArray(k.fees) && k.fees.length ? '<ul class="req">' + k.fees.map(function (t) { return '<li><i aria-hidden="true">$</i><span>' + esc(t) + '</span></li>'; }).join('') + '</ul>' : '') +
         '<a class="btn dark" href="' + book + '" style="justify-self:start">Schedule a call</a></div>';
     }
-    right += '<div class="box"><h2>Press</h2><p>Television, print and podcast coverage of Sean.</p><a class="btn ghost" href="/press" style="justify-self:start">See the press</a></div>';
+    right += '<div class="box"><h2>Press</h2><div class="press" id="kit-press"><p class="muted">Loading coverage.</p></div><a class="btn ghost" href="/press" style="justify-self:start">See all press</a></div>';
     if (real === 'you' && v === 'you') right += linksBox();
 
     html += '<section class="two wrap"><div class="col">' + left + '</div><div class="col">' + right + '</div></section>';
@@ -251,6 +266,8 @@
     Array.prototype.forEach.call(vbar.querySelectorAll('[data-view]'), function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-view') === v)); });
     document.getElementById('shared-banner').hidden = real !== 'shared';
     bindLinks();
+    renderTabs();
+    renderPress();
   }
 
   function fmtDate(iso) { try { return new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }); } catch (e) { return iso; } }
@@ -292,6 +309,45 @@
       });
     });
   }
+
+  // ---- Kit tabs (same list the /kits shelf uses; drafts only for the owner) ----
+  var KITS = null;
+  function renderTabs() {
+    var el = document.getElementById('ktabs');
+    if (!KITS || KITS.length < 2) { el.hidden = true; return; }
+    el.innerHTML = KITS.map(function (k) {
+      var cur = data && data.kit && k.slug === data.kit.slug;
+      return '<a href="/kits/' + esc(k.slug) + '"' + (cur ? ' aria-current="page"' : '') + '>' + esc(k.name) + (k.status !== 'live' ? '<span class="dr">Draft</span>' : '') + '</a>';
+    }).join('');
+    el.hidden = false;
+    var cur = el.querySelector('[aria-current]');
+    if (cur && cur.scrollIntoView) cur.scrollIntoView({ block: 'nearest', inline: 'center' });
+  }
+  call('list', { token: token() }).then(function (r) { if (r.status === 200 && r.body && r.body.kits) { KITS = r.body.kits; if (data) renderTabs(); } }).catch(function () {});
+
+  // ---- Press for this kit, from the same feed as /press ----
+  var PRESS = null, PRESS_FAILED = false;
+  function action(href) {
+    if (/youtu\.?be|youtube\.com|vimeo\.com/.test(href)) return 'Watch';
+    if (/spotify\.com|captivate\.fm|buzzsprout\.com|podscan\.fm|podchaser\.com|apple\.com\/.*podcast/.test(href)) return 'Listen';
+    return 'Read';
+  }
+  function renderPress() {
+    var el = document.getElementById('kit-press');
+    if (!el) return;
+    if (PRESS_FAILED) { el.innerHTML = '<p class="muted">Coverage could not load. See all press below.</p>'; return; }
+    if (!PRESS) return;
+    var ids = (data.kit.press_ids || []);
+    var byId = {}; PRESS.forEach(function (e) { byId[e.id] = e; });
+    var rows = ids.map(function (id) { return byId[id]; }).filter(Boolean).slice(0, 6);
+    el.innerHTML = rows.length ? rows.map(function (e) {
+      return '<div class="prow"><div><b>' + esc(e.title) + '</b><span>' + esc(e.subtitle || (e.type.charAt(0).toUpperCase() + e.type.slice(1))) + ' &middot; ' + esc(e.date) + '</span></div>' +
+        (e.href ? '<a href="' + esc(e.href) + '" target="_blank" rel="noopener">' + action(e.href) + '</a>' : '') + '</div>';
+    }).join('') : '<p>Television, print and podcast coverage of Sean.</p>';
+  }
+  fetch('https://lesaruss.com/api/press').then(function (r) { if (!r.ok) throw 0; return r.json(); })
+    .then(function (d) { PRESS = Array.isArray(d) ? d : []; if (data) renderPress(); })
+    .catch(function () { PRESS_FAILED = true; if (data) renderPress(); });
 
   function notFound() {
     document.getElementById('main').innerHTML = '<section class="state wrap"><h1>That kit is not here</h1><p class="muted">It may not be published yet.</p><a class="btn" href="/kits">See all media kits</a></section>';

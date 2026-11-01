@@ -17,6 +17,9 @@
 // The view is decided here from what the caller proves, never from what it asks
 // for: a request for "you" without a valid owner token gets the public view.
 //
+// Per kit: highlights maps a case study slug to the headline number on its
+// card; press_ids picks the coverage (lesaruss.com/api/press ids) the page shows.
+//
 // Actions (POST JSON, ?action=):
 //   list         the kit shelf (live kits; drafts too for the owner)
 //   get          {slug, link?, token?}
@@ -80,7 +83,7 @@ function firstResult(results: unknown): string | null {
   return null;
 }
 
-async function kitStudies(slug: string, owner: boolean) {
+async function kitStudies(slug: string, owner: boolean, highlights: Record<string, string>) {
   const { data } = await db
     .from('case_studies')
     .select('slug, client_name, industry, status, results, timeframe, testimonial, key_quote, published_content')
@@ -92,6 +95,7 @@ async function kitStudies(slug: string, owner: boolean) {
       slug: r.slug,
       client: String(r.client_name || '').replace(/^Sean A\. Russell -- /, ''),
       headline: firstResult(r.results),
+      value: highlights[r.slug] ?? null,
       draft: r.status !== 'published',
       story_url: r.published_content ? `https://lesaruss.com/case-studies/${r.slug}` : null,
     }))
@@ -131,7 +135,7 @@ serve(async (req) => {
       const owner = await isOwner(body.token);
       if (k.status !== 'live' && !owner) return json({ error: 'not_found' }, 404);
       const view = owner ? 'you' : (await validLink(body.link, slug)) ? 'shared' : 'public';
-      const { studies, quotes, draftCount } = await kitStudies(slug, owner);
+      const { studies, quotes, draftCount } = await kitStudies(slug, owner, (k.highlights ?? {}) as Record<string, string>);
       const stats = (k.stats as Stat[])
         .filter((s) => owner || s.public)
         .map((s) => ({ v: s.v, l: s.l, draft: !s.public }));
@@ -141,6 +145,7 @@ serve(async (req) => {
           slug: k.slug, name: k.name, role: k.role_line, tagline: k.tagline, pose: k.pose,
           scene: k.scene, scene_caption: k.scene_caption, tags: k.tags, pillars: k.pillars,
           track_record: k.track_record, worked_with: k.worked_with, status: k.status,
+          press_ids: k.press_ids ?? [],
         },
         stats, studies, quotes,
       };
