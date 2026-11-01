@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Media Kits. Sean A. Russell.</title>
+<meta name="description" content="Sean A. Russell media kits by industry: executive marketing, education, media and production, speaking.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="/analytics.js" defer></script>
+<!-- The kit shelf (playbook media-kits). Live kits from the sar-kits edge
+     function; the owner, signed in on /dashboard, also sees drafts. Poses are
+     3:4 and shown whole on white (art direction). -->
+<style>
+  :root{--bg:#fff;--ink:#1a1a1a;--ink2:#55524e;--ink3:#8a8580;--line:#1a1a1a;--hair:rgba(26,26,26,.12);--orange:#F69820;--orange-ink:#7d4a00;--warn:#8a4f00;--warn-wash:#fff3df;--dark:#0d0d0d;--font:'Montserrat',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+  *{box-sizing:border-box} html,body{margin:0}
+  body{background:var(--bg);color:var(--ink);font:400 15px/1.6 var(--font)}
+  img{max-width:100%;display:block}
+  .wrap{padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+  .nav{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.96);border-bottom:1px solid var(--hair);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-block:14px}
+  .brand{font-weight:900;font-size:16px;text-transform:uppercase;text-decoration:none;color:inherit}
+  .brand span{color:var(--orange)}
+  .nav nav{display:flex;gap:18px;align-items:center;flex-wrap:wrap;font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.1em}
+  .nav nav a{text-decoration:none;color:inherit}
+  .btn{display:inline-flex;align-items:center;justify-content:center;font:800 11px/1 var(--font);text-transform:uppercase;letter-spacing:.1em;padding:12px 16px;border-radius:6px;background:var(--orange);color:#1a1a1a !important;border:1.5px solid var(--orange);text-decoration:none;white-space:nowrap}
+  .head{background:var(--dark);color:#fff;padding-block:40px;display:grid;gap:10px}
+  .eyebrow{font-weight:800;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--orange)}
+  h1{font-weight:900;font-size:clamp(30px,5vw,54px);line-height:1;text-transform:uppercase;letter-spacing:-.02em;margin:0;text-wrap:balance}
+  .head p{margin:0;color:rgba(255,255,255,.8);max-width:60ch}
+  .grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;padding-block:28px 48px}
+  .kc{border:1.5px solid var(--line);border-radius:6px;overflow:hidden;text-decoration:none;color:inherit;display:grid;grid-template-rows:auto 1fr;transition:transform .15s,box-shadow .15s;min-width:0}
+  .kc:hover,.kc:focus-visible{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--orange);outline:none}
+  .kc .img{background:#fff;border-bottom:1.5px solid var(--line);display:grid;place-items:center;padding:12px 0 0;position:relative}
+  .kc .img img{height:220px;width:auto;aspect-ratio:3/4;object-fit:contain}
+  .kc .bd{padding:14px 16px 16px;display:grid;gap:4px;align-content:start}
+  .kc small{font-weight:700;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--orange-ink)}
+  .kc b{font-weight:900;font-size:18px;line-height:1.1;text-transform:uppercase}
+  .kc span{font-size:13px;color:var(--ink2)}
+  .pill{position:absolute;top:10px;left:10px;font-weight:800;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;padding:5px 7px;border-radius:4px;background:var(--warn-wash);color:var(--warn)}
+  .muted{color:var(--ink3);font-style:italic}
+  footer{border-top:1px solid var(--hair);padding-block:22px;font-size:12px;color:var(--ink3)}
+  @media (max-width:1100px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+  @media (max-width:800px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media (max-width:480px){.grid{grid-template-columns:1fr}}
+  @media (prefers-reduced-motion:reduce){.kc{transition:none}}
+</style>
+</head>
+<body>
+<header class="nav wrap">
+  <a class="brand" href="/">Sean A<span>.</span> Russell</a>
+  <nav aria-label="Primary">
+    <a href="/kits">Media Kits</a>
+    <a href="/case-studies">Case Studies</a>
+    <a href="/press">Press</a>
+    <a href="/dashboard">Log In</a>
+    <a class="btn" href="/booking">Book Sean</a>
+  </nav>
+</header>
+<section class="head wrap">
+  <span class="eyebrow">Media kits</span>
+  <h1>Pick the Sean you need</h1>
+  <p>Thirty years across schools, media, marketing and the Vegan movement. Each kit holds the work, the numbers and how to book for one industry.</p>
+</section>
+<main class="grid wrap" id="grid"><p class="muted">Loading the kits.</p></main>
+<footer class="wrap">&copy; 2026 Sean A. Russell. A LESARUSS production.</footer>
+<script>
+(function () {
+  var FN = 'https://fwbhwfxpncrsfhttimna.supabase.co/functions/v1/sar-kits?action=list';
+  var ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ3Ymh3ZnhwbmNyc2ZodHRpbW5hIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ2NjAxMzksImV4cCI6MjA5MDIzNjEzOX0.9mxjK0bn5WATCbNLWrHPakD6yHUDtHFHrOaklPnWkOA';
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  var tok = null; try { tok = localStorage.getItem('lr_token'); } catch (e) {}
+  var grid = document.getElementById('grid');
+  fetch(FN, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + ANON, 'apikey': ANON }, body: JSON.stringify({ token: tok }) })
+    .then(function (r) { return r.json(); })
+    .then(function (d) {
+      var kits = (d && d.kits) || [];
+      if (!kits.length) { grid.innerHTML = '<p class="muted">The kits are on the way.</p>'; return; }
+      grid.innerHTML = kits.map(function (k) {
+        return '<a class="kc" href="/kits/' + esc(k.slug) + '"><div class="img"><img src="' + esc(k.pose) + '" alt="" width="300" height="400">' +
+          (k.status !== 'live' ? '<span class="pill">Draft, only you see it</span>' : '') + '</div>' +
+          '<div class="bd"><small>' + esc(k.role) + '</small><b>' + esc(k.name) + '</b>' +
+          (k.lead ? '<span>' + esc(k.lead.v) + ' ' + esc(k.lead.l.charAt(0).toLowerCase() + k.lead.l.slice(1)) + '</span>' : '') + '</div></a>';
+      }).join('');
+    })
+    .catch(function () { grid.innerHTML = '<p class="muted">The kits could not load. Refresh to try again.</p>'; });
+})();
+</script>
+</body>
+</html>
