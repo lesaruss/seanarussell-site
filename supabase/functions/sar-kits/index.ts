@@ -135,8 +135,9 @@ serve(async (req) => {
       });
     }
 
-    // /case-studies (Phase 3): every published story tagged into a kit, with
-    // its live kits, headline number and story link. Published only, always.
+    // /case-studies (Phase 3): every published story of Sean's (tagged into a kit or a topic), with its live kits, its topics
+    // (sar-topic:<slug>, e.g. Community building; Sean 2026-11-01: "put all my case studies"), headline number and story link.
+    // A story whose kit is not live yet still shows; it just has no kit chip. Published only, always.
     if (action === 'studies') {
       const [{ data: rows }, { data: kits }] = await Promise.all([
         db.from('case_studies').select('slug, client_name, industry, status, results, audience_tags, published_content, updated_at').eq('status', 'published'),
@@ -153,9 +154,14 @@ serve(async (req) => {
           value: value[r.slug] ?? null,
           story_url: r.published_content ? `https://lesaruss.com/case-studies/${r.slug}` : null,
           kits: (r.audience_tags || []).filter((t: string) => t.startsWith('sar-kit:') && live[t.slice(8)]).map((t: string) => t.slice(8)),
+          topics: (r.audience_tags || []).filter((t: string) => t.startsWith('sar-topic:')).map((t: string) => t.slice(10)),
+          ours: (r.audience_tags || []).some((t: string) => t.startsWith('sar-kit:') || t.startsWith('sar-topic:')),
         }))
-        .filter((s: any) => s.kits.length);
-      return json({ kits: (kits ?? []).map((k: any) => ({ slug: k.slug, name: k.name })), studies });
+        .filter((s: any) => s.ours)
+        .map(({ ours: _o, ...s }: any) => s);
+      const topicName = (t: string) => t.replace(/-/g, ' ').replace(/^./, (c) => c.toUpperCase());
+      const topics = [...new Set(studies.flatMap((s: any) => s.topics))].sort().map((t) => ({ slug: t, name: topicName(t as string) }));
+      return json({ kits: (kits ?? []).map((k: any) => ({ slug: k.slug, name: k.name })), topics, studies });
     }
 
     if (action === 'get') {

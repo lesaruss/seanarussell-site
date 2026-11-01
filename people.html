@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>People. Sean A. Russell.</title>
-<meta name="description" content="Artists and bands Sean A. Russell interviewed and covered on Top Spot USA, read live from the Top Spot archive.">
+<meta name="description" content="Artists and bands Sean A. Russell interviewed and covered on TopSpot USA, read live from the TopSpot archive.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&display=swap" rel="stylesheet">
@@ -158,15 +158,15 @@
 <div class="issue-bar" aria-hidden="true">
   <span class="pulse"></span>
   <span class="title">People</span>
-  <span>Top Spot USA</span>
+  <span>TopSpot USA</span>
   <span class="right" id="pp-total"></span>
 </div>
 
 <main class="wrap">
   <header class="hero">
-    <p class="eyebrow">Top Spot USA &middot; <span id="pp-years">2007 to 2012</span></p>
+    <p class="eyebrow">TopSpot USA &middot; <span id="pp-years">2007 to 2012</span></p>
     <h1>The <em>People</em><span class="dot">.</span></h1>
-    <p class="lede" id="pp-lede">Artists and bands Sean A. Russell interviewed and covered on Top Spot USA, from TV and radio interviews to live coverage. Every name links to its videos in the Top Spot archive.</p>
+    <p class="lede" id="pp-lede">Artists and bands Sean A. Russell interviewed and covered on TopSpot USA, from TV and radio interviews to live coverage. Every name links to its videos in the TopSpot archive.</p>
   </header>
 
   <div class="pp-tools" role="search" aria-label="Filter people">
@@ -187,7 +187,7 @@
   <div class="pp-chips" id="pp-types" role="group" aria-label="Filter by format"></div>
 
   <ul class="pp-grid" id="pp-grid" aria-label="People"></ul>
-  <p class="state-msg" id="pp-state">Loading the Top Spot USA archive...</p>
+  <p class="state-msg" id="pp-state">Loading the TopSpot USA archive...</p>
 </main>
 
 <footer>
@@ -224,8 +224,8 @@
 </script>
 <script>
 // Source of truth: lesaruss/topspot-global data/videos.json, served at
-// topspotglobal.com. Read live so this list and the Top Spot archive never
-// drift. Entries that are Top Spot itself, Sean's own channel, an event or a
+// topspotglobal.com. Read live so this list and the TopSpot archive never
+// drift. Entries that are TopSpot itself, Sean's own channel, an event or a
 // place are not people and are left out here.
 (function(){
   var SRC='https://topspotglobal.com/data/videos.json';
@@ -273,8 +273,8 @@
     b.appendChild(el('span','pp-meta',meta));
     var tags=p.genres.concat(p.types.map(function(t){return TYPE_LABEL[t]||t;})).join(', ');
     if(tags)b.appendChild(el('span','pp-meta',tags));
-    var a=el('a','pp-go','Watch on Top Spot');a.href='https://topspotglobal.com/artist/?artist='+encodeURIComponent(slug(p.name));
-    a.setAttribute('aria-label','Watch '+p.name+' on Top Spot');
+    var a=el('a','pp-go','Watch on TopSpot');a.href='https://topspotglobal.com/artist/?artist='+encodeURIComponent(slug(p.name));
+    a.setAttribute('aria-label','Watch '+p.name+' on TopSpot');
     b.appendChild(a);li.appendChild(b);return li;
   }
 
@@ -305,7 +305,7 @@
     chips(document.getElementById('pp-types'),Object.keys(t).sort(),function(v){type=v;render();});
     q.addEventListener('input',render);sortSel.addEventListener('change',render);
     render();
-  }).catch(function(){state.textContent='The Top Spot USA archive could not be loaded. Visit topspotglobal.com/artists.';});
+  }).catch(function(){state.textContent='The TopSpot USA archive could not be loaded. Visit topspotglobal.com/artists.';});
 })();
 </script>
 </body>

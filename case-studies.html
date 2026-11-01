@@ -39,6 +39,8 @@
   .chips button{font:700 11.5px/1 var(--font);padding:9px 11px;border:1.5px solid var(--line);border-radius:6px;background:#fff;color:var(--ink);cursor:pointer}
   .chips button[aria-pressed="true"]{background:var(--ink);color:#fff}
   .grid{padding-block:24px 56px}
+  #more{margin-top:0}
+  #more .lrcs-soon{margin-top:auto;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3)}
   .muted{color:var(--ink3);font-style:italic;grid-column:1/-1}
   .count{font-size:12.5px;color:var(--ink2);padding-top:16px}
   footer{border-top:1px solid var(--hair);padding-block:22px;font-size:12px;color:var(--ink3)}
@@ -64,9 +66,9 @@
   <h1>The work, with the numbers</h1>
   <p>Published stories from Sean's work, each tied to the media kit it belongs to. More are written and waiting for sign-off.</p>
 </section>
-<section class="filters wrap" aria-label="Filter by kit"><span class="lbl">Kit</span><div class="chips" id="chips"></div></section>
+<section class="filters wrap" aria-label="Filter the stories"><span class="lbl">Show</span><div class="chips" id="chips"></div></section>
 <div class="count wrap" id="count" aria-live="polite"></div>
-<main class="grid wrap" id="main"><div id="grid" data-lr-case-studies data-slugs="" data-accent="#F69820"></div><p class="muted" id="msg">Loading the case studies.</p></main>
+<main class="grid wrap" id="main"><div id="grid" data-lr-case-studies data-slugs="" data-accent="#F69820"></div><div class="lrcs" id="more" hidden></div><p class="muted" id="msg">Loading the case studies.</p></main>
 <footer class="wrap">&copy; 2026 Sean A. Russell. A LESARUSS production.</footer>
 <script>
 (function () {
@@ -74,25 +76,41 @@
   var ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ3Ymh3ZnhwbmNyc2ZodHRpbW5hIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ2NjAxMzksImV4cCI6MjA5MDIzNjEzOX0.9mxjK0bn5WATCbNLWrHPakD6yHUDtHFHrOaklPnWkOA';
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
   var kit = new URLSearchParams(location.search).get('kit') || 'all';
-  var KITS = [], ALL = [], NAME = {};
+  var KITS = [], TOPICS = [], ALL = [], NAME = {};
   var grid = document.getElementById('grid'), chips = document.getElementById('chips');
   function drawChips() {
-    var opts = [['all', 'All kits']].concat(KITS.filter(function (k) { return ALL.some(function (s) { return s.kits.indexOf(k.slug) > -1; }); }).map(function (k) { return [k.slug, k.name]; }));
+    // Kits, then topics (Community building...): every one that has a story.
+    var opts = [['all', 'All']].concat(KITS.filter(function (k) { return ALL.some(function (s) { return s.kits.indexOf(k.slug) > -1; }); }).map(function (k) { return [k.slug, k.name]; }))
+      .concat(TOPICS.map(function (t) { return ['topic:' + t.slug, t.name]; }));
     if (!opts.some(function (o) { return o[0] === kit; })) kit = 'all';
     chips.innerHTML = opts.map(function (o) { return '<button type="button" data-v="' + esc(o[0]) + '" aria-pressed="' + (o[0] === kit) + '">' + esc(o[1]) + '</button>'; }).join('');
   }
   var msg = document.getElementById('msg'), loaded = false;
   // The widget may arrive after the list: draw again once it is here.
   window.SARCSready = function () { if (loaded) draw(); };
+  function inFilter(s) { return kit === 'all' || (kit.indexOf('topic:') === 0 ? (s.topics || []).indexOf(kit.slice(6)) > -1 : s.kits.indexOf(kit) > -1); }
+  // A story with its full chapter on lesaruss.com is the widget's card. One without it yet (LashMakers...) takes the widget's card
+  // look with what the case study has, until its story is written.
+  function soon(s) {
+    return '<li class="lrcs-card"><div class="lrcs-body">' + (s.industry ? '<span class="lrcs-brand">' + esc(s.industry.split(' / ')[0]) + '</span>' : '') +
+      '<h3 class="lrcs-head">' + esc(s.client) + '</h3>' + (s.headline ? '<p class="lrcs-sum">' + esc(s.headline) + '</p>' : '') +
+      (s.value ? '<ul class="lrcs-stats"><li><span class="lrcs-num">' + esc(s.value) + '</span></li></ul>' : '') +
+      '<span class="lrcs-soon">Full story coming</span></div></li>';
+  }
+  var more = document.getElementById('more');
   function draw() {
-    var list = ALL.filter(function (s) { return s.story_url && (kit === 'all' || s.kits.indexOf(kit) > -1); });
-    grid.setAttribute('data-slugs', list.map(function (s) { return s.slug; }).join(','));
-    msg.hidden = true;
-    if (!window.LRCaseStudies) return;
-    LRCaseStudies.mount(grid).then(function (n) {
-      document.getElementById('count').textContent = n + (n === 1 ? ' story' : ' stories');
-      msg.textContent = 'No published stories for this kit yet.'; msg.hidden = n > 0;
-    });
+    var list = ALL.filter(inFilter), full = list.filter(function (s) { return s.story_url; }), rest = list.filter(function (s) { return !s.story_url; });
+    grid.setAttribute('data-slugs', full.map(function (s) { return s.slug; }).join(','));
+    var extra = rest.map(soon).join('');
+    // One grid: the widget's cards first, then the ones still waiting on their full story.
+    function place(n) {
+      var ul = n ? grid.querySelector('.lrcs-grid') : null;
+      if (ul) { ul.insertAdjacentHTML('beforeend', extra); more.innerHTML = ''; more.hidden = true; }
+      else { more.innerHTML = extra ? '<ul class="lrcs-grid">' + extra + '</ul>' : ''; more.hidden = !extra; }
+    }
+    document.getElementById('count').textContent = list.length + (list.length === 1 ? ' story' : ' stories');
+    msg.textContent = 'No published stories here yet.'; msg.hidden = list.length > 0;
+    if (window.LRCaseStudies) LRCaseStudies.mount(grid).then(place); else place(0);
   }
   chips.addEventListener('click', function (e) {
     var b = e.target.closest('[data-v]'); if (!b) return;
@@ -103,7 +121,7 @@
   fetch(FN, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + ANON, 'apikey': ANON }, body: '{}' })
     .then(function (r) { return r.json(); })
     .then(function (d) {
-      KITS = (d && d.kits) || []; ALL = (d && d.studies) || [];
+      KITS = (d && d.kits) || []; TOPICS = (d && d.topics) || []; ALL = (d && d.studies) || [];
       KITS.forEach(function (k) { NAME[k.slug] = k.name; });
       loaded = true; drawChips(); draw();
     })

@@ -41,7 +41,7 @@ const json = (b: unknown, s = 200) =>
   new Response(JSON.stringify(b), { status: s, headers: { ...cors, 'Content-Type': 'application/json', 'Cache-Control': 'no-store' } });
 
 // The role key. Sean's definitions (2026-11-01), checked against standard
-// podcast and TV credits; Founder added for the brands he started. Top Spot USA
+// podcast and TV credits; Founder added for the brands he started. TopSpot USA
 // credits and Former client added 2026-11-01 (Sean).
 const KEY: Record<string, string> = {
   'Executive Producer': 'The top credit. Owns the show at the business level: funding, distribution, partnerships and sponsors, and the final call on direction.',
