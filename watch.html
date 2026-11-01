@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Watch and Listen. Sean A. Russell.</title>
+<meta name="description" content="Sean A. Russell's shows, interviews and highlights: podcasts he hosted and produced, and the video channels behind them.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="/analytics.js" defer></script>
+<!-- Watch & Listen (playbook media-kits, Phase 2). The clips Sean features in
+     /watch/manage, from the sar-media edge function, filtered by show, kit and
+     format; the address carries the filters. Video plays in a pop-up, audio in
+     the bar at the foot of the window (assets/js/sar-player.js). -->
+<style>
+  :root{--bg:#fff;--ink:#1a1a1a;--ink2:#55524e;--ink3:#8a8580;--line:#1a1a1a;--hair:rgba(26,26,26,.12);--orange:#F69820;--orange-ink:#7d4a00;--orange-wash:#fdf2e3;--dark:#0d0d0d;--font:'Montserrat',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+  *{box-sizing:border-box} html,body{margin:0}
+  body{background:var(--bg);color:var(--ink);font:400 15px/1.6 var(--font)}
+  .wrap{padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+  .nav{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.96);border-bottom:1px solid var(--hair);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-block:14px}
+  .brand{font-weight:900;font-size:16px;text-transform:uppercase;text-decoration:none;color:inherit}
+  .brand span{color:var(--orange)}
+  .nav nav{display:flex;gap:18px;align-items:center;flex-wrap:wrap;font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.1em}
+  .nav nav a{text-decoration:none;color:inherit}
+  .btn{display:inline-flex;align-items:center;justify-content:center;font:800 11px/1 var(--font);text-transform:uppercase;letter-spacing:.1em;padding:12px 16px;border-radius:6px;background:var(--orange);color:#1a1a1a !important;border:1.5px solid var(--orange);text-decoration:none;white-space:nowrap}
+  .head{background:var(--dark);color:#fff;padding-block:40px;display:grid;gap:10px}
+  .eyebrow{font-weight:800;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--orange)}
+  h1{font-weight:900;font-size:clamp(30px,5vw,54px);line-height:1;text-transform:uppercase;letter-spacing:-.02em;margin:0;text-wrap:balance}
+  .head p{margin:0;color:rgba(255,255,255,.8);max-width:62ch}
+  .filters{background:var(--orange-wash);border-bottom:1px solid var(--hair);padding-block:14px;display:grid;gap:10px}
+  .frow{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .frow .lbl{font-weight:800;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--orange-ink);width:58px}
+  .chips{display:flex;gap:6px;flex-wrap:wrap;flex:1;min-width:0}
+  .chips button{font:700 11.5px/1 var(--font);padding:9px 11px;border:1.5px solid var(--line);border-radius:6px;background:#fff;color:var(--ink);cursor:pointer}
+  .chips button[aria-pressed="true"]{background:var(--ink);color:#fff}
+  .chips button:focus-visible{outline:3px solid var(--orange);outline-offset:2px}
+  .grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;padding-block:24px 56px}
+  .muted{color:var(--ink3);font-style:italic;grid-column:1/-1}
+  .count{font-size:12.5px;color:var(--ink2);padding-top:16px}
+  footer{border-top:1px solid var(--hair);padding-block:22px;font-size:12px;color:var(--ink3)}
+  @media (max-width:1100px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+  @media (max-width:800px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media (max-width:480px){.grid{grid-template-columns:1fr}.frow .lbl{width:100%}}
+  @media (max-width:640px){.nav{position:static}}
+</style>
+</head>
+<body>
+<header class="nav wrap">
+  <a class="brand" href="/">Sean A<span>.</span> Russell</a>
+  <nav aria-label="Primary">
+    <a href="/kits">Media Kits</a>
+    <a href="/watch">Watch</a>
+    <a href="/case-studies">Case Studies</a>
+    <a href="/press">Press</a>
+    <a href="/dashboard">Log In</a>
+    <a class="btn" href="/booking">Book Sean</a>
+  </nav>
+</header>
+<section class="head wrap">
+  <span class="eyebrow">Watch and listen</span>
+  <h1>The shows behind the work</h1>
+  <p>Podcasts Sean hosted, produced or executive produced, and the video channels behind them. Pick a show, a kit or a format.</p>
+</section>
+<section class="filters wrap" aria-label="Filters">
+  <div class="frow"><span class="lbl">Show</span><div class="chips" data-f="show"></div></div>
+  <div class="frow"><span class="lbl">Kit</span><div class="chips" data-f="kit"></div></div>
+  <div class="frow"><span class="lbl">Format</span><div class="chips" data-f="format"></div></div>
+</section>
+<div class="count wrap" id="count" aria-live="polite"></div>
+<main class="grid wrap" id="grid"><p class="muted">Loading the clips.</p></main>
+<footer class="wrap">&copy; 2026 Sean A. Russell. A LESARUSS production.</footer>
+<script src="/assets/js/sar-player.js"></script>
+<script>
+(function () {
+  var FN = 'https://fwbhwfxpncrsfhttimna.supabase.co/functions/v1/sar-media';
+  var ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ3Ymh3ZnhwbmNyc2ZodHRpbW5hIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ2NjAxMzksImV4cCI6MjA5MDIzNjEzOX0.9mxjK0bn5WATCbNLWrHPakD6yHUDtHFHrOaklPnWkOA';
+  var KITS = [['executive-marketing', 'Executive Marketing'], ['education', 'Education'], ['media-production', 'Media & Production'], ['speaker', 'Speaker & Host'], ['vegan-movement', 'Vegan Movement'], ['entertainment', 'Entertainment & Music']];
+  var esc = SARPlayer.esc;
+  function call(action, body) {
+    return fetch(FN + '?action=' + action, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + ANON, 'apikey': ANON }, body: JSON.stringify(body || {}) })
+      .then(function (r) { return r.json(); });
+  }
+  var qs = new URLSearchParams(location.search);
+  var F = { show: qs.get('show') || 'all', kit: qs.get('kit') || 'all', format: qs.get('format') || 'all' };
+  var ALL = [], SHOWN = [];
+  var grid = document.getElementById('grid');
+  SARPlayer.bind(grid, SHOWN);
+
+  function chips() {
+    var shows = [];
+    ALL.forEach(function (i) { if (!shows.some(function (s) { return s[0] === i.show_slug; })) shows.push([i.show_slug, i.show]); });
+    var kitsUsed = KITS.filter(function (k) { return ALL.some(function (i) { return (i.kits || []).indexOf(k[0]) > -1; }); });
+    var opts = { show: [['all', 'All shows']].concat(shows), kit: [['all', 'All kits']].concat(kitsUsed), format: [['all', 'All'], ['highlight', 'Highlights'], ['full', 'Full episodes']] };
+    Array.prototype.forEach.call(document.querySelectorAll('.chips'), function (el) {
+      var f = el.getAttribute('data-f');
+      el.innerHTML = opts[f].map(function (o) { return '<button type="button" data-v="' + esc(o[0]) + '" aria-pressed="' + (F[f] === o[0]) + '">' + esc(o[1]) + '</button>'; }).join('');
+    });
+  }
+  function render() {
+    SHOWN.length = 0;
+    ALL.forEach(function (i) {
+      if (F.show !== 'all' && i.show_slug !== F.show) return;
+      if (F.kit !== 'all' && (i.kits || []).indexOf(F.kit) < 0) return;
+      if (F.format !== 'all' && i.format !== F.format) return;
+      SHOWN.push(i);
+    });
+    grid.innerHTML = SHOWN.length ? SHOWN.map(SARPlayer.card).join('') : '<p class="muted">Nothing here for this filter yet.</p>';
+    document.getElementById('count').textContent = SHOWN.length + (SHOWN.length === 1 ? ' clip' : ' clips');
+  }
+  document.querySelector('.filters').addEventListener('click', function (e) {
+    var b = e.target.closest('[data-v]'); if (!b) return;
+    F[b.parentNode.getAttribute('data-f')] = b.getAttribute('data-v');
+    var u = new URLSearchParams();
+    Object.keys(F).forEach(function (k) { if (F[k] !== 'all') u.set(k, F[k]); });
+    history.replaceState(null, '', location.pathname + (u.toString() ? '?' + u : ''));
+    chips(); render();
+  });
+  call('featured', {}).then(function (d) { ALL = (d && d.items) || []; chips(); render(); })
+    .catch(function () { grid.innerHTML = '<p class="muted">The clips could not load. Refresh to try again.</p>'; });
+})();
+</script>
+</body>
+</html>

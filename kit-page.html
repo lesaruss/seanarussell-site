@@ -100,6 +100,7 @@
   .pill.ok{background:var(--ok-wash);color:var(--ok)}
   blockquote{margin:0;border-left:3px solid var(--orange);padding:8px 12px;background:var(--surface2);border-radius:0 6px 6px 0;font-size:14px}
   blockquote cite{display:block;margin-top:6px;font-style:normal;font-weight:700;font-size:12px;color:var(--ink2)}
+  .watch{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
   .press{display:grid;gap:8px}
   .prow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;border-top:1px solid var(--hair);padding-top:8px}
   .prow:first-child{border-top:0;padding-top:0}
@@ -137,8 +138,10 @@
     .pose{width:160px}
     .pillars{grid-template-columns:1fr}
     .card,.card.noval{grid-template-columns:1fr;gap:8px}
+    .watch{grid-template-columns:1fr}
   }
   @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+  @media (max-width:640px){.nav{position:static}}
 </style>
 </head>
 <body>
@@ -146,6 +149,7 @@
   <a class="brand" href="/">Sean A<span>.</span> Russell</a>
   <nav aria-label="Primary">
     <a href="/kits">Media Kits</a>
+    <a href="/watch">Watch</a>
     <a href="/case-studies">Case Studies</a>
     <a href="/press">Press</a>
     <a href="/dashboard">Log In</a>
@@ -174,6 +178,7 @@
   <span><a href="/kits">All media kits</a> &middot; <a href="/press">Press</a> &middot; <a href="/booking">Book Sean</a></span>
 </footer>
 
+<script src="/assets/js/sar-player.js"></script>
 <script>
 (function () {
   var FN = 'https://fwbhwfxpncrsfhttimna.supabase.co/functions/v1/sar-kits';
@@ -238,6 +243,7 @@
         (s.story_url && !s.draft ? '<a href="' + esc(s.story_url) + '" target="_blank" rel="noopener">Read the story</a>' : '') + '</div>';
     }).join('') + '</div>' : '<p class="muted">Published stories for this kit are on the way.</p>') +
       (v === 'you' && drafts ? '<p>' + drafts + ' ' + (drafts === 1 ? 'story is' : 'stories are') + ' in drafts and ' + (drafts === 1 ? 'appears' : 'appear') + ' publicly once confirmed.</p>' : '') + '</div>';
+    left += '<div class="box" id="kit-watch-box" hidden><h2>Watch and listen</h2><div class="watch" id="kit-watch"></div><a class="btn ghost" href="/watch?kit=' + encodeURIComponent(k.slug) + '" style="justify-self:start">See everything on Watch</a></div>';
     if (d.quotes.length) left += '<div class="box"><h2>What clients say</h2>' + d.quotes.map(function (q) { return '<blockquote>' + esc(q.quote) + '<cite>' + esc(clientName(q.by)) + '</cite></blockquote>'; }).join('') + '</div>';
 
     var right = '';
@@ -268,6 +274,7 @@
     bindLinks();
     renderTabs();
     renderPress();
+    renderWatch();
   }
 
   function fmtDate(iso) { try { return new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }); } catch (e) { return iso; } }
@@ -348,6 +355,24 @@
   fetch('https://lesaruss.com/api/press').then(function (r) { if (!r.ok) throw 0; return r.json(); })
     .then(function (d) { PRESS = Array.isArray(d) ? d : []; if (data) renderPress(); })
     .catch(function () { PRESS_FAILED = true; if (data) renderPress(); });
+
+  // ---- Watch and listen: the clips Sean featured for this kit (sar-media) ----
+  var WATCH = null, WATCH_FOR = null, WATCH_ITEMS = [];
+  function renderWatch() {
+    var box = document.getElementById('kit-watch-box'), el = document.getElementById('kit-watch');
+    if (!box || !window.SARPlayer) return;
+    if (WATCH_FOR !== data.kit.slug) {
+      WATCH_FOR = data.kit.slug; WATCH = null;
+      fetch('https://fwbhwfxpncrsfhttimna.supabase.co/functions/v1/sar-media?action=featured', { method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + ANON, 'apikey': ANON }, body: JSON.stringify({ kit: data.kit.slug }) })
+        .then(function (r) { return r.json(); }).then(function (j) { WATCH = (j && j.items) || []; renderWatch(); }).catch(function () { WATCH = []; });
+      return;
+    }
+    if (!WATCH || !WATCH.length) { box.hidden = true; return; }
+    WATCH_ITEMS.length = 0; WATCH.slice(0, 4).forEach(function (i) { WATCH_ITEMS.push(i); });
+    el.innerHTML = WATCH_ITEMS.map(SARPlayer.card).join('');
+    if (!el.dataset.bound) { SARPlayer.bind(el, WATCH_ITEMS); el.dataset.bound = '1'; }
+    box.hidden = false;
+  }
 
   function notFound() {
     document.getElementById('main').innerHTML = '<section class="state wrap"><h1>That kit is not here</h1><p class="muted">It may not be published yet.</p><a class="btn" href="/kits">See all media kits</a></section>';
