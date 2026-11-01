@@ -1,3 +1,23 @@
+// The booking form sends its details as separate fields. Fold the ones the
+// lead CRM has no column for into the message, so nothing the visitor typed is
+// lost (organization, engagement type and date were dropped before 2026-11-01).
+const KIT_NAMES = {
+  'executive-marketing': 'Executive Marketing', education: 'Education', 'media-production': 'Media & Production',
+  speaker: 'Speaker & Host', 'vegan-movement': 'Vegan Movement', entertainment: 'Entertainment & Music',
+};
+function bookingMessage(body) {
+  const lines = [];
+  const kit = typeof body.kit === 'string' && KIT_NAMES[body.kit] ? KIT_NAMES[body.kit] : '';
+  if (kit) lines.push('Came from the ' + kit + ' media kit.');
+  if (body.engagement_type && body.engagement_type !== 'Engagement type') lines.push('Engagement: ' + body.engagement_type);
+  if (body.event_date) lines.push('Date or window: ' + body.event_date);
+  if (body.budget) lines.push('Budget: ' + body.budget);
+  if (Array.isArray(body.slots) && body.slots.length) lines.push('Times: ' + body.slots.join(', '));
+  const msg = String(body.message || '').trim();
+  if (!lines.length) return msg || null;
+  return lines.join('\n') + (msg ? '\n\n' + msg : '');
+}
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
@@ -29,9 +49,9 @@ export default async function handler(req, res) {
           : 'sar-contact',
         name: body.name || null,
         email,
-        org: body.org || null,
-        opportunity_types: Array.isArray(body.types) ? body.types : null,
-        message: body.message || null,
+        org: body.org || body.organization || null,
+        opportunity_types: Array.isArray(body.types) ? body.types : (body.engagement_type ? [body.engagement_type] : null),
+        message: bookingMessage(body),
         source,
       })
     });

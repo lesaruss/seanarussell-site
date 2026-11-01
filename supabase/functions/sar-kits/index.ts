@@ -22,6 +22,7 @@
 //
 // Actions (POST JSON, ?action=):
 //   list         the kit shelf (live kits; drafts too for the owner)
+//   studies      published stories tagged into live kits (/case-studies)
 //   get          {slug, link?, token?}
 //   create_link  {slug, label?, days?}  owner only
 //   revoke_link  {link}                 owner only
@@ -126,6 +127,29 @@ serve(async (req) => {
           return { slug: k.slug, name: k.name, role: k.role_line, pose: k.pose, status: k.status, lead: lead ? { v: lead.v, l: lead.l } : null };
         }),
       });
+    }
+
+    // /case-studies (Phase 3): every published story tagged into a kit, with
+    // its live kits, headline number and story link. Published only, always.
+    if (action === 'studies') {
+      const [{ data: rows }, { data: kits }] = await Promise.all([
+        db.from('case_studies').select('slug, client_name, industry, status, results, audience_tags, published_content, updated_at').eq('status', 'published'),
+        db.from('sar_kits').select('slug, name, highlights, status').eq('status', 'live').order('sort'),
+      ]);
+      const live: Record<string, string> = {}, value: Record<string, string> = {};
+      for (const k of kits ?? []) { live[(k as any).slug] = (k as any).name; Object.assign(value, (k as any).highlights || {}); }
+      const studies = (rows ?? [])
+        .map((r: any) => ({
+          slug: r.slug,
+          client: String(r.client_name || '').replace(/^Sean A\. Russell -- /, '').replace(/ -- /g, ': '),
+          industry: r.industry ? String(r.industry).replace(/ -- /g, ': ') : null,
+          headline: firstResult(r.results),
+          value: value[r.slug] ?? null,
+          story_url: r.published_content ? `https://lesaruss.com/case-studies/${r.slug}` : null,
+          kits: (r.audience_tags || []).filter((t: string) => t.startsWith('sar-kit:') && live[t.slice(8)]).map((t: string) => t.slice(8)),
+        }))
+        .filter((s: any) => s.kits.length);
+      return json({ kits: (kits ?? []).map((k: any) => ({ slug: k.slug, name: k.name })), studies });
     }
 
     if (action === 'get') {
