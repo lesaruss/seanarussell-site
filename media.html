@@ -106,8 +106,17 @@
   .vid:hover b{text-decoration:underline}
   .vid:focus-visible{outline:3px solid var(--orange);outline-offset:3px}
   .gfs-frame{border-radius:6px;overflow:hidden;background:#020c0a;border:1px solid var(--hair)}
-  .gfs-frame iframe{display:block;width:100%;height:1400px;border:0}
-  .gfs-note{font-size:12.5px;color:var(--ink2);margin:10px 0 0}.gfs-note a{color:var(--orange-ink);font-weight:700}
+  .gfs-frame iframe{display:block;width:100%;height:760px;border:0}
+  .head[hidden]{display:none}
+  .gfs-strip{display:flex;align-items:center;gap:12px;padding:0 0 14px;margin-bottom:14px;border-bottom:1px solid var(--hair)}
+  .gfs-logo{width:40px;height:40px;object-fit:contain;flex-shrink:0}
+  .gfs-id{display:grid;gap:3px;min-width:0;flex:1}
+  .gfs-path{font-weight:800;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3)}
+  .gfs-path a{color:var(--orange-ink);text-decoration:none}.gfs-path a:hover{text-decoration:underline}
+  .gfs-name{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.gfs-name b{font-weight:900;font-size:20px;text-transform:uppercase;letter-spacing:-.01em;line-height:1.1}
+  .gfs-open{font:800 11px/1 var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--orange-ink);text-decoration:none;white-space:nowrap}
+  .gfs-open:hover{text-decoration:underline}
+  @media (max-width:480px){.gfs-open{display:none}}
   .vcount{margin:0 0 12px;font-size:12.5px;font-weight:700;color:var(--ink2)}
   .showall{margin-top:20px;display:flex;justify-content:center}
   footer{border-top:1px solid var(--hair);padding-block:22px;font-size:12px;color:var(--ink3)}
@@ -178,6 +187,7 @@
   function status(s) { return s.active == null ? '' : s.active ? 'Active' : 'On hiatus'; }
   function count(s) { return s.count == null ? '' : plural(s.count, s.kind === 'podcast' ? 'episode' : 'video', s.kind === 'podcast' ? 'episodes' : 'videos'); }
   function setHead(html, art, wide) {
+    head.hidden = false;
     head.className = 'head wrap' + (art ? ' withart' : '');
     head.innerHTML = (art ? '<img class="art' + (wide ? ' wide' : '') + '" src="' + esc(art) + '" alt="">' : '') + '<div>' + html + '</div>';
   }
@@ -298,17 +308,31 @@
   // listen to their music and then you can join and support them"). GeekFon draws it in its embedded mode (?embed=1): no GeekFon
   // header, its height sent here so the frame grows, and Join, Support and every link open on geekfon.ai in the whole window.
   var GFS = 'https://geekfon.ai';
+  // No black header here (Sean, 2026-11-01: "we don't need the black header because the information's already in the embed"):
+  // a slim strip with GeekFon's logo, the path, the artist's name a size smaller and their genre, then their page.
   function artist(n, a) {
     document.title = a.name + '. ' + n.name + '. Sean A. Russell.';
-    setHead('<span class="path"><a href="/media">Media</a> / <a href="/media/' + esc(n.slug) + '">' + esc(n.name) + '</a> / ' + esc(a.name) + '</span>' +
-      '<h1>' + esc(a.name) + '</h1><div class="facts">' + (a.genre ? '<span class="pill">' + esc(a.genre) + '</span>' : '') + '</div>' +
-      (a.about ? '<p>' + esc(a.about) + '</p>' : ''), a.cover, false);
-    main.innerHTML = '<div class="gfs-frame"><iframe id="gfs" src="' + GFS + '/' + encodeURIComponent(a.slug) + '?embed=1" title="' + esc(a.name) + ' on GeekFon Society" ' +
-      'allow="autoplay; encrypted-media; fullscreen; clipboard-write" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>' +
-      '<p class="gfs-note">Join and support ' + esc(a.name) + ' on GeekFon Society. <a href="' + GFS + '/' + encodeURIComponent(a.slug) + '" target="_blank" rel="noopener">Open on geekfon.ai</a></p>';
+    head.hidden = true; head.innerHTML = '';
+    var url = GFS + '/' + encodeURIComponent(a.slug);
+    main.innerHTML = '<div class="gfs-strip">' + (n.logo ? '<img class="gfs-logo" src="' + esc(n.logo) + '" alt="' + esc(n.name) + '">' : '') +
+        '<div class="gfs-id"><span class="gfs-path"><a href="/media">Media</a> / <a href="/media/' + esc(n.slug) + '">' + esc(n.name) + '</a> / ' + esc(a.name) + '</span>' +
+        '<span class="gfs-name"><b>' + esc(a.name) + '</b>' + (a.genre ? '<span class="sard-pill">' + esc(a.genre) + '</span>' : '') + '</span></div>' +
+        '<a class="gfs-open" href="' + url + '" target="_blank" rel="noopener">Open on geekfon.ai</a></div>' +
+      '<div class="gfs-frame"><iframe id="gfs" src="' + url + '?embed=1" title="' + esc(a.name) + ' on GeekFon Society" ' +
+      'allow="autoplay; encrypted-media; fullscreen; clipboard-write" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>';
+    var f = document.getElementById('gfs'); f.onload = hostViewport;
   }
+  // The frame lays its page out to this window's height (not its own, which grows to fit the page).
+  function hostViewport() {
+    var f = document.getElementById('gfs'); if (!f || !f.contentWindow) return;
+    var navh = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--navh'), 10) || 0;
+    f.contentWindow.postMessage({ type: 'gfs-host-viewport', height: Math.max(420, innerHeight - navh - 24) }, GFS);
+  }
+  addEventListener('resize', hostViewport);
   addEventListener('message', function (e) {
-    if (e.origin !== GFS || !e.data || e.data.type !== 'gfs-embed-height') return;
+    if (e.origin !== GFS || !e.data) return;
+    if (e.data.type === 'gfs-embed-ready') return hostViewport();
+    if (e.data.type !== 'gfs-embed-height') return;
     var f = document.getElementById('gfs'); var h = Math.round(+e.data.height);
     if (f && h > 200 && h < 30000) f.style.height = h + 'px';
   });
