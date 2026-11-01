@@ -22,6 +22,14 @@
 //   moments {episode_id}           owner: the tagged moments in an episode
 //   feature_save {...}             owner: create or update a feature (kits, profiles)
 //   feature_remove {id}            owner
+//
+// Watch (Sean, 2026-11-01: networks > shows > a show, the Vegans Explore way; sar_watch_networks, sar_watch_shows):
+//   watch {network?}               anyone: the networks, or one network's shows (cover, episodes, latest, Active / On hiatus)
+//   show {slug}                    anyone: one show (about, Listen on, its source or playlist)
+//   episodes {listing_id: show, q?, offset?, limit?}   anyone: in ve-podcast's shape, for VEEpisodes.mount({call})
+//   episode {listing_id: show, guid}                   anyone: one episode, the same shape
+// refresh also runs from the hourly cron (x-cron-secret, CRON_SECRET) with stale_hours: only sources read longer ago than that.
+// A show is On hiatus when its newest episode is more than six months old (Vegans Explore's rule), never Ended.
 
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.45.4';
@@ -233,12 +241,105 @@ async function cleanProfiles(p: unknown): Promise<string[]> {
   return (data ?? []).map((r: any) => r.slug);
 }
 
+// ---- Watch ----
+const HIATUS_MS = 182 * 864e5;
+async function latestOf(source: string) {
+  const { data } = await db.from('sar_media_episodes').select('published_at, image').eq('source_slug', source)
+    .order('published_at', { ascending: false, nullsFirst: false }).limit(1).maybeSingle();
+  return data as any;
+}
+async function hydrate(shows: any[]) {
+  const srcSlugs = shows.map((s) => s.source_slug).filter(Boolean);
+  const plIds = shows.map((s) => s.playlist_id).filter(Boolean);
+  const [{ data: srcs }, { data: pls }] = await Promise.all([
+    srcSlugs.length ? db.from('sar_media_sources').select('slug, cover, description, episode_count, rss_url, youtube_handle, channel_id').in('slug', srcSlugs) : Promise.resolve({ data: [] }),
+    plIds.length ? db.from('ve_youtube_playlists').select('playlist_id, title, item_count, videos, fetched_at').in('playlist_id', plIds) : Promise.resolve({ data: [] }),
+  ]);
+  const S: Record<string, any> = Object.fromEntries((srcs ?? []).map((x: any) => [x.slug, x]));
+  const P: Record<string, any> = Object.fromEntries((pls ?? []).map((x: any) => [x.playlist_id, x]));
+  return Promise.all(shows.map(async (sh) => {
+    let cover = sh.cover, count = null as number | null, latest = null as string | null, about = sh.about, src: any = null;
+    if (sh.playlist_id) {
+      const p = P[sh.playlist_id]; const v = (p?.videos || []) as any[];
+      count = p ? (p.item_count ?? v.length) : null; latest = v[0]?.published || null; cover = cover || v[0]?.thumb || null;
+    } else {
+      src = S[sh.source_slug] || null; const l = await latestOf(sh.source_slug);
+      count = src?.episode_count ?? null; latest = l?.published_at || null;
+      cover = cover || (sh.kind === 'channel' ? l?.image : src?.cover) || src?.cover || null; about = about || src?.description || null;
+    }
+    return {
+      slug: sh.slug, network: sh.network_slug, name: sh.name, kind: sh.kind, roles: sh.roles, cover, about, count, latest,
+      active: latest ? Date.now() - Date.parse(latest) < HIATUS_MS : null, playlist_id: sh.playlist_id || null,
+      source: src ? { slug: src.slug, rss_url: src.rss_url, channel_id: src.channel_id, handle: src.youtube_handle } : null,
+    };
+  }));
+}
+const epShape = (e: any) => ({
+  guid: e.guid, title: e.title, audio: e.audio_url || '', image: e.image || null, date: e.published_at, duration: e.duration_s,
+  summary: e.summary || '', link: e.link || null, youtube_id: e.youtube_id || null,
+});
+async function watchShow(slug: string) {
+  const { data } = await db.from('sar_watch_shows').select('*').eq('slug', slug).eq('status', 'live').maybeSingle();
+  return data as any;
+}
+
 serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: cors });
   const action = new URL(req.url).searchParams.get('action') ?? '';
   const body = await req.json().catch(() => ({}));
 
   try {
+    if (action === 'watch') {
+      const { data: nets } = await db.from('sar_watch_networks').select('*').order('sort');
+      const net = typeof body.network === 'string' ? body.network : '';
+      if (!net) {
+        const { data: all } = await db.from('sar_watch_shows').select('network_slug').eq('status', 'live');
+        const n: Record<string, number> = {}; for (const r of all ?? []) n[(r as any).network_slug] = (n[(r as any).network_slug] || 0) + 1;
+        return json({ networks: (nets ?? []).map((x: any) => ({ ...x, shows: n[x.slug] || 0 })) });
+      }
+      const network = (nets ?? []).find((x: any) => x.slug === net);
+      if (!network) return json({ error: 'not_found' }, 404);
+      const { data: shows } = await db.from('sar_watch_shows').select('*').eq('network_slug', net).eq('status', 'live').order('sort');
+      return json({ network, shows: await hydrate(shows ?? []) });
+    }
+
+    if (action === 'show') {
+      const sh = await watchShow(String(body.slug || ''));
+      if (!sh) return json({ error: 'not_found' }, 404);
+      const [h] = await hydrate([sh]);
+      const { data: network } = await db.from('sar_watch_networks').select('*').eq('slug', sh.network_slug).maybeSingle();
+      let listen: { label: string; url: string }[] = [];
+      if (sh.kind === 'podcast' && h.source) {
+        const { data: one } = await db.from('sar_media_episodes').select('link').eq('source_slug', sh.source_slug).not('link', 'is', null).limit(1).maybeSingle();
+        const site = one && /captivate\.fm/.test((one as any).link) ? new URL((one as any).link).origin : null;
+        listen = [['Website', site], ['RSS', h.source.rss_url]].filter((x) => x[1]).map(([label, url]) => ({ label: label as string, url: url as string }));
+      } else if (sh.kind === 'playlist') {
+        listen = [{ label: 'YouTube', url: `https://www.youtube.com/playlist?list=${sh.playlist_id}` }];
+      } else if (h.source) {
+        listen = [{ label: 'YouTube', url: h.source.channel_id ? `https://www.youtube.com/channel/${h.source.channel_id}` : `https://www.youtube.com/${h.source.handle}` }];
+      }
+      return json({ show: { ...h, listen_on: listen }, network });
+    }
+
+    if (action === 'episodes' || action === 'episode') {
+      const sh = await watchShow(String(body.listing_id || body.slug || ''));
+      if (!sh || !sh.source_slug) return json({ ok: false, error: 'not_found' }, 404);
+      const { data: src } = await db.from('sar_media_sources').select('cover').eq('slug', sh.source_slug).maybeSingle();
+      const show = { name: sh.name, image: sh.cover || (src as any)?.cover || null };
+      if (action === 'episode') {
+        const { data: e } = await db.from('sar_media_episodes').select('*').eq('source_slug', sh.source_slug).eq('guid', String(body.guid || '')).maybeSingle();
+        return json({ ok: !!e, show, episode: e ? epShape(e) : null });
+      }
+      const limit = Math.min(50, Math.max(1, parseInt(String(body.limit ?? 20), 10) || 20));
+      const offset = Math.max(0, parseInt(String(body.offset ?? 0), 10) || 0);
+      let q = db.from('sar_media_episodes').select('*', { count: 'exact' }).eq('source_slug', sh.source_slug)
+        .order('published_at', { ascending: false, nullsFirst: false }).range(offset, offset + limit - 1);
+      const term = String(body.q || '').trim().replace(/[%_,()]/g, '');
+      if (term) q = q.ilike('title', `%${term}%`);
+      const { data, count } = await q;
+      return json({ ok: true, show, total: count ?? 0, episodes: (data ?? []).map(epShape) });
+    }
+
     if (action === 'sources') {
       const { data } = await db.from('sar_media_sources').select('slug, name, kind, network, roles, kits, cover, description, episode_count, youtube_handle, rss_url, sort').order('sort');
       return json({ sources: data ?? [] });
@@ -265,11 +366,15 @@ serve(async (req) => {
       });
     }
 
-    if (!(await isOwner(body))) return json({ error: 'owner_only' }, 403);
+    const cronSecret = req.headers.get('x-cron-secret');
+    const cron = action === 'refresh' && !!cronSecret && cronSecret === (await secret('CRON_SECRET'));
+    if (!cron && !(await isOwner(body))) return json({ error: 'owner_only' }, 403);
 
     if (action === 'refresh') {
       let q = db.from('sar_media_sources').select('*').order('sort');
       if (typeof body.source === 'string' && body.source) q = q.eq('slug', body.source);
+      const stale = Number(body.stale_hours);
+      if (Number.isFinite(stale) && stale > 0) q = q.or(`fetched_at.is.null,fetched_at.lt.${new Date(Date.now() - stale * 3600e3).toISOString()}`);
       const { data: srcs } = await q;
       const out = [];
       for (const s of srcs ?? []) out.push(await refreshSource(s));

@@ -4,53 +4,111 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Watch and Listen. Sean A. Russell.</title>
-<meta name="description" content="Sean A. Russell's shows, interviews and highlights: podcasts he hosted and produced, and the video channels behind them.">
+<meta name="description" content="Sean A. Russell's networks and shows: Vegans Explore, Top Spot USA and Anime 3000, every podcast episode and video.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <script src="/analytics.js" defer></script>
-<!-- Watch & Listen (playbook media-kits, Phase 2). The clips Sean features in
-     /watch/manage, from the sar-media edge function, filtered by show, kit and
-     format; the address carries the filters. Video plays in a pop-up, audio in
-     the bar at the foot of the window (assets/js/sar-player.js). -->
+<!-- Watch, the Vegans Explore way (Sean, 2026-11-01: "Vegans Explore, Top Spot USA, Anime 3000. And then when you click those,
+     you should see the shows that are underneath it... a thumbnail, then the name of the show... then you get the profile with
+     all the episodes... 3/4 where the body of the information is, and then you have 1/4 for ads... the same way it shows on
+     Vegans Explore when you click on a podcast... even how the audio plays").
+       /watch                     the networks
+       /watch/<network>           its shows as tiles (vercel.json rewrites to this page)
+       /watch/<network>/<show>    a show: a podcast plays through Vegans Explore's own episode player (ve-episodes.js, the bar at
+                                  the foot of the window); a playlist (Top Spot USA) or a channel (A3K TV) plays like Brooke
+                                  Sellers' series pages: the video up top, every video below.
+     Data: sar-media watch / show / episodes (sar_watch_networks, sar_watch_shows; feeds re-read hourly by the sar-media-refresh
+     cron) and ve-youtube playlist (re-read every 6 hours). Ads: Vegans Explore's ve-ad-rail.js, brand sean-a-russell, page
+     sar-watch. The featured clips Sean picks for his kits are still managed at /watch/manage. -->
 <style>
   :root{--bg:#fff;--ink:#1a1a1a;--ink2:#55524e;--ink3:#8a8580;--line:#1a1a1a;--hair:rgba(26,26,26,.12);--orange:#F69820;--orange-ink:#7d4a00;--orange-wash:#fdf2e3;--dark:#0d0d0d;--font:'Montserrat',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
   *{box-sizing:border-box} html,body{margin:0}
   body{background:var(--bg);color:var(--ink);font:400 15px/1.6 var(--font)}
+  img{max-width:100%}
   .wrap{padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
   .nav{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.96);border-bottom:1px solid var(--hair);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-block:14px}
   .brand{font-weight:900;font-size:16px;text-transform:uppercase;text-decoration:none;color:inherit}
   .brand span{color:var(--orange)}
   .nav nav{display:flex;gap:18px;align-items:center;flex-wrap:wrap;font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.1em}
   .nav nav a{text-decoration:none;color:inherit}
-  .btn{display:inline-flex;align-items:center;justify-content:center;font:800 11px/1 var(--font);text-transform:uppercase;letter-spacing:.1em;padding:12px 16px;border-radius:6px;background:var(--orange);color:#1a1a1a !important;border:1.5px solid var(--orange);text-decoration:none;white-space:nowrap}
-  .head{background:var(--dark);color:#fff;padding-block:40px;display:grid;gap:10px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;font:800 11px/1 var(--font);text-transform:uppercase;letter-spacing:.1em;padding:12px 16px;border-radius:6px;background:var(--orange);color:#1a1a1a !important;border:1.5px solid var(--orange);text-decoration:none;white-space:nowrap;cursor:pointer}
+  .btn.ghost{background:#fff;border-color:var(--line)}
+  .head{background:var(--dark);color:#fff;padding-block:36px;display:grid;gap:10px}
+  .head.withart{grid-template-columns:150px minmax(0,1fr);gap:24px;align-items:center}
+  .head .art{width:150px;aspect-ratio:1;border-radius:6px;object-fit:cover;background:#222}
+  .head .art.wide{aspect-ratio:16/9;object-fit:contain;background:#000}
+  .head > div{display:grid;gap:10px;min-width:0}
   .eyebrow{font-weight:800;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--orange)}
-  h1{font-weight:900;font-size:clamp(30px,5vw,54px);line-height:1;text-transform:uppercase;letter-spacing:-.02em;margin:0;text-wrap:balance}
-  .head p{margin:0;color:rgba(255,255,255,.8);max-width:62ch}
-  .filters{background:var(--orange-wash);border-bottom:1px solid var(--hair);padding-block:14px;display:grid;gap:10px}
-  .frow{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-  .frow .lbl{font-weight:800;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--orange-ink);width:58px}
-  .chips{display:flex;gap:6px;flex-wrap:wrap;flex:1;min-width:0}
-  .chips button{font:700 11.5px/1 var(--font);padding:9px 11px;border:1.5px solid var(--line);border-radius:6px;background:#fff;color:var(--ink);cursor:pointer}
-  .chips button[aria-pressed="true"]{background:var(--ink);color:#fff}
-  .chips button:focus-visible{outline:3px solid var(--orange);outline-offset:2px}
-  .grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;padding-block:24px 56px}
-  .muted{color:var(--ink3);font-style:italic;grid-column:1/-1}
-  .count{font-size:12.5px;color:var(--ink2);padding-top:16px}
+  .eyebrow a{color:inherit;text-decoration:none}.eyebrow a:hover{text-decoration:underline}
+  h1{font-weight:900;font-size:clamp(28px,5vw,52px);line-height:1;text-transform:uppercase;letter-spacing:-.02em;margin:0;text-wrap:balance;overflow-wrap:anywhere}
+  .head p{margin:0;color:rgba(255,255,255,.8);max-width:66ch}
+  .facts{display:flex;flex-wrap:wrap;gap:6px}
+  .fact{font-weight:700;font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:6px 9px;border-radius:6px;background:rgba(255,255,255,.1);color:#fff}
+  .fact.on{background:var(--orange);color:#1a1a1a}
+  .crumb{font-size:12.5px;font-weight:700;color:var(--ink2);padding-top:16px}
+  .crumb a{color:var(--orange-ink);text-decoration:none}.crumb a:hover{text-decoration:underline}
+  .body{padding-block:22px 56px}
+  .vear-layout{--ve-nav-h:var(--navh,0px)}
+  h2{font-weight:900;font-size:18px;text-transform:uppercase;letter-spacing:.02em;margin:0 0 12px}
+  .tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+  .tile{display:grid;gap:8px;text-decoration:none;color:inherit;border-radius:6px}
+  .tile .th{position:relative;aspect-ratio:16/9;border-radius:6px;overflow:hidden;background:#111;border:1px solid var(--hair)}
+  .tile .th img{width:100%;height:100%;object-fit:contain;display:block}
+  .tile .th .bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:blur(18px) brightness(.55);transform:scale(1.15)}
+  .tile .th .fg{position:relative}
+  .tile b{font-weight:800;font-size:15px;line-height:1.25}
+  .tile small{font-size:12px;color:var(--ink2);font-weight:600}
+  .tile:hover b{text-decoration:underline;text-decoration-color:var(--orange);text-decoration-thickness:2px}
+  .tile:focus-visible{outline:3px solid var(--orange);outline-offset:3px}
+  .badge{position:absolute;left:8px;top:8px;font:800 10px/1 var(--font);letter-spacing:.1em;text-transform:uppercase;padding:6px 7px;border-radius:6px;background:rgba(0,0,0,.72);color:#fff}
+  .net{grid-template-columns:1fr}
+  .about{max-width:72ch;margin:0 0 18px;color:var(--ink2);white-space:pre-line}
+  .about.clip{display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+  .more{background:none;border:0;padding:0;font:800 11px/1 var(--font);letter-spacing:.1em;text-transform:uppercase;color:var(--orange-ink);cursor:pointer;margin:-8px 0 18px}
+  .listen{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 24px}
+  .listen span{font-weight:800;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3)}
+  .listen a{font:700 12px/1 var(--font);padding:9px 11px;border:1.5px solid var(--line);border-radius:6px;text-decoration:none;color:var(--ink)}
+  .listen a:hover{background:var(--orange-wash)}
+  .muted{color:var(--ink3);font-style:italic}
+  /* The video show: the player up top, every video under it (Brooke Sellers' series pages). */
+  .player{display:grid;grid-template-columns:minmax(0,1fr);gap:10px;margin-bottom:26px}
+  .frame{position:relative;aspect-ratio:16/9;background:#000;border-radius:6px;overflow:hidden}
+  .frame iframe,.frame button{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .frame button{padding:0;cursor:pointer;background:#000}
+  .frame button img{width:100%;height:100%;object-fit:contain}
+  .frame button i{position:absolute;left:50%;top:50%;width:68px;height:48px;margin:-24px 0 0 -34px;border-radius:12px;background:var(--orange);display:grid;place-items:center}
+  .frame button i::after{content:'';border-left:18px solid #1a1a1a;border-top:11px solid transparent;border-bottom:11px solid transparent;margin-left:4px}
+  .player h3{margin:0;font-weight:800;font-size:17px;line-height:1.3}
+  .player .meta{font-size:12.5px;color:var(--ink2);font-weight:600}
+  .vids{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+  .vid{display:grid;gap:6px;text-align:left;background:none;border:0;padding:0;font:inherit;color:inherit;cursor:pointer}
+  .vid .th{position:relative;aspect-ratio:16/9;border-radius:6px;overflow:hidden;background:#111}
+  .vid .th img{width:100%;height:100%;object-fit:cover;display:block}
+  .vid .dur{position:absolute;right:6px;bottom:6px;font:700 11px/1 var(--font);padding:4px 5px;border-radius:4px;background:rgba(0,0,0,.8);color:#fff}
+  .vid b{font-weight:700;font-size:13.5px;line-height:1.35}
+  .vid small{font-size:11.5px;color:var(--ink3);font-weight:600}
+  .vid[aria-current=true] .th{outline:3px solid var(--orange);outline-offset:-3px}
+  .vid:hover b{text-decoration:underline}
+  .vid:focus-visible{outline:3px solid var(--orange);outline-offset:3px}
+  .showall{margin-top:20px;display:flex;justify-content:center}
   footer{border-top:1px solid var(--hair);padding-block:22px;font-size:12px;color:var(--ink3)}
-  @media (max-width:1100px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-  @media (max-width:800px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-  @media (max-width:480px){.grid{grid-template-columns:1fr}.frow .lbl{width:100%}}
-  @media (max-width:640px){.nav{position:static}}
+  /* Vegans Explore's player, in Sean's colors. */
+  .vep-btn.go,.vep-pages button[aria-current=page]{background:var(--orange) !important;border-color:var(--orange) !important;color:#1a1a1a !important}
+  a.vep-t:hover,.vep-crumb button{color:var(--orange-ink) !important}
+  .vear-ph{background:var(--orange-wash) !important;color:var(--orange-ink) !important}
+  .vear-cta{color:var(--orange-ink) !important}
+  @media (max-width:1100px){.tiles,.vids{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media (max-width:640px){.nav{position:static}.head.withart{grid-template-columns:1fr}.head .art{width:120px}.head .art.wide{width:100%;max-width:360px}}
+  @media (max-width:480px){.tiles,.vids{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-<header class="nav wrap">
+<header class="nav wrap" id="nav">
   <a class="brand" href="/">Sean A<span>.</span> Russell</a>
   <nav aria-label="Primary">
     <a href="/kits">Media Kits</a>
-    <a href="/watch">Watch</a>
+    <a href="/watch" aria-current="page">Watch</a>
     <a href="/directory">Directory</a>
     <a href="/case-studies">Case Studies</a>
     <a href="/press">Press</a>
@@ -58,67 +116,188 @@
     <a class="btn" href="/booking">Book Sean</a>
   </nav>
 </header>
-<section class="head wrap">
+<section class="head wrap" id="head">
   <span class="eyebrow">Watch and listen</span>
-  <h1>The shows behind the work</h1>
-  <p>Podcasts Sean hosted, produced or executive produced, and the video channels behind them. Pick a show, a kit or a format.</p>
+  <h1>Loading</h1>
 </section>
-<section class="filters wrap" aria-label="Filters">
-  <div class="frow"><span class="lbl">Show</span><div class="chips" data-f="show"></div></div>
-  <div class="frow"><span class="lbl">Kit</span><div class="chips" data-f="kit"></div></div>
-  <div class="frow"><span class="lbl">Format</span><div class="chips" data-f="format"></div></div>
-</section>
-<div class="count wrap" id="count" aria-live="polite"></div>
-<main class="grid wrap" id="grid"><p class="muted">Loading the clips.</p></main>
+<div class="crumb wrap" id="crumb" hidden></div>
+<div class="body wrap">
+  <div class="vear-layout">
+    <main class="vear-main" id="main"><p class="muted">Loading.</p></main>
+    <aside class="vear-rail" data-ad-page="sar-watch" data-ad-brand="sean-a-russell" data-ad-slots="sar-watch-skyscraper:tower:300 x 600" data-ad-cta="/booking" data-ad-cta-label="Advertise with Sean A. Russell"></aside>
+  </div>
+</div>
 <footer class="wrap">&copy; 2026 Sean A. Russell. A LESARUSS production.</footer>
-<script src="/assets/js/sar-player.js"></script>
+<script src="https://vegansexplore.com/public/ve-ad-rail.js" defer></script>
 <script>
 (function () {
-  var FN = 'https://fwbhwfxpncrsfhttimna.supabase.co/functions/v1/sar-media';
+  var FN = 'https://fwbhwfxpncrsfhttimna.supabase.co/functions/v1/';
   var ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ3Ymh3ZnhwbmNyc2ZodHRpbW5hIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ2NjAxMzksImV4cCI6MjA5MDIzNjEzOX0.9mxjK0bn5WATCbNLWrHPakD6yHUDtHFHrOaklPnWkOA';
-  var KITS = [['executive-marketing', 'Executive Marketing'], ['education', 'Education'], ['media-production', 'Media & Production'], ['speaker', 'Speaker & Host'], ['vegan-movement', 'Vegan Movement'], ['entertainment', 'Entertainment & Music']];
-  var esc = SARPlayer.esc;
-  function call(action, body) {
-    return fetch(FN + '?action=' + action, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + ANON, 'apikey': ANON }, body: JSON.stringify(body || {}) })
+  // Sean's credits for a network as a whole, where he gave them that way (Top Spot USA, 2026-10-31). A show's own roles live on
+  // the show (sar_watch_shows.roles).
+  var NET_ROLES = { 'top-spot-usa': ['Co-founder', 'Executive Producer', 'Producer', 'Host', 'Editor', 'Videographer', 'Writer'] };
+  var head = document.getElementById('head'), main = document.getElementById('main'), crumb = document.getElementById('crumb');
+
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function fn(name, action, body) {
+    return fetch(FN + name + (action ? '?action=' + action : ''), { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + ANON, apikey: ANON }, body: JSON.stringify(body || {}) })
       .then(function (r) { return r.json(); });
   }
-  var qs = new URLSearchParams(location.search);
-  var F = { show: qs.get('show') || 'all', kit: qs.get('kit') || 'all', format: qs.get('format') || 'all' };
-  var ALL = [], SHOWN = [];
-  var grid = document.getElementById('grid');
-  SARPlayer.bind(grid, SHOWN);
+  var media = function (action, body) { return fn('sar-media', action, body); };
+  function when(d) { var t = Date.parse(d || ''); return isNaN(t) ? '' : new Date(t).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }); }
+  function len(s) {
+    if (typeof s === 'string') return s;
+    if (!s) return '';
+    var h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), x = s % 60;
+    return (h ? h + ':' + String(m).padStart(2, '0') : m) + ':' + String(x).padStart(2, '0');
+  }
+  function plural(n, one, many) { return n + ' ' + (n === 1 ? one : many); }
+  function status(s) { return s.active == null ? '' : s.active ? 'Active' : 'On hiatus'; }
+  function count(s) { return s.count == null ? '' : plural(s.count, s.kind === 'podcast' ? 'episode' : 'video', s.kind === 'podcast' ? 'episodes' : 'videos'); }
+  function thumb(src, alt) {
+    return src ? '<img class="bg" src="' + esc(src) + '" alt="" aria-hidden="true" loading="lazy"><img class="fg" src="' + esc(src) + '" alt="" loading="lazy">' : '';
+  }
+  function setHead(html, art, wide) {
+    head.className = 'head wrap' + (art ? ' withart' : '');
+    head.innerHTML = (art ? '<img class="art' + (wide ? ' wide' : '') + '" src="' + esc(art) + '" alt="">' : '') + '<div>' + html + '</div>';
+  }
+  function setCrumb(parts) {
+    crumb.hidden = !parts; if (!parts) return;
+    crumb.innerHTML = parts.map(function (p) { return p[1] ? '<a href="' + esc(p[1]) + '">' + esc(p[0]) + '</a>' : '<span>' + esc(p[0]) + '</span>'; }).join(' / ');
+  }
+  function notFound(what) {
+    setHead('<span class="eyebrow">Watch and listen</span><h1>Not found</h1>');
+    main.innerHTML = '<p class="muted">That ' + what + ' is not on Watch. <a href="/watch">See every network</a>.</p>';
+  }
+  function failed() { main.innerHTML = '<p class="muted">This did not load. Refresh to try again.</p>'; }
+  // The rail sticks just under the menu.
+  function navH() { var n = document.getElementById('nav'); document.documentElement.style.setProperty('--navh', getComputedStyle(n).position === 'sticky' ? n.offsetHeight + 'px' : '0px'); }
+  navH(); addEventListener('resize', navH);
 
-  function chips() {
-    var shows = [];
-    ALL.forEach(function (i) { if (!shows.some(function (s) { return s[0] === i.show_slug; })) shows.push([i.show_slug, i.show]); });
-    var kitsUsed = KITS.filter(function (k) { return ALL.some(function (i) { return (i.kits || []).indexOf(k[0]) > -1; }); });
-    var opts = { show: [['all', 'All shows']].concat(shows), kit: [['all', 'All kits']].concat(kitsUsed), format: [['all', 'All'], ['highlight', 'Highlights'], ['full', 'Full episodes']] };
-    Array.prototype.forEach.call(document.querySelectorAll('.chips'), function (el) {
-      var f = el.getAttribute('data-f');
-      el.innerHTML = opts[f].map(function (o) { return '<button type="button" data-v="' + esc(o[0]) + '" aria-pressed="' + (F[f] === o[0]) + '">' + esc(o[1]) + '</button>'; }).join('');
-    });
+  var parts = location.pathname.replace(/\/+$/, '').split('/').slice(2).filter(Boolean);
+  if (!parts.length) networks(); else if (parts.length === 1) network(parts[0]); else show(parts[0], parts[1]);
+
+  // ---- /watch ----
+  function networks() {
+    setHead('<span class="eyebrow">Watch and listen</span><h1>The networks</h1><p>The shows Sean built, hosted and produced. Pick a network to see its shows.</p>');
+    media('watch', {}).then(function (d) {
+      var nets = (d && d.networks) || [];
+      if (!nets.length) return failed();
+      main.innerHTML = '<div class="tiles">' + nets.map(function (n) {
+        return '<a class="tile" href="/watch/' + esc(n.slug) + '"><div class="th">' + thumb(n.logo, n.name) + '</div>' +
+          '<b>' + esc(n.name) + '</b><small>' + esc(plural(n.shows, 'show', 'shows')) + '</small></a>';
+      }).join('') + '</div>';
+    }).catch(failed);
   }
-  function render() {
-    SHOWN.length = 0;
-    ALL.forEach(function (i) {
-      if (F.show !== 'all' && i.show_slug !== F.show) return;
-      if (F.kit !== 'all' && (i.kits || []).indexOf(F.kit) < 0) return;
-      if (F.format !== 'all' && i.format !== F.format) return;
-      SHOWN.push(i);
-    });
-    grid.innerHTML = SHOWN.length ? SHOWN.map(SARPlayer.card).join('') : '<p class="muted">Nothing here for this filter yet.</p>';
-    document.getElementById('count').textContent = SHOWN.length + (SHOWN.length === 1 ? ' clip' : ' clips');
+
+  // ---- /watch/<network> ----
+  function network(slug) {
+    media('watch', { network: slug }).then(function (d) {
+      if (!d || !d.network) return notFound('network');
+      var n = d.network, shows = d.shows || [], roles = NET_ROLES[n.slug];
+      document.title = n.name + '. Watch. Sean A. Russell.';
+      setHead('<span class="eyebrow"><a href="/watch">Watch and listen</a></span><h1>' + esc(n.name) + '</h1>' + (n.tagline ? '<p>' + esc(n.tagline) + '</p>' : '') +
+        (roles ? '<div class="facts">' + roles.map(function (r) { return '<span class="fact">' + esc(r) + '</span>'; }).join('') + '</div>' : ''), n.logo, true);
+      setCrumb([['Watch', '/watch'], [n.name]]);
+      main.innerHTML = '<h2>' + esc(plural(shows.length, 'show', 'shows')) + '</h2><div class="tiles">' + shows.map(function (s) {
+        return '<a class="tile" href="/watch/' + esc(n.slug) + '/' + esc(s.slug) + '"><div class="th">' + thumb(s.cover, s.name) +
+          '<span class="badge">' + (s.kind === 'podcast' ? 'Podcast' : 'Video') + '</span></div>' +
+          '<b>' + esc(s.name) + '</b><small>' + esc([count(s), status(s)].filter(Boolean).join(' · ')) + '</small></a>';
+      }).join('') + '</div>';
+    }).catch(failed);
   }
-  document.querySelector('.filters').addEventListener('click', function (e) {
-    var b = e.target.closest('[data-v]'); if (!b) return;
-    F[b.parentNode.getAttribute('data-f')] = b.getAttribute('data-v');
-    var u = new URLSearchParams();
-    Object.keys(F).forEach(function (k) { if (F[k] !== 'all') u.set(k, F[k]); });
-    history.replaceState(null, '', location.pathname + (u.toString() ? '?' + u : ''));
-    chips(); render();
-  });
-  call('featured', {}).then(function (d) { ALL = (d && d.items) || []; chips(); render(); })
-    .catch(function () { grid.innerHTML = '<p class="muted">The clips could not load. Refresh to try again.</p>'; });
+
+  // ---- /watch/<network>/<show> ----
+  function show(net, slug) {
+    media('show', { slug: slug }).then(function (d) {
+      if (!d || !d.show || !d.network || d.network.slug !== net) return notFound('show');
+      var s = d.show, n = d.network;
+      document.title = s.name + '. ' + n.name + '. Sean A. Russell.';
+      var facts = [s.kind === 'podcast' ? 'Podcast' : 'Video', count(s), status(s), s.latest ? 'Latest ' + when(s.latest) : ''].filter(Boolean);
+      setHead('<span class="eyebrow"><a href="/watch/' + esc(n.slug) + '">' + esc(n.name) + '</a></span><h1>' + esc(s.name) + '</h1>' +
+        '<div class="facts">' + facts.map(function (f) { return '<span class="fact' + (f === 'Active' ? ' on' : '') + '">' + esc(f) + '</span>'; }).join('') + '</div>' +
+        (s.roles && s.roles.length ? '<p>Sean: ' + esc(s.roles.join(', ')) + '</p>' : ''), s.cover, s.kind !== 'podcast');
+      setCrumb([['Watch', '/watch'], [n.name, '/watch/' + n.slug], [s.name]]);
+      main.innerHTML = (s.about ? '<p class="about clip" id="about">' + esc(s.about) + '</p><button class="more" type="button" id="more" hidden>Read more</button>' : '') +
+        (s.listen_on && s.listen_on.length ? '<div class="listen"><span>' + (s.kind === 'podcast' ? 'Listen on' : 'Watch on') + '</span>' +
+          s.listen_on.map(function (l) { return '<a href="' + esc(l.url) + '" target="_blank" rel="noopener">' + esc(l.label) + '</a>'; }).join('') + '</div>' : '') +
+        '<div id="eps"><p class="muted">Loading the episodes.</p></div>';
+      var ab = document.getElementById('about'), more = document.getElementById('more');
+      if (ab && ab.scrollHeight > ab.clientHeight + 2) { more.hidden = false; more.onclick = function () { ab.classList.remove('clip'); more.hidden = true; }; }
+      var box = document.getElementById('eps');
+      if (s.kind === 'podcast') podcast(box, s);
+      else if (s.kind === 'playlist') fn('ve-youtube', '', { action: 'playlist', id: s.playlist_id }).then(function (p) {
+        videos(box, ((p && p.videos) || []).map(function (v) { return { id: v.id, title: v.title, date: v.published, thumb: v.thumb, dur: v.duration }; }), null);
+      }).catch(function () { box.innerHTML = '<p class="muted">The videos did not load. Refresh to try again.</p>'; });
+      else channel(box, s);
+    }).catch(failed);
+  }
+
+  // A podcast: Vegans Explore's own episode list and player (search, 20 a page, ?ep= for one episode, the bar at the foot).
+  function podcast(box, s) {
+    var go = function () {
+      VEEpisodes.mount(box, {
+        listing: { id: s.slug, slug: s.slug, name: s.name, logo_url: s.cover || '' },
+        call: function (body) { return media(body.action, body); },
+      });
+    };
+    if (window.VEEpisodes) return go();
+    var sc = document.createElement('script'); sc.src = 'https://vegansexplore.com/public/ve-episodes.js'; sc.onload = go;
+    sc.onerror = function () { box.innerHTML = '<p class="muted">The player did not load. Refresh to try again.</p>'; };
+    document.body.appendChild(sc);
+  }
+
+  // A channel (A3K TV): its uploads from sar-media, 50 at a time.
+  function channel(box, s) {
+    var all = [], total = 0;
+    function page(offset) {
+      return media('episodes', { listing_id: s.slug, offset: offset, limit: 50 }).then(function (d) {
+        total = (d && d.total) || 0;
+        all = all.concat(((d && d.episodes) || []).filter(function (e) { return e.youtube_id; }).map(function (e) {
+          return { id: e.youtube_id, title: e.title, date: e.date, thumb: e.image, dur: e.duration };
+        }));
+        return all.length < total && offset + 50 < total ? page(offset + 50) : all;
+      });
+    }
+    page(0).then(function (v) { videos(box, v, total); }).catch(function () { box.innerHTML = '<p class="muted">The videos did not load. Refresh to try again.</p>'; });
+  }
+
+  // The video show (Brooke Sellers' series pages): the newest video up top, 12 below, Show all for the rest.
+  function videos(box, list, total) {
+    if (!list.length) { box.innerHTML = '<p class="muted">No videos yet.</p>'; return; }
+    var cur = list[0], open = false, SHOW = 12;
+    function card(v) {
+      return '<button type="button" class="vid" data-id="' + esc(v.id) + '" aria-current="' + (v === cur) + '"><span class="th">' +
+        (v.thumb ? '<img src="' + esc(v.thumb) + '" alt="" loading="lazy">' : '') + (v.dur ? '<span class="dur">' + esc(len(v.dur)) + '</span>' : '') + '</span>' +
+        '<b>' + esc(v.title) + '</b><small>' + esc(when(v.date)) + '</small></button>';
+    }
+    function playerHtml(v, autoplay) {
+      return '<div class="frame">' + (autoplay
+        ? '<iframe src="https://www.youtube-nocookie.com/embed/' + encodeURIComponent(v.id) + '?autoplay=1&rel=0" title="' + esc(v.title) + '" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>'
+        : '<button type="button" id="start" aria-label="Play ' + esc(v.title) + '">' + (v.thumb ? '<img src="' + esc(v.thumb) + '" alt="">' : '') + '<i></i></button>') +
+        '</div><h3>' + esc(v.title) + '</h3><div class="meta">' + esc([when(v.date), len(v.dur)].filter(Boolean).join(' · ')) + '</div>';
+    }
+    function draw() {
+      var shown = open ? list : list.slice(0, SHOW);
+      box.innerHTML = '<div class="player" id="player">' + playerHtml(cur, false) + '</div>' +
+        '<h2>' + esc(plural(total || list.length, 'video', 'videos')) + '</h2><div class="vids">' + shown.map(card).join('') + '</div>' +
+        (!open && list.length > SHOW ? '<div class="showall"><button type="button" class="btn ghost" id="all">Show all ' + list.length + ' videos</button></div>' : '');
+      wire();
+    }
+    function wire() {
+      var st = document.getElementById('start'); if (st) st.onclick = function () { document.getElementById('player').innerHTML = playerHtml(cur, true); };
+      var a = document.getElementById('all'); if (a) a.onclick = function () { open = true; draw(); };
+    }
+    box.addEventListener('click', function (e) {
+      var b = e.target.closest('.vid'); if (!b) return;
+      cur = list.filter(function (v) { return v.id === b.getAttribute('data-id'); })[0] || cur;
+      document.getElementById('player').innerHTML = playerHtml(cur, true); wire();
+      box.querySelectorAll('.vid').forEach(function (x) { x.setAttribute('aria-current', String(x === b)); });
+      var p = document.getElementById('player'); var top = p.getBoundingClientRect().top + scrollY - (parseInt(getComputedStyle(document.documentElement).getPropertyValue('--navh'), 10) || 0) - 12;
+      scrollTo({ top: top, behavior: 'smooth' });
+    });
+    draw();
+  }
 })();
 </script>
 </body>
