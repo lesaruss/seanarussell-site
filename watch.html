@@ -68,18 +68,14 @@
   .body{padding-block:22px 56px}
   .vear-layout{--ve-nav-h:var(--navh,0px)}
   h2{font-weight:900;font-size:18px;text-transform:uppercase;letter-spacing:.02em;margin:0 0 12px}
-  .tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
-  .tile{display:grid;gap:8px;text-decoration:none;color:inherit;border-radius:6px}
-  .tile .th{position:relative;aspect-ratio:16/9;border-radius:6px;overflow:hidden;background:#111;border:1px solid var(--hair)}
-  .tile .th img{width:100%;height:100%;object-fit:contain;display:block}
-  .tile .th .bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:blur(18px) brightness(.55);transform:scale(1.15)}
-  .tile .th .fg{position:relative}
-  .tile b{font-weight:800;font-size:15px;line-height:1.25}
-  .tile small{font-size:12px;color:var(--ink2);font-weight:600}
-  .tile:hover b{text-decoration:underline;text-decoration-color:var(--orange);text-decoration-thickness:2px}
-  .tile:focus-visible{outline:3px solid var(--orange);outline-offset:3px}
-  .badge{position:absolute;left:8px;top:8px;font:800 10px/1 var(--font);letter-spacing:.1em;text-transform:uppercase;padding:6px 7px;border-radius:6px;background:rgba(0,0,0,.72);color:#fff}
-  .net{grid-template-columns:1fr}
+  /* Networks and shows are the Directory's own tiles (assets/js/sar-dir-card.js), three across beside the ad rail. */
+  @media (min-width:1201px){.vear-main .sard-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+  @media (min-width:901px) and (max-width:1200px){.vear-main .sard-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  /* The three networks as tabs (Sean, 2026-11-01: "a tab where you can go between those three things"). */
+  .tabs{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 20px;padding-bottom:14px;border-bottom:1px solid var(--hair)}
+  .tabs a{font:700 12px/1 var(--font);padding:10px 13px;border:1.5px solid var(--line);border-radius:6px;background:#fff;color:var(--ink);text-decoration:none}
+  .tabs a[aria-current=page]{background:var(--ink);color:#fff}
+  .tabs a:focus-visible{outline:3px solid var(--orange);outline-offset:2px}
   .about{max-width:72ch;margin:0 0 12px;color:var(--ink2);white-space:pre-line}
   .about.clip{display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
   .more{background:none;border:0;padding:0;font:800 11px/1 var(--font);letter-spacing:.1em;text-transform:uppercase;color:var(--orange-ink);cursor:pointer;margin:0}
@@ -112,9 +108,9 @@
   a.vep-t:hover,.vep-crumb button{color:var(--orange-ink) !important}
   .vear-ph{background:var(--orange-wash) !important;color:var(--orange-ink) !important}
   .vear-cta{color:var(--orange-ink) !important}
-  @media (max-width:1100px){.tiles,.vids{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media (max-width:1100px){.vids{grid-template-columns:repeat(2,minmax(0,1fr))}}
   @media (max-width:640px){.nav{position:static}.head.withart{grid-template-columns:1fr}.head .art{width:120px}.head .art.wide{width:100%;max-width:360px}}
-  @media (max-width:480px){.tiles,.vids{grid-template-columns:1fr}}
+  @media (max-width:480px){.vids{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -142,13 +138,11 @@
 </div>
 <footer class="wrap">&copy; 2026 Sean A. Russell. A LESARUSS production.</footer>
 <script src="https://vegansexplore.com/public/ve-ad-rail.js" defer></script>
+<script src="/assets/js/sar-dir-card.js"></script>
 <script>
 (function () {
   var FN = 'https://fwbhwfxpncrsfhttimna.supabase.co/functions/v1/';
   var ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ3Ymh3ZnhwbmNyc2ZodHRpbW5hIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ2NjAxMzksImV4cCI6MjA5MDIzNjEzOX0.9mxjK0bn5WATCbNLWrHPakD6yHUDtHFHrOaklPnWkOA';
-  // Sean's credits for a network as a whole, where he gave them that way (Top Spot USA, 2026-10-31). A show's own roles live on
-  // the show (sar_watch_shows.roles).
-  var NET_ROLES = { 'top-spot-usa': ['Co-founder', 'Executive Producer', 'Producer', 'Host', 'Editor', 'Videographer', 'Writer'] };
   var head = document.getElementById('head'), main = document.getElementById('main');
 
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
@@ -167,9 +161,6 @@
   function plural(n, one, many) { return n + ' ' + (n === 1 ? one : many); }
   function status(s) { return s.active == null ? '' : s.active ? 'Active' : 'On hiatus'; }
   function count(s) { return s.count == null ? '' : plural(s.count, s.kind === 'podcast' ? 'episode' : 'video', s.kind === 'podcast' ? 'episodes' : 'videos'); }
-  function thumb(src, alt) {
-    return src ? '<img class="bg" src="' + esc(src) + '" alt="" aria-hidden="true" loading="lazy"><img class="fg" src="' + esc(src) + '" alt="" loading="lazy">' : '';
-  }
   function setHead(html, art, wide) {
     head.className = 'head wrap' + (art ? ' withart' : '');
     head.innerHTML = (art ? '<img class="art' + (wide ? ' wide' : '') + '" src="' + esc(art) + '" alt="">' : '') + '<div>' + html + '</div>';
@@ -186,34 +177,64 @@
   var parts = location.pathname.replace(/\/+$/, '').split('/').slice(2).filter(Boolean);
   if (!parts.length) networks(); else if (parts.length === 1) network(parts[0]); else show(parts[0], parts[1]);
 
+  // The Directory's records (sar-directory list): a network and a show on Watch are the same entries, drawn with the same tile.
+  var dirP = null;
+  function directory() {
+    var t = null; try { t = localStorage.getItem('lr_token'); } catch (e) {}
+    return dirP || (dirP = fn('sar-directory', 'list', { token: t }).then(function (d) {
+      var by = {}; ((d && d.items) || []).forEach(function (i) { by[i.slug] = i; }); return { by: by, key: (d && d.key) || {} };
+    }).catch(function () { return { by: {}, key: {} }; }));
+  }
+  SARDir.css();
+  // A show's tile: its Directory entry when it has one; a Top Spot USA playlist or A3K TV, which are not separate Directory
+  // entries, takes the same tile from its own cover and roles.
+  function showTile(n, s, dir) {
+    var it = dir.by[s.slug] ? Object.assign({}, dir.by[s.slug]) : { slug: s.slug, name: s.name, kind: s.kind === 'podcast' ? 'podcast' : 'youtube', logo: s.cover, roles: s.roles || [] };
+    if (s.kind !== 'podcast' || !it.logo) it.logo = it.logo || s.cover;
+    if (s.kind !== 'podcast') it.kind = 'youtube';
+    it.extra = s.active == null ? [] : [[s.active ? 'Active' : 'On hiatus', s.active ? 'on' : '']];
+    return SARDir.card(it, { key: dir.key, href: '/watch/' + n.slug + '/' + s.slug, sub: [s.kind === 'podcast' ? 'Podcast' : 'Video', count(s)].filter(Boolean).join(' · ') });
+  }
+  function netItem(n, dir) { return Object.assign({ slug: n.slug, name: n.name, kind: 'brand', logo: n.logo, tagline: n.tagline }, dir.by[n.slug] || {}); }
+
   // ---- /watch ----
   function networks() {
     setHead('<span class="eyebrow">Watch and listen</span><h1>The networks</h1><p>The shows Sean built, hosted and produced. Pick a network to see its shows.</p>');
-    media('watch', {}).then(function (d) {
-      var nets = (d && d.networks) || [];
+    Promise.all([media('watch', {}), directory()]).then(function (r) {
+      var nets = (r[0] && r[0].networks) || [], dir = r[1];
       if (!nets.length) return failed();
-      main.innerHTML = '<div class="tiles">' + nets.map(function (n) {
-        return '<a class="tile" href="/watch/' + esc(n.slug) + '"><div class="th">' + thumb(n.logo, n.name) + '</div>' +
-          '<b>' + esc(n.name) + '</b><small>' + esc(plural(n.shows, 'show', 'shows')) + '</small></a>';
-      }).join('') + '</div>';
+      main.innerHTML = SARDir.grid(nets.map(function (n) {
+        return SARDir.card(netItem(n, dir), { key: dir.key, href: '/watch/' + n.slug, sub: plural(n.shows, 'show', 'shows') });
+      }).join(''));
     }).catch(failed);
   }
 
   // ---- /watch/<network> ----
-  function network(slug) {
-    media('watch', { network: slug }).then(function (d) {
+  // The three networks are tabs: switching one redraws the page in place and keeps the address.
+  var NETS = null;
+  function network(slug, push) {
+    Promise.all([media('watch', { network: slug }), NETS || media('watch', {}), directory()]).then(function (r) {
+      var d = r[0], dir = r[2]; NETS = Promise.resolve(r[1]);
       if (!d || !d.network) return notFound('network');
-      var n = d.network, shows = d.shows || [], roles = NET_ROLES[n.slug];
+      var n = d.network, shows = d.shows || [], item = netItem(n, dir), roles = (item.relationship || []).concat(item.roles || []);
+      if (push) history.pushState(null, '', '/watch/' + n.slug);
       document.title = n.name + '. Watch. Sean A. Russell.';
       setHead('<span class="path"><a href="/watch">Watch</a> / ' + esc(n.name) + '</span><h1>' + esc(n.name) + '</h1>' + (n.tagline ? '<p>' + esc(n.tagline) + '</p>' : '') +
-        (roles ? '<div class="facts">' + roles.map(function (r) { return '<span class="fact">' + esc(r) + '</span>'; }).join('') + '</div>' : ''), n.logo, true);
-      main.innerHTML = '<h2>' + esc(plural(shows.length, 'show', 'shows')) + '</h2><div class="tiles">' + shows.map(function (s) {
-        return '<a class="tile" href="/watch/' + esc(n.slug) + '/' + esc(s.slug) + '"><div class="th">' + thumb(s.cover, s.name) +
-          '<span class="badge">' + (s.kind === 'podcast' ? 'Podcast' : 'Video') + '</span></div>' +
-          '<b>' + esc(s.name) + '</b><small>' + esc([count(s), status(s)].filter(Boolean).join(' · ')) + '</small></a>';
-      }).join('') + '</div>';
+        (roles.length ? '<div class="facts">' + roles.map(function (x) { return '<span class="fact">' + esc(x) + '</span>'; }).join('') + '</div>' : ''), n.logo, true);
+      main.innerHTML = '<nav class="tabs" aria-label="Networks">' + ((r[1] && r[1].networks) || []).map(function (x) {
+          return '<a href="/watch/' + esc(x.slug) + '" data-net="' + esc(x.slug) + '"' + (x.slug === n.slug ? ' aria-current="page"' : '') + '>' + esc(x.name) + '</a>';
+        }).join('') + '</nav>' +
+        '<h2 class="sec-t">' + esc(plural(shows.length, 'show', 'shows')) + '</h2>' + SARDir.grid(shows.map(function (s) { return showTile(n, s, dir); }).join(''));
     }).catch(failed);
   }
+  main.addEventListener('click', function (e) {
+    var t = e.target.closest('.tabs a[data-net]'); if (!t || e.metaKey || e.ctrlKey || e.shiftKey) return;
+    e.preventDefault(); if (t.getAttribute('aria-current')) return; network(t.getAttribute('data-net'), true);
+  });
+  addEventListener('popstate', function () {
+    var p = location.pathname.replace(/\/+$/, '').split('/').slice(2).filter(Boolean);
+    if (p.length === 1) network(p[0]); else if (!p.length) networks();
+  });
 
   // ---- /watch/<network>/<show> ----
   function show(net, slug) {

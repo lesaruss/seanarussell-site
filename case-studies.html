@@ -12,8 +12,11 @@
 <!-- Case studies (playbook media-kits, Phase 3): read live from case_studies
      through sar-kits?action=studies. Published stories tagged into a live kit
      only; drafts never show here. The kit chips filter, and the address
-     carries the filter (?kit=). A card links its full story when one is
-     published on lesaruss.com, and always links the kits it belongs to. -->
+     carries the filter (?kit=). The cards are LESARUSS's own case study widget
+     (lesaruss.com/embed/case-studies.js, data-slugs), the same cards as
+     lesaruss.com/case-studies, each opening the full story there (Sean,
+     2026-11-01: "it literally should be the same case study... let's use the
+     same exact tool in different places"). -->
 <style>
   :root{--bg:#fff;--ink:#1a1a1a;--ink2:#55524e;--ink3:#8a8580;--line:#1a1a1a;--hair:rgba(26,26,26,.12);--orange:#F69820;--orange-ink:#7d4a00;--orange-wash:#fdf2e3;--dark:#0d0d0d;--font:'Montserrat',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
   *{box-sizing:border-box} html,body{margin:0}
@@ -35,20 +38,11 @@
   .chips{display:flex;gap:6px;flex-wrap:wrap;flex:1;min-width:0}
   .chips button{font:700 11.5px/1 var(--font);padding:9px 11px;border:1.5px solid var(--line);border-radius:6px;background:#fff;color:var(--ink);cursor:pointer}
   .chips button[aria-pressed="true"]{background:var(--ink);color:#fff}
-  .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;padding-block:24px 56px}
-  .cs{border:1.5px solid var(--line);border-radius:6px;padding:18px 20px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px 18px;align-items:start;min-width:0}
-  .cs .val{font-weight:900;font-size:clamp(28px,3.4vw,40px);line-height:1;color:var(--orange-ink);grid-row:span 4;min-width:2.6em;font-variant-numeric:tabular-nums}
-  .cs small{font-weight:700;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3)}
-  .cs b{font-weight:800;font-size:16px;line-height:1.25}
-  .cs p{margin:0;color:var(--ink2);font-size:14px}
-  .cs .acts{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
-  .cs .acts a{font:700 11px/1 var(--font);padding:8px 10px;border:1.5px solid var(--line);border-radius:6px;text-decoration:none;color:inherit}
-  .cs .acts a.story{background:var(--orange);border-color:var(--orange)}
+  .grid{padding-block:24px 56px}
   .muted{color:var(--ink3);font-style:italic;grid-column:1/-1}
   .count{font-size:12.5px;color:var(--ink2);padding-top:16px}
   footer{border-top:1px solid var(--hair);padding-block:22px;font-size:12px;color:var(--ink3)}
-  @media (max-width:860px){.grid{grid-template-columns:1fr}}
-  @media (max-width:480px){.lbl{width:100%}.cs{grid-template-columns:1fr}.cs .val{grid-row:auto}}
+  @media (max-width:480px){.lbl{width:100%}}
   @media (max-width:640px){.nav{position:static}}
 </style>
 </head>
@@ -72,7 +66,7 @@
 </section>
 <section class="filters wrap" aria-label="Filter by kit"><span class="lbl">Kit</span><div class="chips" id="chips"></div></section>
 <div class="count wrap" id="count" aria-live="polite"></div>
-<main class="grid wrap" id="grid"><p class="muted">Loading the case studies.</p></main>
+<main class="grid wrap" id="main"><div id="grid" data-lr-case-studies data-slugs="" data-accent="#F69820"></div><p class="muted" id="msg">Loading the case studies.</p></main>
 <footer class="wrap">&copy; 2026 Sean A. Russell. A LESARUSS production.</footer>
 <script>
 (function () {
@@ -87,15 +81,18 @@
     if (!opts.some(function (o) { return o[0] === kit; })) kit = 'all';
     chips.innerHTML = opts.map(function (o) { return '<button type="button" data-v="' + esc(o[0]) + '" aria-pressed="' + (o[0] === kit) + '">' + esc(o[1]) + '</button>'; }).join('');
   }
+  var msg = document.getElementById('msg'), loaded = false;
+  // The widget may arrive after the list: draw again once it is here.
+  window.SARCSready = function () { if (loaded) draw(); };
   function draw() {
-    var list = ALL.filter(function (s) { return kit === 'all' || s.kits.indexOf(kit) > -1; });
-    document.getElementById('count').textContent = list.length + (list.length === 1 ? ' story' : ' stories');
-    grid.innerHTML = list.length ? list.map(function (s) {
-      return '<article class="cs">' + (s.value ? '<span class="val">' + esc(s.value) + '</span>' : '<span></span>') +
-        (s.industry ? '<small>' + esc(s.industry) + '</small>' : '') + '<b>' + esc(s.client) + '</b>' + (s.headline ? '<p>' + esc(s.headline) + '</p>' : '') +
-        '<div class="acts">' + (s.story_url ? '<a class="story" href="' + esc(s.story_url) + '" target="_blank" rel="noopener">Read the story</a>' : '') +
-        s.kits.map(function (k) { return '<a href="/kits/' + encodeURIComponent(k) + '">' + esc(NAME[k] || k) + ' kit</a>'; }).join('') + '</div></article>';
-    }).join('') : '<p class="muted">No published stories for this kit yet.</p>';
+    var list = ALL.filter(function (s) { return s.story_url && (kit === 'all' || s.kits.indexOf(kit) > -1); });
+    grid.setAttribute('data-slugs', list.map(function (s) { return s.slug; }).join(','));
+    msg.hidden = true;
+    if (!window.LRCaseStudies) return;
+    LRCaseStudies.mount(grid).then(function (n) {
+      document.getElementById('count').textContent = n + (n === 1 ? ' story' : ' stories');
+      msg.textContent = 'No published stories for this kit yet.'; msg.hidden = n > 0;
+    });
   }
   chips.addEventListener('click', function (e) {
     var b = e.target.closest('[data-v]'); if (!b) return;
@@ -108,10 +105,11 @@
     .then(function (d) {
       KITS = (d && d.kits) || []; ALL = (d && d.studies) || [];
       KITS.forEach(function (k) { NAME[k.slug] = k.name; });
-      drawChips(); draw();
+      loaded = true; drawChips(); draw();
     })
-    .catch(function () { grid.innerHTML = '<p class="muted">The case studies could not load. Refresh to try again.</p>'; });
+    .catch(function () { msg.textContent = 'The case studies could not load. Refresh to try again.'; msg.hidden = false; });
 })();
 </script>
+<script src="https://lesaruss.com/embed/case-studies.js" onload="window.SARCSready && SARCSready()"></script>
 </body>
 </html>
