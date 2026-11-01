@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Directory. Sean A. Russell.</title>
+<meta name="description" content="What Sean A. Russell did with a brand, show or channel he has worked with.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="/analytics.js" defer></script>
+<!-- Directory profile at /directory/<slug> (vercel.json rewrite), playbook
+     media-kits Phase 2b. Set up like a Vegans Explore Directory listing (header
+     with logo, name, pills and tagline; tabs; side boxes) but about what Sean did.
+       brand    What Sean did, his shows under it, the channel, picked videos,
+                case studies grouped by kit
+       podcast  Episodes from the feed (search, 20 at a time) playing in the
+                docked bar, About and Listen on
+       youtube  the latest video plays on the left, About and Find them on to
+                the right, then Latest videos 12 at a time (Brooke Sellers' layout)
+       guest    Sean's episode from the Press feed
+     One view at a time: the tabs carry ?tab=. Data: sar-directory get/episodes. -->
+<style>
+  :root{--bg:#fff;--ink:#1a1a1a;--ink2:#55524e;--ink3:#8a8580;--line:#1a1a1a;--hair:rgba(26,26,26,.12);--orange:#F69820;--orange-ink:#7d4a00;--orange-wash:#fdf2e3;--dark:#0d0d0d;--font:'Montserrat',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+  *{box-sizing:border-box} html,body{margin:0}
+  body{background:var(--bg);color:var(--ink);font:400 15px/1.6 var(--font)}
+  a{color:inherit}
+  .wrap{padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+  .nav{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.96);border-bottom:1px solid var(--hair);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-block:14px}
+  .brand{font-weight:900;font-size:16px;text-transform:uppercase;text-decoration:none}
+  .brand span{color:var(--orange)}
+  .nav nav{display:flex;gap:18px;align-items:center;flex-wrap:wrap;font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.1em}
+  .nav nav a{text-decoration:none}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;font:800 11px/1 var(--font);text-transform:uppercase;letter-spacing:.1em;padding:12px 16px;border-radius:6px;background:var(--orange);color:#1a1a1a !important;border:1.5px solid var(--orange);text-decoration:none;white-space:nowrap;cursor:pointer}
+  .btn.ghost{background:#fff;border-color:var(--line)}
+  .btn:focus-visible,.tabs button:focus-visible,.vcard:focus-visible,.ep button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(--orange);outline-offset:2px}
+  .crumbs{padding-top:18px;font-size:12px;font-weight:700;color:var(--ink3);display:flex;gap:8px;flex-wrap:wrap}
+  .crumbs a{color:var(--orange-ink);text-decoration:none}
+  .phead{display:grid;grid-template-columns:120px minmax(0,1fr);gap:22px;align-items:center;padding-block:18px 24px;border-bottom:1.5px solid var(--line)}
+  .logo{width:120px;height:120px;border:1.5px solid var(--line);border-radius:6px;background:#fff;display:grid;place-items:center;overflow:hidden}
+  .logo img{width:100%;height:100%;object-fit:contain;padding:10px}
+  .logo.cover img{padding:0}
+  .logo b{font-weight:900;font-size:34px;color:var(--orange-ink)}
+  h1{font-weight:900;font-size:clamp(26px,4.4vw,46px);line-height:1.02;text-transform:uppercase;letter-spacing:-.02em;margin:0 0 8px;text-wrap:balance}
+  .tagline{margin:8px 0 0;color:var(--ink2);max-width:70ch}
+  .acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+  .pills{display:flex;gap:5px;flex-wrap:wrap}
+  .pill{font:800 10px/1 var(--font);letter-spacing:.08em;text-transform:uppercase;padding:5px 7px;border-radius:4px;background:var(--orange-wash);color:var(--orange-ink);border:1px solid rgba(246,152,32,.4);cursor:help}
+  .pill.rel{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .pill.draft{background:#fff;color:#a33;border-color:#a33;cursor:default}
+  .tabs{display:flex;gap:4px;border-bottom:1px solid var(--hair);overflow-x:auto;scrollbar-width:none;margin-top:6px}
+  .tabs::-webkit-scrollbar{display:none}
+  .tabs button{flex:0 0 auto;font:800 11.5px/1 var(--font);letter-spacing:.08em;text-transform:uppercase;padding:14px 14px 12px;border:0;border-bottom:3px solid transparent;background:none;color:var(--ink3);cursor:pointer}
+  .tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--orange)}
+  .layout{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:28px;padding-block:24px 64px;align-items:start}
+  .panel[hidden]{display:none}
+  .side{display:grid;gap:14px}
+  .box{border:1.5px solid var(--line);border-radius:6px;padding:16px;display:grid;gap:10px;min-width:0}
+  .box h2,.panel h2{font-weight:800;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--orange-ink);margin:0}
+  .panel h2{margin:0 0 12px}
+  .box dl{margin:0;display:grid;gap:8px;font-size:13px}
+  .box dt{font-weight:800}
+  .box dd{margin:0;color:var(--ink2)}
+  .kitlinks{display:flex;gap:6px;flex-wrap:wrap}
+  .kitlinks a{font:700 11.5px/1 var(--font);padding:8px 10px;border:1.5px solid var(--line);border-radius:6px;text-decoration:none}
+  .did{display:grid;gap:12px}
+  .did article{border:1.5px solid var(--line);border-radius:6px;padding:16px 18px;background:#fff}
+  .did h3{margin:0 0 4px;font-weight:800;font-size:15px}
+  .did p{margin:0;color:var(--ink2)}
+  .about{color:var(--ink2);white-space:pre-line;max-width:70ch;margin:0}
+  .shows{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .show{display:grid;grid-template-columns:64px minmax(0,1fr);gap:12px;border:1.5px solid var(--line);border-radius:6px;padding:10px;text-decoration:none;min-width:0}
+  .show:hover{box-shadow:4px 4px 0 var(--orange)}
+  .show img{width:64px;height:64px;object-fit:contain;border-radius:4px;background:#0d0d0d}
+  .show b{font-size:14px;display:block}
+  .show span{font-size:12px;color:var(--ink2);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .vgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+  .film{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:22px;align-items:start}
+  .film-video{position:relative;aspect-ratio:16/9;background:#000;border-radius:6px;overflow:hidden}
+  .film-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .film-cap{font-size:12.5px;font-weight:700;color:var(--ink2);margin-top:8px}
+  .yt-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:22px}
+  .vcard{display:block;padding:0;border:0;background:none;text-align:left;cursor:pointer;font:inherit;color:inherit;min-width:0}
+  .vcard img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:6px;background:#111}
+  .vcard.on img{outline:3px solid var(--orange);outline-offset:2px}
+  .vcard b{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:13px;line-height:1.35;margin-top:8px}
+  .vcard small{display:block;font-size:11.5px;font-weight:600;color:var(--ink3)}
+  .more{margin-top:16px}
+  .search{display:flex;gap:8px;margin-bottom:12px}
+  .search input{flex:1;min-width:0;font:500 14px var(--font);padding:11px 12px;border:1.5px solid var(--line);border-radius:6px}
+  .eps{display:grid;gap:8px}
+  .ep{display:grid;grid-template-columns:56px minmax(0,1fr) auto;gap:12px;align-items:center;border:1px solid var(--hair);border-radius:6px;padding:8px 10px;min-width:0}
+  .ep img,.ep .noart{width:56px;height:56px;border-radius:4px;object-fit:cover;background:#0d0d0d;display:block}
+  .ep b{font-size:13.5px;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .ep small{display:block;font-size:11.5px;color:var(--ink3);font-weight:600}
+  .ep .go{display:flex;gap:6px}
+  .ep button{font:800 10.5px/1 var(--font);text-transform:uppercase;letter-spacing:.08em;padding:9px 10px;border-radius:6px;border:1.5px solid var(--line);background:#fff;cursor:pointer;white-space:nowrap}
+  .ep button.play{background:var(--orange);border-color:var(--orange)}
+  .listen{display:flex;gap:6px;flex-wrap:wrap}
+  .listen a{font:700 11.5px/1 var(--font);padding:9px 10px;border:1.5px solid var(--line);border-radius:6px;text-decoration:none}
+  .study{border:1.5px solid var(--line);border-radius:6px;padding:14px 16px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 14px;align-items:baseline;margin-bottom:10px}
+  .study .val{font-weight:900;font-size:26px;color:var(--orange-ink);grid-row:span 3}
+  .study b{font-size:14px}
+  .study p{margin:0;font-size:13px;color:var(--ink2)}
+  .study a{font-weight:800;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--orange-ink);text-decoration:none}
+  .kitgrp{margin:0 0 6px;font-weight:800;font-size:12px}
+  .guest{display:grid;grid-template-columns:200px minmax(0,1fr);gap:22px;align-items:start;border:1.5px solid var(--line);border-radius:6px;padding:18px}
+  .guest img{width:200px;aspect-ratio:1;object-fit:contain;border-radius:6px;background:#0d0d0d}
+  .guest h2{margin:0 0 4px}
+  .guest h3{margin:0;font-weight:900;font-size:20px;line-height:1.2}
+  .guest p{color:var(--ink2);margin:10px 0 0}
+  .muted{color:var(--ink3);font-style:italic}
+  footer{border-top:1px solid var(--hair);padding-block:22px;font-size:12px;color:var(--ink3)}
+  @media (max-width:1000px){.layout{grid-template-columns:1fr}.yt-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.vgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media (max-width:760px){.film{grid-template-columns:1fr}.shows{grid-template-columns:1fr}.yt-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.guest{grid-template-columns:1fr}.guest img{width:min(200px,100%)}}
+  @media (max-width:560px){.phead{grid-template-columns:80px minmax(0,1fr);gap:14px}.logo{width:80px;height:80px}.logo b{font-size:24px}.vgrid{grid-template-columns:1fr}.ep{grid-template-columns:44px minmax(0,1fr)}.ep img,.ep .noart{width:44px;height:44px}.ep .go{grid-column:1/-1}}
+  @media (max-width:640px){.nav{position:static}}
+</style>
+</head>
+<body>
+<header class="nav wrap">
+  <a class="brand" href="/">Sean A<span>.</span> Russell</a>
+  <nav aria-label="Primary">
+    <a href="/kits">Media Kits</a>
+    <a href="/watch">Watch</a>
+    <a href="/directory">Directory</a>
+    <a href="/case-studies">Case Studies</a>
+    <a href="/press">Press</a>
+    <a href="/dashboard">Log In</a>
+    <a class="btn" href="/booking">Book Sean</a>
+  </nav>
+</header>
+<div class="wrap" id="root"><p class="muted" style="padding-block:40px">Loading the profile.</p></div>
+<footer class="wrap">&copy; 2026 Sean A. Russell. A LESARUSS production.</footer>
+<script src="/assets/js/sar-player.js"></script>
+<script>
+(function () {
+  var FN = 'https://fwbhwfxpncrsfhttimna.supabase.co/functions/v1/sar-directory';
+  var ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ3Ymh3ZnhwbmNyc2ZodHRpbW5hIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ2NjAxMzksImV4cCI6MjA5MDIzNjEzOX0.9mxjK0bn5WATCbNLWrHPakD6yHUDtHFHrOaklPnWkOA';
+  var KITS = { 'executive-marketing': 'Executive Marketing', education: 'Education', 'media-production': 'Media & Production', speaker: 'Speaker & Host', 'vegan-movement': 'Vegan Movement', entertainment: 'Entertainment & Music' };
+  var esc = SARPlayer.esc, clock = SARPlayer.clock;
+  var root = document.getElementById('root');
+  var slug = decodeURIComponent((location.pathname.match(/\/directory\/([^\/?#]+)/) || [])[1] || new URLSearchParams(location.search).get('slug') || '');
+  function token() { try { return localStorage.getItem('lr_token'); } catch (e) { return null; } }
+  function call(action, body) {
+    body = body || {}; body.token = token();
+    return fetch(FN + '?action=' + action, { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + ANON, apikey: ANON }, body: JSON.stringify(body) })
+      .then(function (r) { return r.json().then(function (d) { d._status = r.status; return d; }); });
+  }
+  function when(iso) { var t = iso ? new Date(iso) : null; return t && !isNaN(t) ? t.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : ''; }
+  function initials(n) { return String(n || '').replace(/[^A-Za-z0-9 ]/g, '').split(/\s+/).filter(Boolean).slice(0, 2).map(function (w) { return w[0]; }).join('').toUpperCase(); }
+
+  var D, P, KEY;
+  function pills(it) {
+    var p = (it.relationship || []).map(function (r) { return '<span class="pill rel" title="' + esc(r + ': ' + (KEY[r] || '')) + '">' + esc(r) + '</span>'; })
+      .concat((it.roles || []).map(function (r) { return '<span class="pill" title="' + esc(r + ': ' + (KEY[r] || '')) + '">' + esc(r) + '</span>'; }));
+    if (it.status === 'draft') p.push('<span class="pill draft">Draft, only you see this</span>');
+    return p.length ? '<div class="pills">' + p.join('') + '</div>' : '';
+  }
+
+  // ---- panels ----
+  function didPanel() {
+    var h = '';
+    if ((P.did || []).length) h += '<h2>What Sean did</h2><div class="did">' + P.did.map(function (d) { return '<article><h3>' + esc(d.title) + '</h3><p>' + esc(d.body) + '</p></article>'; }).join('') + '</div>';
+    if (P.about && P.kind === 'brand' && !P.source) h += '<h2 style="margin-top:22px">About</h2><p class="about">' + esc(P.about) + '</p>';
+    return h || '<p class="muted">More on this one is on the way.</p>';
+  }
+  function showsPanel() {
+    return '<h2>Shows</h2><div class="shows">' + D.shows.map(function (s) {
+      return '<a class="show" href="/directory/' + encodeURIComponent(s.slug) + '">' + (s.logo ? '<img src="' + esc(s.logo) + '" alt="" loading="lazy">' : '<span></span>') +
+        '<span style="display:grid;gap:4px;min-width:0"><b>' + esc(s.name) + '</b>' + pills(s) + (s.episodes ? '<span>' + s.episodes + ' episodes</span>' : '') + '</span></a>';
+    }).join('') + '</div>';
+  }
+  function studiesPanel() {
+    var groups = {}, order = [];
+    D.studies.forEach(function (s) {
+      (s.kits.length ? s.kits : [{ slug: '', name: 'Other work' }]).forEach(function (k) {
+        if (!groups[k.slug]) { groups[k.slug] = { name: k.name, items: [] }; order.push(k.slug); }
+        groups[k.slug].items.push(s);
+      });
+    });
+    return order.map(function (k) {
+      var g = groups[k];
+      return '<p class="kitgrp">' + (k ? '<a href="/kits/' + encodeURIComponent(k) + '">' + esc(g.name) + ' kit</a>' : esc(g.name)) + '</p>' + g.items.map(function (s) {
+        return '<div class="study">' + (s.value ? '<span class="val">' + esc(s.value) + '</span>' : '<span></span>') + '<b>' + esc(s.client) + (s.draft ? ' <span class="pill draft">Draft</span>' : '') + '</b>' +
+          (s.headline ? '<p>' + esc(s.headline) + '</p>' : '') + (s.story_url ? '<a href="' + esc(s.story_url) + '" target="_blank" rel="noopener">Read the story</a>' : '') + '</div>';
+      }).join('');
+    }).join('');
+  }
+  function videosPanel() {
+    return '<h2>Picked by Sean</h2><div class="vgrid" id="feat">' + D.videos.map(SARPlayer.card).join('') + '</div>';
+  }
+  function channelPanel() {
+    return '<div class="film"><div><div class="film-video" id="ytp"></div><div class="film-cap" id="ytc"></div></div><div>' +
+      '<h2>About</h2>' + (P.about ? '<p class="about">' + esc(P.about) + '</p>' : '') +
+      (P.source && P.source.episodes ? '<p style="font-size:12.5px;font-weight:700;color:var(--ink2)">' + P.source.episodes + ' videos</p>' : '') +
+      (P.channel_url ? '<h2 style="margin-top:16px">Find them on</h2><div class="listen"><a href="' + esc(P.channel_url) + '" target="_blank" rel="noopener">YouTube</a>' + (P.website ? '<a href="' + esc(P.website) + '" target="_blank" rel="noopener">Website</a>' : '') + '</div>' : '') +
+      '</div></div><h2 style="margin-top:28px">Latest videos</h2><div class="yt-grid" id="ytg"></div><button type="button" class="btn ghost more" id="ytm" hidden>Show more</button>';
+  }
+  function episodesPanel() {
+    return '<div class="search"><input type="search" id="epq" placeholder="Search ' + esc(P.name) + ' episodes" aria-label="Search episodes"></div>' +
+      '<p class="muted" id="epn" style="margin:0 0 8px;font-size:12.5px"></p><div class="eps" id="eps"></div><button type="button" class="btn ghost more" id="epm" hidden>Show more</button>';
+  }
+  function aboutPanel() {
+    return (P.about ? '<h2>About</h2><p class="about">' + esc(P.about) + '</p>' : '') +
+      (P.listen_on.length ? '<h2 style="margin-top:22px">Listen on</h2><div class="listen">' + P.listen_on.map(function (l) { return '<a href="' + esc(l.url) + '" target="_blank" rel="noopener">' + esc(l.label) + '</a>'; }).join('') + '</div>' : '');
+  }
+  function guestPanel() {
+    var g = P.guest;
+    if (!g) return '<p class="muted">The episode is on its way.</p>';
+    return '<div class="guest">' + (g.image ? '<img src="' + esc(g.image) + '" alt="">' : '') + '<div><h2>' + esc(g.date || '') + '</h2><h3>' + esc(g.episode || ('Sean on ' + g.title)) + '</h3>' +
+      (g.summary ? '<p>' + esc(g.summary) + '</p>' : '') + '<div class="acts">' +
+      (g.youtube_id ? '<button type="button" class="btn" id="gplay">&#9654; Watch the episode</button>' : '') +
+      (g.url ? '<a class="btn' + (g.youtube_id ? ' ghost' : '') + '" href="' + esc(g.url) + '" target="_blank" rel="noopener">' + (g.youtube_id ? 'Open on YouTube' : 'Listen to the episode') + '</a>' : '') +
+      '</div></div></div><p style="margin-top:18px"><a href="/directory?type=guest" style="font-weight:800;font-size:12px;color:var(--orange-ink)">More guest appearances</a></p>';
+  }
+
+  // ---- loaders ----
+  function loadEpisodes() {
+    var list = document.getElementById('eps'), more = document.getElementById('epm'), q = document.getElementById('epq'), n = document.getElementById('epn');
+    var ITEMS = [], total = 0, term = '', t;
+    SARPlayer.bind(list, ITEMS);
+    function row(e, i) {
+      var item = { format: 'full', title: e.title, episode_title: e.title, audio_url: e.audio_url, image: e.image || P.logo, show: P.name, show_slug: P.slug, duration_s: e.duration_s, published_at: e.published_at, link: e.link };
+      ITEMS[i * 2] = item;
+      ITEMS[i * 2 + 1] = e.youtube_id ? Object.assign({}, item, { youtube_id: e.youtube_id }) : null;
+      var art = e.image || P.logo;
+      return '<div class="ep">' + (art ? '<img src="' + esc(art) + '" alt="" loading="lazy">' : '<span class="noart"></span>') + '<div style="min-width:0"><b>' + esc(e.title) + '</b><small>' + esc([when(e.published_at), e.duration_s ? clock(e.duration_s) : ''].filter(Boolean).join(' · ')) + '</small></div><div class="go">' +
+        (e.audio_url ? '<button type="button" class="play" data-sar-play="' + (i * 2) + '">&#9654; Play</button>' : '') +
+        (e.youtube_id ? '<button type="button" data-sar-play="' + (i * 2 + 1) + '">Watch</button>' : '') + '</div></div>';
+    }
+    var shown = [];
+    function draw(eps, append) {
+      if (!append) { shown = []; ITEMS.length = 0; }
+      var start = shown.length; shown = shown.concat(eps);
+      var html = eps.map(function (e, k) { return row(e, start + k); }).join('');
+      if (append) list.insertAdjacentHTML('beforeend', html); else list.innerHTML = html || '<p class="muted">No episodes match.</p>';
+      more.hidden = shown.length >= total;
+      n.textContent = total + (total === 1 ? ' episode' : ' episodes') + (term ? ' match' : '');
+    }
+    function fetchPage(append) {
+      call('episodes', { slug: P.slug, q: term, offset: append ? shown.length : 0 }).then(function (d) { total = d.total || 0; draw(d.episodes || [], append); });
+    }
+    total = D.episodes.total; draw(D.episodes.episodes, false);
+    more.addEventListener('click', function () { fetchPage(true); });
+    q.addEventListener('input', function () { clearTimeout(t); t = setTimeout(function () { term = q.value.trim(); fetchPage(false); }, 250); });
+  }
+  function loadChannel() {
+    var player = document.getElementById('ytp'), cap = document.getElementById('ytc'), grid = document.getElementById('ytg'), more = document.getElementById('ytm');
+    var V = D.episodes.episodes.filter(function (v) { return /^[\w-]{11}$/.test(v.youtube_id || ''); }), total = D.episodes.total, on = '';
+    function play(v, auto) {
+      on = v.youtube_id;
+      player.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + encodeURIComponent(v.youtube_id) + '?rel=0' + (auto ? '&autoplay=1' : '') + '" title="' + esc(v.title) + '" allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>';
+      cap.textContent = v.title + (v.published_at ? ' · ' + when(v.published_at) : '');
+      Array.prototype.forEach.call(grid.querySelectorAll('.vcard'), function (b) { var is = b.getAttribute('data-yt') === on; b.classList.toggle('on', is); b.setAttribute('aria-pressed', String(is)); });
+    }
+    function draw() {
+      grid.innerHTML = V.map(function (v) {
+        return '<button type="button" class="vcard' + (v.youtube_id === on ? ' on' : '') + '" data-yt="' + esc(v.youtube_id) + '" aria-pressed="' + (v.youtube_id === on) + '"><img src="https://i.ytimg.com/vi/' + encodeURIComponent(v.youtube_id) + '/mqdefault.jpg" alt="" loading="lazy"><b>' + esc(v.title) + '</b><small>' + esc(when(v.published_at)) + '</small></button>';
+      }).join('');
+      more.hidden = V.length >= total;
+    }
+    grid.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-yt]'); if (!b) return;
+      var v = V.filter(function (x) { return x.youtube_id === b.getAttribute('data-yt'); })[0]; if (!v) return;
+      play(v, true);
+      var r = player.getBoundingClientRect(); if (r.top < 0) window.scrollTo({ top: window.scrollY + r.top - 16, behavior: 'smooth' });
+    });
+    more.addEventListener('click', function () {
+      call('episodes', { slug: P.slug, offset: V.length, limit: 12 }).then(function (d) { V = V.concat((d.episodes || []).filter(function (v) { return /^[\w-]{11}$/.test(v.youtube_id || ''); })); total = d.total || total; draw(); });
+    });
+    if (V.length) { play(V[0], false); draw(); } else { player.parentNode.remove(); }
+  }
+
+  function render() {
+    P = D.profile; KEY = D.key || {};
+    document.title = P.name + '. Sean A. Russell.';
+    var isCover = P.kind !== 'brand';
+    var tabs = [];
+    if (P.kind === 'brand') {
+      tabs.push(['work', 'What Sean did', didPanel]);
+      if (D.shows.length) tabs.push(['shows', 'Shows', showsPanel]);
+      if (P.source && P.source.kind === 'youtube' && D.episodes && D.episodes.total) tabs.push(['channel', 'Channel', channelPanel]);
+      if (D.videos.length) tabs.push(['videos', 'Videos', videosPanel]);
+      if (D.studies.length) tabs.push(['stories', 'Case studies', studiesPanel]);
+    } else if (P.kind === 'podcast') {
+      tabs.push(['episodes', 'Episodes', episodesPanel], ['about', 'About', aboutPanel]);
+      if (D.videos.length) tabs.push(['videos', 'Picked by Sean', videosPanel]);
+    } else if (P.kind === 'youtube') {
+      tabs.push(['channel', 'Videos', channelPanel]);
+      if (D.videos.length) tabs.push(['videos', 'Picked by Sean', videosPanel]);
+      if ((P.did || []).length) tabs.push(['work', 'What Sean did', didPanel]);
+    } else {
+      tabs.push(['episode', 'The episode', guestPanel]);
+    }
+    var want = new URLSearchParams(location.search).get('tab');
+    var cur = tabs.some(function (t) { return t[0] === want; }) ? want : tabs[0][0];
+    var kits = (P.kits || []).filter(function (k) { return KITS[k]; });
+    var keyRoles = Object.keys(KEY);
+    var websiteBtn = P.website ? '<a class="btn ghost" href="' + esc(P.website) + '" target="_blank" rel="noopener">Website</a>' : '';
+    root.innerHTML =
+      '<div class="crumbs"><a href="/directory">Directory</a>' + (D.parent ? '<span>/</span><a href="/directory/' + encodeURIComponent(D.parent.slug) + '">' + esc(D.parent.name) + '</a>' : '') + '</div>' +
+      '<div class="phead"><span class="logo' + (isCover ? ' cover' : '') + '">' + (P.logo ? '<img src="' + esc(P.logo) + '" alt="' + esc(P.name) + ' logo">' : '<b>' + esc(initials(P.name)) + '</b>') + '</span>' +
+      '<div style="min-width:0"><h1>' + esc(P.name) + '</h1>' + pills(P) + (P.tagline ? '<p class="tagline">' + esc(P.tagline) + '</p>' : '') +
+      '<div class="acts">' + websiteBtn + '<a class="btn" href="/booking">Book Sean</a></div></div></div>' +
+      (tabs.length > 1 ? '<div class="tabs" role="tablist">' + tabs.map(function (t) { return '<button type="button" role="tab" id="tab-' + t[0] + '" aria-controls="panel-' + t[0] + '" aria-selected="' + (t[0] === cur) + '" data-tab="' + t[0] + '">' + esc(t[1]) + '</button>'; }).join('') + '</div>' : '') +
+      '<div class="layout"><div>' + tabs.map(function (t) { return '<section class="panel" role="tabpanel" id="panel-' + t[0] + '" aria-labelledby="tab-' + t[0] + '"' + (t[0] === cur ? '' : ' hidden') + '>' + t[2]() + '</section>'; }).join('') + '</div>' +
+      '<aside class="side">' +
+        (keyRoles.length ? '<div class="box"><h2>What the tags mean</h2><dl>' + keyRoles.map(function (k) { return '<dt>' + esc(k) + '</dt><dd>' + esc(KEY[k]) + '</dd>'; }).join('') + '</dl></div>' : '') +
+        (kits.length ? '<div class="box"><h2>In these media kits</h2><div class="kitlinks">' + kits.map(function (k) { return '<a href="/kits/' + encodeURIComponent(k) + '">' + esc(KITS[k]) + '</a>'; }).join('') + '</div></div>' : '') +
+        '<div class="box"><h2>Work with Sean</h2><p style="margin:0;font-size:13.5px;color:var(--ink2)">Bring the same work to your brand, show or stage.</p><a class="btn" href="/booking">Book Sean</a></div>' +
+      '</aside></div>';
+    var feat = document.getElementById('feat'); if (feat) SARPlayer.bind(feat, D.videos);
+    if (document.getElementById('eps')) loadEpisodes();
+    if (document.getElementById('ytp')) loadChannel();
+    var g = document.getElementById('gplay');
+    if (g) g.addEventListener('click', function () { SARPlayer.play({ format: 'full', youtube_id: P.guest.youtube_id, title: P.guest.episode || P.name, summary: P.guest.summary, show: P.name, link: P.guest.url }); });
+    var tl = root.querySelector('.tabs');
+    if (tl) tl.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-tab]'); if (!b) return;
+      var id = b.getAttribute('data-tab');
+      Array.prototype.forEach.call(tl.querySelectorAll('[data-tab]'), function (x) { x.setAttribute('aria-selected', String(x === b)); });
+      Array.prototype.forEach.call(root.querySelectorAll('.panel'), function (p) { p.hidden = p.id !== 'panel-' + id; });
+      var u = new URL(location.href); if (id === tabs[0][0]) u.searchParams.delete('tab'); else u.searchParams.set('tab', id);
+      history.replaceState(null, '', u.pathname + u.search);
+    });
+  }
+
+  if (!slug) { root.innerHTML = '<p class="muted" style="padding-block:40px">No profile named. <a href="/directory">See the directory</a>.</p>'; return; }
+  call('get', { slug: slug }).then(function (d) {
+    if (d._status !== 200 || !d.profile) { root.innerHTML = '<p class="muted" style="padding-block:40px">This profile is not here. <a href="/directory">See the directory</a>.</p>'; return; }
+    D = d; render();
+  }).catch(function () { root.innerHTML = '<p class="muted" style="padding-block:40px">The profile could not load. Refresh to try again.</p>'; });
+})();
+</script>
+</body>
+</html>

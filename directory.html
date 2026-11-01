@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Directory. Sean A. Russell.</title>
+<meta name="description" content="The brands, shows and channels Sean A. Russell has worked with: clients and employers, podcasts he hosted and produced, and the shows he was a guest on.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="/analytics.js" defer></script>
+<!-- Directory (playbook media-kits, Phase 2b). Only who and what Sean has worked
+     with, from the sar-directory edge function: brands, shows he hosted or
+     produced (grouped under their network), video channels and the shows he
+     was a guest on. Each card opens /directory/<slug>. The address carries the
+     filters. Role tags explain themselves (title) and in "What the role tags mean". -->
+<style>
+  :root{--bg:#fff;--ink:#1a1a1a;--ink2:#55524e;--ink3:#8a8580;--line:#1a1a1a;--hair:rgba(26,26,26,.12);--orange:#F69820;--orange-ink:#7d4a00;--orange-wash:#fdf2e3;--dark:#0d0d0d;--font:'Montserrat',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+  *{box-sizing:border-box} html,body{margin:0}
+  body{background:var(--bg);color:var(--ink);font:400 15px/1.6 var(--font)}
+  .wrap{padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+  .nav{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.96);border-bottom:1px solid var(--hair);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-block:14px}
+  .brand{font-weight:900;font-size:16px;text-transform:uppercase;text-decoration:none;color:inherit}
+  .brand span{color:var(--orange)}
+  .nav nav{display:flex;gap:18px;align-items:center;flex-wrap:wrap;font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.1em}
+  .nav nav a{text-decoration:none;color:inherit}
+  .btn{display:inline-flex;align-items:center;justify-content:center;font:800 11px/1 var(--font);text-transform:uppercase;letter-spacing:.1em;padding:12px 16px;border-radius:6px;background:var(--orange);color:#1a1a1a !important;border:1.5px solid var(--orange);text-decoration:none;white-space:nowrap}
+  .head{background:var(--dark);color:#fff;padding-block:40px;display:grid;gap:10px}
+  .eyebrow{font-weight:800;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--orange)}
+  h1{font-weight:900;font-size:clamp(30px,5vw,54px);line-height:1;text-transform:uppercase;letter-spacing:-.02em;margin:0;text-wrap:balance}
+  .head p{margin:0;color:rgba(255,255,255,.8);max-width:62ch}
+  .filters{background:var(--orange-wash);border-bottom:1px solid var(--hair);padding-block:14px;display:grid;gap:10px}
+  .frow{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .frow .lbl{font-weight:800;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--orange-ink);width:58px}
+  .chips{display:flex;gap:6px;flex-wrap:wrap;flex:1;min-width:0}
+  .chips button{font:700 11.5px/1 var(--font);padding:9px 11px;border:1.5px solid var(--line);border-radius:6px;background:#fff;color:var(--ink);cursor:pointer}
+  .chips button[aria-pressed="true"]{background:var(--ink);color:#fff}
+  .chips button:focus-visible,.card:focus-visible,summary:focus-visible{outline:3px solid var(--orange);outline-offset:2px}
+  details.key{border:1.5px solid var(--line);border-radius:6px;background:#fff}
+  details.key summary{cursor:pointer;font-weight:800;font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:11px 14px;list-style:none}
+  details.key summary::-webkit-details-marker{display:none}
+  details.key summary::after{content:' +';color:var(--orange-ink)}
+  details.key[open] summary::after{content:' \2212'}
+  details.key dl{margin:0;padding:0 14px 14px;display:grid;grid-template-columns:max-content minmax(0,1fr);gap:8px 14px;font-size:13px}
+  details.key dt{font-weight:800}
+  details.key dd{margin:0;color:var(--ink2)}
+  main{padding-block:10px 56px}
+  section.grp h2{font-weight:800;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--orange-ink);margin:26px 0 12px;display:flex;gap:10px;align-items:baseline}
+  section.grp h2 small{font-weight:600;letter-spacing:.04em;text-transform:none;color:var(--ink3);font-size:12px}
+  .grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+  .card{display:grid;grid-template-columns:72px minmax(0,1fr);gap:12px;align-items:start;border:1.5px solid var(--line);border-radius:6px;padding:12px;text-decoration:none;color:inherit;background:#fff;transition:transform .15s,box-shadow .15s;min-width:0}
+  .card:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--orange)}
+  .logo{width:72px;height:72px;border:1px solid var(--hair);border-radius:6px;background:#fff;display:grid;place-items:center;overflow:hidden}
+  .logo img{width:100%;height:100%;object-fit:contain;padding:6px}
+  .logo.cover img{padding:0}
+  .logo b{font-weight:900;font-size:20px;color:var(--orange-ink)}
+  .card .bd{display:grid;gap:5px;min-width:0}
+  .card .nm{font-weight:800;font-size:14.5px;line-height:1.25}
+  .card .tg{font-size:12.5px;line-height:1.45;color:var(--ink2);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .card .sub{font-size:11px;font-weight:700;color:var(--ink3)}
+  .pills{display:flex;gap:4px;flex-wrap:wrap}
+  .pill{font:800 9.5px/1 var(--font);letter-spacing:.08em;text-transform:uppercase;padding:4px 6px;border-radius:4px;background:var(--orange-wash);color:var(--orange-ink);border:1px solid rgba(246,152,32,.4);cursor:help}
+  .pill.rel{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .pill.draft{background:#fff;color:#a33;border-color:#a33;cursor:default}
+  .muted{color:var(--ink3);font-style:italic}
+  footer{border-top:1px solid var(--hair);padding-block:22px;font-size:12px;color:var(--ink3)}
+  @media (max-width:1200px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+  @media (max-width:880px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media (max-width:560px){.grid{grid-template-columns:1fr}.frow .lbl{width:100%}details.key dl{grid-template-columns:1fr;gap:2px}details.key dd{margin-bottom:8px}}
+  @media (max-width:640px){.nav{position:static}}
+  @media (prefers-reduced-motion:reduce){.card{transition:none}}
+</style>
+</head>
+<body>
+<header class="nav wrap">
+  <a class="brand" href="/">Sean A<span>.</span> Russell</a>
+  <nav aria-label="Primary">
+    <a href="/kits">Media Kits</a>
+    <a href="/watch">Watch</a>
+    <a href="/directory">Directory</a>
+    <a href="/case-studies">Case Studies</a>
+    <a href="/press">Press</a>
+    <a href="/dashboard">Log In</a>
+    <a class="btn" href="/booking">Book Sean</a>
+  </nav>
+</header>
+<section class="head wrap">
+  <span class="eyebrow">Directory</span>
+  <h1>Who Sean has worked with</h1>
+  <p>The brands, shows and channels behind the work. Each one opens on what he did there.</p>
+</section>
+<section class="filters wrap" aria-label="Filters">
+  <div class="frow"><span class="lbl">Show</span><div class="chips" data-f="type"></div></div>
+  <div class="frow"><span class="lbl">Kit</span><div class="chips" data-f="kit"></div></div>
+  <details class="key" id="key"><summary>What the role tags mean</summary><dl></dl></details>
+</section>
+<main class="wrap" id="main"><p class="muted">Loading the directory.</p></main>
+<footer class="wrap">&copy; 2026 Sean A. Russell. A LESARUSS production.</footer>
+<script>
+(function () {
+  var FN = 'https://fwbhwfxpncrsfhttimna.supabase.co/functions/v1/sar-directory';
+  var ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ3Ymh3ZnhwbmNyc2ZodHRpbW5hIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ2NjAxMzksImV4cCI6MjA5MDIzNjEzOX0.9mxjK0bn5WATCbNLWrHPakD6yHUDtHFHrOaklPnWkOA';
+  var KITS = [['executive-marketing', 'Executive Marketing'], ['education', 'Education'], ['media-production', 'Media & Production'], ['speaker', 'Speaker & Host'], ['vegan-movement', 'Vegan Movement'], ['entertainment', 'Entertainment & Music']];
+  var GROUPS = [
+    ['brand', 'Brands and organizations', 'Clients, employers and the brands he started'],
+    ['podcast', 'Shows Sean hosts or produces', 'Grouped by network'],
+    ['youtube', 'Video channels', ''],
+    ['guest', 'Guest appearances', 'Shows that invited him on']
+  ];
+  var TYPES = [['all', 'Everything'], ['brand', 'Brands'], ['podcast', 'His shows'], ['youtube', 'Video channels'], ['guest', 'Guest appearances']];
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function token() { try { return localStorage.getItem('lr_token'); } catch (e) { return null; } }
+  var qs = new URLSearchParams(location.search);
+  var F = { type: qs.get('type') || 'all', kit: qs.get('kit') || 'all' };
+  var ALL = [], KEY = {}, BY = {};
+  var main = document.getElementById('main');
+
+  function initials(n) { return String(n || '').replace(/[^A-Za-z0-9 ]/g, '').split(/\s+/).filter(Boolean).slice(0, 2).map(function (w) { return w[0]; }).join('').toUpperCase(); }
+  function logo(it) {
+    var cover = it.kind === 'podcast' || it.kind === 'guest' || it.kind === 'youtube';
+    return '<span class="logo' + (cover && it.kind !== 'brand' ? ' cover' : '') + '">' + (it.logo ? '<img src="' + esc(it.logo) + '" alt="" loading="lazy">' : '<b>' + esc(initials(it.name)) + '</b>') + '</span>';
+  }
+  function pills(it) {
+    var p = (it.relationship || []).map(function (r) { return '<span class="pill rel" title="' + esc(r + ': ' + (KEY[r] || '')) + '">' + esc(r) + '</span>'; })
+      .concat((it.roles || []).map(function (r) { return '<span class="pill" title="' + esc(r + ': ' + (KEY[r] || '')) + '">' + esc(r) + '</span>'; }));
+    if (it.status === 'draft') p.push('<span class="pill draft">Draft, only you see this</span>');
+    return p.length ? '<span class="pills">' + p.join('') + '</span>' : '';
+  }
+  function sub(it) {
+    var parent = it.parent_slug && BY[it.parent_slug] ? BY[it.parent_slug].name : '';
+    var bits = [];
+    if (it.kind === 'podcast') { if (parent) bits.push(parent); if (it.episodes) bits.push(it.episodes + ' episodes'); }
+    if (it.kind === 'youtube' && it.episodes) bits.push(it.episodes + ' videos');
+    if (it.kind === 'guest' && it.year) bits.push(String(it.year));
+    return bits.length ? '<span class="sub">' + esc(bits.join(' · ')) + '</span>' : '';
+  }
+  function card(it) {
+    return '<a class="card" href="/directory/' + encodeURIComponent(it.slug) + '">' + logo(it) +
+      '<span class="bd"><span class="nm">' + esc(it.name) + '</span>' + pills(it) +
+      (it.tagline ? '<span class="tg">' + esc(it.tagline) + '</span>' : '') + sub(it) + '</span></a>';
+  }
+  function chips() {
+    var used = KITS.filter(function (k) { return ALL.some(function (i) { return (i.kits || []).indexOf(k[0]) > -1; }); });
+    var opts = { type: TYPES, kit: [['all', 'All kits']].concat(used) };
+    Array.prototype.forEach.call(document.querySelectorAll('.chips'), function (el) {
+      var f = el.getAttribute('data-f');
+      el.innerHTML = opts[f].map(function (o) { return '<button type="button" data-v="' + esc(o[0]) + '" aria-pressed="' + (F[f] === o[0]) + '">' + esc(o[1]) + '</button>'; }).join('');
+    });
+  }
+  function render() {
+    var html = GROUPS.map(function (g) {
+      if (F.type !== 'all' && F.type !== g[0]) return '';
+      var items = ALL.filter(function (i) { return i.kind === g[0] && (F.kit === 'all' || (i.kits || []).indexOf(F.kit) > -1); });
+      if (g[0] === 'guest') items.sort(function (a, b) { return (b.year || 0) - (a.year || 0); });
+      if (!items.length) return '';
+      return '<section class="grp"><h2>' + esc(g[1]) + ' <small>' + items.length + (g[2] ? ' · ' + esc(g[2]) : '') + '</small></h2><div class="grid">' + items.map(card).join('') + '</div></section>';
+    }).join('');
+    main.innerHTML = html || '<p class="muted">Nothing here for this filter yet.</p>';
+  }
+  document.querySelector('.filters').addEventListener('click', function (e) {
+    var b = e.target.closest('[data-v]'); if (!b) return;
+    F[b.parentNode.getAttribute('data-f')] = b.getAttribute('data-v');
+    var u = new URLSearchParams();
+    Object.keys(F).forEach(function (k) { if (F[k] !== 'all') u.set(k, F[k]); });
+    history.replaceState(null, '', location.pathname + (u.toString() ? '?' + u : ''));
+    chips(); render();
+  });
+  fetch(FN + '?action=list', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + ANON, apikey: ANON }, body: JSON.stringify({ token: token() }) })
+    .then(function (r) { return r.json(); })
+    .then(function (d) {
+      ALL = (d && d.items) || []; KEY = (d && d.key) || {};
+      ALL.forEach(function (i) { BY[i.slug] = i; });
+      document.querySelector('#key dl').innerHTML = Object.keys(KEY).map(function (k) { return '<dt>' + esc(k) + '</dt><dd>' + esc(KEY[k]) + '</dd>'; }).join('');
+      chips(); render();
+    })
+    .catch(function () { main.innerHTML = '<p class="muted">The directory could not load. Refresh to try again.</p>'; });
+})();
+</script>
+</body>
+</html>
