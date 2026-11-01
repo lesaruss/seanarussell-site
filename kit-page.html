@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Media Kit. Sean A. Russell.</title>
+<meta name="description" content="Sean A. Russell media kit: the work, the numbers and how to book.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="/analytics.js" defer></script>
+<!--
+  One media kit template for every industry (playbook media-kits, brand
+  sean-a-russell). /kits/<slug> rewrites here (vercel.json, destination /kit-page: with cleanUrls
+  a rewrite must not name the .html file, and /kit is already a folder). Content comes from
+  the sar-kits edge function, which decides the view from what the visitor can
+  prove: public, shared (a private ?link= token) or you (the owner, signed in on
+  /dashboard with the same lr_token). Anatomy follows the Vegans Explore Creator
+  Media Kit. Art direction: the pose is 3:4 and always shown whole on white; the
+  scene is 16:9 and only ever in a 16:9 frame.
+-->
+<style>
+  :root{
+    --bg:#ffffff; --surface:#ffffff; --surface2:#f7f6f4; --ink:#1a1a1a; --ink2:#55524e; --ink3:#8a8580;
+    --line:#1a1a1a; --hair:rgba(26,26,26,.12); --orange:#F69820; --orange-ink:#7d4a00; --orange-wash:#fdf2e3;
+    --ok:#16750C; --ok-wash:#e9f3e7; --warn:#8a4f00; --warn-wash:#fff3df; --dark:#0d0d0d;
+    --font:'Montserrat',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--bg);color:var(--ink);font:400 15px/1.6 var(--font)}
+  a{color:inherit}
+  img{max-width:100%;display:block}
+  .wrap{padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+  /* nav */
+  .nav{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.96);border-bottom:1px solid var(--hair);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-block:14px}
+  .brand{font-weight:900;font-size:16px;text-transform:uppercase;text-decoration:none;letter-spacing:-.01em}
+  .brand span{color:var(--orange)}
+  .nav nav{display:flex;gap:18px;align-items:center;flex-wrap:wrap;font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.1em}
+  .nav nav a{text-decoration:none}
+  .nav nav a:hover,.nav nav a:focus-visible{color:var(--orange-ink)}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:800 11px/1 var(--font);text-transform:uppercase;letter-spacing:.1em;padding:12px 16px;border-radius:6px;background:var(--orange);color:#1a1a1a;border:1.5px solid var(--orange);cursor:pointer;text-decoration:none;white-space:nowrap}
+  .btn.ghost{background:transparent;color:inherit;border-color:currentColor}
+  .btn.dark{background:var(--ink);border-color:var(--ink);color:#fff}
+  .btn:focus-visible,.seg button:focus-visible,input:focus-visible{outline:3px solid var(--orange);outline-offset:2px}
+  /* view bar (owner only) */
+  .vbar{background:var(--orange-wash);border-bottom:1px solid var(--hair);display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding-block:10px}
+  .vbar .lbl{font-weight:800;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--orange-ink)}
+  .seg{display:inline-flex;border:1.5px solid var(--line);border-radius:6px;overflow:hidden}
+  .seg button{font:800 11px/1 var(--font);text-transform:uppercase;letter-spacing:.06em;padding:9px 12px;background:#fff;color:var(--ink);border:0;border-right:1px solid var(--line);cursor:pointer}
+  .seg button:last-child{border-right:0}
+  .seg button[aria-pressed="true"]{background:var(--orange)}
+  .vbar p{margin:0;font-size:12.5px;color:var(--ink2);flex:1;min-width:220px}
+  .banner{background:var(--ok-wash);border-bottom:1px solid var(--hair);padding-block:10px;font-size:13px}
+  /* kit tabs: one strip across every kit; scrolls sideways inside itself on a phone */
+  .ktabs{display:flex;gap:0;overflow-x:auto;border-bottom:1.5px solid var(--line);background:#fff;scrollbar-width:thin}
+  .ktabs a{flex:0 0 auto;font:800 11px/1 var(--font);text-transform:uppercase;letter-spacing:.08em;padding:14px 16px;text-decoration:none;color:var(--ink2);border-bottom:3px solid transparent;white-space:nowrap}
+  .ktabs a:hover{color:var(--ink)}
+  .ktabs a[aria-current="page"]{color:var(--ink);border-bottom-color:var(--orange)}
+  .ktabs a .dr{font-weight:700;color:var(--warn);margin-left:6px}
+  /* hero */
+  .hero{background:var(--dark);color:#fff;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:28px;align-items:center;padding-block:36px}
+  .hero-main{display:grid;grid-template-columns:200px minmax(0,1fr);gap:28px;align-items:center;min-width:0}
+  .pose{width:200px;aspect-ratio:3/4;background:#fff;border:2px solid var(--orange);border-radius:6px;overflow:hidden}
+  .pose img{width:100%;height:100%;object-fit:contain}
+  .eyebrow{font-weight:800;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--orange)}
+  h1{font-weight:900;font-size:clamp(30px,5vw,54px);line-height:1;letter-spacing:-.02em;text-transform:uppercase;margin:8px 0 12px;text-wrap:balance}
+  .tagline{margin:0;color:rgba(255,255,255,.82);font-size:16px;max-width:62ch}
+  .tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px}
+  .tag{font-weight:700;font-size:10px;letter-spacing:.1em;text-transform:uppercase;border:1px solid rgba(255,255,255,.4);padding:5px 8px;border-radius:6px}
+  .tag.o{background:var(--orange);border-color:var(--orange);color:#1a1a1a}
+  .hero-cta{display:grid;gap:10px;justify-items:end}
+  /* stats */
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr));gap:12px;padding-block:22px}
+  .stat{border:1.5px solid var(--line);border-radius:6px;padding:14px 16px;display:grid;gap:4px;min-width:0}
+  .stat b{font-weight:900;font-size:clamp(24px,3vw,32px);line-height:1;font-variant-numeric:tabular-nums}
+  .stat span{font-size:13px;color:var(--ink2)}
+  /* body */
+  .two{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(0,1fr);gap:18px;align-items:start;padding-bottom:40px}
+  .col{display:grid;gap:16px;min-width:0}
+  .box{border:1px solid var(--hair);border-radius:6px;padding:18px;display:grid;gap:12px;min-width:0;background:var(--surface)}
+  .box h2{margin:0;font-weight:800;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--orange-ink)}
+  .box p{margin:0;color:var(--ink2);font-size:14px}
+  .scene{margin:0;display:grid;gap:6px}
+  .scene img{width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;border:1px solid var(--hair);border-radius:6px}
+  .scene figcaption{font-size:12px;color:var(--ink3)}
+  .pillars{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+  .pillars div{background:var(--orange-wash);border-radius:6px;padding:12px;display:grid;gap:4px;min-width:0}
+  .pillars b{font-size:14px}
+  .pillars span{font-size:13px;color:var(--ink2)}
+  .cs{display:grid;gap:10px}
+  .card{border:1px solid var(--hair);border-radius:6px;padding:12px 14px;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:14px;align-items:center}
+  .card .val{font-weight:900;font-size:22px;line-height:1;color:var(--orange-ink);font-variant-numeric:tabular-nums;min-width:84px}
+  .card.noval{grid-template-columns:minmax(0,1fr) auto}
+  .card b{display:block;font-size:14.5px}
+  .card span{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:13px;color:var(--ink2)}
+  .card a{font-weight:800;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--orange-ink);text-decoration:none;white-space:nowrap}
+  .pill{display:inline-block;font-weight:800;font-size:9.5px;line-height:1;letter-spacing:.12em;text-transform:uppercase;padding:5px 7px;border-radius:4px;margin-top:6px}
+  .pill.warn{background:var(--warn-wash);color:var(--warn)}
+  .pill.ok{background:var(--ok-wash);color:var(--ok)}
+  blockquote{margin:0;border-left:3px solid var(--orange);padding:8px 12px;background:var(--surface2);border-radius:0 6px 6px 0;font-size:14px}
+  blockquote cite{display:block;margin-top:6px;font-style:normal;font-weight:700;font-size:12px;color:var(--ink2)}
+  .press{display:grid;gap:8px}
+  .prow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;border-top:1px solid var(--hair);padding-top:8px}
+  .prow:first-child{border-top:0;padding-top:0}
+  .prow b{display:block;font-size:14px}
+  .prow span{display:block;font-size:12.5px;color:var(--ink2)}
+  .prow a{font-weight:800;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--orange-ink);text-decoration:none;white-space:nowrap}
+  .chips{display:flex;flex-wrap:wrap;gap:6px}
+  .chips span{font-weight:700;font-size:11px;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--hair);padding:7px 9px;border-radius:6px}
+  ul.req{list-style:none;margin:0;padding:0;display:grid;gap:8px;font-size:13.5px}
+  ul.req li{display:grid;grid-template-columns:22px minmax(0,1fr);gap:8px;align-items:start}
+  ul.req i{font-style:normal;width:20px;height:20px;border-radius:4px;display:grid;place-items:center;font-weight:900;font-size:11px;background:var(--ok-wash);color:var(--ok)}
+  ul.req i.no{background:var(--warn-wash);color:var(--warn)}
+  .muted{color:var(--ink3);font-size:13px;font-style:italic}
+  .links{display:grid;gap:8px}
+  .lrow{border:1px solid var(--hair);border-radius:6px;padding:10px 12px;display:grid;gap:6px;font-size:13px}
+  .lrow .meta{color:var(--ink2);font-size:12px}
+  .lrow .acts{display:flex;gap:8px;flex-wrap:wrap}
+  .lrow.dead{opacity:.55}
+  .form{display:grid;gap:8px}
+  .form label{font-weight:700;font-size:12px}
+  .form input{font:500 14px var(--font);padding:10px 12px;border:1.5px solid var(--hair);border-radius:6px;width:100%}
+  .newlink{word-break:break-all;background:var(--surface2);border-radius:6px;padding:10px;font-size:12.5px}
+  .state{padding-block:80px;text-align:center;display:grid;gap:14px;justify-items:center}
+  .state h1{color:var(--ink)}
+  footer{border-top:1px solid var(--hair);padding-block:22px;font-size:12px;color:var(--ink3);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  footer a{text-decoration:none;font-weight:700}
+  [hidden]{display:none!important}
+  @media (max-width:900px){
+    .hero{grid-template-columns:1fr}
+    .hero-cta{justify-items:start}
+    .two{grid-template-columns:1fr}
+  }
+  @media (max-width:600px){
+    .hero-main{grid-template-columns:1fr;gap:18px}
+    .pose{width:160px}
+    .pillars{grid-template-columns:1fr}
+    .card,.card.noval{grid-template-columns:1fr;gap:8px}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<header class="nav wrap">
+  <a class="brand" href="/">Sean A<span>.</span> Russell</a>
+  <nav aria-label="Primary">
+    <a href="/kits">Media Kits</a>
+    <a href="/case-studies">Case Studies</a>
+    <a href="/press">Press</a>
+    <a href="/dashboard">Log In</a>
+    <a class="btn" id="nav-book" href="/booking">Book Sean</a>
+  </nav>
+</header>
+
+<div class="vbar wrap" id="vbar" hidden>
+  <span class="lbl">See it as</span>
+  <div class="seg" role="group" aria-label="Preview this kit as">
+    <button type="button" data-view="public" aria-pressed="false">Public</button>
+    <button type="button" data-view="shared" aria-pressed="false">Shared link</button>
+    <button type="button" data-view="you" aria-pressed="true">You</button>
+  </div>
+  <p id="vnote"></p>
+</div>
+<nav class="ktabs wrap" id="ktabs" aria-label="Media kits" data-scroll-strip hidden></nav>
+<div class="banner wrap" id="shared-banner" hidden>This is a private copy of the kit, shared with you directly. It includes how we can work together.</div>
+
+<main id="main">
+  <div class="state wrap" id="loading"><p class="muted">Loading the kit.</p></div>
+</main>
+
+<footer class="wrap">
+  <span>&copy; 2026 Sean A. Russell. A LESARUSS production.</span>
+  <span><a href="/kits">All media kits</a> &middot; <a href="/press">Press</a> &middot; <a href="/booking">Book Sean</a></span>
+</footer>
+
+<script>
+(function () {
+  var FN = 'https://fwbhwfxpncrsfhttimna.supabase.co/functions/v1/sar-kits';
+  var ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ3Ymh3ZnhwbmNyc2ZodHRpbW5hIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ2NjAxMzksImV4cCI6MjA5MDIzNjEzOX0.9mxjK0bn5WATCbNLWrHPakD6yHUDtHFHrOaklPnWkOA';
+  var VNOTE = {
+    public: 'What anyone sees. Published results only, no terms. Ends on Book Sean.',
+    shared: 'What a private link shows: adds how we can work together and the PDF. Drafts stay hidden.',
+    you: 'Only you see this: draft stories marked, what the kit is missing, and your private links.'
+  };
+
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function token() { try { return localStorage.getItem('lr_token'); } catch (e) { return null; } }
+  function call(action, body) {
+    return fetch(FN + '?action=' + action, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + ANON, 'apikey': ANON },
+      body: JSON.stringify(body || {})
+    }).then(function (r) { return r.json().then(function (j) { return { status: r.status, body: j }; }); });
+  }
+
+  var path = location.pathname.replace(/\/+$/, '').split('/');
+  var last = path[path.length - 1];
+  var slug = (last === 'kit-page' || last === 'kit-page.html') ? (new URLSearchParams(location.search).get('slug') || '') : last;
+  var link = new URLSearchParams(location.search).get('link') || '';
+  var data = null, preview = null;
+
+  function clientName(s) { return String(s || '').replace(/\s+--\s+/g, ': '); }
+
+  function render() {
+    var d = data, k = d.kit, real = d.view, v = preview || real;
+    var showTerms = v !== 'public' && Array.isArray(k.terms);
+    var showDrafts = v === 'you';
+    var stats = d.stats.filter(function (s) { return showDrafts || !s.draft; });
+    var studies = d.studies.filter(function (s) { return showDrafts || !s.draft; });
+    var drafts = d.studies.filter(function (s) { return s.draft; }).length;
+    var book = '/booking?kit=' + encodeURIComponent(k.slug);
+    document.getElementById('nav-book').href = book;
+    document.title = k.name + ' Media Kit. Sean A. Russell.';
+
+    var cta = '<a class="btn" href="' + book + '">Book Sean</a>';
+    if (v !== 'public' && k.pdf_url) cta += '<a class="btn ghost" href="' + esc(k.pdf_url) + '" target="_blank" rel="noopener">Download the PDF</a>';
+
+    var html = '';
+    html += '<section class="hero wrap"><div class="hero-main">' +
+      '<div class="pose"><img src="' + esc(k.pose) + '" alt="Sean A. Russell, illustrated, ' + esc(k.name) + '" width="300" height="400"></div>' +
+      '<div><div class="eyebrow">' + esc(k.role) + '</div><h1>' + esc(k.name) + '</h1><p class="tagline">' + esc(k.tagline) + '</p>' +
+      '<div class="tags"><span class="tag o">Sean A. Russell</span>' + (k.tags || []).map(function (t) { return '<span class="tag">' + esc(t) + '</span>'; }).join('') +
+      (showDrafts && k.status !== 'live' ? '<span class="tag o">Draft kit, not public</span>' : '') + '</div></div></div>' +
+      '<div class="hero-cta">' + cta + '</div></section>';
+
+    if (stats.length) html += '<section class="stats wrap" aria-label="By the numbers">' + stats.map(function (s) {
+      return '<div class="stat"><b>' + esc(s.v) + '</b><span>' + esc(s.l) + '</span>' + (s.draft ? '<em class="pill warn">Draft, not public</em>' : '') + '</div>';
+    }).join('') + '</section>';
+
+    var left = '';
+    if (k.scene) left += '<figure class="scene"><img src="' + esc(k.scene) + '" alt="' + esc(k.scene_caption || '') + '" loading="lazy" width="1376" height="774"><figcaption>' + esc(k.scene_caption || '') + '</figcaption></figure>';
+    else if (showDrafts) left += '<div class="box"><h2>Scene</h2><p class="muted">New artwork needed for this kit, in the same illustrated style.</p></div>';
+    if ((k.pillars || []).length) left += '<div class="box"><h2>What I do here</h2><div class="pillars">' + k.pillars.map(function (p) { return '<div><b>' + esc(p[0]) + '</b><span>' + esc(p[1]) + '</span></div>'; }).join('') + '</div></div>';
+    left += '<div class="box"><h2>Featured work</h2>' + (studies.length ? '<div class="cs">' + studies.map(function (s) {
+      return '<div class="card' + (s.value ? '' : ' noval') + '">' + (s.value ? '<div class="val">' + esc(s.value) + '</div>' : '') + '<div><b>' + esc(clientName(s.client)) + '</b>' + (s.headline ? '<span>' + esc(s.headline) + '</span>' : '') +
+        (s.draft ? '<em class="pill warn">Draft, confirm before it goes public</em>' : '') + '</div>' +
+        (s.story_url && !s.draft ? '<a href="' + esc(s.story_url) + '" target="_blank" rel="noopener">Read the story</a>' : '') + '</div>';
+    }).join('') + '</div>' : '<p class="muted">Published stories for this kit are on the way.</p>') +
+      (v === 'you' && drafts ? '<p>' + drafts + ' ' + (drafts === 1 ? 'story is' : 'stories are') + ' in drafts and ' + (drafts === 1 ? 'appears' : 'appear') + ' publicly once confirmed.</p>' : '') + '</div>';
+    if (d.quotes.length) left += '<div class="box"><h2>What clients say</h2>' + d.quotes.map(function (q) { return '<blockquote>' + esc(q.quote) + '<cite>' + esc(clientName(q.by)) + '</cite></blockquote>'; }).join('') + '</div>';
+
+    var right = '';
+    if (v === 'you' && d.shine) {
+      var done = d.shine.filter(function (x) { return x[1]; }).length;
+      right += '<div class="box"><h2>Make it shine</h2><p><b>' + done + ' of ' + d.shine.length + '</b> done. Complete kits go on the home shelf first.</p><ul class="req">' +
+        d.shine.map(function (x) { return '<li><i class="' + (x[1] ? '' : 'no') + '" aria-hidden="true">' + (x[1] ? '&#10003;' : '+') + '</i><span>' + esc(x[0]) + (x[1] ? '' : ' <span class="muted">(to do)</span>') + '</span></li>'; }).join('') + '</ul></div>';
+    }
+    if ((k.worked_with || []).length) right += '<div class="box"><h2>Worked with</h2><div class="chips">' + k.worked_with.map(function (w) { return '<span>' + esc(w) + '</span>'; }).join('') + '</div></div>';
+    if (k.track_record) right += '<div class="box"><h2>Track record</h2><p>' + esc(k.track_record) + '</p></div>';
+    if (showTerms) {
+      right += '<div class="box"><h2>' + (v === 'you' ? 'How we can work together (private links only)' : 'How we can work together') + '</h2><ul class="req">' +
+        k.terms.map(function (t) { return '<li><i aria-hidden="true">&bull;</i><span>' + esc(t) + '</span></li>'; }).join('') + '</ul>' +
+        (Array.isArray(k.fees) && k.fees.length ? '<ul class="req">' + k.fees.map(function (t) { return '<li><i aria-hidden="true">$</i><span>' + esc(t) + '</span></li>'; }).join('') + '</ul>' : '') +
+        '<a class="btn dark" href="' + book + '" style="justify-self:start">Schedule a call</a></div>';
+    }
+    right += '<div class="box"><h2>Press</h2><div class="press" id="kit-press"><p class="muted">Loading coverage.</p></div><a class="btn ghost" href="/press" style="justify-self:start">See all press</a></div>';
+    if (real === 'you' && v === 'you') right += linksBox();
+
+    html += '<section class="two wrap"><div class="col">' + left + '</div><div class="col">' + right + '</div></section>';
+    document.getElementById('main').innerHTML = html;
+
+    var vbar = document.getElementById('vbar');
+    vbar.hidden = real !== 'you';
+    document.getElementById('vnote').textContent = VNOTE[v];
+    Array.prototype.forEach.call(vbar.querySelectorAll('[data-view]'), function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-view') === v)); });
+    document.getElementById('shared-banner').hidden = real !== 'shared';
+    bindLinks();
+    renderTabs();
+    renderPress();
+  }
+
+  function fmtDate(iso) { try { return new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }); } catch (e) { return iso; } }
+  function linksBox() {
+    var rows = (data.links || []).map(function (l) {
+      var dead = l.revoked_at || new Date(l.expires_at) < new Date();
+      var url = location.origin + '/kits/' + data.kit.slug + '?link=' + l.token;
+      return '<div class="lrow' + (dead ? ' dead' : '') + '"><b>' + esc(l.label || 'Untitled link') + '</b>' +
+        '<span class="meta">' + (l.revoked_at ? 'Turned off' : dead ? 'Expired ' + fmtDate(l.expires_at) : 'Works until ' + fmtDate(l.expires_at)) +
+        ' &middot; opened ' + (l.opens || 0) + (l.opens === 1 ? ' time' : ' times') + '</span>' +
+        (dead ? '' : '<span class="acts"><button type="button" class="btn ghost" data-copy="' + esc(url) + '">Copy link</button><button type="button" class="btn ghost" data-revoke="' + esc(l.token) + '">Turn off</button></span>') + '</div>';
+    }).join('');
+    return '<div class="box"><h2>Private links</h2><p>Send one after a first call. It shows how we can work together and the PDF, and stops working on its own.</p>' +
+      '<form class="form" id="mk-link"><label for="mk-label">Who is it for</label><input id="mk-label" maxlength="120" placeholder="For example: Jane Doe, Acme Health">' +
+      '<label for="mk-days">Works for (days)</label><input id="mk-days" type="number" min="1" max="180" value="30">' +
+      '<button class="btn" type="submit">Create a private link</button></form><div id="mk-new" hidden></div>' +
+      '<div class="links">' + (rows || '<p class="muted">No private links yet.</p>') + '</div></div>';
+  }
+  function copy(text, btn) {
+    var done = function () { btn.textContent = 'Copied'; setTimeout(function () { btn.textContent = 'Copy link'; }, 1600); };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, function () { window.prompt('Copy this link', text); });
+    else window.prompt('Copy this link', text);
+  }
+  function bindLinks() {
+    var f = document.getElementById('mk-link');
+    if (f) f.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var btn = f.querySelector('button'); btn.disabled = true; btn.textContent = 'Creating';
+      call('create_link', { slug: data.kit.slug, token: token(), label: document.getElementById('mk-label').value, days: document.getElementById('mk-days').value }).then(function (r) {
+        if (r.status !== 200) { btn.disabled = false; btn.textContent = 'Create a private link'; alert('That link could not be created. Sign in again on the dashboard and retry.'); return; }
+        load(true);
+      });
+    });
+    Array.prototype.forEach.call(document.querySelectorAll('[data-copy]'), function (b) { b.addEventListener('click', function () { copy(b.getAttribute('data-copy'), b); }); });
+    Array.prototype.forEach.call(document.querySelectorAll('[data-revoke]'), function (b) {
+      b.addEventListener('click', function () {
+        b.disabled = true;
+        call('revoke_link', { link: b.getAttribute('data-revoke'), token: token() }).then(function () { load(true); });
+      });
+    });
+  }
+
+  // ---- Kit tabs (same list the /kits shelf uses; drafts only for the owner) ----
+  var KITS = null;
+  function renderTabs() {
+    var el = document.getElementById('ktabs');
+    if (!KITS || KITS.length < 2) { el.hidden = true; return; }
+    el.innerHTML = KITS.map(function (k) {
+      var cur = data && data.kit && k.slug === data.kit.slug;
+      return '<a href="/kits/' + esc(k.slug) + '"' + (cur ? ' aria-current="page"' : '') + '>' + esc(k.name) + (k.status !== 'live' ? '<span class="dr">Draft</span>' : '') + '</a>';
+    }).join('');
+    el.hidden = false;
+    var cur = el.querySelector('[aria-current]');
+    if (cur && cur.scrollIntoView) cur.scrollIntoView({ block: 'nearest', inline: 'center' });
+  }
+  call('list', { token: token() }).then(function (r) { if (r.status === 200 && r.body && r.body.kits) { KITS = r.body.kits; if (data) renderTabs(); } }).catch(function () {});
+
+  // ---- Press for this kit, from the same feed as /press ----
+  var PRESS = null, PRESS_FAILED = false;
+  function action(href) {
+    if (/youtu\.?be|youtube\.com|vimeo\.com/.test(href)) return 'Watch';
+    if (/spotify\.com|captivate\.fm|buzzsprout\.com|podscan\.fm|podchaser\.com|apple\.com\/.*podcast/.test(href)) return 'Listen';
+    return 'Read';
+  }
+  function renderPress() {
+    var el = document.getElementById('kit-press');
+    if (!el) return;
+    if (PRESS_FAILED) { el.innerHTML = '<p class="muted">Coverage could not load. See all press below.</p>'; return; }
+    if (!PRESS) return;
+    var ids = (data.kit.press_ids || []);
+    var byId = {}; PRESS.forEach(function (e) { byId[e.id] = e; });
+    var rows = ids.map(function (id) { return byId[id]; }).filter(Boolean).slice(0, 6);
+    el.innerHTML = rows.length ? rows.map(function (e) {
+      return '<div class="prow"><div><b>' + esc(e.title) + '</b><span>' + esc(e.subtitle || (e.type.charAt(0).toUpperCase() + e.type.slice(1))) + ' &middot; ' + esc(e.date) + '</span></div>' +
+        (e.href ? '<a href="' + esc(e.href) + '" target="_blank" rel="noopener">' + action(e.href) + '</a>' : '') + '</div>';
+    }).join('') : '<p>Television, print and podcast coverage of Sean.</p>';
+  }
+  fetch('https://lesaruss.com/api/press').then(function (r) { if (!r.ok) throw 0; return r.json(); })
+    .then(function (d) { PRESS = Array.isArray(d) ? d : []; if (data) renderPress(); })
+    .catch(function () { PRESS_FAILED = true; if (data) renderPress(); });
+
+  function notFound() {
+    document.getElementById('main').innerHTML = '<section class="state wrap"><h1>That kit is not here</h1><p class="muted">It may not be published yet.</p><a class="btn" href="/kits">See all media kits</a></section>';
+  }
+  function load(keepPreview) {
+    if (!slug) return notFound();
+    call('get', { slug: slug, link: link, token: token() }).then(function (r) {
+      if (r.status !== 200 || !r.body || !r.body.kit) return notFound();
+      data = r.body;
+      if (!keepPreview) preview = null;
+      render();
+    }).catch(notFound);
+  }
+  document.getElementById('vbar').addEventListener('click', function (e) {
+    var b = e.target.closest('[data-view]');
+    if (!b || !data) return;
+    preview = b.getAttribute('data-view');
+    render();
+  });
+  load(false);
+})();
+</script>
+</body>
+</html>
