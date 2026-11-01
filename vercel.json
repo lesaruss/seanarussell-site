@@ -1,8 +1,139 @@
 {
   "cleanUrls": true,
+  "redirects": [
+    {
+      "source": "/talents",
+      "destination": "/kits",
+      "permanent": true
+    },
+    {
+      "source": "/talents.html",
+      "destination": "/kits",
+      "permanent": true
+    },
+    {
+      "source": "/experience",
+      "destination": "/kits",
+      "permanent": true
+    },
+    {
+      "source": "/experience.html",
+      "destination": "/kits",
+      "permanent": true
+    },
+    {
+      "source": "/consultant",
+      "destination": "/kits/executive-marketing",
+      "permanent": true
+    },
+    {
+      "source": "/consultant.html",
+      "destination": "/kits/executive-marketing",
+      "permanent": true
+    },
+    {
+      "source": "/author",
+      "destination": "/kits/executive-marketing",
+      "permanent": true
+    },
+    {
+      "source": "/author.html",
+      "destination": "/kits/executive-marketing",
+      "permanent": true
+    },
+    {
+      "source": "/producer",
+      "destination": "/kits/media-production",
+      "permanent": true
+    },
+    {
+      "source": "/producer.html",
+      "destination": "/kits/media-production",
+      "permanent": true
+    },
+    {
+      "source": "/on-camera",
+      "destination": "/kits/media-production",
+      "permanent": true
+    },
+    {
+      "source": "/on-camera.html",
+      "destination": "/kits/media-production",
+      "permanent": true
+    },
+    {
+      "source": "/actor",
+      "destination": "/kits/media-production",
+      "permanent": true
+    },
+    {
+      "source": "/actor.html",
+      "destination": "/kits/media-production",
+      "permanent": true
+    },
+    {
+      "source": "/universe",
+      "destination": "/kits/media-production",
+      "permanent": true
+    },
+    {
+      "source": "/universe.html",
+      "destination": "/kits/media-production",
+      "permanent": true
+    },
+    {
+      "source": "/host",
+      "destination": "/kits/speaker",
+      "permanent": true
+    },
+    {
+      "source": "/host.html",
+      "destination": "/kits/speaker",
+      "permanent": true
+    },
+    {
+      "source": "/speaker",
+      "destination": "/kits/speaker",
+      "permanent": true
+    },
+    {
+      "source": "/speaker.html",
+      "destination": "/kits/speaker",
+      "permanent": true
+    },
+    {
+      "source": "/kit/executive-marketing",
+      "destination": "/kits/executive-marketing",
+      "permanent": true
+    },
+    {
+      "source": "/kit/executive-marketing.html",
+      "destination": "/kits/executive-marketing",
+      "permanent": true
+    },
+    {
+      "source": "/kit/media-industry",
+      "destination": "/kits/media-production",
+      "permanent": true
+    },
+    {
+      "source": "/kit/media-industry.html",
+      "destination": "/kits/media-production",
+      "permanent": true
+    }
+  ],
   "rewrites": [
-    { "source": "/kits/:slug", "destination": "/kit-page" },
-    { "source": "/watch/manage", "destination": "/watch-manage" },
-    { "source": "/directory/:slug", "destination": "/directory-profile" }
+    {
+      "source": "/kits/:slug",
+      "destination": "/kit-page"
+    },
+    {
+      "source": "/watch/manage",
+      "destination": "/watch-manage"
+    },
+    {
+      "source": "/directory/:slug",
+      "destination": "/directory-profile"
+    }
   ]
 }

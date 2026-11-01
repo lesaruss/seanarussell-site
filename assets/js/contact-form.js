@@ -95,6 +95,7 @@
           organization: val(form, 'organization'), engagement_type: val(form, 'engagement_type'),
           event_date: val(form, 'event_date'), budget: val(form, 'budget'),
           slots: slots, message: val(form, 'message'),
+          kit: val(form, 'kit'),
           website: val(form, 'website'), source: form.getAttribute('data-contact') || 'booking'
         }, function (ok) {
           if (ok) {
