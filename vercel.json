@@ -132,6 +132,14 @@
       "destination": "/watch-manage"
     },
     {
+      "source": "/watch/:network",
+      "destination": "/watch"
+    },
+    {
+      "source": "/watch/:network/:show",
+      "destination": "/watch"
+    },
+    {
       "source": "/directory/:slug",
       "destination": "/directory-profile"
     }
