@@ -41,14 +41,20 @@ const json = (b: unknown, s = 200) =>
   new Response(JSON.stringify(b), { status: s, headers: { ...cors, 'Content-Type': 'application/json', 'Cache-Control': 'no-store' } });
 
 // The role key. Sean's definitions (2026-11-01), checked against standard
-// podcast and TV credits; Founder added for the brands he started.
+// podcast and TV credits; Founder added for the brands he started. Top Spot USA
+// credits and Former client added 2026-11-01 (Sean).
 const KEY: Record<string, string> = {
   'Executive Producer': 'The top credit. Owns the show at the business level: funding, distribution, partnerships and sponsors, and the final call on direction.',
   Producer: 'Hands-on with every episode: finding and booking guests, planning, recording, editing and publishing.',
   Host: 'The voice on the mic who leads the conversation.',
   Guest: "Invited onto someone else's show.",
+  Editor: 'Cut the footage and audio into the finished episode.',
+  Videographer: 'Shot the video.',
+  Writer: 'Wrote the scripts, segments and copy.',
   Founder: 'Started it and runs it.',
+  'Co-founder': 'Started it with a partner and built it together.',
   Client: 'Hired Sean or LESARUSS to deliver work.',
+  'Former client': 'Sean or LESARUSS delivered work for them; the engagement has ended. The case study tells the story.',
   Employer: 'Sean was on staff.',
   Partner: 'An ongoing role alongside them.',
 };

@@ -278,11 +278,15 @@
     var isCover = P.kind !== 'brand';
     var tabs = [];
     if (P.kind === 'brand') {
-      tabs.push(['work', 'What Sean did', didPanel]);
+      // A former client's profile is only the reference (Sean, 2026-11-01): the
+      // case study leads and there is no What Sean did tab.
+      if ((P.did || []).length || P.about) tabs.push(['work', 'What Sean did', didPanel]);
+      if (D.studies.length && !tabs.length) tabs.push(['stories', 'Case studies', studiesPanel]);
       if (D.shows.length) tabs.push(['shows', 'Shows', showsPanel]);
       if (P.source && P.source.kind === 'youtube' && D.episodes && D.episodes.total) tabs.push(['channel', 'Channel', channelPanel]);
       if (D.videos.length) tabs.push(['videos', 'Videos', videosPanel]);
-      if (D.studies.length) tabs.push(['stories', 'Case studies', studiesPanel]);
+      if (D.studies.length && !tabs.some(function (t) { return t[0] === 'stories'; })) tabs.push(['stories', 'Case studies', studiesPanel]);
+      if (!tabs.length) tabs.push(['work', 'What Sean did', didPanel]);
     } else if (P.kind === 'podcast') {
       tabs.push(['episodes', 'Episodes', episodesPanel], ['about', 'About', aboutPanel]);
       if (D.videos.length) tabs.push(['videos', 'Picked by Sean', videosPanel]);
