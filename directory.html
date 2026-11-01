@@ -35,7 +35,7 @@
   .chips{display:flex;gap:6px;flex-wrap:wrap;flex:1;min-width:0}
   .chips button{font:700 11.5px/1 var(--font);padding:9px 11px;border:1.5px solid var(--line);border-radius:6px;background:#fff;color:var(--ink);cursor:pointer}
   .chips button[aria-pressed="true"]{background:var(--ink);color:#fff}
-  .chips button:focus-visible,.card:focus-visible,summary:focus-visible{outline:3px solid var(--orange);outline-offset:2px}
+  .chips button:focus-visible,summary:focus-visible{outline:3px solid var(--orange);outline-offset:2px}
   details.key{border:1.5px solid var(--line);border-radius:6px;background:#fff}
   details.key summary{cursor:pointer;font-weight:800;font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:11px 14px;list-style:none}
   details.key summary::-webkit-details-marker{display:none}
@@ -47,28 +47,10 @@
   main{padding-block:10px 56px}
   section.grp h2{font-weight:800;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--orange-ink);margin:26px 0 12px;display:flex;gap:10px;align-items:baseline}
   section.grp h2 small{font-weight:600;letter-spacing:.04em;text-transform:none;color:var(--ink3);font-size:12px}
-  .grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
-  .card{display:grid;grid-template-columns:72px minmax(0,1fr);gap:12px;align-items:start;border:1.5px solid var(--line);border-radius:6px;padding:12px;text-decoration:none;color:inherit;background:#fff;transition:transform .15s,box-shadow .15s;min-width:0}
-  .card:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--orange)}
-  .logo{width:72px;height:72px;border:1px solid var(--hair);border-radius:6px;background:#fff;display:grid;place-items:center;overflow:hidden}
-  .logo img{width:100%;height:100%;object-fit:contain;padding:6px}
-  .logo.cover img{padding:0}
-  .logo b{font-weight:900;font-size:20px;color:var(--orange-ink)}
-  .card .bd{display:grid;gap:5px;min-width:0}
-  .card .nm{font-weight:800;font-size:14.5px;line-height:1.25}
-  .card .tg{font-size:12.5px;line-height:1.45;color:var(--ink2);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-  .card .sub{font-size:11px;font-weight:700;color:var(--ink3)}
-  .pills{display:flex;gap:4px;flex-wrap:wrap}
-  .pill{font:800 9.5px/1 var(--font);letter-spacing:.08em;text-transform:uppercase;padding:4px 6px;border-radius:4px;background:var(--orange-wash);color:var(--orange-ink);border:1px solid rgba(246,152,32,.4);cursor:help}
-  .pill.rel{background:var(--ink);color:#fff;border-color:var(--ink)}
-  .pill.draft{background:#fff;color:#a33;border-color:#a33;cursor:default}
   .muted{color:var(--ink3);font-style:italic}
   footer{border-top:1px solid var(--hair);padding-block:22px;font-size:12px;color:var(--ink3)}
-  @media (max-width:1200px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-  @media (max-width:880px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-  @media (max-width:560px){.grid{grid-template-columns:1fr}.frow .lbl{width:100%}details.key dl{grid-template-columns:1fr;gap:2px}details.key dd{margin-bottom:8px}}
+  @media (max-width:560px){.frow .lbl{width:100%}details.key dl{grid-template-columns:1fr;gap:2px}details.key dd{margin-bottom:8px}}
   @media (max-width:640px){.nav{position:static}}
-  @media (prefers-reduced-motion:reduce){.card{transition:none}}
 </style>
 </head>
 <body>
@@ -96,6 +78,7 @@
 </section>
 <main class="wrap" id="main"><p class="muted">Loading the directory.</p></main>
 <footer class="wrap">&copy; 2026 Sean A. Russell. A LESARUSS production.</footer>
+<script src="/assets/js/sar-dir-card.js"></script>
 <script>
 (function () {
   var FN = 'https://fwbhwfxpncrsfhttimna.supabase.co/functions/v1/sar-directory';
@@ -115,30 +98,9 @@
   var ALL = [], KEY = {}, BY = {};
   var main = document.getElementById('main');
 
-  function initials(n) { return String(n || '').replace(/[^A-Za-z0-9 ]/g, '').split(/\s+/).filter(Boolean).slice(0, 2).map(function (w) { return w[0]; }).join('').toUpperCase(); }
-  function logo(it) {
-    var cover = it.kind === 'podcast' || it.kind === 'guest' || it.kind === 'youtube';
-    return '<span class="logo' + (cover && it.kind !== 'brand' ? ' cover' : '') + '">' + (it.logo ? '<img src="' + esc(it.logo) + '" alt="" loading="lazy">' : '<b>' + esc(initials(it.name)) + '</b>') + '</span>';
-  }
-  function pills(it) {
-    var p = (it.relationship || []).map(function (r) { return '<span class="pill rel" title="' + esc(r + ': ' + (KEY[r] || '')) + '">' + esc(r) + '</span>'; })
-      .concat((it.roles || []).map(function (r) { return '<span class="pill" title="' + esc(r + ': ' + (KEY[r] || '')) + '">' + esc(r) + '</span>'; }));
-    if (it.status === 'draft') p.push('<span class="pill draft">Draft, only you see this</span>');
-    return p.length ? '<span class="pills">' + p.join('') + '</span>' : '';
-  }
-  function sub(it) {
-    var parent = it.parent_slug && BY[it.parent_slug] ? BY[it.parent_slug].name : '';
-    var bits = [];
-    if (it.kind === 'podcast') { if (parent) bits.push(parent); if (it.episodes) bits.push(it.episodes + ' episodes'); }
-    if (it.kind === 'youtube' && it.episodes) bits.push(it.episodes + ' videos');
-    if (it.kind === 'guest' && it.year) bits.push(String(it.year));
-    return bits.length ? '<span class="sub">' + esc(bits.join(' · ')) + '</span>' : '';
-  }
-  function card(it) {
-    return '<a class="card" href="/directory/' + encodeURIComponent(it.slug) + '">' + logo(it) +
-      '<span class="bd"><span class="nm">' + esc(it.name) + '</span>' + pills(it) +
-      (it.tagline ? '<span class="tg">' + esc(it.tagline) + '</span>' : '') + sub(it) + '</span></a>';
-  }
+  // The tile itself is shared with /watch (assets/js/sar-dir-card.js).
+  SARDir.css();
+  function card(it) { return SARDir.card(it, { key: KEY, by: BY }); }
   function chips() {
     var used = KITS.filter(function (k) { return ALL.some(function (i) { return (i.kits || []).indexOf(k[0]) > -1; }); });
     var opts = { type: TYPES, kit: [['all', 'All kits']].concat(used) };
@@ -153,7 +115,7 @@
       var items = ALL.filter(function (i) { return i.kind === g[0] && (F.kit === 'all' || (i.kits || []).indexOf(F.kit) > -1); });
       if (g[0] === 'guest') items.sort(function (a, b) { return (b.year || 0) - (a.year || 0); });
       if (!items.length) return '';
-      return '<section class="grp"><h2>' + esc(g[1]) + ' <small>' + items.length + (g[2] ? ' · ' + esc(g[2]) : '') + '</small></h2><div class="grid">' + items.map(card).join('') + '</div></section>';
+      return '<section class="grp"><h2>' + esc(g[1]) + ' <small>' + items.length + (g[2] ? ' · ' + esc(g[2]) : '') + '</small></h2>' + SARDir.grid(items.map(card).join('')) + '</section>';
     }).join('');
     main.innerHTML = html || '<p class="muted">Nothing here for this filter yet.</p>';
   }

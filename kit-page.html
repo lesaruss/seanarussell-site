@@ -189,6 +189,7 @@
 </footer>
 
 <script src="/assets/js/sar-player.js"></script>
+<script src="https://lesaruss.com/embed/case-studies.js" defer onload="window.SARCSready && SARCSready()"></script>
 <script>
 (function () {
   var FN = 'https://fwbhwfxpncrsfhttimna.supabase.co/functions/v1/sar-kits';
@@ -217,6 +218,11 @@
 
   function clientName(s) { return String(s || '').replace(/\s+--\s+/g, ': '); }
 
+  function mountStories() {
+    if (!window.LRCaseStudies) return;
+    Array.prototype.forEach.call(document.querySelectorAll('#main [data-lr-case-studies]'), function (el) { LRCaseStudies.mount(el); });
+  }
+  window.SARCSready = mountStories;
   function render() {
     var d = data, k = d.kit, real = d.view, v = preview || real;
     var showTerms = v !== 'public' && Array.isArray(k.terms);
@@ -247,11 +253,16 @@
     if (k.scene) left += '<figure class="scene"><img src="' + esc(k.scene) + '" alt="' + esc(k.scene_caption || '') + '" loading="lazy" width="1376" height="774"><figcaption>' + esc(k.scene_caption || '') + '</figcaption></figure>';
     else if (showDrafts) left += '<div class="box"><h2>Scene</h2><p class="muted">New artwork needed for this kit, in the same illustrated style.</p></div>';
     if ((k.pillars || []).length) left += '<div class="box"><h2>What I do here</h2><div class="pillars">' + k.pillars.map(function (p) { return '<div><b>' + esc(p[0]) + '</b><span>' + esc(p[1]) + '</span></div>'; }).join('') + '</div></div>';
-    left += '<div class="box"><h2>Featured work</h2>' + (studies.length ? '<div class="cs">' + studies.map(function (s) {
-      return '<div class="card' + (s.value ? '' : ' noval') + '">' + (s.value ? '<div class="val">' + esc(s.value) + '</div>' : '') + '<div><b>' + esc(clientName(s.client)) + '</b>' + (s.headline ? '<span>' + esc(s.headline) + '</span>' : '') +
-        (s.draft ? '<em class="pill warn">Draft, confirm before it goes public</em>' : '') + '</div>' +
-        (s.story_url && !s.draft ? '<a href="' + esc(s.story_url) + '" target="_blank" rel="noopener">Read the story</a>' : '') + '</div>';
-    }).join('') + '</div>' : '<p class="muted">Published stories for this kit are on the way.</p>') +
+    // Published stories are LESARUSS's case study widget (lesaruss.com/embed/case-studies.js), the same cards and full story as
+    // lesaruss.com/case-studies (Sean, 2026-11-01: "let's use the same exact tool in different places"). Drafts stay owner-only rows.
+    var pubStudies = studies.filter(function (s) { return s.story_url && !s.draft; }), draftStudies = studies.filter(function (s) { return !(s.story_url && !s.draft); });
+    left += '<div class="box"><h2>Featured work</h2>' +
+      (pubStudies.length ? '<div data-lr-case-studies data-columns="2" data-accent="#F69820" data-slugs="' + esc(pubStudies.map(function (s) { return s.slug; }).join(',')) + '"></div>' : '') +
+      (draftStudies.length ? '<div class="cs"' + (pubStudies.length ? ' style="margin-top:12px"' : '') + '>' + draftStudies.map(function (s) {
+        return '<div class="card' + (s.value ? '' : ' noval') + '">' + (s.value ? '<div class="val">' + esc(s.value) + '</div>' : '') + '<div><b>' + esc(clientName(s.client)) + '</b>' + (s.headline ? '<span>' + esc(s.headline) + '</span>' : '') +
+          (s.draft ? '<em class="pill warn">Draft, confirm before it goes public</em>' : '') + '</div></div>';
+      }).join('') + '</div>' : '') +
+      (!pubStudies.length && !draftStudies.length ? '<p class="muted">Published stories for this kit are on the way.</p>' : '') +
       (v === 'you' && drafts ? '<p>' + drafts + ' ' + (drafts === 1 ? 'story is' : 'stories are') + ' in drafts and ' + (drafts === 1 ? 'appears' : 'appear') + ' publicly once confirmed.</p>' : '') + '</div>';
     left += '<div class="box" id="kit-watch-box" hidden><h2>Watch and listen</h2><div class="watch" id="kit-watch"></div><a class="btn ghost" href="/watch" style="justify-self:start">See every show on Watch</a></div>';
     var quotes = d.quotes.filter(function (q) { return showDrafts || !q.draft; });
@@ -291,6 +302,7 @@
     renderPress();
     renderWatch();
     renderWorked();
+    mountStories();
   }
 
   function fmtDate(iso) { try { return new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }); } catch (e) { return iso; } }

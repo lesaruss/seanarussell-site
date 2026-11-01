@@ -103,7 +103,8 @@
   .study b{font-size:14px}
   .study p{margin:0;font-size:13px;color:var(--ink2)}
   .study a{font-weight:800;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--orange-ink);text-decoration:none}
-  .kitgrp{margin:0 0 6px;font-weight:800;font-size:12px}
+  .kitgrp{margin:0 0 14px;font-weight:800;font-size:12px}
+  .studyrows{margin-top:14px}
   .guest{display:grid;grid-template-columns:200px minmax(0,1fr);gap:22px;align-items:start;border:1.5px solid var(--line);border-radius:6px;padding:18px}
   .guest img{width:200px;aspect-ratio:1;object-fit:contain;border-radius:6px;background:#0d0d0d}
   .guest h2{margin:0 0 4px}
@@ -133,6 +134,7 @@
 <div class="wrap" id="root"><p class="muted" style="padding-block:40px">Loading the profile.</p></div>
 <footer class="wrap">&copy; 2026 Sean A. Russell. A LESARUSS production.</footer>
 <script src="/assets/js/sar-player.js"></script>
+<script src="https://lesaruss.com/embed/case-studies.js" defer onload="window.SARCSready && SARCSready()"></script>
 <script>
 (function () {
   var FN = 'https://fwbhwfxpncrsfhttimna.supabase.co/functions/v1/sar-directory';
@@ -171,21 +173,19 @@
         '<span style="display:grid;gap:4px;min-width:0"><b>' + esc(s.name) + '</b>' + pills(s) + (s.episodes ? '<span>' + s.episodes + ' episodes</span>' : '') + '</span></a>';
     }).join('') + '</div>';
   }
+  // The client's stories are LESARUSS's case study widget (lesaruss.com/embed/case-studies.js), the same cards and full story
+  // as lesaruss.com/case-studies (Sean, 2026-11-01: "it literally should be the same case study"). The owner also sees drafts.
   function studiesPanel() {
-    var groups = {}, order = [];
-    D.studies.forEach(function (s) {
-      (s.kits.length ? s.kits : [{ slug: '', name: 'Other work' }]).forEach(function (k) {
-        if (!groups[k.slug]) { groups[k.slug] = { name: k.name, items: [] }; order.push(k.slug); }
-        groups[k.slug].items.push(s);
-      });
-    });
-    return order.map(function (k) {
-      var g = groups[k];
-      return '<p class="kitgrp">' + (k ? '<a href="/kits/' + encodeURIComponent(k) + '">' + esc(g.name) + ' kit</a>' : esc(g.name)) + '</p>' + g.items.map(function (s) {
+    // A story with a full page on lesaruss.com is the widget's card; one without a page yet (or a draft, owner only) stays a row.
+    var pub = D.studies.filter(function (s) { return s.story_url && !s.draft; }), rest = D.studies.filter(function (s) { return !(s.story_url && !s.draft); });
+    var kits = [], seen = {};
+    D.studies.forEach(function (s) { s.kits.forEach(function (k) { if (!seen[k.slug]) { seen[k.slug] = 1; kits.push(k); } }); });
+    return (kits.length ? '<p class="kitgrp">In ' + kits.map(function (k) { return '<a href="/kits/' + encodeURIComponent(k.slug) + '">' + esc(k.name) + ' kit</a>'; }).join(', ') + '</p>' : '') +
+      (pub.length ? '<div data-lr-case-studies data-columns="2" data-accent="#F69820" data-slugs="' + esc(pub.map(function (s) { return s.slug; }).join(',')) + '"></div>' : '') +
+      (rest.length ? '<div class="studyrows">' + rest.map(function (s) {
         return '<div class="study">' + (s.value ? '<span class="val">' + esc(s.value) + '</span>' : '<span></span>') + '<b>' + esc(s.client) + (s.draft ? ' <span class="pill draft">Draft</span>' : '') + '</b>' +
-          (s.headline ? '<p>' + esc(s.headline) + '</p>' : '') + (s.story_url ? '<a href="' + esc(s.story_url) + '" target="_blank" rel="noopener">Read the story</a>' : '') + '</div>';
-      }).join('');
-    }).join('');
+          (s.headline ? '<p>' + esc(s.headline) + '</p>' : '') + '</div>';
+      }).join('') + '</div>' : '');
   }
   function videosPanel() {
     return '<h2>Picked by Sean</h2><div class="vgrid" id="feat">' + D.videos.map(SARPlayer.card).join('') + '</div>';
@@ -272,6 +272,11 @@
     if (V.length) { play(V[0], false); draw(); } else { player.parentNode.remove(); }
   }
 
+  function mountStories() {
+    if (!window.LRCaseStudies) return;
+    Array.prototype.forEach.call(document.querySelectorAll('#root [data-lr-case-studies]'), function (el) { LRCaseStudies.mount(el); });
+  }
+  window.SARCSready = mountStories;
   function render() {
     P = D.profile; KEY = D.key || {};
     document.title = P.name + '. Sean A. Russell.';
@@ -315,6 +320,7 @@
         '<div class="box"><h2>Work with Sean</h2><p style="margin:0;font-size:13.5px;color:var(--ink2)">Bring the same work to your brand, show or stage.</p><a class="btn" href="/booking">Book Sean</a></div>' +
       '</aside></div>';
     var feat = document.getElementById('feat'); if (feat) SARPlayer.bind(feat, D.videos);
+    mountStories();
     if (document.getElementById('eps')) loadEpisodes();
     if (document.getElementById('ytp')) loadChannel();
     var g = document.getElementById('gplay');
