@@ -148,3 +148,11 @@ update public.case_studies c
 -- Fee ranges for private links, kept apart from terms (the ways to work
 -- together) so the owner checklist only reads done once Sean sets real fees.
 alter table public.sar_kits add column if not exists fees jsonb not null default '[]'::jsonb;
+
+-- Fee ranges set by Logan as Sean's manager (Sean, 2026-11-01: "set my rates
+-- based on what you feel I should be paid"). Shown on private links only.
+-- The $2,500 internal floor is never printed.
+update public.sar_kits set fees = '["Fractional CMO: from $7,500 a month, 3-month minimum","Marketing systems build: from $10,000 per project","Advisory or board seat: from $3,000 a month","Full-time CMO or VP Marketing: compensation discussed directly"]'::jsonb, updated_at = now() where slug = 'executive-marketing';
+update public.sar_kits set fees = '["District consulting: from $10,000 per engagement","CMS migration leadership: from $25,000, scoped per project","Program design and rollout: from $7,500","Staff workshop: $2,500 per half day"]'::jsonb, updated_at = now() where slug = 'education';
+update public.sar_kits set fees = '["Producer: from $5,000 per project","Host and on-camera talent: $2,500 a day","Podcast production: from $3,500 a month, four episodes"]'::jsonb, updated_at = now() where slug = 'media-production';
+update public.sar_kits set fees = '["Keynote: from $7,500 plus travel","Virtual keynote: $5,000","Panel or moderation: $3,500","Host or MC: $5,000 a day"]'::jsonb, updated_at = now() where slug = 'speaker';

@@ -11,7 +11,8 @@
 <script src="/analytics.js" defer></script>
 <!--
   One media kit template for every industry (playbook media-kits, brand
-  sean-a-russell). /kits/<slug> rewrites here (vercel.json). Content comes from
+  sean-a-russell). /kits/<slug> rewrites here (vercel.json, destination /kit-page: with cleanUrls
+  a rewrite must not name the .html file, and /kit is already a folder). Content comes from
   the sar-kits edge function, which decides the view from what the visitor can
   prove: public, shared (a private ?link= token) or you (the owner, signed in on
   /dashboard with the same lr_token). Anatomy follows the Vegans Explore Creator
@@ -179,7 +180,8 @@
   }
 
   var path = location.pathname.replace(/\/+$/, '').split('/');
-  var slug = path[path.length - 1] === 'kit' ? (new URLSearchParams(location.search).get('slug') || '') : path[path.length - 1];
+  var last = path[path.length - 1];
+  var slug = (last === 'kit-page' || last === 'kit-page.html') ? (new URLSearchParams(location.search).get('slug') || '') : last;
   var link = new URLSearchParams(location.search).get('link') || '';
   var data = null, preview = null;
 
