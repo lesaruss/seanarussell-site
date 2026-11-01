@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Watch and Listen Picker. Sean A. Russell.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<!-- Sean's picker for Watch & Listen (playbook media-kits, Phase 2). Owner
+     only: the dashboard's lr_token, checked by sar-media (members.is_superadmin);
+     anyone else gets the sign-in gate and the function refuses the data.
+     One view at a time, the address carries it:
+       #featured                 what is live, with Edit and Remove
+       #shows                    the twelve sources, with Read the feeds again
+       #show/<slug>              its episodes, search, 30 at a time
+       #ep/<episode id>          feature the full episode, a tagged moment, or a
+                                 custom start and end, with its kits
+       #edit/<feature id>        change a feature -->
+<style>
+  :root{--bg:#fff;--ink:#1a1a1a;--ink2:#55524e;--ink3:#8a8580;--line:#1a1a1a;--hair:rgba(26,26,26,.12);--orange:#F69820;--orange-ink:#7d4a00;--orange-wash:#fdf2e3;--ok:#16750C;--ok-wash:#e9f3e7;--warn:#8a4f00;--warn-wash:#fff3df;--dark:#0d0d0d;--font:'Montserrat',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+  *{box-sizing:border-box} html,body{margin:0}
+  body{background:var(--bg);color:var(--ink);font:400 15px/1.6 var(--font)}
+  .wrap{padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+  .nav{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.96);border-bottom:1px solid var(--hair);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-block:14px}
+  .brand{font-weight:900;font-size:16px;text-transform:uppercase;text-decoration:none;color:inherit}
+  .brand span{color:var(--orange)}
+  .nav nav{display:flex;gap:18px;align-items:center;flex-wrap:wrap;font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.1em}
+  .nav nav a{text-decoration:none;color:inherit}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;font:800 11px/1 var(--font);text-transform:uppercase;letter-spacing:.1em;padding:11px 14px;border-radius:6px;background:var(--orange);color:#1a1a1a;border:1.5px solid var(--orange);text-decoration:none;white-space:nowrap;cursor:pointer}
+  .btn.ghost{background:#fff;border-color:var(--line)}
+  .btn.dark{background:var(--ink);border-color:var(--ink);color:#fff}
+  .btn:disabled{opacity:.5;cursor:default}
+  .btn:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid var(--orange);outline-offset:2px}
+  main{padding-block:22px 64px;display:grid;gap:16px}
+  .crumbs{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);display:flex;gap:8px;flex-wrap:wrap}
+  .crumbs a{color:var(--orange-ink);text-decoration:none}
+  h1{font-weight:900;font-size:clamp(24px,3.4vw,36px);line-height:1.05;text-transform:uppercase;margin:0;text-wrap:balance}
+  .top{display:flex;justify-content:space-between;align-items:end;gap:12px;flex-wrap:wrap}
+  .sub{margin:0;color:var(--ink2);max-width:70ch}
+  .grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+  .src{border:1.5px solid var(--line);border-radius:6px;padding:14px;display:grid;grid-template-columns:56px minmax(0,1fr);gap:12px;align-items:center;text-decoration:none;color:inherit;min-width:0}
+  .src:hover,.src:focus-visible{box-shadow:4px 4px 0 var(--orange)}
+  .src i{width:56px;height:56px;border-radius:6px;background:#eee center/cover}
+  .src b{display:block;font-size:14px;line-height:1.25}
+  .src span{display:block;font-size:12px;color:var(--ink2)}
+  .rows{display:grid;gap:8px}
+  .row{border:1px solid var(--hair);border-radius:6px;padding:10px 12px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center}
+  .row b{display:block;font-size:14px;line-height:1.3}
+  .row span{display:block;font-size:12px;color:var(--ink2)}
+  .tags{display:flex;gap:4px;flex-wrap:wrap;margin-top:4px}
+  .tag{font-weight:800;font-size:9.5px;line-height:1;letter-spacing:.1em;text-transform:uppercase;padding:5px 7px;border-radius:4px;background:var(--surface2,#f2f1ef);color:var(--ink2)}
+  .tag.ok{background:var(--ok-wash);color:var(--ok)}
+  .tag.warn{background:var(--warn-wash);color:var(--warn)}
+  .acts{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+  .search{display:flex;gap:8px;flex-wrap:wrap}
+  input[type=search],input[type=text],textarea{font:500 14px var(--font);padding:10px 12px;border:1.5px solid var(--hair);border-radius:6px;width:100%;color:var(--ink);background:#fff}
+  .search input{flex:1;min-width:200px;width:auto}
+  .box{border:1px solid var(--hair);border-radius:6px;padding:16px;display:grid;gap:12px}
+  .box h2{margin:0;font-weight:800;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--orange-ink)}
+  .two{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:16px;align-items:start}
+  .kits{display:flex;gap:8px;flex-wrap:wrap}
+  .kits label{display:inline-flex;gap:6px;align-items:center;font-size:13px;font-weight:600;border:1px solid var(--hair);border-radius:6px;padding:7px 10px;cursor:pointer}
+  .times{display:grid;grid-template-columns:repeat(2,minmax(0,160px));gap:10px}
+  .form{display:grid;gap:10px}
+  .form label.l{font-weight:700;font-size:12px}
+  .moment{border:1px solid var(--hair);border-radius:6px;padding:10px 12px;display:grid;gap:4px}
+  .moment q{font-size:13px;color:var(--ink2)}
+  .moment .acts{justify-content:flex-start}
+  .muted{color:var(--ink3);font-style:italic}
+  .note{font-size:13px;padding:10px 12px;border-radius:6px;background:var(--ok-wash);color:var(--ok)}
+  .note.bad{background:var(--warn-wash);color:var(--warn)}
+  .gate{padding-block:80px;display:grid;gap:12px;justify-items:start}
+  @media (max-width:1100px){.grid4{grid-template-columns:repeat(3,minmax(0,1fr))}}
+  @media (max-width:800px){.grid4{grid-template-columns:repeat(2,minmax(0,1fr))}.two{grid-template-columns:1fr}}
+  @media (max-width:480px){.grid4{grid-template-columns:1fr}.row{grid-template-columns:1fr}.acts{justify-content:flex-start}}
+  @media (max-width:640px){.nav{position:static}}
+</style>
+</head>
+<body>
+<header class="nav wrap">
+  <a class="brand" href="/">Sean A<span>.</span> Russell</a>
+  <nav aria-label="Primary">
+    <a href="/watch">Watch</a>
+    <a href="/watch/manage#featured">Picker</a>
+    <a href="/kits">Media Kits</a>
+    <a href="/dashboard">Dashboard</a>
+  </nav>
+</header>
+<main class="wrap" id="main"><p class="muted">Loading.</p></main>
+<script src="/assets/js/sar-player.js"></script>
+<script>
+(function () {
+  var FN = 'https://fwbhwfxpncrsfhttimna.supabase.co/functions/v1/sar-media';
+  var ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ3Ymh3ZnhwbmNyc2ZodHRpbW5hIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ2NjAxMzksImV4cCI6MjA5MDIzNjEzOX0.9mxjK0bn5WATCbNLWrHPakD6yHUDtHFHrOaklPnWkOA';
+  var KITS = [['executive-marketing', 'Executive Marketing'], ['education', 'Education'], ['media-production', 'Media & Production'], ['speaker', 'Speaker & Host'], ['vegan-movement', 'Vegan Movement'], ['entertainment', 'Entertainment & Music']];
+  var KITN = {}; KITS.forEach(function (k) { KITN[k[0]] = k[1]; });
+  var esc = SARPlayer.esc, clock = SARPlayer.clock;
+  var main = document.getElementById('main');
+  function token() { try { return localStorage.getItem('lr_token'); } catch (e) { return null; } }
+  function call(action, body) {
+    body = body || {}; body.token = token();
+    return fetch(FN + '?action=' + action, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + ANON, 'apikey': ANON }, body: JSON.stringify(body) })
+      .then(function (r) { return r.json().then(function (j) { return { status: r.status, body: j }; }); });
+  }
+  function fmtDate(iso) { try { return iso ? new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : ''; } catch (e) { return ''; } }
+  function parseTime(v) {
+    v = String(v || '').trim(); if (!v) return NaN;
+    if (/^\d+(\.\d+)?$/.test(v)) return +v;
+    var p = v.split(':').map(Number); if (p.some(isNaN)) return NaN;
+    return p.reduce(function (a, b) { return a * 60 + b; }, 0);
+  }
+  var SOURCES = null, EPCACHE = {};
+  try { EPCACHE = JSON.parse(sessionStorage.getItem('sar_ep_cache') || '{}'); } catch (e) {}
+  function cacheEps(src, list) { list.forEach(function (e) { e.source_slug = src; EPCACHE[e.id] = e; }); try { sessionStorage.setItem('sar_ep_cache', JSON.stringify(EPCACHE)); } catch (e) {} }
+  function sources() {
+    if (SOURCES) return Promise.resolve(SOURCES);
+    return call('sources').then(function (r) { SOURCES = (r.body && r.body.sources) || []; return SOURCES; });
+  }
+  function srcOf(slug) { return (SOURCES || []).filter(function (s) { return s.slug === slug; })[0]; }
+  function crumbs(parts) { return '<div class="crumbs">' + parts.map(function (p) { return p[1] ? '<a href="' + p[1] + '">' + esc(p[0]) + '</a>' : '<span>' + esc(p[0]) + '</span>'; }).join('<span aria-hidden="true">/</span>') + '</div>'; }
+  function kitBoxes(name, selected) {
+    return '<div class="kits">' + KITS.map(function (k) { return '<label><input type="checkbox" name="' + name + '" value="' + k[0] + '"' + (selected.indexOf(k[0]) > -1 ? ' checked' : '') + '> ' + esc(k[1]) + '</label>'; }).join('') + '</div>';
+  }
+  function checked(form, name) { return Array.prototype.map.call(form.querySelectorAll('input[name="' + name + '"]:checked'), function (i) { return i.value; }); }
+
+  function gate() {
+    main.innerHTML = '<section class="gate"><h1>Sign in to pick clips</h1><p class="sub">The picker is only for Sean. Sign in on your dashboard, then come back here.</p><a class="btn" href="/dashboard">Go to the dashboard</a></section>';
+  }
+
+  // #featured
+  function viewFeatured() {
+    main.innerHTML = '<p class="muted">Loading what is featured.</p>';
+    call('featured', {}).then(function (r) {
+      var items = (r.body && r.body.items) || [];
+      main.innerHTML = crumbs([['Watch and Listen', '']]) +
+        '<div class="top"><div><h1>Featured</h1><p class="sub">What plays on /watch and on each kit. Newest first within the same order.</p></div>' +
+        '<div class="acts"><a class="btn" href="#shows">Add from a show</a><a class="btn ghost" href="/watch" target="_blank" rel="noopener">See /watch</a></div></div>' +
+        '<div class="rows">' + (items.length ? items.map(function (i) {
+          return '<div class="row"><div><b>' + esc(i.title) + '</b><span>' + esc(i.show) + ' &middot; ' + (i.format === 'highlight' ? 'Highlight ' + clock(i.start_s) + ' to ' + clock(i.end_s) : 'Full episode') + ' &middot; ' + (i.youtube_id ? 'Video' : 'Audio') + '</span>' +
+            '<div class="tags">' + ((i.kits || []).length ? i.kits.map(function (k) { return '<span class="tag ok">' + esc(KITN[k] || k) + '</span>'; }).join('') : '<span class="tag warn">No kit: shows on /watch only</span>') + '</div></div>' +
+            '<div class="acts"><button type="button" class="btn ghost" data-play="' + esc(i.id) + '">Play</button><a class="btn ghost" href="#edit/' + esc(i.id) + '">Edit</a><button type="button" class="btn ghost" data-remove="' + esc(i.id) + '">Remove</button></div></div>';
+        }).join('') : '<p class="muted">Nothing featured yet. Add from a show.</p>') + '</div>';
+      main.onclick = function (e) {
+        var p = e.target.closest('[data-play]'), x = e.target.closest('[data-remove]');
+        if (p) SARPlayer.play(items.filter(function (i) { return i.id === p.getAttribute('data-play'); })[0]);
+        if (x) { x.disabled = true; x.textContent = 'Removing'; call('feature_remove', { id: x.getAttribute('data-remove') }).then(function (r) { if (r.status === 403) return gate(); viewFeatured(); }); }
+      };
+    });
+  }
+
+  // #shows
+  function viewShows(msg) {
+    sources().then(function (list) {
+      main.innerHTML = crumbs([['Featured', '#featured'], ['Shows', '']]) +
+        '<div class="top"><div><h1>Your shows</h1><p class="sub">Pick a show, then an episode. Feeds and channels are read again whenever you press the button.</p></div>' +
+        '<div class="acts"><button type="button" class="btn ghost" id="refresh">Read the feeds again</button></div></div>' +
+        (msg ? '<div class="note' + (msg.bad ? ' bad' : '') + '">' + esc(msg.text) + '</div>' : '') +
+        '<div class="grid4">' + list.map(function (s) {
+          return '<a class="src" href="#show/' + esc(s.slug) + '"><i' + (s.cover ? ' style="background-image:url(\'' + esc(s.cover) + '\')"' : '') + '></i><div><b>' + esc(s.name) + '</b>' +
+            '<span>' + (s.kind === 'youtube' ? 'YouTube' : 'Podcast') + ' &middot; ' + (s.episode_count || 0) + (s.kind === 'youtube' ? ' videos' : ' episodes') + '</span>' +
+            '<span>' + esc((s.roles || []).join(', ') || 'Role to confirm') + '</span></div></a>';
+        }).join('') + '</div>';
+      document.getElementById('refresh').onclick = function () {
+        var b = this; b.disabled = true; b.textContent = 'Reading, about a minute';
+        call('refresh', {}).then(function (r) {
+          if (r.status === 403) return gate();
+          SOURCES = null;
+          var errs = ((r.body && r.body.results) || []).filter(function (x) { return x.error; });
+          viewShows(errs.length ? { bad: true, text: errs.length + ' could not be read: ' + errs.map(function (x) { return x.slug; }).join(', ') } : { text: 'All feeds and channels read again.' });
+        });
+      };
+    });
+  }
+
+  // #show/<slug>
+  function viewShow(slug) {
+    var state = { q: '', offset: 0, list: [], total: 0 };
+    sources().then(function () {
+      var s = srcOf(slug); if (!s) return viewShows();
+      main.innerHTML = crumbs([['Featured', '#featured'], ['Shows', '#shows'], [s.name, '']]) +
+        '<div class="top"><div><h1>' + esc(s.name) + '</h1><p class="sub">' + (s.kind === 'youtube' ? 'Videos' : 'Episodes') + ', newest first. Moments are the highlights already tagged in the Vegans Explore content index.</p></div></div>' +
+        '<form class="search" id="sf"><input type="search" id="q" placeholder="Search titles" aria-label="Search titles"><button class="btn" type="submit">Search</button></form>' +
+        '<div class="rows" id="eps"><p class="muted">Loading.</p></div><div id="more"></div>';
+      function load(reset) {
+        if (reset) { state.offset = 0; state.list = []; }
+        call('catalog', { source: slug, q: state.q, offset: state.offset }).then(function (r) {
+          if (r.status === 403) return gate();
+          var d = r.body || {}; state.total = d.total || 0; state.list = state.list.concat(d.episodes || []); cacheEps(slug, d.episodes || []);
+          document.getElementById('eps').innerHTML = state.list.length ? state.list.map(function (e) {
+            return '<div class="row"><div><b>' + esc(e.title) + '</b><span>' + esc(fmtDate(e.published_at)) + (e.duration_s ? ' &middot; ' + clock(e.duration_s) : '') + '</span>' +
+              '<div class="tags"><span class="tag">' + (e.youtube_id ? 'Video' : 'Audio only') + '</span>' + (e.moments ? '<span class="tag ok">' + e.moments + ' moments</span>' : '') + (e.featured ? '<span class="tag warn">Featured ' + e.featured + '</span>' : '') + '</div></div>' +
+              '<div class="acts"><a class="btn" href="#ep/' + esc(e.id) + '">Open</a></div></div>';
+          }).join('') : '<p class="muted">No episodes match.</p>';
+          document.getElementById('more').innerHTML = state.list.length < state.total ? '<button type="button" class="btn ghost" id="mb">Show more (' + (state.total - state.list.length) + ' left)</button>' : '';
+          var mb = document.getElementById('mb'); if (mb) mb.onclick = function () { state.offset = state.list.length; load(false); };
+        });
+      }
+      document.getElementById('sf').onsubmit = function (e) { e.preventDefault(); state.q = document.getElementById('q').value; load(true); };
+      load(true);
+    });
+  }
+
+  // #ep/<id>
+  function featureForm(prefix, opts) {
+    return '<form class="form" data-form="' + prefix + '">' +
+      (opts.times ? '<div class="times"><div><label class="l" for="' + prefix + '-s">Start (m:ss)</label><input type="text" id="' + prefix + '-s" value="' + esc(opts.start || '') + '" inputmode="numeric"></div><div><label class="l" for="' + prefix + '-e">End (m:ss)</label><input type="text" id="' + prefix + '-e" value="' + esc(opts.end || '') + '" inputmode="numeric"></div></div>' : '') +
+      '<label class="l" for="' + prefix + '-t">Title (optional)</label><input type="text" id="' + prefix + '-t" maxlength="200" value="' + esc(opts.title || '') + '" placeholder="The episode title is used when this is empty">' +
+      '<label class="l" for="' + prefix + '-d">One line about it (optional)</label><input type="text" id="' + prefix + '-d" maxlength="400" value="' + esc(opts.summary || '') + '">' +
+      '<span class="l" style="font-weight:700;font-size:12px">Show it on these kits</span>' + kitBoxes(prefix + '-k', opts.kits || []) +
+      '<div class="acts" style="justify-content:flex-start"><button class="btn" type="submit">' + esc(opts.button || 'Feature it') + '</button></div><div data-msg></div></form>';
+  }
+  function bindForm(form, base) {
+    form.onsubmit = function (e) {
+      e.preventDefault();
+      var p = form.getAttribute('data-form'), msg = form.querySelector('[data-msg]'), btn = form.querySelector('button[type=submit]');
+      var body = Object.assign({}, base, {
+        title: document.getElementById(p + '-t').value, summary: document.getElementById(p + '-d').value, kits: checked(form, p + '-k'),
+      });
+      if (base.format === 'highlight') {
+        body.start_s = parseTime((document.getElementById(p + '-s') || {}).value);
+        body.end_s = parseTime((document.getElementById(p + '-e') || {}).value);
+        if (!(body.end_s > body.start_s)) { msg.innerHTML = '<div class="note bad">The end has to be after the start, as m:ss.</div>'; return; }
+      }
+      btn.disabled = true;
+      call('feature_save', body).then(function (r) {
+        btn.disabled = false;
+        if (r.status === 403) return gate();
+        msg.innerHTML = r.status === 200 ? '<div class="note">Saved. It is live on /watch' + (body.kits.length ? ' and on ' + body.kits.length + (body.kits.length === 1 ? ' kit' : ' kits') : '') + '. <a href="#featured">See everything featured</a></div>' : '<div class="note bad">That did not save. Check the times and try again.</div>';
+      });
+    };
+  }
+  function viewEpisode(id) {
+    var ep = EPCACHE[id];
+    if (!ep) return viewShows({ bad: true, text: 'Open the episode from its show.' });
+    sources().then(function () {
+      var s = srcOf(ep.source_slug) || { name: 'Show', kits: [] };
+      main.innerHTML = crumbs([['Featured', '#featured'], ['Shows', '#shows'], [s.name, '#show/' + ep.source_slug], [ep.title, '']]) +
+        '<div class="top"><div><h1>' + esc(ep.title) + '</h1><p class="sub">' + esc(fmtDate(ep.published_at)) + (ep.duration_s ? ' &middot; ' + clock(ep.duration_s) : '') + ' &middot; ' + (ep.youtube_id ? 'Plays as video' : 'Plays as audio') + '</p></div>' +
+        '<div class="acts"><button type="button" class="btn ghost" id="preview">Play the episode</button></div></div>' +
+        '<div class="two"><div style="display:grid;gap:16px">' +
+          '<div class="box"><h2>Tagged moments</h2><div id="moments"><p class="muted">' + (ep.content_id ? 'Loading.' : 'No tagged moments for this episode. Use your own start and end.') + '</p></div></div>' +
+        '</div><div style="display:grid;gap:16px">' +
+          '<div class="box"><h2>Feature the full episode</h2>' + featureForm('full', { kits: s.kits || [] }) + '</div>' +
+          '<div class="box"><h2>Feature your own stretch</h2>' + featureForm('own', { times: true, kits: s.kits || [] }) + '</div>' +
+        '</div></div>';
+      var item = { title: ep.title, show: s.name, format: 'full', youtube_id: ep.youtube_id, audio_url: ep.audio_url, duration_s: ep.duration_s, image: ep.image };
+      document.getElementById('preview').onclick = function () { SARPlayer.play(item); };
+      bindForm(main.querySelector('[data-form="full"]'), { episode_id: id, format: 'full' });
+      bindForm(main.querySelector('[data-form="own"]'), { episode_id: id, format: 'highlight' });
+      if (ep.content_id) call('moments', { episode_id: id }).then(function (r) {
+        if (r.status === 403) return gate();
+        var ms = (r.body && r.body.moments) || [], box = document.getElementById('moments');
+        box.innerHTML = ms.length ? ms.map(function (m, i) {
+          return '<div class="moment"><b>' + clock(m.start_s) + ' to ' + clock(m.end_s) + (m.speaker ? ' &middot; ' + esc(m.speaker) : '') + '</b><span>' + esc(m.summary || '') + '</span>' + (m.quote ? '<q>' + esc(m.quote) + '</q>' : '') +
+            '<div class="acts"><button type="button" class="btn ghost" data-mplay="' + i + '">Play</button><button type="button" class="btn" data-mpick="' + i + '">Feature this moment</button></div><div data-mform="' + i + '"></div></div>';
+        }).join('') : '<p class="muted">No tagged moments for this episode yet. Use your own start and end.</p>';
+        box.onclick = function (e) {
+          var pl = e.target.closest('[data-mplay]'), pk = e.target.closest('[data-mpick]');
+          if (pl) { var m = ms[+pl.getAttribute('data-mplay')]; SARPlayer.play(Object.assign({}, item, { format: 'highlight', start_s: m.start_s, end_s: m.end_s, title: m.summary || ep.title })); }
+          if (pk) {
+            var i = +pk.getAttribute('data-mpick'), m2 = ms[i], slot = box.querySelector('[data-mform="' + i + '"]');
+            slot.innerHTML = featureForm('m' + i, { times: true, start: clock(m2.start_s), end: clock(m2.end_s), summary: m2.summary || '', kits: s.kits || [] });
+            bindForm(slot.querySelector('form'), { episode_id: id, format: 'highlight', moment_id: m2.id });
+            pk.hidden = true;
+          }
+        };
+      });
+    });
+  }
+
+  // #edit/<id>
+  function viewEdit(fid) {
+    call('featured', {}).then(function (r) {
+      var f = ((r.body && r.body.items) || []).filter(function (i) { return i.id === fid; })[0];
+      if (!f) return viewFeatured();
+      main.innerHTML = crumbs([['Featured', '#featured'], ['Edit', '']]) +
+        '<div class="top"><div><h1>' + esc(f.title) + '</h1><p class="sub">' + esc(f.show) + ' &middot; from ' + esc(f.episode_title) + '</p></div></div>' +
+        '<div class="box" style="max-width:720px"><h2>' + (f.format === 'highlight' ? 'Highlight' : 'Full episode') + '</h2>' +
+        featureForm('ed', { times: f.format === 'highlight', start: f.format === 'highlight' ? clock(f.start_s) : '', end: f.format === 'highlight' ? clock(f.end_s) : '', title: f.title === f.episode_title ? '' : f.title, summary: f.summary || '', kits: f.kits || [], button: 'Save changes' }) + '</div>';
+      var form = main.querySelector('[data-form="ed"]');
+      form.onsubmit = function (e) {
+        e.preventDefault();
+        var msg = form.querySelector('[data-msg]'), btn = form.querySelector('button[type=submit]');
+        var body = { id: fid, episode_id: f.episode_id, format: f.format, title: document.getElementById('ed-t').value, summary: document.getElementById('ed-d').value, kits: checked(form, 'ed-k') };
+        if (f.format === 'highlight') { body.start_s = parseTime(document.getElementById('ed-s').value); body.end_s = parseTime(document.getElementById('ed-e').value); if (!(body.end_s > body.start_s)) { msg.innerHTML = '<div class="note bad">The end has to be after the start, as m:ss.</div>'; return; } }
+        btn.disabled = true;
+        call('feature_save', body).then(function (r2) { btn.disabled = false; if (r2.status === 403) return gate(); msg.innerHTML = r2.status === 200 ? '<div class="note">Saved. <a href="#featured">Back to everything featured</a></div>' : '<div class="note bad">That did not save.</div>'; });
+      };
+    });
+  }
+
+  function route() {
+    if (!token()) return gate();
+    var h = location.hash.replace(/^#/, '').split('/');
+    window.scrollTo(0, 0);
+    if (h[0] === 'shows') return viewShows();
+    if (h[0] === 'show' && h[1]) return viewShow(h[1]);
+    if (h[0] === 'ep' && h[1]) return viewEpisode(h[1]);
+    if (h[0] === 'edit' && h[1]) return viewEdit(h[1]);
+    return viewFeatured();
+  }
+  // Owner check up front: a token that is not Sean's gets the gate, not an empty tool.
+  if (!token()) gate();
+  else call('catalog', { source: '__check__' }).then(function (r) { if (r.status === 403) gate(); else { window.addEventListener('hashchange', route); route(); } });
+})();
+</script>
+</body>
+</html>
