@@ -30,6 +30,8 @@
 //   episode {listing_id: show, guid}                   anyone: one episode, the same shape
 // refresh also runs from the hourly cron (x-cron-secret, CRON_SECRET) with stale_hours: only sources read longer ago than that.
 // A show is On hiatus when its newest episode is more than six months old (Vegans Explore's rule), never Ended.
+// A network of kind 'artists' (GeekFon Society) lists GeekFon's own roster from geekfon.ai/api/home instead of sar_watch_shows:
+// each artist with their square photo, genre and tagline, opening their geekfon.ai page (Sean, 2026-11-01).
 
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.45.4';
@@ -278,6 +280,22 @@ const epShape = (e: any) => ({
   guid: e.guid, title: e.title, audio: e.audio_url || '', image: e.image || null, date: e.published_at, duration: e.duration_s,
   summary: e.summary || '', link: e.link || null, youtube_id: e.youtube_id || null,
 });
+// GeekFon's roster, as its homepage shows it (order, photos, genres, taglines), kept 5 minutes per instance.
+let GFS: { at: number; artists: any[] } | null = null;
+async function gfsArtists(): Promise<any[]> {
+  if (GFS && Date.now() - GFS.at < 300e3) return GFS.artists;
+  try {
+    const r = await fetch('https://geekfon.ai/api/home', { signal: AbortSignal.timeout(8000) });
+    const d: any = r.ok ? await r.json() : {};
+    GFS = { at: Date.now(), artists: Array.isArray(d.artists) ? d.artists : (GFS?.artists ?? []) };
+  } catch { GFS = { at: Date.now() - 240e3, artists: GFS?.artists ?? [] }; }
+  return GFS.artists;
+}
+const artistShow = (net: string) => (a: any) => ({
+  slug: a.slug, network: net, name: a.name, kind: 'artist', roles: [], cover: a.avatar || a.cutout || null, about: a.tagline || null,
+  genre: a.genre || null, count: Array.isArray(a.singles) ? a.singles.length : null, latest: null, active: null,
+  playlist_id: null, source: null, page: `https://geekfon.ai/${a.slug}`,
+});
 async function watchShow(slug: string) {
   const { data } = await db.from('sar_watch_shows').select('*').eq('slug', slug).eq('status', 'live').maybeSingle();
   return data as any;
@@ -295,10 +313,12 @@ serve(async (req) => {
       if (!net) {
         const { data: all } = await db.from('sar_watch_shows').select('network_slug').eq('status', 'live');
         const n: Record<string, number> = {}; for (const r of all ?? []) n[(r as any).network_slug] = (n[(r as any).network_slug] || 0) + 1;
+        for (const x of nets ?? []) if ((x as any).kind === 'artists') n[(x as any).slug] = (await gfsArtists()).length;
         return json({ networks: (nets ?? []).map((x: any) => ({ ...x, shows: n[x.slug] || 0 })) });
       }
       const network = (nets ?? []).find((x: any) => x.slug === net);
       if (!network) return json({ error: 'not_found' }, 404);
+      if ((network as any).kind === 'artists') return json({ network, shows: (await gfsArtists()).map(artistShow(net)) });
       const { data: shows } = await db.from('sar_watch_shows').select('*').eq('network_slug', net).eq('status', 'live').order('sort');
       return json({ network, shows: await hydrate(shows ?? []) });
     }
