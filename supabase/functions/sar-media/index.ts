@@ -312,7 +312,15 @@ serve(async (req) => {
       if (sh.kind === 'podcast' && h.source) {
         const { data: one } = await db.from('sar_media_episodes').select('link').eq('source_slug', sh.source_slug).not('link', 'is', null).limit(1).maybeSingle();
         const site = one && /captivate\.fm/.test((one as any).link) ? new URL((one as any).link).origin : null;
-        listen = [['Website', site], ['RSS', h.source.rss_url]].filter((x) => x[1]).map(([label, url]) => ({ label: label as string, url: url as string }));
+        // A show that is also a Vegans Explore listing (the same feed) lists the same places to listen as its listing page there
+        // (platformList in vegansexplore.com directory/listing.html), read only.
+        const { data: vl } = h.source.rss_url ? await db.from('listings').select('website, spotify_url, apple_podcasts_url, amazon_music_url, details')
+          .eq('rss_url', h.source.rss_url).eq('status', 'approved').limit(1).maybeSingle() : { data: null };
+        const pl = ((vl as any)?.details?.platforms || {}) as Record<string, string>;
+        const yt = pl.youtube ? (/^https?:/i.test(pl.youtube) ? pl.youtube : 'https://youtube.com/' + pl.youtube) : null;
+        listen = [['Website', (vl as any)?.website || site], ['Spotify', (vl as any)?.spotify_url || pl.spotify], ['Apple Podcasts', (vl as any)?.apple_podcasts_url || pl.apple],
+          ['Amazon Music', (vl as any)?.amazon_music_url || pl.amazon], ['YouTube', yt], ['RSS feed', h.source.rss_url]]
+          .filter((x) => x[1] && /^https?:\/\//i.test(String(x[1]))).map(([label, url]) => ({ label: label as string, url: url as string }));
       } else if (sh.kind === 'playlist') {
         listen = [{ label: 'YouTube', url: `https://www.youtube.com/playlist?list=${sh.playlist_id}` }];
       } else if (h.source) {
