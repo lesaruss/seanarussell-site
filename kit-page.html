@@ -174,6 +174,7 @@
     <button type="button" data-view="you" aria-pressed="true">You</button>
   </div>
   <p id="vnote"></p>
+  <button type="button" class="btn" id="edit-kit">Edit this kit</button>
 </div>
 <nav class="ktabs wrap" id="ktabs" aria-label="Media kits" data-scroll-strip hidden></nav>
 <div class="banner wrap" id="shared-banner" hidden>This is a private copy of the kit, shared with you directly. It includes how we can work together.</div>
@@ -253,7 +254,12 @@
     }).join('') + '</div>' : '<p class="muted">Published stories for this kit are on the way.</p>') +
       (v === 'you' && drafts ? '<p>' + drafts + ' ' + (drafts === 1 ? 'story is' : 'stories are') + ' in drafts and ' + (drafts === 1 ? 'appears' : 'appear') + ' publicly once confirmed.</p>' : '') + '</div>';
     left += '<div class="box" id="kit-watch-box" hidden><h2>Watch and listen</h2><div class="watch" id="kit-watch"></div><a class="btn ghost" href="/watch?kit=' + encodeURIComponent(k.slug) + '" style="justify-self:start">See everything on Watch</a></div>';
-    if (d.quotes.length) left += '<div class="box"><h2>What clients say</h2>' + d.quotes.map(function (q) { return '<blockquote>' + esc(q.quote) + '<cite>' + esc(clientName(q.by)) + '</cite></blockquote>'; }).join('') + '</div>';
+    var quotes = d.quotes.filter(function (q) { return showDrafts || !q.draft; });
+    if (quotes.length) left += '<div class="box"><h2>What clients say</h2>' + quotes.map(function (q) {
+      var who = esc(clientName(q.by)) + (q.role ? ', ' + esc(q.role) : '');
+      return '<blockquote>' + esc(q.quote) + '<cite>' + (q.source_url ? '<a href="' + esc(q.source_url) + '" target="_blank" rel="noopener">' + who + '</a>' : who) +
+        (q.draft ? ' <span class="muted">(only you see this until you mark it public)</span>' : '') + '</cite></blockquote>';
+    }).join('') + '</div>';
 
     var right = '';
     if (v === 'you' && d.shine) {
@@ -418,13 +424,34 @@
   function notFound() {
     document.getElementById('main').innerHTML = '<section class="state wrap"><h1>That kit is not here</h1><p class="muted">It may not be published yet.</p><a class="btn" href="/kits">See all media kits</a></section>';
   }
+  // The kit editor (assets/js/sar-kit-editor.js), owner only, as its own view (#edit).
+  function editing() { return location.hash === '#edit' && data && data.view === 'you'; }
+  function showEditor() {
+    document.getElementById('ktabs').hidden = true;
+    document.getElementById('vbar').hidden = true;
+    window.scrollTo(0, 0);
+    var host = document.getElementById('main');
+    host.innerHTML = '<div class="wrap" id="kit-editor"></div>';
+    var go = function () {
+      SARKitEditor.mount(document.getElementById('kit-editor'), {
+        slug: data.kit.slug, token: token(),
+        onSaved: function () { history.replaceState(null, '', location.pathname + location.search); load(true); },
+        onCancel: function () { history.replaceState(null, '', location.pathname + location.search); render(); },
+      });
+    };
+    if (window.SARKitEditor) return go();
+    var sc = document.createElement('script'); sc.src = '/assets/js/sar-kit-editor.js'; sc.onload = go; document.head.appendChild(sc);
+  }
+  document.getElementById('edit-kit').addEventListener('click', function () { if (!data) return; history.pushState(null, '', location.pathname + location.search + '#edit'); showEditor(); });
+  window.addEventListener('popstate', function () { if (!data) return; if (editing()) showEditor(); else render(); });
+
   function load(keepPreview) {
     if (!slug) return notFound();
     call('get', { slug: slug, link: link, token: token() }).then(function (r) {
       if (r.status !== 200 || !r.body || !r.body.kit) return notFound();
       data = r.body;
       if (!keepPreview) preview = null;
-      render();
+      if (editing()) showEditor(); else render();
     }).catch(notFound);
   }
   document.getElementById('vbar').addEventListener('click', function (e) {
