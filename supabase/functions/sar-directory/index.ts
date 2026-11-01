@@ -21,6 +21,7 @@
 //   logo_scout {url}              owner: logo candidates on a brand's own site
 //   logo_import {slug, src}       owner: copy a logo into public storage, set it
 //   save {slug, ...}              owner: edit a profile's text fields
+//   asset_import {src, path, commit?}  owner: site art into storage, optionally onto a claude/ branch
 
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.45.4';
@@ -310,6 +311,39 @@ serve(async (req) => {
       if (!r) return json({ error: 'not_found' }, 404);
       if (!body.src) return json({ error: 'no_src' }, 400);
       return json({ ok: true, ...(await importLogo(slug, body.src)) });
+    }
+
+    // Site art (Phase 3): fetch an image server-side (hosts the sandbox cannot
+    // reach, such as the image generator's CDN), keep it in public storage under
+    // sar/<path>, and optionally commit it to a working branch of this site's
+    // repo for review. Never main, never another repo.
+    if (action === 'asset_import') {
+      const path = String(body.path || '');
+      if (!/^[a-z0-9][a-z0-9/_.-]{2,120}\.(png|jpg|jpeg|webp)$/.test(path) || path.includes('..')) return json({ error: 'bad_path' }, 400);
+      const r = await fetch(String(body.src || ''), { redirect: 'follow', signal: AbortSignal.timeout(30000) });
+      if (!r.ok) return json({ error: 'fetch_' + r.status }, 502);
+      const type = (r.headers.get('content-type') || '').split(';')[0];
+      if (!/^image\//.test(type)) return json({ error: 'not_an_image' }, 400);
+      const bytes = new Uint8Array(await r.arrayBuffer());
+      if (bytes.length > 15_000_000) return json({ error: 'too_large' }, 400);
+      const { error } = await db.storage.from(LOGO_BUCKET).upload('sar/' + path, bytes, { contentType: type, upsert: true });
+      if (error) return json({ error: 'upload_failed' }, 500);
+      const out: Record<string, unknown> = { ok: true, url: `${SUPABASE_URL}/storage/v1/object/public/${LOGO_BUCKET}/sar/${path}`, bytes: bytes.length };
+      const c = body.commit;
+      if (c && typeof c === 'object') {
+        const branch = String(c.branch || ''), file = String(c.path || '');
+        if (!branch || branch === 'main' || !/^claude\//.test(branch) || !/^assets\/[a-z0-9/_.-]+\.(png|jpg|jpeg|webp)$/.test(file)) return json({ ...out, commit: 'refused' });
+        let bin = ''; for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
+        const token = await secret('GITHUB_TOKEN');
+        const api = `https://api.github.com/repos/lesaruss/seanarussell-site/contents/${file}`;
+        const headers = { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json', 'User-Agent': 'sar-directory' };
+        const cur = await fetch(`${api}?ref=${encodeURIComponent(branch)}`, { headers });
+        const sha = cur.ok ? (await cur.json()).sha : undefined;
+        const put = await fetch(api, { method: 'PUT', headers: { ...headers, 'Content-Type': 'application/json' }, body: JSON.stringify({ message: String(c.message || 'Add site art for review'), content: btoa(bin), branch, ...(sha ? { sha } : {}) }) });
+        const pj: any = await put.json().catch(() => ({}));
+        out.commit = put.ok ? pj.commit?.sha : 'failed_' + put.status;
+      }
+      return json(out);
     }
 
     if (action === 'save') {
