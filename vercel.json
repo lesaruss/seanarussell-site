@@ -120,6 +120,16 @@
       "source": "/kit/media-industry.html",
       "destination": "/kits/media-production",
       "permanent": true
+    },
+    {
+      "source": "/watch",
+      "destination": "/media",
+      "permanent": true
+    },
+    {
+      "source": "/watch/:path*",
+      "destination": "/media/:path*",
+      "permanent": true
     }
   ],
   "rewrites": [
@@ -128,20 +138,20 @@
       "destination": "/kit-page"
     },
     {
-      "source": "/watch/manage",
+      "source": "/directory/:slug",
+      "destination": "/directory-profile"
+    },
+    {
+      "source": "/media/manage",
       "destination": "/watch-manage"
     },
     {
-      "source": "/watch/:network",
-      "destination": "/watch"
+      "source": "/media/:network",
+      "destination": "/media"
     },
     {
-      "source": "/watch/:network/:show",
-      "destination": "/watch"
-    },
-    {
-      "source": "/directory/:slug",
-      "destination": "/directory-profile"
+      "source": "/media/:network/:show",
+      "destination": "/media"
     }
   ]
 }

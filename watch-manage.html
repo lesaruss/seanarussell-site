@@ -82,9 +82,9 @@
 <header class="nav wrap">
   <a class="brand" href="/">Sean A<span>.</span> Russell</a>
   <nav aria-label="Primary">
-    <a href="/watch">Watch</a>
+    <a href="/media">Media</a>
     <a href="/directory">Directory</a>
-    <a href="/watch/manage#featured">Picker</a>
+    <a href="/media/manage#featured">Picker</a>
     <a href="/kits">Media Kits</a>
     <a href="/dashboard">Dashboard</a>
   </nav>
@@ -156,7 +156,7 @@
       var items = (r.body && r.body.items) || [];
       main.innerHTML = crumbs([['Watch and Listen', '']]) +
         '<div class="top"><div><h1>Featured</h1><p class="sub">What plays on /watch and on each kit. Newest first within the same order.</p></div>' +
-        '<div class="acts"><a class="btn" href="#shows">Add from a show</a><a class="btn ghost" href="/watch" target="_blank" rel="noopener">See /watch</a></div></div>' +
+        '<div class="acts"><a class="btn" href="#shows">Add from a show</a><a class="btn ghost" href="/media" target="_blank" rel="noopener">See /watch</a></div></div>' +
         '<div class="rows">' + (items.length ? items.map(function (i) {
           return '<div class="row"><div><b>' + esc(i.title) + '</b><span>' + esc(i.show) + ' &middot; ' + (i.format === 'highlight' ? 'Highlight ' + clock(i.start_s) + ' to ' + clock(i.end_s) : 'Full episode') + ' &middot; ' + (i.youtube_id ? 'Video' : 'Audio') + '</span>' +
             '<div class="tags">' + ((i.kits || []).length ? i.kits.map(function (k) { return '<span class="tag ok">' + esc(KITN[k] || k) + '</span>'; }).join('') : '<span class="tag warn">No kit: shows on /watch only</span>') + '</div></div>' +

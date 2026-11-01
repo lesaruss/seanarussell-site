@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Watch and Listen. Sean A. Russell.</title>
+<title>Media. Sean A. Russell.</title>
 <meta name="description" content="Sean A. Russell's networks and shows: Vegans Explore, TopSpot USA and Anime 3000, every podcast episode and video.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,18 +11,22 @@
 <link rel="preconnect" href="https://vegansexplore.com">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <script src="/analytics.js" defer></script>
-<!-- Watch, the Vegans Explore way (Sean, 2026-11-01: "Vegans Explore, TopSpot USA, Anime 3000. And then when you click those,
+<!-- Media (Sean, 2026-11-01: "this section, I think, should turn to media... all the stuff I've produced... all of it can be
+     just filterable"): /media lists what Sean produced, filtered by type: the networks and their shows, series (From Blur to
+     Blueprint) and books (Pre-Vegans), each the Directory's tile from the same sar-directory record; Events when there are
+     any. /watch addresses forward here (vercel.json).
+     Watch, the Vegans Explore way (Sean, 2026-11-01: "Vegans Explore, TopSpot USA, Anime 3000. And then when you click those,
      you should see the shows that are underneath it... a thumbnail, then the name of the show... then you get the profile with
      all the episodes... 3/4 where the body of the information is, and then you have 1/4 for ads... the same way it shows on
      Vegans Explore when you click on a podcast... even how the audio plays").
-       /watch                     the networks
-       /watch/<network>           its shows as tiles (vercel.json rewrites to this page)
-       /watch/<network>/<show>    a show: a podcast plays through Vegans Explore's own episode player (ve-episodes.js, the bar at
+       /media                     what Sean produced, by type (the networks first)
+       /media/<network>           its shows as tiles (vercel.json rewrites to this page)
+       /media/<network>/<show>    a show: a podcast plays through Vegans Explore's own episode player (ve-episodes.js, the bar at
                                   the foot of the window); a playlist (TopSpot USA) or a channel (A3K TV) plays like Brooke
                                   Sellers' series pages: the video up top, every video below.
      Data: sar-media watch / show / episodes (sar_watch_networks, sar_watch_shows; feeds re-read hourly by the sar-media-refresh
      cron) and ve-youtube playlist (re-read every 6 hours). Ads: Vegans Explore's ve-ad-rail.js, brand sean-a-russell, page
-     sar-watch. The featured clips Sean picks for his kits are still managed at /watch/manage. -->
+     sar-watch. The featured clips Sean picks for his kits are still managed at /media/manage. -->
 <style>
   :root{--bg:#fff;--ink:#1a1a1a;--ink2:#55524e;--ink3:#8a8580;--line:#1a1a1a;--hair:rgba(26,26,26,.12);--orange:#F69820;--orange-ink:#7d4a00;--orange-wash:#fdf2e3;--dark:#0d0d0d;--font:'Montserrat',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
   *{box-sizing:border-box} html,body{margin:0}
@@ -119,7 +123,7 @@
   <a class="brand" href="/">Sean A<span>.</span> Russell</a>
   <nav aria-label="Primary">
     <a href="/kits">Media Kits</a>
-    <a href="/watch" aria-current="page">Watch</a>
+    <a href="/media" aria-current="page">Media</a>
     <a href="/directory">Directory</a>
     <a href="/case-studies">Case Studies</a>
     <a href="/press">Press</a>
@@ -128,7 +132,7 @@
   </nav>
 </header>
 <section class="head wrap" id="head">
-  <span class="eyebrow">Watch and listen</span>
+  <span class="eyebrow">Media</span>
   <h1>Loading</h1>
 </section>
 <div class="body wrap">
@@ -175,8 +179,8 @@
     head.innerHTML = (art ? '<img class="art' + (wide ? ' wide' : '') + '" src="' + esc(art) + '" alt="">' : '') + '<div>' + html + '</div>';
   }
   function notFound(what) {
-    setHead('<span class="eyebrow">Watch and listen</span><h1>Not found</h1>');
-    main.innerHTML = '<p class="muted">That ' + what + ' is not on Watch. <a href="/watch">See every network</a>.</p>';
+    setHead('<span class="eyebrow">Media</span><h1>Not found</h1>');
+    main.innerHTML = '<p class="muted">That ' + what + ' is not in Media. <a href="/media">See everything</a>.</p>';
   }
   function failed() { main.innerHTML = '<p class="muted">This did not load. Refresh to try again.</p>'; }
   // The rail sticks just under the menu.
@@ -186,7 +190,7 @@
   var parts = location.pathname.replace(/\/+$/, '').split('/').slice(2).filter(Boolean);
   if (!parts.length) networks(); else if (parts.length === 1) network(parts[0]); else show(parts[0], parts[1]);
 
-  // The Directory's records (sar-directory list): a network and a show on Watch are the same entries, drawn with the same tile.
+  // The Directory's records (sar-directory list): a network and a show in Media are the same entries, drawn with the same tile.
   var dirP = null;
   function directory() {
     var t = null; try { t = localStorage.getItem('lr_token'); } catch (e) {}
@@ -202,23 +206,45 @@
     if (s.kind !== 'podcast' || !it.logo) it.logo = it.logo || s.cover;
     if (s.kind !== 'podcast') it.kind = 'youtube';
     it.extra = s.active == null ? [] : [[s.active ? 'Active' : 'On hiatus', s.active ? 'on' : '']];
-    return SARDir.card(it, { key: dir.key, href: '/watch/' + n.slug + '/' + s.slug, sub: [s.kind === 'podcast' ? 'Podcast' : 'Video', count(s)].filter(Boolean).join(' · ') });
+    return SARDir.card(it, { key: dir.key, href: '/media/' + n.slug + '/' + s.slug, sub: [s.kind === 'podcast' ? 'Podcast' : 'Video', count(s)].filter(Boolean).join(' · ') });
   }
   function netItem(n, dir) { return Object.assign({ slug: n.slug, name: n.name, kind: 'brand', logo: n.logo, tagline: n.tagline }, dir.by[n.slug] || {}); }
 
-  // ---- /watch ----
+  // ---- /media ----
+  // What Sean produced, by type (Sean, 2026-11-01: "the different types of things I've produced... all of it can be just
+  // filterable"), the Directory's tiles. A type shows once it has something in it; the address keeps the type (?type=).
+  var TYPES = [['all', 'All'], ['networks', 'Networks & shows'], ['series', 'Series'], ['book', 'Books'], ['event', 'Events']];
   function networks() {
-    setHead('<span class="eyebrow">Watch and listen</span><h1>The networks</h1><p>The shows Sean built, hosted and produced. Pick a network to see its shows.</p>');
+    setHead('<span class="eyebrow">Media</span><h1>What Sean produced</h1><p>The networks and their shows, the series and the books. Pick a type, or open one to see everything in it.</p>');
+    var type = new URLSearchParams(location.search).get('type') || 'all';
     Promise.all([media('watch', {}), directory()]).then(function (r) {
-      var nets = (r[0] && r[0].networks) || [], dir = r[1];
-      if (!nets.length) return failed();
-      main.innerHTML = SARDir.grid(nets.map(function (n) {
-        return SARDir.card(netItem(n, dir), { key: dir.key, href: '/watch/' + n.slug, sub: plural(n.shows, 'show', 'shows') });
-      }).join(''));
+      var nets = (r[0] && r[0].networks) || [], dir = r[1], items = Object.keys(dir.by).map(function (k) { return dir.by[k]; });
+      var groups = {
+        networks: nets.map(function (n) { return SARDir.card(netItem(n, dir), { key: dir.key, href: '/media/' + n.slug, sub: plural(n.shows, 'show', 'shows') }); }),
+      };
+      ['series', 'book', 'event'].forEach(function (k) {
+        groups[k] = items.filter(function (i) { return i.kind === k && i.page; }).map(function (i) { return SARDir.card(i, { key: dir.key, href: i.page, sub: '' }); });
+      });
+      var avail = TYPES.filter(function (t) { return t[0] === 'all' || (groups[t[0]] || []).length; });
+      if (!avail.some(function (t) { return t[0] === type; })) type = 'all';
+      function draw() {
+        main.innerHTML = '<nav class="tabs" aria-label="Type">' + avail.map(function (t) {
+            return '<a href="/media' + (t[0] === 'all' ? '' : '?type=' + t[0]) + '" data-type="' + t[0] + '"' + (t[0] === type ? ' aria-current="page"' : '') + '>' + esc(t[1]) + '</a>';
+          }).join('') + '</nav>' +
+          avail.filter(function (t) { return t[0] !== 'all' && (type === 'all' || type === t[0]); }).map(function (t) {
+            return '<section class="sec"><h2 class="sec-t">' + esc(t[1]) + '</h2>' + SARDir.grid(groups[t[0]].join('')) + '</section>';
+          }).join('');
+      }
+      main.onclick = function (e) {
+        var a = e.target.closest('.tabs a[data-type]'); if (!a || e.metaKey || e.ctrlKey || e.shiftKey) return;
+        e.preventDefault(); type = a.getAttribute('data-type'); history.replaceState(null, '', a.getAttribute('href')); draw();
+      };
+      if (!nets.length && !items.length) return failed();
+      draw();
     }).catch(failed);
   }
 
-  // ---- /watch/<network> ----
+  // ---- /media/<network> ----
   // The three networks are tabs: switching one redraws the page in place and keeps the address.
   var NETS = null;
   function network(slug, push) {
@@ -226,12 +252,12 @@
       var d = r[0], dir = r[2]; NETS = Promise.resolve(r[1]);
       if (!d || !d.network) return notFound('network');
       var n = d.network, shows = d.shows || [], item = netItem(n, dir), roles = (item.relationship || []).concat(item.roles || []);
-      if (push) history.pushState(null, '', '/watch/' + n.slug);
-      document.title = n.name + '. Watch. Sean A. Russell.';
-      setHead('<span class="path"><a href="/watch">Watch</a> / ' + esc(n.name) + '</span><h1>' + esc(n.name) + '</h1>' + (n.tagline ? '<p>' + esc(n.tagline) + '</p>' : '') +
+      if (push) history.pushState(null, '', '/media/' + n.slug);
+      document.title = n.name + '. Media. Sean A. Russell.';
+      setHead('<span class="path"><a href="/media">Media</a> / ' + esc(n.name) + '</span><h1>' + esc(n.name) + '</h1>' + (n.tagline ? '<p>' + esc(n.tagline) + '</p>' : '') +
         (roles.length ? '<div class="facts">' + roles.map(function (x) { return '<span class="fact">' + esc(x) + '</span>'; }).join('') + '</div>' : ''), n.logo, true);
       main.innerHTML = '<nav class="tabs" aria-label="Networks">' + ((r[1] && r[1].networks) || []).map(function (x) {
-          return '<a href="/watch/' + esc(x.slug) + '" data-net="' + esc(x.slug) + '"' + (x.slug === n.slug ? ' aria-current="page"' : '') + '>' + esc(x.name) + '</a>';
+          return '<a href="/media/' + esc(x.slug) + '" data-net="' + esc(x.slug) + '"' + (x.slug === n.slug ? ' aria-current="page"' : '') + '>' + esc(x.name) + '</a>';
         }).join('') + '</nav>' +
         '<h2 class="sec-t">' + esc(plural(shows.length, 'show', 'shows')) + '</h2>' + SARDir.grid(shows.map(function (s) { return showTile(n, s, dir); }).join(''));
     }).catch(failed);
@@ -245,7 +271,7 @@
     if (p.length === 1) network(p[0]); else if (!p.length) networks();
   });
 
-  // ---- /watch/<network>/<show> ----
+  // ---- /media/<network>/<show> ----
   function show(net, slug) {
     media('show', { slug: slug }).then(function (d) {
       if (!d || !d.show || !d.network || d.network.slug !== net) return notFound('show');
@@ -254,7 +280,7 @@
       var pills = '<span class="pill">' + (s.kind === 'podcast' ? 'Podcast' : 'Video') + '</span>' +
         (s.active == null ? '' : '<span class="pill ' + (s.active ? '' : 'line') + '">' + (s.active ? 'Active' : 'On hiatus') + '</span>') +
         (count(s) ? '<span class="pill dim">' + esc(count(s)) + '</span>' : '') + (s.latest ? '<span class="pill dim">Latest ' + esc(when(s.latest)) + '</span>' : '');
-      setHead('<span class="path"><a href="/watch">Watch</a> / <a href="/watch/' + esc(n.slug) + '">' + esc(n.name) + '</a> / ' + esc(s.name) + '</span>' +
+      setHead('<span class="path"><a href="/media">Media</a> / <a href="/media/' + esc(n.slug) + '">' + esc(n.name) + '</a> / ' + esc(s.name) + '</span>' +
         '<h1>' + esc(s.name) + '</h1><div class="facts">' + pills + '</div>' +
         (s.roles && s.roles.length ? '<p>Sean: ' + esc(s.roles.join(', ')) + '</p>' : ''), s.cover, s.kind !== 'podcast');
       var ICON = { 'Website': 'website', 'Spotify': 'spotify', 'Apple Podcasts': 'apple-podcasts', 'Amazon Music': 'amazon-music', 'YouTube': 'youtube', 'RSS feed': 'rss' };
