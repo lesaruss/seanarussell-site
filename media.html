@@ -105,6 +105,9 @@
   .vid small{font-size:11.5px;color:var(--ink3);font-weight:600}
   .vid:hover b{text-decoration:underline}
   .vid:focus-visible{outline:3px solid var(--orange);outline-offset:3px}
+  .gfs-frame{border-radius:6px;overflow:hidden;background:#020c0a;border:1px solid var(--hair)}
+  .gfs-frame iframe{display:block;width:100%;height:1400px;border:0}
+  .gfs-note{font-size:12.5px;color:var(--ink2);margin:10px 0 0}.gfs-note a{color:var(--orange-ink);font-weight:700}
   .vcount{margin:0 0 12px;font-size:12.5px;font-weight:700;color:var(--ink2)}
   .showall{margin-top:20px;display:flex;justify-content:center}
   footer{border-top:1px solid var(--hair);padding-block:22px;font-size:12px;color:var(--ink3)}
@@ -208,23 +211,30 @@
     it.extra = s.active == null ? [] : [[s.active ? 'Active' : 'On hiatus', s.active ? 'on' : '']];
     return SARDir.card(it, { key: dir.key, href: '/media/' + n.slug + '/' + s.slug, sub: [s.kind === 'podcast' ? 'Podcast' : 'Video', count(s)].filter(Boolean).join(' · ') });
   }
+  // An artist (GeekFon Society): the same tile, the artist's square photo, their genre as the pill and their tagline.
+  function artistTile(n, a) {
+    return SARDir.card({ slug: a.slug, name: a.name, kind: 'podcast', logo: a.cover, tagline: a.about, roles: [], extra: a.genre ? [[a.genre, '']] : [] },
+      { href: '/media/' + n.slug + '/' + a.slug, sub: '' });
+  }
   function netItem(n, dir) { return Object.assign({ slug: n.slug, name: n.name, kind: 'brand', logo: n.logo, tagline: n.tagline }, dir.by[n.slug] || {}); }
 
   // ---- /media ----
   // What Sean produced, by type (Sean, 2026-11-01: "the different types of things I've produced... all of it can be just
   // filterable"), the Directory's tiles. A type shows once it has something in it; the address keeps the type (?type=).
-  var TYPES = [['all', 'All'], ['networks', 'Networks & shows'], ['series', 'Series'], ['book', 'Books'], ['event', 'Events']];
+  // Sean, 2026-11-01: "put pre-vegans and from blur to blueprint in a category called book series... let's just say networks".
+  var TYPES = [['all', 'All'], ['networks', 'Networks'], ['books', 'Book series'], ['event', 'Events']];
   function networks() {
-    setHead('<span class="eyebrow">Media</span><h1>What Sean produced</h1><p>The networks and their shows, the series and the books. Pick a type, or open one to see everything in it.</p>');
+    setHead('<span class="eyebrow">Media</span><h1>What Sean produced</h1><p>The networks and everything on them, and the book series and everything they spawn. Pick a type, or open one to see everything in it.</p>');
     var type = new URLSearchParams(location.search).get('type') || 'all';
     Promise.all([media('watch', {}), directory()]).then(function (r) {
       var nets = (r[0] && r[0].networks) || [], dir = r[1], items = Object.keys(dir.by).map(function (k) { return dir.by[k]; });
       var groups = {
         networks: nets.map(function (n) { return SARDir.card(netItem(n, dir), { key: dir.key, href: '/media/' + n.slug, sub: plural(n.shows, 'show', 'shows') }); }),
       };
-      ['series', 'book', 'event'].forEach(function (k) {
-        groups[k] = items.filter(function (i) { return i.kind === k && i.page; }).map(function (i) { return SARDir.card(i, { key: dir.key, href: i.page, sub: '' }); });
-      });
+      var tile = function (i) { return SARDir.card(i, { key: dir.key, href: i.page, sub: '' }); };
+      // A book series is the book and everything it spawns (videos, clips, chapters): From Blur to Blueprint and Pre-Vegans.
+      groups.books = items.filter(function (i) { return (i.kind === 'series' || i.kind === 'book') && i.page; }).map(tile);
+      groups.event = items.filter(function (i) { return i.kind === 'event' && i.page; }).map(tile);
       var avail = TYPES.filter(function (t) { return t[0] === 'all' || (groups[t[0]] || []).length; });
       if (!avail.some(function (t) { return t[0] === type; })) type = 'all';
       function draw() {
@@ -259,7 +269,9 @@
       main.innerHTML = '<nav class="tabs" aria-label="Networks">' + ((r[1] && r[1].networks) || []).map(function (x) {
           return '<a href="/media/' + esc(x.slug) + '" data-net="' + esc(x.slug) + '"' + (x.slug === n.slug ? ' aria-current="page"' : '') + '>' + esc(x.name) + '</a>';
         }).join('') + '</nav>' +
-        '<h2 class="sec-t">' + esc(plural(shows.length, 'show', 'shows')) + '</h2>' + SARDir.grid(shows.map(function (s) { return showTile(n, s, dir); }).join(''));
+        (n.kind === 'artists'
+          ? '<h2 class="sec-t">' + esc(plural(shows.length, 'artist', 'artists')) + '</h2>' + SARDir.grid(shows.map(function (a) { return artistTile(n, a); }).join(''))
+          : '<h2 class="sec-t">' + esc(plural(shows.length, 'show', 'shows')) + '</h2>' + SARDir.grid(shows.map(function (s) { return showTile(n, s, dir); }).join('')));
     }).catch(failed);
   }
   main.addEventListener('click', function (e) {
@@ -273,6 +285,35 @@
 
   // ---- /media/<network>/<show> ----
   function show(net, slug) {
+    media('watch', { network: net }).then(function (w) {
+      if (w && w.network && w.network.kind === 'artists') {
+        var a = (w.shows || []).filter(function (x) { return x.slug === slug; })[0];
+        return a ? artist(w.network, a) : notFound('artist');
+      }
+      showPage(net, slug);
+    }).catch(function () { showPage(net, slug); });
+  }
+
+  // An artist: their own geekfon.ai page, inside this one (Sean, 2026-11-01: "I basically want that page on here, because you can
+  // listen to their music and then you can join and support them"). GeekFon draws it in its embedded mode (?embed=1): no GeekFon
+  // header, its height sent here so the frame grows, and Join, Support and every link open on geekfon.ai in the whole window.
+  var GFS = 'https://geekfon.ai';
+  function artist(n, a) {
+    document.title = a.name + '. ' + n.name + '. Sean A. Russell.';
+    setHead('<span class="path"><a href="/media">Media</a> / <a href="/media/' + esc(n.slug) + '">' + esc(n.name) + '</a> / ' + esc(a.name) + '</span>' +
+      '<h1>' + esc(a.name) + '</h1><div class="facts">' + (a.genre ? '<span class="pill">' + esc(a.genre) + '</span>' : '') + '</div>' +
+      (a.about ? '<p>' + esc(a.about) + '</p>' : ''), a.cover, false);
+    main.innerHTML = '<div class="gfs-frame"><iframe id="gfs" src="' + GFS + '/' + encodeURIComponent(a.slug) + '?embed=1" title="' + esc(a.name) + ' on GeekFon Society" ' +
+      'allow="autoplay; encrypted-media; fullscreen; clipboard-write" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>' +
+      '<p class="gfs-note">Join and support ' + esc(a.name) + ' on GeekFon Society. <a href="' + GFS + '/' + encodeURIComponent(a.slug) + '" target="_blank" rel="noopener">Open on geekfon.ai</a></p>';
+  }
+  addEventListener('message', function (e) {
+    if (e.origin !== GFS || !e.data || e.data.type !== 'gfs-embed-height') return;
+    var f = document.getElementById('gfs'); var h = Math.round(+e.data.height);
+    if (f && h > 200 && h < 30000) f.style.height = h + 'px';
+  });
+
+  function showPage(net, slug) {
     media('show', { slug: slug }).then(function (d) {
       if (!d || !d.show || !d.network || d.network.slug !== net) return notFound('show');
       var s = d.show, n = d.network;
