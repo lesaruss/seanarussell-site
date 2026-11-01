@@ -26,6 +26,12 @@
 //   get          {slug, link?, token?}
 //   create_link  {slug, label?, days?}  owner only
 //   revoke_link  {link}                 owner only
+//   edit_get     {slug}                 owner only: every field the kit editor edits
+//   kit_save     {slug, ...fields}      owner only: save the editor (assets/js/sar-kit-editor.js)
+//
+// Quotes: sar_kits.quotes holds the ones Sean gathers himself ({quote, by, role,
+// source_url, public}); public=false ones show only in the owner view. They come
+// first, then published case-study testimonials.
 
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
@@ -163,6 +169,9 @@ serve(async (req) => {
       const stats = (k.stats as Stat[])
         .filter((s) => owner || s.public)
         .map((s) => ({ v: s.v, l: s.l, draft: !s.public }));
+      const kitQuotes = (Array.isArray(k.quotes) ? k.quotes : [])
+        .filter((q: any) => q && q.quote && (owner || q.public))
+        .map((q: any) => ({ quote: q.quote, by: q.by || '', role: q.role || '', source_url: q.source_url || null, draft: !q.public }));
       const out: Record<string, unknown> = {
         view,
         kit: {
@@ -171,7 +180,7 @@ serve(async (req) => {
           track_record: k.track_record, worked_with: k.worked_with, status: k.status,
           press_ids: k.press_ids ?? [],
         },
-        stats, studies, quotes,
+        stats, studies, quotes: [...kitQuotes, ...quotes],
       };
       if (view !== 'public') {
         (out.kit as any).terms = k.terms;
@@ -185,7 +194,7 @@ serve(async (req) => {
           ['At least three public numbers', (k.stats as Stat[]).filter((s) => s.public).length >= 3],
           ['At least two published case studies', studies.filter((s: any) => !s.draft).length >= 2],
           [draftCount ? `Confirm ${draftCount} draft ${draftCount === 1 ? 'story' : 'stories'}` : 'No stories waiting in drafts', draftCount === 0],
-          ['A client quote', quotes.length > 0],
+          ['A client quote', quotes.length > 0 || kitQuotes.some((q: any) => !q.draft)],
           ['A scene illustration', !!k.scene],
           ['Fee ranges for private links', feesSet],
           ['A downloadable PDF', !!k.pdf_url],
@@ -196,6 +205,55 @@ serve(async (req) => {
         out.links = links ?? [];
       }
       return json(out);
+    }
+
+    if (action === 'edit_get') {
+      if (!(await isOwner(body.token))) return json({ error: 'owner_only' }, 403);
+      const { data: k } = await db.from('sar_kits')
+        .select('slug, name, role_line, tagline, tags, pillars, stats, track_record, worked_with, terms, fees, quotes, press_ids, scene_caption, status, updated_at')
+        .eq('slug', String(body.slug || '')).maybeSingle();
+      if (!k) return json({ error: 'not_found' }, 404);
+      return json({ kit: k });
+    }
+
+    if (action === 'kit_save') {
+      if (!(await isOwner(body.token))) return json({ error: 'owner_only' }, 403);
+      const slug = String(body.slug || '');
+      const { data: cur } = await db.from('sar_kits').select('slug, stats').eq('slug', slug).maybeSingle();
+      if (!cur) return json({ error: 'not_found' }, 404);
+      const str = (v: unknown, max: number) => typeof v === 'string' ? v.trim().slice(0, max) : undefined;
+      const list = (v: unknown, max: number, n: number) => Array.isArray(v) ? v.map((x) => str(x, max)).filter((x): x is string => !!x).slice(0, n) : undefined;
+      const patch: Record<string, unknown> = { updated_at: new Date().toISOString() };
+      const set = (k: string, v: unknown) => { if (v !== undefined) patch[k] = v; };
+      set('name', str(body.name, 80) || undefined);
+      set('role_line', str(body.role_line, 120));
+      set('tagline', str(body.tagline, 400));
+      set('track_record', str(body.track_record, 600));
+      set('scene_caption', str(body.scene_caption, 160));
+      set('tags', list(body.tags, 40, 6));
+      set('worked_with', list(body.worked_with, 80, 16));
+      set('terms', list(body.terms, 160, 10));
+      set('fees', list(body.fees, 200, 10));
+      set('press_ids', list(body.press_ids, 80, 10));
+      if (Array.isArray(body.pillars)) set('pillars', body.pillars.map((p: any) => [str(p?.[0], 60) || '', str(p?.[1], 240) || '']).filter((p: string[]) => p[0] || p[1]).slice(0, 4));
+      if (Array.isArray(body.stats)) {
+        // Every number keeps where it came from: an existing one keeps its source,
+        // a new or changed one is marked as entered by Sean (PROOF trail).
+        const old = new Map(((cur.stats as Stat[]) || []).map((s) => [s.v + '|' + s.l, s.src]));
+        const day = new Date().toISOString().slice(0, 10);
+        set('stats', body.stats.map((s: any) => {
+          const v = str(s?.v, 16) || '', l = str(s?.l, 120) || '';
+          return { v, l, public: s?.public === true, src: old.get(v + '|' + l) || `sean (kit editor, ${day})` };
+        }).filter((s: Stat) => s.v && s.l).slice(0, 6));
+      }
+      if (Array.isArray(body.quotes)) set('quotes', body.quotes.map((q: any) => ({
+        quote: str(q?.quote, 800) || '', by: str(q?.by, 120) || '', role: str(q?.role, 120) || '',
+        source_url: /^https?:\/\//.test(String(q?.source_url || '')) ? String(q.source_url).slice(0, 500) : null, public: q?.public === true,
+      })).filter((q: any) => q.quote && q.by).slice(0, 12));
+      if (body.status === 'live' || body.status === 'draft') set('status', body.status);
+      const { error } = await db.from('sar_kits').update(patch).eq('slug', slug);
+      if (error) return json({ error: 'could_not_save' }, 500);
+      return json({ ok: true, saved: Object.keys(patch).filter((k) => k !== 'updated_at') });
     }
 
     if (action === 'create_link') {
