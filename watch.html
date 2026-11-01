@@ -4,19 +4,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Watch and Listen. Sean A. Russell.</title>
-<meta name="description" content="Sean A. Russell's networks and shows: Vegans Explore, Top Spot USA and Anime 3000, every podcast episode and video.">
+<meta name="description" content="Sean A. Russell's networks and shows: Vegans Explore, TopSpot USA and Anime 3000, every podcast episode and video.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fwbhwfxpncrsfhttimna.supabase.co" crossorigin>
+<link rel="preconnect" href="https://vegansexplore.com">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <script src="/analytics.js" defer></script>
-<!-- Watch, the Vegans Explore way (Sean, 2026-11-01: "Vegans Explore, Top Spot USA, Anime 3000. And then when you click those,
+<!-- Watch, the Vegans Explore way (Sean, 2026-11-01: "Vegans Explore, TopSpot USA, Anime 3000. And then when you click those,
      you should see the shows that are underneath it... a thumbnail, then the name of the show... then you get the profile with
      all the episodes... 3/4 where the body of the information is, and then you have 1/4 for ads... the same way it shows on
      Vegans Explore when you click on a podcast... even how the audio plays").
        /watch                     the networks
        /watch/<network>           its shows as tiles (vercel.json rewrites to this page)
        /watch/<network>/<show>    a show: a podcast plays through Vegans Explore's own episode player (ve-episodes.js, the bar at
-                                  the foot of the window); a playlist (Top Spot USA) or a channel (A3K TV) plays like Brooke
+                                  the foot of the window); a playlist (TopSpot USA) or a channel (A3K TV) plays like Brooke
                                   Sellers' series pages: the video up top, every video below.
      Data: sar-media watch / show / episodes (sar_watch_networks, sar_watch_shows; feeds re-read hourly by the sar-media-refresh
      cron) and ve-youtube playlist (re-read every 6 hours). Ads: Vegans Explore's ve-ad-rail.js, brand sean-a-russell, page
@@ -81,15 +83,15 @@
   .more{background:none;border:0;padding:0;font:800 11px/1 var(--font);letter-spacing:.1em;text-transform:uppercase;color:var(--orange-ink);cursor:pointer;margin:0}
   .muted{color:var(--ink3);font-style:italic}
   /* The video show: the player up top, every video under it (Brooke Sellers' series pages). */
-  .player{display:grid;grid-template-columns:minmax(0,1fr);gap:10px;margin-bottom:26px}
-  .frame{position:relative;aspect-ratio:16/9;background:#000;border-radius:6px;overflow:hidden}
-  .frame iframe,.frame button{position:absolute;inset:0;width:100%;height:100%;border:0}
-  .frame button{padding:0;cursor:pointer;background:#000}
-  .frame button img{width:100%;height:100%;object-fit:contain}
-  .frame button i{position:absolute;left:50%;top:50%;width:68px;height:48px;margin:-24px 0 0 -34px;border-radius:12px;background:var(--orange);display:grid;place-items:center}
-  .frame button i::after{content:'';border-left:18px solid #1a1a1a;border-top:11px solid transparent;border-bottom:11px solid transparent;margin-left:4px}
-  .player h3{margin:0;font-weight:800;font-size:17px;line-height:1.3}
-  .player .meta{font-size:12.5px;color:var(--ink2);font-weight:600}
+  /* A video plays in a window over the page (Brooke Sellers' series pages); the list stays three across. */
+  .lb{position:fixed;inset:0;z-index:9995;background:rgba(0,0,0,.94);display:grid;place-items:center;padding:20px}
+  .lb[hidden]{display:none}
+  .lb-in{width:min(1100px,100%);display:grid;gap:10px}
+  .lb-frame{position:relative;aspect-ratio:16/9;background:#000;border-radius:6px;overflow:hidden}
+  .lb-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .lb-t{margin:0;color:#fff;font-weight:800;font-size:16px;line-height:1.3}
+  .lb-x{justify-self:end;background:none;border:1.5px solid rgba(255,255,255,.6);color:#fff;border-radius:6px;font:800 11px/1 var(--font);letter-spacing:.1em;text-transform:uppercase;padding:10px 12px;cursor:pointer}
+  .lb-x:focus-visible{outline:3px solid var(--orange);outline-offset:2px}
   .vids{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
   .vid{display:grid;gap:6px;text-align:left;background:none;border:0;padding:0;font:inherit;color:inherit;cursor:pointer}
   .vid .th{position:relative;aspect-ratio:16/9;border-radius:6px;overflow:hidden;background:#111}
@@ -97,7 +99,6 @@
   .vid .dur{position:absolute;right:6px;bottom:6px;font:700 11px/1 var(--font);padding:4px 5px;border-radius:4px;background:rgba(0,0,0,.8);color:#fff}
   .vid b{font-weight:700;font-size:13.5px;line-height:1.35}
   .vid small{font-size:11.5px;color:var(--ink3);font-weight:600}
-  .vid[aria-current=true] .th{outline:3px solid var(--orange);outline-offset:-3px}
   .vid:hover b{text-decoration:underline}
   .vid:focus-visible{outline:3px solid var(--orange);outline-offset:3px}
   .vcount{margin:0 0 12px;font-size:12.5px;font-weight:700;color:var(--ink2)}
@@ -146,9 +147,17 @@
   var head = document.getElementById('head'), main = document.getElementById('main');
 
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  // Speed (Sean, 2026-11-01: "I click the watch section, it's just loading"): every answer is kept in this browser for a day.
+  // A page you have seen draws at once from that copy while a fresh one is fetched for next time; the first visit waits.
+  var DAY = 864e5;
   function fn(name, action, body) {
-    return fetch(FN + name + (action ? '?action=' + action : ''), { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + ANON, apikey: ANON }, body: JSON.stringify(body || {}) })
-      .then(function (r) { return r.json(); });
+    var url = FN + name + (action ? '?action=' + action : ''), payload = JSON.stringify(body || {}), key = 'sarw:' + name + ':' + action + ':' + payload, hit = null;
+    var live = fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + ANON, apikey: ANON }, body: payload })
+      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(function (d) { try { localStorage.setItem(key, JSON.stringify({ t: Date.now(), d: d })); } catch (e) {} return d; });
+    try { hit = JSON.parse(localStorage.getItem(key) || 'null'); } catch (e) {}
+    if (hit && Date.now() - hit.t < DAY) { live.catch(function () {}); return Promise.resolve(hit.d); }
+    return live;
   }
   var media = function (action, body) { return fn('sar-media', action, body); };
   function when(d) { var t = Date.parse(d || ''); return isNaN(t) ? '' : new Date(t).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }); }
@@ -186,7 +195,7 @@
     }).catch(function () { return { by: {}, key: {} }; }));
   }
   SARDir.css();
-  // A show's tile: its Directory entry when it has one; a Top Spot USA playlist or A3K TV, which are not separate Directory
+  // A show's tile: its Directory entry when it has one; a TopSpot USA playlist or A3K TV, which are not separate Directory
   // entries, takes the same tile from its own cover and roles.
   function showTile(n, s, dir) {
     var it = dir.by[s.slug] ? Object.assign({}, dir.by[s.slug]) : { slug: s.slug, name: s.name, kind: s.kind === 'podcast' ? 'podcast' : 'youtube', logo: s.cover, roles: s.roles || [] };
@@ -281,56 +290,63 @@
     document.body.appendChild(sc);
   }
 
-  // A channel (A3K TV): its uploads from sar-media, 50 at a time.
+  // A channel (A3K TV): its uploads from sar-media. The first 50 draw at once; the rest follow behind.
   function channel(box, s) {
-    var all = [], total = 0;
-    function page(offset) {
-      return media('episodes', { listing_id: s.slug, offset: offset, limit: 50 }).then(function (d) {
-        total = (d && d.total) || 0;
-        all = all.concat(((d && d.episodes) || []).filter(function (e) { return e.youtube_id; }).map(function (e) {
-          return { id: e.youtube_id, title: e.title, date: e.date, thumb: e.image, dur: e.duration };
-        }));
-        return all.length < total && offset + 50 < total ? page(offset + 50) : all;
+    var all = [], total = 0, view = null;
+    function map(d) {
+      return ((d && d.episodes) || []).filter(function (e) { return e.youtube_id; }).map(function (e) {
+        return { id: e.youtube_id, title: e.title, date: e.date, thumb: e.image, dur: e.duration };
       });
     }
-    page(0).then(function (v) { videos(box, v, total); }).catch(function () { box.innerHTML = '<p class="muted">The videos did not load. Refresh to try again.</p>'; });
+    function rest(offset) {
+      if (offset >= total) return;
+      media('episodes', { listing_id: s.slug, offset: offset, limit: 50 }).then(function (d) { all.push.apply(all, map(d)); view.more(); rest(offset + 50); }).catch(function () {});
+    }
+    media('episodes', { listing_id: s.slug, offset: 0, limit: 50 }).then(function (d) {
+      total = (d && d.total) || 0; all = map(d); view = videos(box, all, total); rest(50);
+    }).catch(function () { box.innerHTML = '<p class="muted">The videos did not load. Refresh to try again.</p>'; });
   }
 
-  // The video show (Brooke Sellers' series pages): the newest video up top, 12 below, Show all for the rest.
+  // The video show: every video three across under Videos, newest first, 12 and then Show all. A video plays in a window over
+  // the page (Sean, 2026-11-01: "don't put the first one big... have them in the three column underneath the video section").
   function videos(box, list, total) {
-    if (!list.length) { box.innerHTML = '<p class="muted">No videos yet.</p>'; return; }
-    var cur = list[0], open = false, SHOW = 12;
+    if (!list.length) { box.innerHTML = '<p class="muted">No videos yet.</p>'; return { more: function () {} }; }
+    var open = false, SHOW = 12;
     function card(v) {
-      return '<button type="button" class="vid" data-id="' + esc(v.id) + '" aria-current="' + (v === cur) + '"><span class="th">' +
+      return '<button type="button" class="vid" data-id="' + esc(v.id) + '"><span class="th">' +
         (v.thumb ? '<img src="' + esc(v.thumb) + '" alt="" loading="lazy">' : '') + (v.dur ? '<span class="dur">' + esc(len(v.dur)) + '</span>' : '') + '</span>' +
         '<b>' + esc(v.title) + '</b><small>' + esc(when(v.date)) + '</small></button>';
     }
-    function playerHtml(v, autoplay) {
-      return '<div class="frame">' + (autoplay
-        ? '<iframe src="https://www.youtube-nocookie.com/embed/' + encodeURIComponent(v.id) + '?autoplay=1&rel=0" title="' + esc(v.title) + '" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>'
-        : '<button type="button" id="start" aria-label="Play ' + esc(v.title) + '">' + (v.thumb ? '<img src="' + esc(v.thumb) + '" alt="">' : '') + '<i></i></button>') +
-        '</div><h3>' + esc(v.title) + '</h3><div class="meta">' + esc([when(v.date), len(v.dur)].filter(Boolean).join(' · ')) + '</div>';
-    }
     function draw() {
-      var shown = open ? list : list.slice(0, SHOW);
-      box.innerHTML = '<div class="player" id="player">' + playerHtml(cur, false) + '</div>' +
-        '<p class="vcount">' + esc(plural(total || list.length, 'video', 'videos')) + '</p><div class="vids">' + shown.map(card).join('') + '</div>' +
-        (!open && list.length > SHOW ? '<div class="showall"><button type="button" class="btn ghost" id="all">Show all ' + list.length + ' videos</button></div>' : '');
-      wire();
-    }
-    function wire() {
-      var st = document.getElementById('start'); if (st) st.onclick = function () { document.getElementById('player').innerHTML = playerHtml(cur, true); };
+      var shown = open ? list : list.slice(0, SHOW), n = total || list.length;
+      box.innerHTML = '<p class="vcount">' + esc(plural(n, 'video', 'videos')) + '</p><div class="vids">' + shown.map(card).join('') + '</div>' +
+        (!open && n > SHOW ? '<div class="showall"><button type="button" class="btn ghost" id="all">Show all ' + n + ' videos</button></div>' : '');
       var a = document.getElementById('all'); if (a) a.onclick = function () { open = true; draw(); };
     }
     box.addEventListener('click', function (e) {
       var b = e.target.closest('.vid'); if (!b) return;
-      cur = list.filter(function (v) { return v.id === b.getAttribute('data-id'); })[0] || cur;
-      document.getElementById('player').innerHTML = playerHtml(cur, true); wire();
-      box.querySelectorAll('.vid').forEach(function (x) { x.setAttribute('aria-current', String(x === b)); });
-      var p = document.getElementById('player'); var top = p.getBoundingClientRect().top + scrollY - (parseInt(getComputedStyle(document.documentElement).getPropertyValue('--navh'), 10) || 0) - 12;
-      scrollTo({ top: top, behavior: 'smooth' });
+      var v = list.filter(function (x) { return x.id === b.getAttribute('data-id'); })[0]; if (v) lightbox(v, b);
     });
     draw();
+    return { more: function () { if (open) draw(); } };
+  }
+  var lb = null, lbFrom = null;
+  function lightbox(v, from) {
+    if (!lb) {
+      lb = document.createElement('div'); lb.className = 'lb'; lb.hidden = true; lb.setAttribute('role', 'dialog'); lb.setAttribute('aria-modal', 'true'); lb.setAttribute('aria-label', 'Video player');
+      lb.innerHTML = '<div class="lb-in"><button type="button" class="lb-x">Close</button><div class="lb-frame"></div><p class="lb-t"></p></div>';
+      document.body.appendChild(lb);
+      lb.addEventListener('click', function (e) { if (e.target === lb || e.target.closest('.lb-x')) closeLb(); });
+      addEventListener('keydown', function (e) { if (e.key === 'Escape' && lb && !lb.hidden) closeLb(); });
+    }
+    lbFrom = from;
+    lb.querySelector('.lb-frame').innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + encodeURIComponent(v.id) + '?autoplay=1&rel=0" title="' + esc(v.title) + '" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>';
+    lb.querySelector('.lb-t').textContent = v.title + (v.date ? '  ·  ' + when(v.date) : '');
+    lb.hidden = false; document.body.style.overflow = 'hidden'; lb.querySelector('.lb-x').focus();
+  }
+  function closeLb() {
+    lb.hidden = true; lb.querySelector('.lb-frame').innerHTML = ''; document.body.style.overflow = '';
+    if (lbFrom && lbFrom.isConnected) lbFrom.focus();
   }
 })();
 </script>
