@@ -4,7 +4,7 @@
  * only through the sar-kits edge function (edit_get, kit_save), which re-checks
  * that the caller is the owner on every save.
  *
- *   SARKitEditor.mount(el, { slug, token, onSaved(), onCancel() })
+ *   SARKitEditor.mount(el, { slug, token, onSaved(), onCancel(), backLabel? })
  *
  * Sections, top to bottom: Basics, Numbers, What I do here, Client quotes, Worked
  * with, Track record, How we can work together, Fees (private links only), Press,
@@ -107,7 +107,7 @@
     }).join('');
     root.innerHTML =
       '<div class="ske-top"><div><h1>Edit: ' + esc(k.name) + '</h1><p>Changes show on the kit as soon as you save. Fees and anything not marked public stay off the public page.</p></div>' +
-        '<button type="button" class="ske-btn ghost" data-cancel>Back to the kit</button></div>' +
+        '<button type="button" class="ske-btn ghost" data-cancel>' + esc(opts.backLabel || 'Back to the kit') + '</button></div>' +
       '<section class="ske-sec"><h2>Basics</h2><div class="ske-grid2">' +
         '<label>Kit name<input type="text" maxlength="80" id="ske-name" value="' + esc(k.name) + '"></label>' +
         '<label>Role line<input type="text" maxlength="120" id="ske-role" value="' + esc(k.role_line) + '" placeholder="Fractional CMO · VP Marketing"></label></div>' +
