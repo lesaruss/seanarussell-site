@@ -52,6 +52,7 @@ const KEY: Record<string, string> = {
   Videographer: 'Shot the video.',
   Writer: 'Wrote the scripts, segments and copy.',
   Founder: 'Started it and runs it.',
+  Author: 'Wrote it.',
   'Co-founder': 'Started it with a partner and built it together.',
   Client: 'Hired Sean or LESARUSS to deliver work.',
   'Former client': 'Sean or LESARUSS delivered work for them; the engagement has ended. The case study tells the story.',
@@ -128,6 +129,8 @@ function card(r: any, src: any, lst: any, pr: any) {
     relationship: r.relationship, roles: r.roles, kits: r.kits, parent_slug: r.parent_slug,
     aliases: r.aliases, network: src?.network ?? null, episodes: src?.episode_count ?? null,
     year: p?.year ?? null,
+    // A book or a series opens its own page on the site (Media, 2026-11-01).
+    page: (r.kind === 'book' || r.kind === 'series' || r.kind === 'event') && /^\/[\w-]/.test(r.website || '') ? r.website : null,
   };
 }
 function firstSentence(s: unknown): string {

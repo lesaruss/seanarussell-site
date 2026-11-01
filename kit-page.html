@@ -157,7 +157,7 @@
   <a class="brand" href="/">Sean A<span>.</span> Russell</a>
   <nav aria-label="Primary">
     <a href="/kits">Media Kits</a>
-    <a href="/watch">Watch</a>
+    <a href="/media">Media</a>
     <a href="/directory">Directory</a>
     <a href="/case-studies">Case Studies</a>
     <a href="/press">Press</a>
@@ -264,7 +264,7 @@
       }).join('') + '</div>' : '') +
       (!pubStudies.length && !draftStudies.length ? '<p class="muted">Published stories for this kit are on the way.</p>' : '') +
       (v === 'you' && drafts ? '<p>' + drafts + ' ' + (drafts === 1 ? 'story is' : 'stories are') + ' in drafts and ' + (drafts === 1 ? 'appears' : 'appear') + ' publicly once confirmed.</p>' : '') + '</div>';
-    left += '<div class="box" id="kit-watch-box" hidden><h2>Watch and listen</h2><div class="watch" id="kit-watch"></div><a class="btn ghost" href="/watch" style="justify-self:start">See every show on Watch</a></div>';
+    left += '<div class="box" id="kit-watch-box" hidden><h2>Watch and listen</h2><div class="watch" id="kit-watch"></div><a class="btn ghost" href="/media" style="justify-self:start">See everything in Media</a></div>';
     var quotes = d.quotes.filter(function (q) { return showDrafts || !q.draft; });
     if (quotes.length) left += '<div class="box"><h2>What clients say</h2>' + quotes.map(function (q) {
       var who = esc(clientName(q.by)) + (q.role ? ', ' + esc(q.role) : '');
