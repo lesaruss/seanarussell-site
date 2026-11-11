@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Disallow: /dashboard
+Disallow: /media/manage
+Disallow: /watch-manage
+Disallow: /unsubscribe
+Disallow: /blur-to-blueprint-access
+Disallow: /api/
+
+Sitemap: https://www.seanarussell.com/sitemap.xml
