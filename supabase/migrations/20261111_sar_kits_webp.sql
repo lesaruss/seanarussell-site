@@ -8,3 +8,9 @@ where pose  like '/assets/%' and pose  ~ '\.(png|jpe?g)$';
 update public.sar_kits
 set scene = regexp_replace(scene, '\.(png|jpe?g)$', '.webp')
 where scene like '/assets/%' and scene ~ '\.(png|jpe?g)$';
+
+-- The kit pose is never shown wider than 200 px (the home page cards and the kit page),
+-- so the kits use 600 px card copies (-card.webp), sharp on 3x screens.
+update public.sar_kits
+set pose = regexp_replace(pose, '-hero\.webp$', '-hero-card.webp')
+where pose ~ '^/assets/poses/lesaruss-[a-z0-9]+-hero\.webp$';
