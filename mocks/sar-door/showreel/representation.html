@@ -1,0 +1,623 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Representation | Sean A. Russell</title>
+<meta name="description" content="What Sean A. Russell has, what he is looking for in an entertainment attorney and talent manager, and how to start a conversation.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0d0d0d; --ink2:#1a1a1a; --ink3:#262626; --line:#3a3a3a;
+  --white:#ffffff; --gray:#f5f5f5; --mute:#b8b8b8; --mute-l:#4d4d4d;
+  --or:#F69820; --or-t:#7d4a00;
+  --gf:#7A2BF5; --ve:#0B6B33;
+  --pad:clamp(16px,4vw,64px);
+  --r:6px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:'Montserrat',system-ui,sans-serif;color:var(--ink2);background:var(--white);line-height:1.55;font-size:17px;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit}
+h1,h2,h3,h4{margin:0;line-height:1;letter-spacing:-.03em;font-weight:900}
+p{margin:0 0 1em}
+.tc,.num{font-variant-numeric:tabular-nums}
+:focus-visible{outline:3px solid var(--or);outline-offset:3px}
+.light :focus-visible,.light:focus-visible{outline-color:var(--ink)}
+.skip{position:absolute;left:-9999px;top:8px;background:var(--or);color:var(--ink);padding:10px 14px;border-radius:var(--r);font-weight:800;z-index:100}
+.skip:focus{left:8px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- control bar ---------- */
+.cbar{position:sticky;top:0;z-index:50;background:var(--ink);color:var(--white);border-bottom:3px solid var(--or)}
+.cbar-in{display:flex;align-items:center;gap:20px;padding:12px var(--pad);min-height:64px}
+.mark{font-weight:900;font-size:22px;letter-spacing:-.04em;text-decoration:none;white-space:nowrap;color:var(--white)}
+.mark b{color:var(--or)}
+.cnav{display:flex;gap:4px;margin-left:auto;flex-wrap:wrap}
+.cnav a{font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;text-decoration:none;padding:8px 12px;border-radius:var(--r);color:#e6e6e6}
+.cnav a:hover{background:var(--ink3);color:var(--white)}
+.cnav a[aria-current]{background:var(--or);color:var(--ink)}
+.tally{display:flex;align-items:center;gap:10px;font-weight:800;font-size:12px;letter-spacing:.12em;white-space:nowrap}
+.onair{display:inline-flex;align-items:center;gap:7px;background:var(--or);color:var(--ink);padding:6px 10px;border-radius:var(--r);font-weight:900}
+.onair i{width:8px;height:8px;border-radius:50%;background:var(--ink);display:block;animation:blink 1.6s steps(1) infinite}
+@keyframes blink{50%{opacity:.2}}
+.tcode{font-size:15px;color:var(--or);letter-spacing:.06em;font-weight:800}
+.menu-btn{display:none}
+@media (max-width:1080px){
+  .cnav{display:none;position:absolute;left:0;right:0;top:100%;background:var(--ink);flex-direction:column;padding:8px var(--pad) 16px;border-bottom:3px solid var(--or)}
+  .cnav.open{display:flex}
+  .cnav a{font-size:15px;padding:12px}
+  .menu-btn{display:inline-flex;margin-left:auto;align-items:center;gap:8px;background:transparent;border:2px solid #555;color:var(--white);font:800 12px 'Montserrat';letter-spacing:.1em;padding:9px 12px;border-radius:var(--r);cursor:pointer}
+  .tally .tcode{display:none}
+}
+@media (max-width:420px){.mark{font-size:19px}.tally .lbl{display:none}}
+
+/* ---------- shared bits ---------- */
+.slate{display:flex;flex-wrap:wrap;border:2px solid var(--line);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+.slate>span{padding:8px 12px;border-right:2px solid var(--line)}
+.slate>span:last-child{border-right:0}
+.slate b{color:var(--white);font-weight:800;margin-left:6px}
+.slate.l{border-color:var(--ink);color:var(--mute-l)}
+.slate.l>span{border-color:var(--ink)}
+.slate.l b{color:var(--ink)}
+.clap{height:22px;background:repeating-linear-gradient(-45deg,var(--ink) 0 18px,var(--white) 18px 36px);border:2px solid var(--ink)}
+.dark .clap{border-color:var(--white);background:repeating-linear-gradient(-45deg,var(--white) 0 18px,var(--ink) 18px 36px)}
+.hl{display:inline-block;background:var(--or);color:var(--ink);padding:.02em .18em .08em;transform:rotate(-2deg);box-shadow:6px 6px 0 var(--ink)}
+.dark .hl{box-shadow:6px 6px 0 #000}
+.btn{display:inline-flex;align-items:center;gap:10px;font:800 15px/1 'Montserrat';letter-spacing:.02em;text-decoration:none;padding:16px 20px;border-radius:var(--r);border:3px solid var(--ink);cursor:pointer;transition:transform .12s,box-shadow .12s}
+.btn svg{width:18px;height:18px;flex:none}
+.btn-or{background:var(--or);color:var(--ink);box-shadow:5px 5px 0 var(--ink)}
+.btn-w{background:var(--white);color:var(--ink);box-shadow:5px 5px 0 var(--ink)}
+.btn-k{background:var(--ink);color:var(--white);box-shadow:5px 5px 0 var(--or)}
+.dark .btn-or,.dark .btn-w{border-color:var(--white);box-shadow:5px 5px 0 var(--white)}
+.dark .btn-or{border-color:var(--or);box-shadow:5px 5px 0 #000}
+.dark .btn-w{border-color:var(--white);box-shadow:5px 5px 0 var(--or)}
+.btn:hover{transform:translate(-2px,-2px)}
+.btn:active{transform:translate(3px,3px);box-shadow:0 0 0 var(--ink)}
+.sec{padding:clamp(64px,9vw,128px) var(--pad);position:relative}
+.dark{background:var(--ink);color:var(--white)}
+.gray{background:var(--gray)}
+.seg{display:flex;align-items:center;gap:12px;font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;margin-bottom:22px;flex-wrap:wrap}
+.seg .id{background:var(--ink);color:var(--white);padding:5px 9px;border-radius:4px}
+.dark .seg .id{background:var(--or);color:var(--ink)}
+.seg .st{border:2px solid currentColor;padding:3px 8px;border-radius:4px;font-size:12px}
+.seg .tcs{color:var(--or-t)}
+.dark .seg .tcs{color:var(--or)}
+.h2{font-size:clamp(40px,6.4vw,96px)}
+.lede{font-size:clamp(18px,1.6vw,22px);max-width:62ch;font-weight:500}
+.read{max-width:64ch}
+.card{border:3px solid var(--ink);background:var(--white);box-shadow:8px 8px 0 var(--ink)}
+.dark .card{border-color:var(--white);background:var(--ink2);box-shadow:8px 8px 0 var(--or)}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:5px 9px;border-radius:4px;color:var(--white)}
+.otxt{color:var(--or-t)}
+.dark .otxt{color:var(--or)}
+
+/* lower third */
+.l3{display:flex;flex-direction:column;align-items:flex-start}
+.l3 .top{background:var(--or);color:var(--ink);font-weight:900;font-size:clamp(18px,2vw,26px);letter-spacing:-.02em;padding:8px 16px 6px;text-transform:uppercase}
+.l3 .bot{background:var(--white);color:var(--ink);font-weight:700;font-size:clamp(12px,1.05vw,14px);padding:7px 16px;letter-spacing:.04em;border-left:6px solid var(--ink)}
+
+/* ticker */
+.ticker{background:var(--or);color:var(--ink);border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);overflow:hidden;display:flex;align-items:stretch}
+.ticker .tag{flex:none;background:var(--ink);color:var(--or);font-weight:900;font-size:13px;letter-spacing:.14em;padding:12px 16px;display:flex;align-items:center;z-index:1}
+.ticker .run{display:flex;white-space:nowrap;animation:crawl 48s linear infinite}
+.ticker .run span{font-weight:800;font-size:15px;padding:12px 26px;display:flex;align-items:center;gap:26px}
+.ticker .run span::after{content:"";width:8px;height:8px;background:var(--ink);transform:rotate(45deg)}
+@keyframes crawl{to{transform:translateX(-50%)}}
+.ticker:hover .run{animation-play-state:paused}
+
+/* end credits footer */
+.foot{background:var(--ink);color:var(--white);padding:72px var(--pad) 28px;border-top:6px solid var(--or)}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px}
+.foot h3{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--or);font-weight:800;margin-bottom:16px}
+.foot ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.foot a{text-decoration:none;font-weight:600;color:#e6e6e6}
+.foot a:hover{color:var(--or);text-decoration:underline}
+.foot .big{font-size:clamp(34px,4vw,56px);font-weight:900;letter-spacing:-.045em;line-height:.95}
+.foot .big b{color:var(--or)}
+.foot .tag{font-weight:600;color:var(--mute);margin-top:16px;max-width:34ch}
+.foot-base{margin-top:56px;padding-top:20px;border-top:2px solid var(--line);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--mute);font-weight:600}
+@media (max-width:900px){.foot-grid{grid-template-columns:1fr 1fr}.foot-grid>div:first-child{grid-column:1/-1}}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .ticker .run{flex-wrap:wrap;white-space:normal}
+  .ticker .run span.dup{display:none}
+}
+.foot .big{margin:0}
+[id]{scroll-margin-top:84px}
+/* ---------- rep hero ---------- */
+.rhero{background:var(--ink);color:var(--white);padding:28px var(--pad) 0;position:relative;overflow:hidden}
+.rhero::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.025) 0 1px,transparent 1px 4px);pointer-events:none}
+.crumb{position:relative;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center;margin-bottom:clamp(28px,4vw,56px)}
+.crumb a{font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;color:var(--or);display:inline-flex;gap:8px;align-items:center}
+.crumb a svg{width:14px;height:14px;transform:rotate(180deg)}
+.crumb a:hover{text-decoration:underline}
+.rgrid{position:relative;display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(28px,4vw,72px);align-items:end}
+.kick{font-size:13px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--or);margin-bottom:20px;display:flex;align-items:center;gap:12px}
+.kick::before{content:"";width:36px;height:3px;background:var(--or)}
+.rhero h1{font-size:clamp(46px,7vw,116px);line-height:.92;letter-spacing:-.055em}
+.rhero h1 .hl{margin-top:.14em;font-size:.72em}
+.rhero .lede{color:#dcdcdc;margin:32px 0 34px}
+.rcta{display:flex;flex-wrap:wrap;gap:14px;padding-bottom:clamp(40px,6vw,88px)}
+.rmon{justify-self:end;width:100%;max-width:min(460px,calc((100vh - 200px)*.75));position:relative;border:3px solid var(--white);background:var(--white);box-shadow:12px 12px 0 var(--or);margin:0 0 clamp(40px,6vw,88px)}
+.rmon img{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:50% 0}
+.rmon .ov{position:absolute;top:12px;left:12px;right:12px;display:flex;justify-content:space-between;font-size:11px;font-weight:800;letter-spacing:.14em}
+.rmon .ov span{background:var(--ink);color:var(--white);padding:5px 8px;border-radius:3px}
+.rmon .ov .rec{color:var(--or)}
+.rmon .l3{position:absolute;left:-3px;bottom:22px;max-width:calc(100% + 20px)}
+.rmon .l3 .bot{border:3px solid var(--ink);border-left-width:6px}
+@media (max-width:900px){.rgrid{grid-template-columns:1fr}.rmon{justify-self:start;max-width:420px;margin-bottom:56px}.rcta{padding-bottom:8px}}
+
+/* call sheet */
+.callsheet{border:3px solid var(--ink);background:var(--white);box-shadow:10px 10px 0 var(--ink);margin-top:44px}
+.cs-top{display:flex;justify-content:space-between;align-items:center;gap:12px;background:var(--ink);color:var(--white);padding:12px 18px;font-size:12px;font-weight:800;letter-spacing:.16em;flex-wrap:wrap}
+.cs-top .o{color:var(--or)}
+.cs-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+.cs-grid>div{padding:18px;border-right:2px solid var(--ink);border-bottom:2px solid var(--ink)}
+.cs-grid>div:nth-child(4n){border-right:0}
+.cs-grid>div:nth-last-child(-n+4){border-bottom:0}
+.cs-grid dt{font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--mute-l)}
+.cs-grid dd{margin:6px 0 0;font-weight:800;font-size:17px;line-height:1.3}
+@media (max-width:900px){.cs-grid{grid-template-columns:1fr 1fr}.cs-grid>div:nth-child(4n){border-right:2px solid var(--ink)}.cs-grid>div:nth-child(2n){border-right:0}.cs-grid>div:nth-last-child(-n+4){border-bottom:2px solid var(--ink)}.cs-grid>div:nth-last-child(-n+2){border-bottom:0}}
+@media (max-width:480px){.cs-grid{grid-template-columns:1fr}.cs-grid>div{border-right:0!important;border-bottom:2px solid var(--ink)!important}.cs-grid>div:last-child{border-bottom:0!important}}
+
+/* reels: what he has */
+.reels{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin-top:48px}
+.reel{border:3px solid var(--ink);background:var(--white);box-shadow:8px 8px 0 var(--ink);display:flex;flex-direction:column}
+.reel .rh{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 14px;border-bottom:3px solid var(--ink);font-size:11px;font-weight:800;letter-spacing:.14em}
+.reel .rh .dur{background:var(--or);padding:3px 7px;border-radius:3px;border:2px solid var(--ink)}
+.reel .rb{padding:22px 20px;flex:1;display:flex;flex-direction:column}
+.reel .big{font-size:clamp(52px,5vw,76px);font-weight:900;letter-spacing:-.06em;line-height:.85;margin-bottom:12px}
+.reel h3{font-size:24px;letter-spacing:-.02em;margin-bottom:10px;line-height:1.1}
+.reel p{font-size:15.5px;color:var(--mute-l);margin:0}
+.reel .chip{align-self:flex-start;margin-bottom:14px}
+.reel.k{background:var(--ink);color:var(--white);box-shadow:8px 8px 0 var(--or)}
+.reel.k .rh{border-color:var(--line)}
+.reel.k p{color:#d6d6d6}
+.reel.k .big{color:var(--or)}
+@media (max-width:1000px){.reels{grid-template-columns:1fr 1fr}}
+@media (max-width:620px){.reels{grid-template-columns:1fr}}
+
+/* chain of title */
+.chain{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:clamp(32px,5vw,88px);align-items:start}
+.chain h2 span{display:block}
+.chain h2 .hl{margin-top:.12em}
+.ctab{width:100%;border-collapse:collapse;border:3px solid var(--white);box-shadow:10px 10px 0 var(--or);background:var(--ink2)}
+.ctab caption{text-align:left;font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--or);padding-bottom:14px}
+.ctab th,.ctab td{text-align:left;padding:16px 18px;border-bottom:2px solid var(--line);vertical-align:top}
+.ctab thead th{background:var(--white);color:var(--ink);font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:800;border-bottom:0}
+.ctab tbody th{font-weight:800;font-size:17px}
+.ctab td{font-weight:600;color:#dcdcdc;font-size:16px}
+.ctab td b{color:var(--white)}
+.ctab tr:last-child th,.ctab tr:last-child td{border-bottom:0}
+.ctab .tool{color:var(--or);font-weight:800}
+@media (max-width:900px){.chain{grid-template-columns:1fr}}
+@media (max-width:520px){.ctab th,.ctab td{padding:12px 10px;font-size:14px}.ctab tbody th{font-size:15px}}
+
+/* casting call */
+.roles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;margin-top:48px}
+.role{border:3px solid var(--ink);background:var(--white);box-shadow:10px 10px 0 var(--ink);padding:0;display:flex;flex-direction:column}
+.role .rlh{display:flex;justify-content:space-between;padding:12px 18px;border-bottom:3px solid var(--ink);font-size:12px;font-weight:800;letter-spacing:.14em;gap:8px}
+.role .rlh .st{font-size:11px}
+.role .rlb{padding:24px 22px 26px;flex:1;display:flex;flex-direction:column}
+.role h3{font-size:clamp(28px,2.6vw,38px);margin-bottom:14px}
+.role p{color:var(--mute-l);font-size:16px}
+.role ul{list-style:none;padding:0;margin:auto 0 0;display:grid;gap:10px;border-top:2px solid var(--ink);padding-top:16px}
+.role li{display:flex;gap:10px;font-weight:700;font-size:15px;line-height:1.35}
+.role li svg{flex:none;width:18px;height:18px;margin-top:1px}
+.role.o{background:var(--or)}
+.role.o p{color:var(--ink)}
+@media (max-width:1000px){.roles{grid-template-columns:1fr}}
+.st.open{background:var(--or)}
+.st.wht{background:var(--white)}
+
+/* pattern band */
+.band{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:clamp(32px,5vw,88px);align-items:center}
+.band .quote{margin:0;border-left:6px solid var(--or);padding-left:24px}
+.band .quote p{font-size:clamp(22px,2.3vw,32px);font-weight:800;letter-spacing:-.025em;line-height:1.2;margin:0}
+.band .quote cite{display:block;margin-top:12px;font-style:normal;font-weight:700;font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
+@media (max-width:900px){.band{grid-template-columns:1fr}}
+
+/* the slate form */
+.formwrap{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(32px,5vw,88px);align-items:start}
+.formwrap .side p{max-width:44ch}
+.steps-list{list-style:none;padding:0;margin:28px 0 0;display:grid;gap:10px;counter-reset:s}
+.steps-list li{display:flex;gap:14px;align-items:center;font-weight:700}
+.steps-list li span{width:34px;height:34px;border:3px solid var(--ink);border-radius:var(--r);display:grid;place-items:center;font-weight:900;font-size:14px;flex:none}
+.steps-list li.on span{background:var(--or)}
+.steps-list li.done span{background:var(--ink);color:var(--white)}
+.slateform{border:3px solid var(--ink);background:var(--white);box-shadow:12px 12px 0 var(--ink)}
+.slateform .clap{border:0;border-bottom:3px solid var(--ink);height:34px}
+.sf-head{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-bottom:3px solid var(--ink);background:var(--ink);color:var(--white)}
+.sf-head div{padding:10px 16px;border-right:2px solid var(--line)}
+.sf-head div:last-child{border-right:0}
+.sf-head dt{font-size:10px;font-weight:800;letter-spacing:.16em;color:var(--mute)}
+.sf-head dd{margin:3px 0 0;font-weight:900;font-size:16px;letter-spacing:.02em}
+.sf-head dd.o{color:var(--or)}
+.prog-bar{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;padding:14px 22px 0}
+.prog-bar i{height:8px;background:var(--gray);border:2px solid var(--ink);display:block}
+.prog-bar i.on{background:var(--or)}
+.sf-body{padding:22px 22px 26px}
+.sf-step{border:0;margin:0;padding:0;min-width:0}
+.sf-step[hidden]{display:none}
+.sf-step legend{font-size:clamp(26px,2.6vw,36px);font-weight:900;letter-spacing:-.035em;line-height:1.05;padding:0;margin-bottom:6px}
+.sf-step .hint{color:var(--mute-l);font-size:15px;margin:0 0 20px}
+.opt-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.opt{position:relative;display:block}
+.opt input{position:absolute;opacity:0;width:1px;height:1px}
+.opt span{display:flex;align-items:center;gap:12px;border:3px solid var(--ink);border-radius:var(--r);padding:14px 14px;font-weight:700;font-size:15.5px;cursor:pointer;background:var(--white);min-height:56px;line-height:1.25}
+.opt span::before{content:"";flex:none;width:16px;height:16px;border:3px solid var(--ink);border-radius:50%}
+.opt.cb span::before{border-radius:3px}
+.opt input:checked+span{background:var(--or);box-shadow:4px 4px 0 var(--ink)}
+.opt input:checked+span::before{background:var(--ink)}
+.opt input:focus-visible+span{outline:3px solid var(--ink);outline-offset:3px}
+.fld{display:flex;flex-direction:column;gap:7px;margin-bottom:16px}
+.fld label{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+.fld label small{font-weight:600;letter-spacing:.04em;text-transform:none;color:var(--mute-l);font-size:12px}
+.fld input,.fld textarea{font:600 16px 'Montserrat';padding:14px;border:3px solid var(--ink);border-radius:var(--r);background:var(--white);color:var(--ink);width:100%}
+.fld textarea{min-height:110px;resize:vertical}
+.fld input:focus-visible,.fld textarea:focus-visible{outline:3px solid var(--or);outline-offset:2px}
+.fld input[aria-invalid=true]{box-shadow:inset 0 0 0 2px var(--ink);background:#fff7ec}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}
+.err{min-height:24px;font-weight:700;font-size:14px;color:var(--or-t);margin:14px 0 0}
+.sf-nav{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:16px;padding-top:18px;border-top:3px solid var(--ink);flex-wrap:wrap}
+.sf-nav .count{font-weight:800;font-size:13px;letter-spacing:.12em;text-transform:uppercase}
+.sf-nav .btns{display:flex;gap:12px;margin-left:auto}
+.btn[disabled]{opacity:.4;cursor:not-allowed;transform:none}
+.wrap{text-align:left;padding:8px 0 4px}
+.wrap .big{font-size:clamp(44px,5vw,72px);font-weight:900;letter-spacing:-.05em;line-height:.95;margin:6px 0 16px}
+.wrap .big .hl{box-shadow:5px 5px 0 var(--ink)}
+.wrap[hidden],.sf-nav[hidden]{display:none}
+@media (max-width:1000px){.formwrap{grid-template-columns:1fr}}
+@media (max-width:560px){.opt-grid,.two{grid-template-columns:1fr}.sf-head dd{font-size:14px}.sf-head div{padding:9px 10px}.sf-body{padding:18px 16px 22px}.prog-bar{padding:14px 16px 0}.sf-nav .btns{width:100%}.sf-nav .btns .btn{flex:1;justify-content:center}}
+.st{font-size:11px;font-weight:800;letter-spacing:.14em;padding:5px 8px;border-radius:4px;border:2px solid var(--ink);display:inline-block;line-height:1.2}
+.dark .st{border-color:var(--white)}
+.rhero h1 .hl{font-size:.56em}
+.chain h2{font-size:clamp(40px,5.2vw,84px)}
+#h-conv{font-size:clamp(40px,4.6vw,72px)}
+#h-why{font-size:clamp(40px,5.2vw,84px)}
+.sf-head,.cs-grid{margin:0}
+@media (max-width:560px){.sf-head{grid-template-columns:1.5fr 1fr 1fr}.sf-head dd{font-size:12.5px;overflow-wrap:anywhere}}
+.chain h2 .hl{width:fit-content}
+@media (max-width:600px){.rhero h1 .hl{font-size:.74em;line-height:1}.crumb .slate{display:none}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M4 12l5 5L20 6" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="square"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18" fill="none" stroke="currentColor" stroke-width="3"/></symbol>
+  <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="12" rx="3" fill="currentColor"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4" fill="none" stroke="currentColor" stroke-width="2.5"/></symbol>
+</svg>
+
+<header class="cbar">
+  <div class="cbar-in">
+    <a class="mark" href="index.html" aria-label="Sean A. Russell, home">Sean A. Russell<b>.</b></a>
+    <button class="menu-btn" aria-expanded="false" aria-controls="cnav"><svg width="16" height="16" aria-hidden="true"><use href="#i-menu"/></svg>RUNDOWN</button>
+    <nav class="cnav" id="cnav" aria-label="Main">
+      <a href="index.html#authorship">Authorship</a>
+      <a href="index.html#programming">Brands</a>
+      <a href="index.html#track">Track record</a>
+      <a href="representation.html" aria-current="page">Representation</a>
+      <a href="index.html#cues">Investors</a>
+      <a href="index.html#showcase">Showcase</a>
+    </nav>
+    <div class="tally" aria-hidden="true"><span class="onair"><i></i><span class="lbl">ON AIR</span></span><span class="tcode tc" data-tc>00:00:00:00</span></div>
+  </div>
+</header>
+
+<main id="main">
+  <section class="rhero dark" aria-labelledby="h-rep">
+    <div class="crumb">
+      <a href="index.html"><svg aria-hidden="true"><use href="#i-arrow"/></svg>Back to the front door</a>
+      <div class="slate" aria-hidden="true"><span>Call sheet<b>REPRESENTATION</b></span><span>Status<b>OPEN</b></span></div>
+    </div>
+    <div class="rgrid">
+      <div>
+        <p class="kick">For entertainment attorneys and talent managers</p>
+        <h1 id="h-rep">One career.<br>Many projects.<br><span class="hl">Seeking representation.</span></h1>
+        <p class="lede">Sean A. Russell writes, produces and builds. GeekFon Society, Vegans Explore, the LESARUSS operating system and a book are already running. What he needs now is the right people in his corner.</p>
+        <div class="rcta">
+          <a class="btn btn-or" href="#conversation">Start a conversation <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          <a class="btn btn-w" href="#have">See what he has</a>
+        </div>
+      </div>
+      <figure class="rmon">
+        <img src="../assets/sean-pose-standing.webp" alt="Illustrated full-body portrait of Sean A. Russell standing" width="1500" height="2000">
+        <div class="ov" aria-hidden="true"><span>CAM 1 &middot; CLOSE</span><span class="rec tc" data-tc>00:00:00:00</span></div>
+        <figcaption class="l3"><span class="top">Sean A. Russell</span><span class="bot">Writer, producer, builder &middot; Since 1996</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <div class="ticker" role="region" aria-label="Live now">
+    <span class="tag">LIVE NOW</span>
+    <div class="run">
+      <span>121 GeekFon Society songs live</span><span>3 sites launched in one day this week</span><span>1M+ Anime 3000 podcast downloads</span><span>30 years building, since 1996</span>
+      <span class="dup" aria-hidden="true">121 GeekFon Society songs live</span><span class="dup" aria-hidden="true">3 sites launched in one day this week</span><span class="dup" aria-hidden="true">1M+ Anime 3000 podcast downloads</span><span class="dup" aria-hidden="true">30 years building, since 1996</span>
+    </div>
+  </div>
+
+  <!-- CALL SHEET + WHAT HE HAS -->
+  <section class="sec gray light" id="have" aria-labelledby="h-have">
+    <div class="seg"><span class="id">R1</span><span>In the can</span><span class="tcs tc">00:00:45:00</span></div>
+    <h2 class="h2" id="h-have">What he has.</h2>
+    <p class="lede" style="margin-top:20px">Not a pitch deck. Finished work, live today, written and produced by the person asking.</p>
+
+    <div class="callsheet">
+      <div class="cs-top"><span>CALL SHEET &middot; SEAN A. RUSSELL</span><span class="o">CALL TIME: NOW</span></div>
+      <dl class="cs-grid">
+        <div><dt>Talent</dt><dd>Sean A. Russell</dd></div>
+        <div><dt>Roles</dt><dd>Writer, producer, builder</dd></div>
+        <div><dt>Company</dt><dd>LESARUSS, incorporated 2007</dd></div>
+        <div><dt>On the record</dt><dd>30 years, since 1996</dd></div>
+        <div><dt>Calling</dt><dd>Entertainment attorney</dd></div>
+        <div><dt>Calling</dt><dd>Talent manager</dd></div>
+        <div><dt>Terms</dt><dd>Open to a percentage arrangement</dd></div>
+        <div><dt>Prefers</dt><dd>Introductions over cold outreach</dd></div>
+      </dl>
+    </div>
+
+    <div class="reels">
+      <article class="reel k">
+        <div class="rh"><span>REEL 01 &middot; MUSIC</span><span class="dur" style="color:var(--ink)">LIVE</span></div>
+        <div class="rb"><span class="chip" style="background:var(--gf)">GeekFon Society</span><div class="big num">121</div><h3>Songs live</h3><p>An animated music universe begun March 2026. Originals and remixes across a roster of animated artists, many genres, a daily group-chat story, membership, $11 albums and radio.</p></div>
+      </article>
+      <article class="reel">
+        <div class="rh"><span>REEL 02 &middot; TECH</span><span class="dur">LIVE</span></div>
+        <div class="rb"><div class="big num">3</div><h3>Sites in one day, this week</h3><p>The LESARUSS operating system: HQ, brand sites, outreach engine, membership and payments. Sean built it himself with AI.</p></div>
+      </article>
+      <article class="reel">
+        <div class="rh"><span>REEL 03 &middot; COMMUNITY</span><span class="dur">BUILDING</span></div>
+        <div class="rb"><span class="chip" style="background:var(--ve)">Vegans Explore</span><div class="big num">1000</div><h3>Communities by 2030</h3><p>The goal. Built on about ten years of SoFlo Vegans, hundreds of interviews and Seed Food and Wine marketing chair from 2017 to 2023.</p></div>
+      </article>
+      <article class="reel">
+        <div class="rh"><span>REEL 04 &middot; ARCHIVE</span><span class="dur">2003 ON</span></div>
+        <div class="rb"><div class="big num">1M+</div><h3>Anime 3000 downloads</h3><p>About thirty writers. Sponsors and advertisers included Sony, Nintendo, Viz Media and Funimation. Asked by Crunchyroll to join its first news team.</p></div>
+      </article>
+      <article class="reel">
+        <div class="rh"><span>REEL 05 &middot; ARCHIVE</span><span class="dur">2007 TO 2012</span></div>
+        <div class="rb"><div class="big num">710,245</div><h3>Top Spot USA views</h3><p>Independent music media. 181 videos, 116 artists, Warped Tour 6 or 7 times, and the first outlet to interview Hey Monday.</p></div>
+      </article>
+      <article class="reel k">
+        <div class="rh"><span>REEL 06 &middot; PRINT</span><span class="dur" style="color:var(--ink)">BOOK</span></div>
+        <div class="rb"><div class="big" style="font-size:clamp(34px,3.2vw,48px);line-height:.95">From Blur to Blueprint</div><h3>The book</h3><p>The story of the pattern, and the system that finally fit the vision. "The vision was never too big. The box was."</p></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- CHAIN OF TITLE -->
+  <section class="sec dark" aria-labelledby="h-chain">
+    <div class="seg"><span class="id">R2</span><span>Chain of title</span><span class="tcs tc">00:02:10:00</span><span class="st">FOR ATTORNEYS</span></div>
+    <div class="chain">
+      <div>
+        <h2 class="h2" id="h-chain"><span>I wrote it.</span><span>I produced it.</span><span class="hl">I built it.</span></h2>
+        <p class="lede" style="margin-top:36px;color:#dcdcdc">The first question an attorney asks about AI-assisted work is who the author is. The answer here is simple. Sean writes the lyrics, beatboxes the beat and produces. AI tools are the studio, not the author.</p>
+      </div>
+      <table class="ctab">
+        <caption>Credit block &middot; GeekFon Society catalog</caption>
+        <thead><tr><th scope="col">Element</th><th scope="col">Credit</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Lyrics</th><td>Written by <b>Sean A. Russell</b></td></tr>
+          <tr><th scope="row">Beat</th><td>Beatboxed by <b>Sean A. Russell</b></td></tr>
+          <tr><th scope="row">Production</th><td>Produced by <b>Sean A. Russell</b></td></tr>
+          <tr><th scope="row">Platform</th><td>Built by <b>Sean A. Russell</b></td></tr>
+          <tr><th scope="row">Studio</th><td class="tool">AI tools. The studio, not the author.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- CASTING CALL -->
+  <section class="sec light" aria-labelledby="h-want">
+    <div class="seg"><span class="id">R3</span><span>Casting call</span><span class="tcs tc">00:03:30:00</span></div>
+    <h2 class="h2" id="h-want">What he wants.</h2>
+    <p class="lede" style="margin-top:20px">Three roles. Each one is open now.</p>
+    <div class="roles">
+      <article class="role o">
+        <div class="rlh"><span>ROLE 01</span><span class="st wht">OPEN</span></div>
+        <div class="rlb">
+          <h3>Entertainment attorney</h3>
+          <p>Someone who opens doors, not only reviews contracts.</p>
+          <ul>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Understands AI and AI-assisted authorship</li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Open to a percentage arrangement</li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Works across music, media and tech</li>
+          </ul>
+        </div>
+      </article>
+      <article class="role">
+        <div class="rlh"><span>ROLE 02</span><span class="st open">OPEN</span></div>
+        <div class="rlb">
+          <h3>Talent manager</h3>
+          <p>One career, many projects. Someone to steer it as one story.</p>
+          <ul>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Steers one career across many projects</li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Music, speaking, publishing and brands</li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Sets priorities so the work lands</li>
+          </ul>
+        </div>
+      </article>
+      <article class="role">
+        <div class="rlh"><span>ROLE 03</span><span class="st open">OPEN</span></div>
+        <div class="rlb">
+          <h3>Introductions</h3>
+          <p>Warm introductions instead of cold outreach. If you know the right person, that counts.</p>
+          <ul>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Labels, publishers and platforms</li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Investors for one brand or the whole universe</li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Stages for speaking</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- PATTERN BAND -->
+  <section class="sec dark" aria-labelledby="h-why">
+    <div class="seg"><span class="id">R4</span><span>Why now</span><span class="tcs tc">00:05:00:00</span></div>
+    <div class="band">
+      <div>
+        <h2 class="h2" id="h-why">The capability came first. Every time.</h2>
+        <p class="lede" style="margin-top:28px;color:#dcdcdc">A writing federation with two shows a week. A podcast network with over a million downloads. A music outlet that covered Warped Tour. Sean has always built the capability first and let the business lag. LESARUSS is the first time he is building the business with the community, and representation is how it scales past one person.</p>
+      </div>
+      <blockquote class="quote">
+        <p>"I've always been a Community Builder, even before having the language for what I was doing."</p>
+        <cite>Sean A. Russell</cite>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- FORM -->
+  <section class="sec gray light" id="conversation" aria-labelledby="h-conv">
+    <div class="seg"><span class="id">R5</span><span>Start a conversation</span><span class="tcs tc">00:06:00:00</span><span class="st open">ROLLING</span></div>
+    <div class="formwrap">
+      <div class="side">
+        <h2 class="h2" id="h-conv">Start a conversation.</h2>
+        <p class="lede" style="margin-top:20px">Three quick takes. Tell Sean who you are, where you work and what caught your eye.</p>
+        <ol class="steps-list" aria-hidden="true">
+          <li class="on" data-s="1"><span>1</span>Your role</li>
+          <li data-s="2"><span>2</span>Your firm</li>
+          <li data-s="3"><span>3</span>What interests you</li>
+        </ol>
+      </div>
+
+      <div class="slateform">
+        <div class="clap" aria-hidden="true"></div>
+        <dl class="sf-head">
+          <div><dt>PROD</dt><dd>REPRESENTATION</dd></div>
+          <div><dt>SCENE</dt><dd>INTRO</dd></div>
+          <div><dt>TAKE</dt><dd class="o" id="takeNo">1 OF 3</dd></div>
+        </dl>
+        <div class="prog-bar" aria-hidden="true"><i class="on"></i><i></i><i></i></div>
+        <form class="sf-body" id="convForm" novalidate>
+          <fieldset class="sf-step" data-step="1">
+            <legend>Who are you?</legend>
+            <p class="hint">Pick the role that fits best.</p>
+            <div class="opt-grid">
+              <label class="opt"><input type="radio" name="role" value="Entertainment attorney"><span>Entertainment attorney</span></label>
+              <label class="opt"><input type="radio" name="role" value="Talent manager"><span>Talent manager</span></label>
+              <label class="opt"><input type="radio" name="role" value="Investor"><span>Investor</span></label>
+              <label class="opt"><input type="radio" name="role" value="Other"><span>Someone with an introduction</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="sf-step" data-step="2" hidden>
+            <legend>Where are you?</legend>
+            <p class="hint">So Sean knows who he is talking to.</p>
+            <div class="two">
+              <div class="fld"><label for="f-name">Your name</label><input id="f-name" name="name" autocomplete="name" required></div>
+              <div class="fld"><label for="f-firm">Firm or company <small>(optional)</small></label><input id="f-firm" name="firm" autocomplete="organization"></div>
+            </div>
+            <div class="fld"><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" required></div>
+          </fieldset>
+
+          <fieldset class="sf-step" data-step="3" hidden>
+            <legend>What interests you?</legend>
+            <p class="hint">Choose any that apply.</p>
+            <div class="opt-grid">
+              <label class="opt cb"><input type="checkbox" name="int" value="GeekFon Society"><span>GeekFon Society</span></label>
+              <label class="opt cb"><input type="checkbox" name="int" value="Vegans Explore"><span>Vegans Explore</span></label>
+              <label class="opt cb"><input type="checkbox" name="int" value="The LESARUSS tech"><span>The LESARUSS tech</span></label>
+              <label class="opt cb"><input type="checkbox" name="int" value="From Blur to Blueprint"><span>From Blur to Blueprint</span></label>
+              <label class="opt cb"><input type="checkbox" name="int" value="Speaking"><span>Speaking</span></label>
+              <label class="opt cb"><input type="checkbox" name="int" value="The whole universe"><span>The whole universe</span></label>
+            </div>
+            <div class="fld" style="margin-top:18px"><label for="f-note">Anything else <small>(optional)</small></label><textarea id="f-note" name="note"></textarea></div>
+          </fieldset>
+
+          <div class="wrap" id="wrap" hidden tabindex="-1">
+            <div class="seg" style="margin-bottom:8px"><span class="st open">PRINT IT</span></div>
+            <p class="big">That's a <span class="hl">wrap.</span></p>
+            <p class="lede" id="wrapMsg">Thank you. Sean will be in touch.</p>
+            <a class="btn btn-k" href="index.html">Back to the front door <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          </div>
+
+          <p class="err" id="err" role="alert"></p>
+          <div class="sf-nav" id="sfNav">
+            <span class="count" id="stepCount" aria-live="polite">Step 1 of 3</span>
+            <div class="btns">
+              <button class="btn btn-w" type="button" id="back" disabled>Back</button>
+              <button class="btn btn-or" type="button" id="next">Next <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="foot">
+  <div class="foot-grid">
+    <div>
+      <p class="big">Sean A. Russell<b>.</b></p>
+      <p class="tag">"The vision was never too big. The box was." LESARUSS, since 2000.</p>
+    </div>
+    <div>
+      <h3>Industry kits</h3>
+      <ul><li><a href="#">Media kits</a></li><li><a href="#">Press</a></li><li><a href="#">Case studies</a></li><li><a href="#">Book</a></li></ul>
+    </div>
+    <div>
+      <h3>Work with Sean</h3>
+      <ul><li><a href="representation.html">Representation</a></li><li><a href="index.html#cues">Investors</a></li><li><a href="index.html#showcase">Unlock the showcase</a></li></ul>
+    </div>
+    <div>
+      <h3>The universe</h3>
+      <ul><li><a href="#">GeekFon Society</a></li><li><a href="#">Vegans Explore</a></li><li><a href="#">LESARUSS</a></li><li><a href="#">From Blur to Blueprint</a></li></ul>
+    </div>
+  </div>
+  <div class="foot-base"><span>&copy; 2026 LESARUSS. Written, produced and built by Sean A. Russell.</span><span class="tc">END OF PROGRAM &middot; <span data-tc>00:00:00:00</span></span></div>
+</footer>
+<script>
+(function(){
+  var rm=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var els=document.querySelectorAll('[data-tc]'), t0=Date.now();
+  function pad(n){return (n<10?'0':'')+n}
+  function tick(){var ms=Date.now()-t0, s=Math.floor(ms/1000), f=rm?0:Math.floor((ms%1000)/1000*30);
+    var str=pad(Math.floor(s/3600))+':'+pad(Math.floor(s/60)%60)+':'+pad(s%60)+':'+pad(f);
+    for(var i=0;i<els.length;i++)els[i].textContent=str;}
+  tick(); setInterval(tick, rm?1000:1000/30);
+  var mb=document.querySelector('.menu-btn'), nav=document.getElementById('cnav');
+  if(mb){mb.addEventListener('click',function(){var o=nav.classList.toggle('open');mb.setAttribute('aria-expanded',o)});
+    nav.addEventListener('click',function(e){if(e.target.tagName==='A'){nav.classList.remove('open');mb.setAttribute('aria-expanded','false')}});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape'&&nav.classList.contains('open')){nav.classList.remove('open');mb.setAttribute('aria-expanded','false');mb.focus()}});}
+})();
+(function(){
+  var f=document.getElementById('convForm'), steps=[].slice.call(f.querySelectorAll('.sf-step')), N=steps.length, cur=0;
+  var back=document.getElementById('back'), next=document.getElementById('next'), err=document.getElementById('err');
+  var count=document.getElementById('stepCount'), take=document.getElementById('takeNo'), bars=document.querySelectorAll('.prog-bar i'), lis=document.querySelectorAll('.steps-list li');
+  var nextHTML=next.innerHTML;
+  function show(i,focus){cur=i;steps.forEach(function(s,k){s.hidden=k!==i});
+    back.disabled=i===0; next.innerHTML=i===N-1?'Send it <svg aria-hidden="true"><use href="#i-arrow"/></svg>':nextHTML;
+    count.textContent='Step '+(i+1)+' of '+N; take.textContent=(i+1)+' OF '+N;
+    [].forEach.call(bars,function(b,k){b.classList.toggle('on',k<=i)});
+    [].forEach.call(lis,function(l,k){l.classList.toggle('on',k===i);l.classList.toggle('done',k<i)});
+    err.textContent='';
+    if(focus){var el=steps[i].querySelector('input');if(el)el.focus();}}
+  function valid(){
+    if(cur===0&&!f.querySelector('input[name=role]:checked')){err.textContent='Pick a role to continue.';f.querySelector('input[name=role]').focus();return false}
+    if(cur===1){var n=f.name,e=f.email;n.removeAttribute('aria-invalid');e.removeAttribute('aria-invalid');
+      if(!n.value.trim()){n.setAttribute('aria-invalid','true');err.textContent='Add your name to continue.';n.focus();return false}
+      if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e.value.trim())){e.setAttribute('aria-invalid','true');err.textContent='Add a working email to continue.';e.focus();return false}}
+    return true}
+  function finish(){
+    var role=f.querySelector('input[name=role]:checked').value, name=f.name.value.trim().split(' ')[0];
+    var ints=[].map.call(f.querySelectorAll('input[name=int]:checked'),function(i){return i.value});
+    steps.forEach(function(s){s.hidden=true});document.getElementById('sfNav').hidden=true;err.textContent='';
+    take.textContent='PRINTED';[].forEach.call(lis,function(l){l.classList.remove('on');l.classList.add('done')});
+    var w=document.getElementById('wrap');
+    document.getElementById('wrapMsg').textContent='Thank you, '+name+'. Your note as '+role.toLowerCase()+(ints.length?' about '+ints.join(', '):'')+' is in. Sean will be in touch.';
+    w.hidden=false;w.focus();}
+  next.addEventListener('click',function(){if(!valid())return; if(cur<N-1)show(cur+1,true); else finish();});
+  back.addEventListener('click',function(){if(cur>0)show(cur-1,true)});
+  f.addEventListener('submit',function(e){e.preventDefault();next.click()});
+  f.addEventListener('keydown',function(e){if(e.key==='Enter'&&e.target.tagName==='INPUT'){e.preventDefault();next.click()}});
+  show(0,false);
+})();
+</script>
+</body>
+</html>

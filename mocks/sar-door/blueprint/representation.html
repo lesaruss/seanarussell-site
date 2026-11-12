@@ -1,0 +1,645 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Representation brief. Sean A. Russell</title>
+<meta name="description" content="For entertainment attorneys and talent managers: what Sean A. Russell has built, what he is looking for, and how to start a conversation.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1a1a1a; --black:#0d0d0d; --white:#ffffff; --paper:#f5f5f5;
+  --orange:#F69820; --orange-ink:#7d4a00;
+  --gf:#7A2BF5; --ve:#0B6B33;
+  --line:rgba(26,26,26,.08); --line-major:rgba(26,26,26,.16);
+  --gut:clamp(16px,4vw,64px);
+}
+*{box-sizing:border-box}
+[hidden]{display:none !important}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:Montserrat,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;font-size:17px;line-height:1.6;overflow-x:hidden}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--orange);outline-offset:3px;box-shadow:0 0 0 6px var(--ink)}
+.skip{position:absolute;left:-9999px;top:8px;background:var(--orange);color:var(--ink);padding:10px 16px;border:3px solid var(--ink);border-radius:6px;font-weight:800;z-index:100}
+.skip:focus{left:16px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* paper */
+.grid{background-color:var(--paper);background-image:
+  linear-gradient(var(--line-major) 1px,transparent 1px),
+  linear-gradient(90deg,var(--line-major) 1px,transparent 1px),
+  linear-gradient(var(--line) 1px,transparent 1px),
+  linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:96px 96px,96px 96px,16px 16px,16px 16px;background-position:-1px -1px}
+.grid-dark{background-color:var(--ink);color:var(--white);background-image:
+  linear-gradient(rgba(255,255,255,.09) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(255,255,255,.09) 1px,transparent 1px),
+  linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+  background-size:96px 96px,96px 96px,16px 16px,16px 16px;background-position:-1px -1px}
+.white{background:var(--white)}
+
+/* type */
+h1,h2,h3,h4{font-weight:900;letter-spacing:-.035em;line-height:1;margin:0}
+h2{font-size:clamp(36px,5.6vw,84px)}
+h3{font-size:clamp(22px,2vw,28px);letter-spacing:-.02em;line-height:1.1}
+p{margin:0 0 1em}
+.lede{font-size:clamp(18px,1.5vw,21px);max-width:62ch;font-weight:500}
+.mono{font-weight:700;font-size:12px;letter-spacing:.16em;text-transform:uppercase}
+.hl{display:inline-block;background:var(--orange);color:var(--ink);padding:.04em .18em .1em;transform:rotate(-2deg);box-shadow:5px 5px 0 var(--ink);border:3px solid var(--ink);margin-top:.12em}
+.o-ink{color:var(--orange-ink)}
+.grid-dark .o-txt{color:var(--orange)}
+
+/* header */
+.titlestrip{display:flex;gap:24px;justify-content:space-between;align-items:center;background:var(--ink);color:var(--white);padding:7px var(--gut);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase}
+.titlestrip span:nth-child(2){color:var(--orange)}
+.site-head{position:sticky;top:0;z-index:50;background:var(--white);border-bottom:3px solid var(--ink)}
+.site-head .in{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:14px var(--gut)}
+.wordmark{font-weight:900;font-size:clamp(20px,2vw,26px);letter-spacing:-.04em;text-decoration:none;white-space:nowrap}
+.wordmark b{color:var(--orange);-webkit-text-stroke:0}
+.wordmark .dot{color:var(--orange)}
+.nav{display:flex;align-items:center;gap:clamp(14px,2vw,30px)}
+.nav a{font-weight:700;font-size:14px;text-decoration:none;padding:6px 0;border-bottom:3px solid transparent}
+.nav a:hover,.nav a[aria-current]{border-bottom-color:var(--orange)}
+.site-head .menu-btn{display:none}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:10px;font:inherit;font-weight:800;font-size:15px;text-decoration:none;padding:13px 20px;border:3px solid var(--ink);border-radius:6px;background:var(--white);color:var(--ink);box-shadow:5px 5px 0 var(--ink);cursor:pointer;transition:transform .12s,box-shadow .12s;line-height:1.2}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--ink)}
+.btn:active{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--ink)}
+.btn-o{background:var(--orange)}
+.btn-ink{background:var(--ink);color:var(--white)}
+.grid-dark .btn{box-shadow:5px 5px 0 var(--orange);border-color:var(--white)}
+.grid-dark .btn-o{border-color:var(--ink)}
+.btn svg{width:18px;height:18px;flex:none}
+.nav .btn{padding:9px 14px;font-size:13px;box-shadow:3px 3px 0 var(--ink);border-bottom:3px solid var(--ink)}
+
+/* section scaffolding */
+.sec{padding:clamp(64px,9vw,128px) var(--gut);position:relative}
+.sheet-tag{display:flex;align-items:center;gap:12px;margin-bottom:22px;flex-wrap:wrap}
+.sheet-tag .no{display:inline-grid;place-items:center;min-width:46px;height:46px;padding:0 8px;border:3px solid currentColor;font-weight:900;font-size:15px;letter-spacing:0;background:var(--white);color:var(--ink)}
+.grid-dark .sheet-tag .no{background:var(--orange);border-color:var(--orange)}
+.sheet-tag .mono{opacity:.85}
+.sheet-tag::after{content:"";flex:1;min-width:40px;height:0;border-top:2px dashed currentColor;opacity:.35}
+.sec-head{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:clamp(24px,4vw,72px);align-items:end;margin-bottom:clamp(36px,5vw,64px)}
+.sec-head p{margin:0;max-width:52ch;font-weight:500}
+
+/* callout bubble */
+.cb{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--orange);color:var(--ink);border:3px solid var(--ink);font-weight:900;font-size:13px;flex:none;letter-spacing:0}
+
+/* cards */
+.card{background:var(--white);border:3px solid var(--ink);box-shadow:8px 8px 0 var(--ink);position:relative}
+.grid-dark .card{color:var(--ink);box-shadow:8px 8px 0 var(--orange)}
+.chip{display:inline-flex;align-items:center;gap:8px;font-weight:800;font-size:12px;letter-spacing:.08em;text-transform:uppercase;border:2px solid var(--ink);padding:4px 10px;border-radius:6px;background:var(--white)}
+.chip i{width:12px;height:12px;display:inline-block;border:2px solid var(--ink)}
+
+/* proof strip */
+.proof{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);background:var(--white)}
+.proof .m{padding:28px clamp(16px,2.4vw,36px) 26px;border-right:3px solid var(--ink);position:relative}
+.proof .m:last-child{border-right:0}
+.proof .tag{font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--orange-ink);display:flex;justify-content:space-between}
+.proof .n{font-size:clamp(48px,6vw,92px);font-weight:900;letter-spacing:-.05em;line-height:.95;margin:10px 0 8px}
+.proof .n small{font-size:.45em;letter-spacing:-.02em}
+.proof .d{font-weight:600;font-size:15px;line-height:1.4;max-width:24ch}
+.proof .dim{position:absolute;left:clamp(16px,2.4vw,36px);right:clamp(16px,2.4vw,36px);bottom:10px;height:8px;border-left:2px solid var(--ink);border-right:2px solid var(--ink)}
+.proof .dim::before{content:"";position:absolute;left:0;right:0;top:3px;border-top:2px solid var(--ink)}
+
+/* footer */
+.site-foot{background:var(--black);color:var(--white);padding:56px var(--gut) 28px}
+.foot-grid{display:grid;grid-template-columns:1.4fr repeat(3,minmax(0,1fr));gap:40px;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,.2)}
+.site-foot .wordmark{font-size:32px}
+.site-foot h4{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--orange);margin-bottom:14px;font-weight:800}
+.site-foot ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.site-foot li a{text-decoration:none;font-weight:600}
+.site-foot li a:hover{color:var(--orange);text-decoration:underline}
+.tblock{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border:2px solid rgba(255,255,255,.5);margin-top:28px}
+.tblock div{padding:10px 14px;border-right:2px solid rgba(255,255,255,.5);font-size:13px;font-weight:600}
+.tblock div:last-child{border-right:0}
+.tblock b{display:block;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.7);font-weight:700}
+.motto{font-size:clamp(20px,2vw,26px);font-weight:800;letter-spacing:-.02em;max-width:22ch;margin:18px 0 0}
+
+/* reveal */
+.draw{stroke-dasharray:1200;stroke-dashoffset:0;animation:draw 1.4s ease .1s both}
+@keyframes draw{from{stroke-dashoffset:1200}to{stroke-dashoffset:0}}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .draw{animation:none;stroke-dasharray:none}
+  .btn{transition:none}
+}
+
+@media (max-width:1100px){
+  .nav a:not(.btn){display:none}
+  .site-head .menu-btn{display:inline-flex}
+  .nav.open{position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;background:var(--white);border-bottom:3px solid var(--ink);padding:12px var(--gut) 20px;gap:4px}
+  .nav.open a:not(.btn){display:block;padding:10px 0;border-bottom:1px solid var(--line-major)}
+  .nav.open .btn{justify-content:center;margin-top:10px}
+}
+@media (max-width:900px){
+  .sec-head{grid-template-columns:minmax(0,1fr)}
+  .proof{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .proof .m:nth-child(2){border-right:0}
+  .proof .m:nth-child(-n+2){border-bottom:3px solid var(--ink)}
+  .foot-grid{grid-template-columns:1fr 1fr}
+  .foot-grid > div:first-child{grid-column:1/-1}
+  .tblock{grid-template-columns:1fr 1fr}
+  .tblock div{border-bottom:2px solid rgba(255,255,255,.5)}
+}
+@media (max-width:560px){
+  body{font-size:16px}
+  .titlestrip span:nth-child(3){display:none}
+  .proof .m{padding:20px 14px 24px}
+  .proof .d{font-size:13px}
+  .nav > .btn-o{display:none}
+  .nav.open > .btn-o{display:flex}
+}
+
+
+/* HERO */
+.rhero{padding:clamp(40px,6vw,88px) var(--gut) clamp(56px,7vw,96px);display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:clamp(32px,5vw,80px);align-items:center}
+.crumb{font-weight:700;font-size:14px;margin-bottom:22px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.crumb a{text-decoration:underline;text-underline-offset:3px}
+.rhero h1{font-size:clamp(44px,6vw,96px);letter-spacing:-.055em;line-height:.92}
+.rhero h1 .hl{font-size:.9em}
+.rhero .lede{margin:32px 0 0}
+.ctas{display:flex;flex-wrap:wrap;gap:16px;margin-top:32px}
+.seeking{margin-top:40px;border:3px solid var(--ink);background:var(--white);box-shadow:8px 8px 0 var(--ink);max-width:640px}
+.seeking .hd{background:var(--ink);color:var(--white);padding:8px 16px;display:flex;justify-content:space-between;gap:10px}
+.seeking .hd .mono{font-size:11px}
+.seeking ol{list-style:none;margin:0;padding:0}
+.seeking li{display:grid;grid-template-columns:40px 1fr;gap:12px;padding:12px 16px;border-top:2px solid var(--ink);align-items:center;font-weight:600;font-size:15px;line-height:1.4}
+.seeking li:first-child{border-top:0}
+.seeking li b{font-weight:800}
+.rfig{position:relative;margin:0;justify-self:center;width:100%;max-width:520px}
+.rfig .box{position:relative;border:3px solid var(--ink);aspect-ratio:3/4;overflow:visible}
+.rfig img{width:100%;height:100%;object-fit:cover;object-position:50% 0;mix-blend-mode:multiply}
+.co{position:absolute;display:flex;align-items:center;z-index:2}
+.co .lab{display:flex;align-items:center;gap:8px;background:var(--white);border:3px solid var(--ink);padding:5px 12px 5px 5px;font-weight:800;font-size:13px;box-shadow:4px 4px 0 var(--ink);white-space:nowrap}
+.co .lab .cb{width:28px;height:28px;font-size:12px;border-width:2px}
+.co .lead{width:var(--w,50px);border-top:2px solid var(--ink)}
+.co .pt{width:12px;height:12px;border-radius:50%;background:var(--orange);border:2px solid var(--ink);margin-left:-2px}
+.co.r{flex-direction:row-reverse}.co.r .pt{margin-left:0;margin-right:-2px}
+.co1{top:10%;left:-7%;--w:70px}.co2{top:30%;right:-6%;--w:46px}.co3{top:58%;left:-7%;--w:56px}
+.hdim{position:absolute;left:0;right:0;bottom:-34px;height:14px;border-left:2px solid var(--ink);border-right:2px solid var(--ink)}
+.hdim::before{content:"";position:absolute;left:0;right:0;top:6px;border-top:2px solid var(--ink)}
+.hdim span{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:var(--paper);padding:0 10px;font-weight:800;font-size:11px;letter-spacing:.16em;text-transform:uppercase;white-space:nowrap}
+
+/* SCHEDULE */
+.sched{width:100%;border-collapse:collapse;background:var(--white);border:3px solid var(--ink);box-shadow:10px 10px 0 var(--ink)}
+.sched caption{text-align:left;font-weight:800;font-size:12px;letter-spacing:.16em;text-transform:uppercase;padding:0 0 12px;color:var(--orange-ink)}
+.sched th,.sched td{text-align:left;padding:18px 20px;border-bottom:2px solid var(--ink);vertical-align:top;font-size:15.5px}
+.sched thead th{background:var(--ink);color:var(--white);font-size:11px;letter-spacing:.16em;text-transform:uppercase;padding:12px 20px}
+.sched .id{font-weight:900;width:84px;white-space:nowrap}
+.sched tbody th{font-weight:800;font-size:18px;letter-spacing:-.01em;width:26%}
+.sched .q{font-weight:900;font-size:clamp(22px,2vw,30px);letter-spacing:-.03em;line-height:1.1;width:22%}
+.sched .st{width:150px}
+.badge{display:inline-flex;align-items:center;gap:6px;font-weight:800;font-size:12px;letter-spacing:.08em;text-transform:uppercase;border:2px solid var(--ink);padding:3px 9px;border-radius:6px;background:var(--orange)}
+.badge.alt{background:var(--white)}
+.sched tbody tr:last-child th,.sched tbody tr:last-child td{border-bottom:0}
+.sched tbody tr:hover{background:var(--paper)}
+
+/* AUTHORSHIP */
+.atitle{font-size:clamp(44px,7.4vw,124px);letter-spacing:-.055em;line-height:.92;margin-bottom:clamp(36px,5vw,64px)}
+.atitle span{display:block}
+.trio{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border:3px solid var(--white)}
+.trio > div{padding:clamp(22px,3vw,40px);border-right:3px solid var(--white)}
+.trio > div:last-child{border-right:0}
+.trio .cb{margin-bottom:18px}
+.trio h3{font-size:clamp(26px,2.4vw,36px);margin-bottom:10px}
+.trio p{margin:0;opacity:.9;font-size:16px}
+.studio-bar{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:28px;padding:20px 24px;background:var(--orange);color:var(--ink);border:3px solid var(--white)}
+.studio-bar strong{font-size:clamp(20px,2vw,28px);font-weight:900;letter-spacing:-.03em}
+.studio-bar span{font-weight:600}
+
+/* ROLES */
+.roles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(24px,3vw,44px)}
+.role{display:flex;flex-direction:column}
+.role .top{display:flex;justify-content:space-between;align-items:center;padding:12px 20px;border-bottom:3px solid var(--ink);background:var(--paper)}
+.role .top .mono{font-size:11px}
+.role .body{padding:24px;flex:1;display:flex;flex-direction:column}
+.role h3{font-size:clamp(26px,2.4vw,34px);letter-spacing:-.04em;margin-bottom:12px}
+.role p{font-size:15.5px;font-weight:500}
+.role ul{list-style:none;margin:6px 0 0;padding:16px 0 0;border-top:2px dashed var(--ink);display:grid;gap:10px}
+.role li{display:grid;grid-template-columns:20px 1fr;gap:10px;font-weight:600;font-size:14.5px;line-height:1.4}
+.role li svg{width:20px;height:20px;margin-top:1px}
+.role.lead{background:var(--orange)}
+.role.lead .top{background:var(--orange)}
+.career{margin-top:clamp(48px,6vw,80px);display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(20px,3vw,40px);align-items:center}
+.career .hub{width:clamp(130px,14vw,180px);aspect-ratio:1;border-radius:50%;background:var(--ink);color:var(--white);display:grid;place-items:center;text-align:center;font-weight:900;font-size:clamp(16px,1.5vw,20px);line-height:1.1;border:3px solid var(--ink);box-shadow:6px 6px 0 var(--orange);padding:14px}
+.career ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;border:3px solid var(--ink);background:var(--white);position:relative}
+.career li{padding:16px 14px;border-right:3px solid var(--ink);font-weight:800;font-size:15px;line-height:1.25}
+.career li:last-child{border-right:0}
+.career li small{display:block;font-weight:600;font-size:12.5px;margin-top:4px;color:#3a3a3a}
+
+/* WHY NOW */
+.why{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,5vw,80px);align-items:center}
+.why img{width:100%;aspect-ratio:16/10;object-fit:cover;border:3px solid var(--ink);box-shadow:10px 10px 0 var(--ink)}
+.why blockquote{margin:28px 0 0;padding:22px 0 0;border-top:3px solid var(--ink)}
+.why blockquote p{font-size:clamp(22px,2.2vw,32px);font-weight:900;letter-spacing:-.03em;line-height:1.15;margin:0 0 10px}
+.why cite{font-style:normal;font-weight:700;font-size:13px;letter-spacing:.14em;text-transform:uppercase}
+
+/* FORM */
+.talk{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:clamp(32px,5vw,80px);align-items:start;scroll-margin-top:90px}
+.talk .side p{max-width:44ch}
+.talk .side ul{list-style:none;padding:0;margin:28px 0 0;display:grid;gap:14px}
+.talk .side li{display:grid;grid-template-columns:46px 1fr;gap:14px;align-items:center;font-weight:700}
+.fcard{padding:0}
+.fcard .fhead{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 22px;border-bottom:3px solid var(--ink);background:var(--ink);color:var(--white)}
+.fcard .fhead .mono{font-size:11px}
+.fcard .fhead .count{font-weight:900;font-size:15px;color:var(--orange)}
+.prog{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:3px solid var(--ink)}
+.prog span{height:12px;background:var(--white);border-right:3px solid var(--ink);transition:background .25s}
+.prog span:last-child{border-right:0}
+.prog span.on{background:var(--orange)}
+.fbody{padding:clamp(22px,3vw,36px)}
+.step{border:0;margin:0;padding:0;min-width:0}
+.step legend{padding:0;margin-bottom:6px;font-size:clamp(24px,2.4vw,34px);font-weight:900;letter-spacing:-.035em;line-height:1.1}
+.step .hint{font-weight:500;font-size:15px;margin:0 0 20px}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tile{position:relative;display:block}
+.tile input{position:absolute;opacity:0;width:1px;height:1px}
+.tile span{display:flex;align-items:center;gap:12px;border:3px solid var(--ink);border-radius:6px;padding:14px 14px;font-weight:700;font-size:15px;background:var(--white);cursor:pointer;height:100%;line-height:1.3}
+.tile span::before{content:"";flex:none;width:18px;height:18px;border:3px solid var(--ink);background:var(--white)}
+.tile input[type=radio] + span::before{border-radius:50%}
+.tile input:checked + span{background:var(--orange);box-shadow:4px 4px 0 var(--ink)}
+.tile input:checked + span::before{background:var(--ink);box-shadow:inset 0 0 0 3px var(--orange)}
+.tile input:focus-visible + span{outline:3px solid var(--orange);outline-offset:3px;box-shadow:0 0 0 6px var(--ink)}
+.fld{display:grid;gap:6px;margin-bottom:16px}
+.fld label{font-weight:800;font-size:14px}
+.fld label small{font-weight:600;opacity:.75}
+.fld input,.fld textarea{font:inherit;font-size:16px;padding:12px 14px;border:3px solid var(--ink);border-radius:6px;background:var(--white);color:var(--ink);width:100%}
+.fld textarea{min-height:110px;resize:vertical}
+.err{color:var(--ink);background:#fff3e0;border-left:6px solid var(--orange-ink);padding:8px 12px;font-weight:700;font-size:14px;margin:0 0 16px}
+.fnav{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:26px;padding-top:20px;border-top:2px dashed var(--ink)}
+.fnav .btn[disabled]{opacity:.35;cursor:not-allowed;transform:none;box-shadow:none}
+.thanks{padding:clamp(28px,4vw,48px)}
+.thanks h3{font-size:clamp(32px,3.4vw,48px);margin:16px 0 12px}
+.thanks dl{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;margin:20px 0 26px;padding:16px;border:2px solid var(--ink);background:var(--paper);font-size:15px}
+.thanks dt{font-weight:800}
+.thanks dd{margin:0}
+
+/* RECORD STRIP */
+.strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border:3px solid var(--ink);background:var(--white)}
+.strip > div{padding:24px;border-right:3px solid var(--ink)}
+.strip > div:last-child{border-right:0}
+.strip .y{font-weight:900;font-size:clamp(28px,3vw,42px);letter-spacing:-.04em;line-height:1}
+.strip h3{font-size:18px;margin:10px 0 6px}
+.strip p{margin:0;font-size:14.5px;font-weight:500}
+.orgline{margin-top:28px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.orgline span.o{border:2px solid var(--ink);padding:6px 12px;font-weight:900;background:var(--white)}
+
+@media (max-width:1100px){
+  .roles{grid-template-columns:1fr 1fr}
+  .roles .role:last-child{grid-column:1/-1}
+  .career ul{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .career li:nth-child(3){border-right:0}
+  .career li:nth-child(-n+3){border-bottom:3px solid var(--ink)}
+}
+@media (max-width:900px){
+  .rhero,.why,.talk{grid-template-columns:minmax(0,1fr)}
+  .rfig{max-width:420px;margin:12px auto 30px}
+  .trio{grid-template-columns:minmax(0,1fr)}
+  .trio > div{border-right:0;border-bottom:3px solid var(--white)}
+  .trio > div:last-child{border-bottom:0}
+  .roles{grid-template-columns:minmax(0,1fr)}
+  .career{grid-template-columns:minmax(0,1fr)}
+  .strip{grid-template-columns:1fr 1fr}
+  .strip > div:nth-child(2){border-right:0}
+  .strip > div:nth-child(-n+2){border-bottom:3px solid var(--ink)}
+  /* schedule stacks */
+  .sched,.sched tbody,.sched tr,.sched th,.sched td{display:block;width:auto !important}
+  .sched thead{position:absolute;left:-9999px}
+  .sched tr{border-bottom:3px solid var(--ink);padding:16px 18px;display:grid;grid-template-columns:auto 1fr;gap:4px 14px}
+  .sched tbody tr:last-child{border-bottom:0}
+  .sched th,.sched td{border:0;padding:0}
+  .sched .id{grid-row:span 4}
+  .sched td[data-l]::before{content:attr(data-l);display:block;font-size:10px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--orange-ink);margin-top:8px}
+}
+@media (max-width:560px){
+  .rhero h1{font-size:clamp(38px,11.4vw,56px)}
+  .ctas .btn{width:100%;justify-content:center}
+  .co .lab{font-size:11px;padding:3px 8px 3px 3px;box-shadow:3px 3px 0 var(--ink)}
+  .co .lab .cb{width:22px;height:22px;font-size:10px}
+  .co1{left:-3%;--w:28px}.co2{right:-3%;--w:20px}.co3{left:-3%;--w:26px}
+  .tiles{grid-template-columns:minmax(0,1fr)}
+  .career ul{grid-template-columns:1fr 1fr}
+  .career li{border-right:3px solid var(--ink) !important;border-bottom:3px solid var(--ink)}
+  .career li:nth-child(2n){border-right:0 !important}
+  .career li:last-child{grid-column:1/-1;border-bottom:0;border-right:0 !important}
+  .strip{grid-template-columns:minmax(0,1fr)}
+  .strip > div{border-right:0;border-bottom:3px solid var(--ink)}
+  .strip > div:last-child{border-bottom:0}
+  .fnav .btn{padding:12px 16px}
+  .seeking li{font-size:14px;padding:12px}
+}
+</style>
+</head>
+<body class="no-js">
+<script>document.body.classList.remove('no-js')</script>
+<a class="skip" href="#main">Skip to content</a>
+<div class="titlestrip" aria-hidden="true"><span>seanarussell.com / Drawing set 2026</span><span>From blur to blueprint</span><span>Sheet R-101 / Rev. 2026.11</span></div>
+<header class="site-head">
+  <div class="in">
+    <a class="wordmark" href="index.html">Sean A. Russell<span class="dot">.</span></a>
+    <nav class="nav" id="nav" aria-label="Primary">
+      <a href="index.html#map">The universe</a>
+      <a href="index.html#brands">Brands</a>
+      <a href="index.html#record">Track record</a>
+      <a href="representation.html" aria-current="page">Representation</a>
+      <a href="index.html#investors">Investors</a>
+      <a class="btn btn-o" href="index.html#showcase"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><rect x="4" y="10" width="16" height="11"/><path d="M8 10V7a4 4 0 0 1 8 0"/></svg>Unlock the showcase</a>
+    </nav>
+    <button class="btn menu-btn" type="button" aria-expanded="false" aria-controls="nav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>Menu</button>
+  </div>
+</header>
+
+<main id="main">
+
+<section class="rhero grid" aria-labelledby="h-r">
+  <div>
+    <p class="crumb"><a href="index.html">Front door</a><span aria-hidden="true">/</span><span>Representation brief</span></p>
+    <div class="sheet-tag"><span class="no">R1</span><span class="mono">For entertainment attorneys and talent managers</span></div>
+    <h1 id="h-r">The plans are drawn. I need <span class="hl">the right people.</span></h1>
+    <p class="lede">I'm Sean A. Russell. One person, a universe of brands, built with AI. I have the catalog, the audience history and the system. What I don't have yet is the team that opens doors. This page is the short brief.</p>
+    <div class="ctas">
+      <a class="btn btn-o" href="#talk">Start a conversation <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg></a>
+      <a class="btn" href="#have">What I have</a>
+    </div>
+    <div class="seeking">
+      <div class="hd"><span class="mono">Seeking</span><span class="mono" style="color:var(--orange)">3 openings</span></div>
+      <ol>
+        <li><span class="cb">01</span><span><b>Entertainment attorney</b> who understands AI and is open to a percentage arrangement.</span></li>
+        <li><span class="cb">02</span><span><b>Talent manager</b> to steer one career across many projects.</span></li>
+        <li><span class="cb">03</span><span><b>Introductions</b> instead of cold outreach.</span></li>
+      </ol>
+    </div>
+  </div>
+  <figure class="rfig">
+    <div class="box">
+      <img src="../assets/sean-pose-speaker.webp" alt="Illustration of Sean standing and holding a microphone." width="1500" height="2000">
+      <span class="co co1" aria-hidden="true"><span class="lab"><span class="cb">A</span>Writer</span><span class="lead"></span><span class="pt"></span></span>
+      <span class="co co2 r" aria-hidden="true"><span class="lab"><span class="cb">B</span>Producer</span><span class="lead"></span><span class="pt"></span></span>
+      <span class="co co3" aria-hidden="true"><span class="lab"><span class="cb">C</span>Builder</span><span class="lead"></span><span class="pt"></span></span>
+      <span class="hdim" aria-hidden="true"><span>One career / many projects</span></span>
+    </div>
+  </figure>
+</section>
+
+<section class="proof" aria-label="Live proof">
+  <div class="m rv"><div class="tag"><span>M-01</span><span>Live</span></div><div class="n">121</div><div class="d">GeekFon Society songs live</div><span class="dim" aria-hidden="true"></span></div>
+  <div class="m rv"><div class="tag"><span>M-02</span><span>This week</span></div><div class="n">3</div><div class="d">sites launched in one day</div><span class="dim" aria-hidden="true"></span></div>
+  <div class="m rv"><div class="tag"><span>M-03</span><span>Audience</span></div><div class="n">1M<small>+</small></div><div class="d">Anime 3000 podcast downloads</div><span class="dim" aria-hidden="true"></span></div>
+  <div class="m rv"><div class="tag"><span>M-04</span><span>Since 1996</span></div><div class="n">30</div><div class="d">years building</div><span class="dim" aria-hidden="true"></span></div>
+</section>
+
+<section class="sec white" id="have" aria-labelledby="h-have">
+  <div class="sheet-tag"><span class="no">R2</span><span class="mono">Schedule A / What I have</span></div>
+  <div class="sec-head">
+    <h2 id="h-have">What you would<br><span class="o-ink">be representing.</span></h2>
+    <p>Read it like a door schedule on a set of plans: every item numbered, measured and accounted for. No projections, only what exists today.</p>
+  </div>
+  <table class="sched rv">
+    <caption>Schedule A: assets on hand, November 2026</caption>
+    <thead><tr><th scope="col">No.</th><th scope="col">Item</th><th scope="col">Measure</th><th scope="col">Detail</th><th scope="col">Status</th></tr></thead>
+    <tbody>
+      <tr><td class="id">A-01</td><th scope="row">GeekFon Society catalog</th><td class="q" data-l="Measure">121 songs</td><td data-l="Detail">Originals and remixes across a roster of animated artists and many genres. Began March 2026.</td><td class="st" data-l="Status"><span class="badge">Live</span></td></tr>
+      <tr><td class="id">A-02</td><th scope="row">Authorship</th><td class="q" data-l="Measure">Words, beat, production</td><td data-l="Detail">Sean writes the lyrics, beatboxes the beat and produces. AI tools are the studio, not the author.</td><td class="st" data-l="Status"><span class="badge">By Sean</span></td></tr>
+      <tr><td class="id">A-03</td><th scope="row">Direct-to-fan business</th><td class="q" data-l="Measure">$11 albums</td><td data-l="Detail">Membership, albums, radio and a daily group-chat story inside GeekFon Society.</td><td class="st" data-l="Status"><span class="badge">Live</span></td></tr>
+      <tr><td class="id">A-04</td><th scope="row">The LESARUSS operating system</th><td class="q" data-l="Measure">3 sites in one day</td><td data-l="Detail">HQ, brand sites, outreach engine, membership and payments. Built by Sean with AI.</td><td class="st" data-l="Status"><span class="badge">Live</span></td></tr>
+      <tr><td class="id">A-05</td><th scope="row">Audience history</th><td class="q" data-l="Measure">1M+ downloads</td><td data-l="Detail">Anime 3000 podcasts. Top Spot USA: 181 videos, 116 artists, 710,245 views.</td><td class="st" data-l="Status"><span class="badge alt">Proven</span></td></tr>
+      <tr><td class="id">A-06</td><th scope="row">More brands</th><td class="q" data-l="Measure">2 more</td><td data-l="Detail">Vegans Explore, aiming for 1000 communities by 2030. The book From Blur to Blueprint.</td><td class="st" data-l="Status"><span class="badge alt">Building</span></td></tr>
+      <tr><td class="id">A-07</td><th scope="row">Track record</th><td class="q" data-l="Measure">30 years</td><td data-l="Detail">Worked with or alongside MTV, ABC, NBC, Nintendo, Crunchyroll, Miami HEAT, Miami Dolphins and Miami Marlins.</td><td class="st" data-l="Status"><span class="badge alt">Since 1996</span></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="sec grid-dark" id="authorship" aria-labelledby="h-auth">
+  <div class="sheet-tag"><span class="no">R3</span><span class="mono">For counsel / Authorship statement</span></div>
+  <h2 id="h-auth" class="atitle"><span>I wrote it.</span><span>I produced it.</span><span class="o-txt">I built it.</span></h2>
+  <div class="trio">
+    <div class="rv"><span class="cb">01</span><h3>The words</h3><p>Every lyric is written by Sean.</p></div>
+    <div class="rv"><span class="cb">02</span><h3>The beat</h3><p>Beatboxed by Sean, then produced by Sean.</p></div>
+    <div class="rv"><span class="cb">03</span><h3>The build</h3><p>The sites, the system and the business, built by Sean.</p></div>
+  </div>
+  <div class="studio-bar rv"><strong>AI tools are the studio, not the author.</strong><span>Same as a mixing desk or a camera: instruments in the hands of the person who made the work.</span></div>
+</section>
+
+<section class="sec grid" id="want" aria-labelledby="h-want">
+  <div class="sheet-tag"><span class="no">R4</span><span class="mono">Openings / What I want</span></div>
+  <div class="sec-head">
+    <h2 id="h-want">Three openings<br>in the plan.</h2>
+    <p>I build fast and I build a lot. What I want now are partners who know which doors to open and when.</p>
+  </div>
+  <div class="roles">
+    <article class="card role lead rv">
+      <div class="top"><span class="mono">Opening 01</span><span class="cb">01</span></div>
+      <div class="body">
+        <h3>Entertainment attorney</h3>
+        <p>Someone who works on a percentage of deals and opens doors, not only reviews paper.</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" stroke-width="3" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg>Understands AI and how it is used in the studio</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" stroke-width="3" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg>Open to a percentage arrangement</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" stroke-width="3" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg>Connected in music and entertainment</li>
+        </ul>
+      </div>
+    </article>
+    <article class="card role rv">
+      <div class="top"><span class="mono">Opening 02</span><span class="cb">02</span></div>
+      <div class="body">
+        <h3>Talent manager</h3>
+        <p>One career, many projects. Someone to steer the whole thing, not one brand at a time.</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" stroke-width="3" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg>Sees music, community, tech and book as one career</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" stroke-width="3" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg>Sets priorities and sequence</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" stroke-width="3" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg>Comfortable with a builder who ships fast</li>
+        </ul>
+      </div>
+    </article>
+    <article class="card role rv">
+      <div class="top"><span class="mono">Opening 03</span><span class="cb">03</span></div>
+      <div class="body">
+        <h3>Introductions</h3>
+        <p>A warm word goes further than a cold email. If you know someone who should see this, that is the ask.</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" stroke-width="3" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg>Introductions instead of cold outreach</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" stroke-width="3" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg>To attorneys, managers and investors</li>
+        </ul>
+      </div>
+    </article>
+  </div>
+  <div class="career rv">
+    <div class="hub">One career</div>
+    <ul aria-label="Projects in one career">
+      <li>Music<small>GeekFon Society</small></li>
+      <li>Community<small>Vegans Explore</small></li>
+      <li>Technology<small>LESARUSS</small></li>
+      <li>Publishing<small>From Blur to Blueprint</small></li>
+      <li>Education<small>Since 2003</small></li>
+    </ul>
+  </div>
+</section>
+
+<section class="sec white" aria-labelledby="h-why">
+  <div class="sheet-tag"><span class="no">R5</span><span class="mono">Revision note / Why now</span></div>
+  <div class="why">
+    <div>
+      <h2 id="h-why">Capability first.<br><span class="o-ink">Business next.</span></h2>
+      <p class="lede" style="margin-top:28px">For thirty years I built the capability first and the business lagged behind it. LESARUSS is the first time I am building the business with the community. That is exactly where representation makes the difference.</p>
+      <blockquote>
+        <p>"I've always been a Community Builder, even before having the language for what I was doing."</p>
+        <cite>Sean A. Russell</cite>
+      </blockquote>
+    </div>
+    <img class="rv" src="../assets/blur-to-blueprint.webp" alt="Illustration of a student walking from an old school building into a bright tech space." width="1920" height="1079">
+  </div>
+</section>
+
+<section class="sec grid" id="talk" aria-labelledby="h-talk">
+  <div class="sheet-tag"><span class="no">R6</span><span class="mono">Start a conversation</span></div>
+  <div class="talk">
+    <div class="side">
+      <h2 id="h-talk">Start a<br><span class="hl">conversation.</span></h2>
+      <p class="lede" style="margin-top:30px">Three short steps. Tell me who you are, where you work and what caught your eye.</p>
+      <ul>
+        <li><span class="cb">1</span>Your role</li>
+        <li><span class="cb">2</span>You and your firm</li>
+        <li><span class="cb">3</span>What interests you</li>
+      </ul>
+    </div>
+    <div class="card fcard">
+      <div class="fhead"><span class="mono">Form R-6 / Introduction</span><span class="count" id="count" aria-live="polite">Step 1 of 3</span></div>
+      <div class="prog" aria-hidden="true"><span class="on"></span><span></span><span></span></div>
+      <form id="talk-form" class="fbody" novalidate>
+        <div id="f-err" class="err" role="alert" hidden></div>
+        <fieldset class="step" data-step="1">
+          <legend>Which best describes you?</legend>
+          <p class="hint">Pick one.</p>
+          <div class="tiles">
+            <label class="tile"><input type="radio" name="role" value="Entertainment attorney"><span>Entertainment attorney</span></label>
+            <label class="tile"><input type="radio" name="role" value="Talent manager"><span>Talent manager</span></label>
+            <label class="tile"><input type="radio" name="role" value="Investor"><span>Investor</span></label>
+            <label class="tile"><input type="radio" name="role" value="Making an introduction"><span>Making an introduction</span></label>
+          </div>
+        </fieldset>
+        <fieldset class="step" data-step="2" hidden>
+          <legend>You and your firm</legend>
+          <p class="hint">So I know who I'm talking to.</p>
+          <div class="fld"><label for="f-name">Your name</label><input id="f-name" name="name" autocomplete="name"></div>
+          <div class="fld"><label for="f-firm">Firm or company</label><input id="f-firm" name="firm" autocomplete="organization"></div>
+          <div class="fld"><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email"></div>
+        </fieldset>
+        <fieldset class="step" data-step="3" hidden>
+          <legend>What interests you?</legend>
+          <p class="hint">Pick any that apply.</p>
+          <div class="tiles">
+            <label class="tile"><input type="checkbox" name="int" value="GeekFon Society catalog"><span>GeekFon Society catalog</span></label>
+            <label class="tile"><input type="checkbox" name="int" value="The whole career"><span>The whole career</span></label>
+            <label class="tile"><input type="checkbox" name="int" value="The LESARUSS tech"><span>The LESARUSS tech</span></label>
+            <label class="tile"><input type="checkbox" name="int" value="Vegans Explore"><span>Vegans Explore</span></label>
+            <label class="tile"><input type="checkbox" name="int" value="The book"><span>The book</span></label>
+            <label class="tile"><input type="checkbox" name="int" value="Speaking"><span>Speaking</span></label>
+          </div>
+          <div class="fld" style="margin-top:18px"><label for="f-note">Anything else? <small>(optional)</small></label><textarea id="f-note" name="note"></textarea></div>
+        </fieldset>
+        <div class="fnav">
+          <button type="button" class="btn" id="back" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Back</button>
+          <button type="button" class="btn btn-ink" id="next">Next<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+          <button type="submit" class="btn btn-o" id="send" hidden>Send<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg></button>
+        </div>
+      </form>
+      <div class="thanks" id="thanks" hidden tabindex="-1">
+        <span class="cb">OK</span>
+        <h3>Thank you. It's on my desk.</h3>
+        <p>Thank you. Your note is in.</p>
+        <dl id="sum"></dl>
+        <a class="btn" href="index.html">Back to the front door</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec white" aria-labelledby="h-rec">
+  <div class="sheet-tag"><span class="no">R7</span><span class="mono">Construction log / Highlights</span></div>
+  <div class="sec-head">
+    <h2 id="h-rec">Built before.<br>Built again.</h2>
+    <p><a href="index.html#record">See the full construction log on the front door.</a></p>
+  </div>
+  <div class="strip">
+    <div class="rv"><div class="y">1996</div><h3>First paid websites</h3><p>At 14, for nonprofits, family and local businesses.</p></div>
+    <div class="rv"><div class="y">2003</div><h3>Anime 3000</h3><p>Thirty writers, over one million podcast downloads, sponsors including Sony and Nintendo.</p></div>
+    <div class="rv"><div class="y">2007</div><h3>Top Spot USA</h3><p>181 videos, 116 artists, 710,245 views. First outlet to interview Hey Monday.</p></div>
+    <div class="rv"><div class="y">2026</div><h3>GeekFon Society</h3><p>121 songs live since March, on a system Sean built himself.</p></div>
+  </div>
+  <div class="orgline rv"><span class="mono o-ink">Worked with or alongside</span><span class="o">MTV</span><span class="o">ABC</span><span class="o">NBC</span><span class="o">Nintendo</span><span class="o">Crunchyroll</span><span class="o">Miami HEAT</span><span class="o">Miami Dolphins</span><span class="o">Miami Marlins</span></div>
+</section>
+
+</main>
+<footer class="site-foot">
+  <div class="foot-grid">
+    <div>
+      <a class="wordmark" href="index.html">Sean A. Russell<span class="dot">.</span></a>
+      <p class="motto">The vision was never too big. The box was.</p>
+    </div>
+    <div>
+      <h4>Work with Sean</h4>
+      <ul><li><a href="representation.html">Representation</a></li><li><a href="index.html#investors">Investors</a></li><li><a href="index.html#showcase">Unlock the showcase</a></li></ul>
+    </div>
+    <div>
+      <h4>Library</h4>
+      <ul><li><a href="#">Media kits</a></li><li><a href="#">Press</a></li><li><a href="#">Case studies</a></li><li><a href="#">Book</a></li></ul>
+    </div>
+    <div>
+      <h4>The universe</h4>
+      <ul><li><a href="#">GeekFon Society</a></li><li><a href="#">Vegans Explore</a></li><li><a href="#">LESARUSS</a></li><li><a href="#">From Blur to Blueprint</a></li></ul>
+    </div>
+  </div>
+  <div class="tblock" role="presentation">
+    <div><b>Project</b>A universe of brands</div>
+    <div><b>Architect</b>Sean A. Russell</div>
+    <div><b>Practice</b>LESARUSS, est. 2000</div>
+    <div><b>Sheet</b>Sheet R-101</div>
+    <div><b>Status</b>Under construction, live</div>
+  </div>
+  <p class="mono" style="margin:22px 0 0;opacity:.7">&copy; 2026 Sean A. Russell. All plans subject to revision.</p>
+</footer>
+
+<script>
+(function(){
+  var b=document.querySelector('.menu-btn'),n=document.getElementById('nav');
+  if(b&&n){b.addEventListener('click',function(){var o=n.classList.toggle('open');b.setAttribute('aria-expanded',o)});
+    n.addEventListener('click',function(e){if(e.target.closest('a')){n.classList.remove('open');b.setAttribute('aria-expanded','false')}});}
+})();
+
+(function(){
+  var f=document.getElementById('talk-form'),steps=[].slice.call(f.querySelectorAll('.step')),cur=0,
+      back=document.getElementById('back'),next=document.getElementById('next'),send=document.getElementById('send'),
+      count=document.getElementById('count'),bars=[].slice.call(document.querySelectorAll('.prog span')),err=document.getElementById('f-err');
+  function show(i){steps.forEach(function(s,k){s.hidden=k!==i});cur=i;
+    count.textContent='Step '+(i+1)+' of '+steps.length;
+    bars.forEach(function(b,k){b.classList.toggle('on',k<=i)});
+    back.disabled=i===0;next.hidden=i===steps.length-1;send.hidden=i!==steps.length-1;err.hidden=true;
+    var first=steps[i].querySelector('input,textarea');if(first&&show.ready)first.focus();show.ready=true;}
+  function check(i){
+    if(i===0&&!f.querySelector('input[name=role]:checked'))return['Pick the role that fits you best.',f.querySelector('input[name=role]')];
+    if(i===1){if(!f.elements['name'].value.trim())return['Add your name.',f.elements['name']];
+      if(!/^\S+@\S+\.\S+$/.test(f.elements['email'].value.trim()))return['Add a valid email address.',f.elements['email']];}
+    if(i===2&&!f.querySelector('input[name=int]:checked'))return['Pick at least one thing that interests you.',f.querySelector('input[name=int]')];
+    return null;}
+  function fail(r){err.textContent=r[0];err.hidden=false;r[1].focus();}
+  next.addEventListener('click',function(){var r=check(cur);if(r)return fail(r);show(cur+1)});
+  back.addEventListener('click',function(){show(cur-1)});
+  f.addEventListener('keydown',function(e){if(e.key==='Enter'&&e.target.tagName==='INPUT'&&cur<steps.length-1){e.preventDefault();next.click()}});
+  f.addEventListener('submit',function(e){e.preventDefault();var r=check(cur);if(r)return fail(r);
+    var ints=[].map.call(f.querySelectorAll('input[name=int]:checked'),function(x){return x.value});
+    var rows=[['Role',f.querySelector('input[name=role]:checked').value],['Name',f.elements['name'].value.trim()],['Firm',f.elements['firm'].value.trim()||'Not given'],['Interested in',ints.join(', ')]];
+    var dl=document.getElementById('sum');dl.innerHTML='';
+    rows.forEach(function(p){var dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=p[0];dd.textContent=p[1];dl.appendChild(dt);dl.appendChild(dd)});
+    f.hidden=true;document.querySelector('.prog').hidden=true;count.textContent='Received';
+    var t=document.getElementById('thanks');t.hidden=false;t.focus();});
+  show(0);
+})();
+</script>
+</body>
+</html>

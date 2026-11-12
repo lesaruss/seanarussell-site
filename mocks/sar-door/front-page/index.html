@@ -1,0 +1,751 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sean A. Russell | The Founder Issue</title>
+<meta name="description" content="Sean A. Russell: one person, a universe of brands, built with AI. GeekFon Society, Vegans Explore, LESARUSS and the book From Blur to Blueprint.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,500;1,700;1,900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1a1a1a; --black:#0d0d0d; --white:#ffffff; --gray:#f5f5f5;
+  --orange:#F69820; --orange-ink:#7d4a00;
+  --purple:#7A2BF5; --green:#0B6B33;
+  --pad:clamp(16px,4vw,64px);
+  --shadow:6px 6px 0 var(--ink);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+[id]{scroll-margin-top:84px}
+body{margin:0;background:var(--white);color:var(--ink);font-family:"Montserrat",system-ui,sans-serif;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+h1,h2,h3,h4{margin:0;line-height:1.02;letter-spacing:-.03em}
+p{margin:0 0 1em}
+:focus-visible{outline:3px solid var(--orange);outline-offset:3px;box-shadow:0 0 0 6px var(--ink)}
+.skip{position:absolute;left:-9999px;top:8px;background:var(--orange);color:var(--ink);padding:10px 16px;font-weight:800;border-radius:6px;z-index:99}
+.skip:focus{left:16px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* utility type */
+.kicker{font-size:12px;font-weight:800;letter-spacing:.22em;text-transform:uppercase}
+.kicker.o{color:var(--orange-ink)}
+.hl{display:inline-block;background:var(--orange);color:var(--ink);padding:.02em .22em .08em;transform:rotate(-2deg);box-shadow:4px 4px 0 var(--ink);max-width:100%}
+.dot{color:var(--orange)}
+.btn{display:inline-flex;align-items:center;gap:10px;font:800 15px/1 "Montserrat",sans-serif;letter-spacing:.02em;text-decoration:none;padding:16px 22px;border:3px solid var(--ink);border-radius:6px;background:var(--orange);color:var(--ink);box-shadow:4px 4px 0 var(--ink);cursor:pointer;transition:transform .12s,box-shadow .12s}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+.btn.ghost{background:var(--white)}
+.btn.dark{background:var(--ink);color:var(--white)}
+.btn svg{width:18px;height:18px;flex:none}
+
+/* ---------- top bar + nav ---------- */
+.dateline{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:10px var(--pad);background:var(--ink);color:var(--white);font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase}
+.dateline span:nth-child(2){color:var(--orange)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:14px var(--pad);border-bottom:1px solid var(--ink);position:sticky;top:0;background:var(--white);z-index:20}
+.nav .mini{font-weight:900;font-size:20px;letter-spacing:-.04em;text-decoration:none}
+.nav ul{display:flex;gap:clamp(14px,2vw,30px);list-style:none;margin:0;padding:0}
+.nav ul a{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;padding:6px 0;border-bottom:3px solid transparent}
+.nav ul a:hover{border-color:var(--orange)}
+.nav .cta{padding:11px 16px;font-size:13px}
+.menu-btn{display:none;background:var(--white);border:3px solid var(--ink);border-radius:6px;font:800 13px/1 "Montserrat";letter-spacing:.1em;text-transform:uppercase;padding:10px 12px;cursor:pointer;color:var(--ink)}
+
+/* ---------- COVER ---------- */
+.cover{padding:0 var(--pad) 0;border-bottom:3px solid var(--ink)}
+.masthead{padding-top:clamp(18px,2.4vw,36px)}
+.masthead h1{font-weight:900;font-size:clamp(40px,12.2vw,260px);letter-spacing:-.065em;line-height:.84;white-space:nowrap;margin-left:-.04em}
+.mast-rule{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;border-top:3px solid var(--ink);border-bottom:1px solid var(--ink);margin-top:clamp(12px,1.4vw,22px);padding:9px 0;font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+.mast-rule em{font-style:italic;font-weight:600;letter-spacing:0;text-transform:none;font-size:15px}
+.cover-grid{display:grid;grid-template-columns:minmax(200px,.72fr) minmax(300px,1.05fr) minmax(340px,1.4fr);gap:clamp(20px,2.6vw,44px);padding-top:clamp(20px,2.4vw,36px);align-items:end}
+.coverlines{align-self:stretch;display:flex;flex-direction:column;gap:0;padding-bottom:28px}
+.cl{padding:18px 0;border-bottom:1px solid var(--ink)}
+.cl:first-child{border-top:3px solid var(--ink)}
+.cl b{display:block;font-weight:900;font-size:clamp(44px,4.6vw,76px);letter-spacing:-.05em;line-height:.9}
+.cl b small{font-size:.42em;letter-spacing:-.02em}
+.cl span{display:block;font-weight:700;font-size:14px;line-height:1.35;margin-top:6px}
+.cl i{display:block;font-size:12px;font-weight:600;font-style:normal;letter-spacing:.14em;text-transform:uppercase;color:var(--orange-ink);margin-top:4px}
+.cover-photo{position:relative;margin:0;align-self:end}
+.cover-photo img{width:100%;aspect-ratio:4/5.1;object-fit:cover;object-position:50% 0}
+.cover-photo .tag{position:absolute;left:-10px;top:38%;background:var(--ink);color:var(--white);font-weight:800;font-size:12px;letter-spacing:.18em;text-transform:uppercase;padding:9px 14px;transform:rotate(-3deg)}
+.cover-photo .stamp{position:absolute;right:4%;top:6%;width:clamp(96px,8.5vw,132px);aspect-ratio:1;border-radius:50%;background:var(--orange);border:3px solid var(--ink);display:grid;place-items:center;text-align:center;font-weight:900;line-height:1;font-size:clamp(12px,1vw,15px);letter-spacing:-.01em;transform:rotate(9deg);box-shadow:4px 4px 0 var(--ink)}
+.cover-photo .stamp b{display:block;font-size:2.3em;letter-spacing:-.05em}
+.cover-copy{padding-bottom:30px}
+.cover-copy .kicker{display:inline-block;border:2px solid var(--ink);padding:5px 9px;margin-bottom:18px}
+.cover-copy h2{font-weight:900;font-size:clamp(40px,3.75vw,72px);letter-spacing:-.055em;line-height:.93}
+.cover-copy h2 .hl{margin-top:.18em}
+.cover-copy .dek{font-size:clamp(17px,1.3vw,20px);font-weight:500;line-height:1.5;margin:22px 0 24px;max-width:34ch}
+.cover-copy .btns{display:flex;flex-wrap:wrap;gap:12px}
+.cover-foot{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;border-top:3px solid var(--ink);padding:14px 0 18px}
+.cover-foot p{margin:0;font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.cover-foot .exclusive{font-weight:900;font-size:clamp(18px,1.7vw,26px);letter-spacing:-.02em;text-transform:none}
+.cover-foot .exclusive em{font-style:italic;color:var(--orange-ink)}
+.barcode{display:flex;gap:12px;align-items:flex-end;flex:none}
+.barcode svg{width:150px;height:56px;display:block}
+.barcode div{font-size:10px;font-weight:700;letter-spacing:.12em;line-height:1.4;text-transform:uppercase;text-align:right}
+
+/* ticker */
+.ticker{background:var(--orange);border-bottom:3px solid var(--ink);overflow:hidden;white-space:nowrap}
+.ticker-track{display:inline-flex;animation:tick 40s linear infinite}
+.ticker-track span{display:inline-flex;align-items:center;gap:14px;padding:12px 28px 12px 0;font-weight:800;font-size:14px;letter-spacing:.08em;text-transform:uppercase}
+.ticker-track span::before{content:"";width:9px;height:9px;background:var(--ink);transform:rotate(45deg)}
+@keyframes tick{to{transform:translateX(-50%)}}
+
+/* ---------- CONTENTS ---------- */
+.contents{display:grid;grid-template-columns:minmax(220px,1fr) 3fr;gap:clamp(20px,3vw,56px);padding:clamp(40px,5vw,80px) var(--pad);background:var(--gray);border-bottom:3px solid var(--ink)}
+.contents h2{font-weight:900;font-size:clamp(44px,5vw,88px);letter-spacing:-.06em;line-height:.85}
+.contents h2 + p{margin-top:16px;font-weight:600;max-width:28ch}
+.toc{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);border-top:3px solid var(--ink)}
+.toc li{border-bottom:1px solid var(--ink);border-right:1px solid var(--ink)}
+.toc li:nth-child(3n){border-right:0}
+.toc a{display:grid;grid-template-columns:64px 1fr;gap:4px 16px;padding:20px 18px 22px;text-decoration:none;height:100%}
+.toc a:hover{background:var(--white)}
+.toc .pg{grid-row:span 2;font-weight:900;font-size:40px;letter-spacing:-.05em;line-height:.9}
+.toc .t{font-weight:800;font-size:18px;letter-spacing:-.01em;line-height:1.2}
+.toc .d{font-size:14px;font-weight:500;line-height:1.4}
+
+/* ---------- FEATURE ---------- */
+.feature{padding:clamp(48px,6vw,104px) var(--pad);border-bottom:3px solid var(--ink)}
+.feature-head{display:grid;grid-template-columns:1.4fr 1fr;gap:clamp(24px,4vw,72px);align-items:end;padding-bottom:28px;border-bottom:3px solid var(--ink)}
+.feature-head h2{font-weight:900;font-size:clamp(42px,6.4vw,116px);letter-spacing:-.06em;line-height:.88;margin-top:14px}
+.feature-head .dek{font-size:clamp(18px,1.5vw,23px);font-weight:500;line-height:1.45;margin:0}
+.byline{display:flex;flex-wrap:wrap;gap:8px 22px;padding:12px 0;border-bottom:1px solid var(--ink);font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.spread{display:grid;grid-template-columns:1.05fr 2fr;gap:clamp(24px,3.4vw,60px);margin-top:clamp(28px,3vw,48px)}
+.spread figure{margin:0}
+.spread figure img{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:50% 0;border:3px solid var(--ink)}
+figcaption{font-size:13px;font-weight:600;line-height:1.45;padding-top:10px}
+figcaption b{font-weight:800;letter-spacing:.1em;text-transform:uppercase;font-size:11px;margin-right:6px}
+.side-quote{margin:28px 0 0;padding:22px 0 0;border-top:3px solid var(--ink)}
+.side-quote p{font-weight:900;font-size:clamp(24px,2.1vw,34px);letter-spacing:-.035em;line-height:1.1;margin:0 0 12px}
+.side-quote cite{font-style:normal;font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--orange-ink)}
+.article{columns:2 300px;column-gap:clamp(24px,3vw,48px);column-rule:1px solid var(--ink);font-size:17px;line-height:1.68}
+.article p{margin:0 0 1em;break-inside:avoid-column}
+.article h3{font-weight:900;font-size:13px;letter-spacing:.2em;text-transform:uppercase;margin:1.4em 0 .6em;break-after:avoid}
+.article .lede::first-letter{float:left;font-weight:900;font-size:5.2em;line-height:.8;padding:.06em .1em 0 0;letter-spacing:-.05em;color:var(--ink)}
+.article .lede::first-line{font-weight:800}
+.pull{column-span:all;margin:clamp(24px,3vw,40px) 0;padding:clamp(22px,2.6vw,36px) 0;border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:start}
+.pull svg{width:clamp(44px,4vw,64px);height:auto;color:var(--orange)}
+.pull p{margin:0;font-weight:900;font-size:clamp(26px,3.3vw,54px);letter-spacing:-.045em;line-height:1.04}
+.pull cite{display:block;margin-top:14px;font-style:normal;font-size:12px;font-weight:800;letter-spacing:.18em;text-transform:uppercase}
+.endmark{display:inline-block;width:.7em;height:.7em;background:var(--orange);border:2px solid var(--ink);vertical-align:-.05em;margin-left:6px}
+
+/* ---------- AUTHORSHIP ---------- */
+.record{display:grid;grid-template-columns:1fr minmax(260px,.62fr);background:var(--gray);border-bottom:3px solid var(--ink)}
+.record-copy{padding:clamp(48px,6vw,104px) var(--pad);border-right:3px solid var(--ink)}
+.record h2{font-weight:900;font-size:clamp(46px,7.4vw,136px);letter-spacing:-.065em;line-height:.86;margin:18px 0 28px}
+.record h2 span{display:block}
+.record-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:3px solid var(--ink);max-width:1100px}
+.record-cols div{padding:20px 22px 4px 0;border-right:1px solid var(--ink);margin-right:22px}
+.record-cols div:last-child{border-right:0;margin-right:0}
+.record-cols b{display:block;font-weight:900;font-size:13px;letter-spacing:.18em;text-transform:uppercase;margin-bottom:8px}
+.record-cols p{font-size:15px;line-height:1.55;font-weight:500}
+.record-note{margin-top:28px;display:inline-block;background:var(--white);border:3px solid var(--ink);box-shadow:var(--shadow);padding:18px 22px;font-weight:700;max-width:60ch}
+.record-art{position:relative;background:var(--white);overflow:hidden;min-height:420px}
+.record-art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 4%}
+.record-art .label{position:absolute;left:0;bottom:0;right:0;background:var(--ink);color:var(--white);padding:14px 18px;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+
+/* ---------- UNIVERSE ---------- */
+.universe{padding:clamp(48px,6vw,104px) var(--pad);border-bottom:3px solid var(--ink)}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;padding-bottom:22px;border-bottom:3px solid var(--ink);margin-bottom:clamp(28px,3vw,44px)}
+.sec-head h2{font-weight:900;font-size:clamp(42px,5.6vw,100px);letter-spacing:-.06em;line-height:.88;margin-top:12px}
+.sec-head p{max-width:40ch;margin:0;font-weight:500}
+.brands{display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(20px,2.2vw,32px)}
+.brand{border:3px solid var(--ink);box-shadow:var(--shadow);background:var(--white);display:flex;flex-direction:column}
+.brand .top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 16px;border-bottom:3px solid var(--ink);font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase}
+.chip{display:inline-flex;align-items:center;gap:8px}
+.chip i{width:14px;height:14px;display:inline-block;border:2px solid var(--ink)}
+.brand .body{padding:clamp(20px,2vw,30px);display:flex;flex-direction:column;flex:1}
+.brand h3{font-weight:900;font-size:clamp(28px,2.6vw,44px);letter-spacing:-.045em;line-height:.95;margin-bottom:14px}
+.brand p{font-size:15.5px;font-weight:500;line-height:1.55}
+.brand .facts{list-style:none;padding:0;margin:auto 0 0;border-top:1px solid var(--ink)}
+.brand .facts li{display:flex;justify-content:space-between;gap:16px;padding:9px 0;border-bottom:1px solid var(--ink);font-size:14px;font-weight:600}
+.brand .facts li b{font-weight:900}
+.brand .more{margin-top:18px;font-weight:800;font-size:14px;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;display:inline-flex;align-items:center;gap:8px;align-self:flex-start;border-bottom:3px solid var(--orange);padding-bottom:3px}
+.b-geek{grid-column:span 7;display:grid;grid-template-columns:1.1fr .9fr;grid-template-rows:auto 1fr}
+.b-geek .top{grid-column:1/-1}
+.b-geek .art{border-left:3px solid var(--ink);background:var(--gray);position:relative;overflow:hidden;min-height:440px}
+.b-geek .art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 6%}
+.b-geek .big{font-weight:900;font-size:clamp(72px,8vw,140px);letter-spacing:-.07em;line-height:.8;margin:6px 0 4px}
+.b-geek .big + span{font-weight:800;font-size:13px;letter-spacing:.16em;text-transform:uppercase;display:block;margin-bottom:18px}
+.b-vegan{grid-column:span 5}
+.b-vegan .logo{width:96px;height:96px;border:3px solid var(--ink);margin-bottom:18px}
+.b-os{grid-column:span 6}
+.b-book{grid-column:span 6;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto 1fr}
+.b-book .top{grid-column:1/-1}
+.b-book .art{border-right:3px solid var(--ink);position:relative;overflow:hidden;min-height:300px}
+.b-book .art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:52% 50%}
+.os-map{width:100%;height:auto;margin:6px 0 18px;border:3px solid var(--ink);background:var(--gray)}
+
+/* ---------- ARCHIVE ---------- */
+.archive{padding:clamp(48px,6vw,104px) var(--pad);background:var(--gray);border-bottom:3px solid var(--ink)}
+.clips{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);border-top:3px solid var(--ink);border-left:1px solid var(--ink)}
+.clip{padding:22px 22px 26px;border-right:1px solid var(--ink);border-bottom:1px solid var(--ink);background:var(--white);position:relative}
+.clip .yr{font-weight:900;font-size:clamp(40px,3.6vw,60px);letter-spacing:-.06em;line-height:.9;display:block;margin-bottom:12px}
+.clip h3{font-weight:800;font-size:18px;letter-spacing:-.015em;line-height:1.2;margin-bottom:8px}
+.clip p{font-size:14.5px;line-height:1.5;margin:0;font-weight:500}
+.clip.hot{background:var(--orange)}
+.clip.dark{background:var(--ink);color:var(--white)}
+.clip.dark .yr{color:var(--orange)}
+.alongside{display:flex;flex-wrap:wrap;align-items:center;gap:10px 0;margin-top:clamp(28px,3vw,44px);border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);padding:16px 0}
+.alongside .kicker{margin-right:24px}
+.alongside span:not(.kicker){font-weight:900;font-size:clamp(15px,1.3vw,20px);letter-spacing:-.02em;padding:0 16px;border-left:1px solid var(--ink)}
+.archive-media{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,2.4vw,36px);margin-top:clamp(28px,3vw,44px)}
+.archive-media figure{display:flex;flex-direction:column;margin:0;border:3px solid var(--ink);background:var(--white);box-shadow:var(--shadow)}
+.archive-media > figure > img{width:100%;flex:1;min-height:240px;height:clamp(240px,22vw,360px);object-fit:cover}
+.archive-media .a3{flex:1}
+.archive-media figcaption{padding:12px 16px;border-top:3px solid var(--ink)}
+.a3{display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:center;align-content:center;padding:clamp(20px,2.4vw,34px)}
+.a3 img{align-self:start;width:clamp(64px,6vw,88px);height:auto;border:3px solid var(--ink)}
+.a3 .n{font-weight:900;font-size:clamp(36px,3.2vw,54px);letter-spacing:-.06em;line-height:.9}
+
+/* ---------- ASKS ---------- */
+.asks{padding:clamp(48px,6vw,104px) var(--pad);border-bottom:3px solid var(--ink)}
+.ask-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,2.4vw,36px)}
+.ask{border:3px solid var(--ink);box-shadow:var(--shadow);padding:clamp(22px,2.4vw,34px);display:flex;flex-direction:column;background:var(--white)}
+.ask .no{display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;padding-bottom:14px;border-bottom:1px solid var(--ink);margin-bottom:20px}
+.ask .no svg{width:30px;height:30px}
+.ask h3{font-weight:900;font-size:clamp(30px,2.8vw,46px);letter-spacing:-.05em;line-height:.95;margin-bottom:14px}
+.ask p{font-weight:500;font-size:15.5px}
+.ask .for{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--orange-ink);margin-bottom:10px}
+.ask .btns{margin-top:auto;display:flex;flex-wrap:wrap;gap:10px;padding-top:10px}
+.ask.feat{background:var(--orange)}
+.ask.feat .for{color:var(--ink)}
+
+/* ---------- SHOWCASE ---------- */
+.showcase{background:var(--black);color:var(--white);padding:clamp(48px,6vw,104px) var(--pad);display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,4vw,72px);border-bottom:3px solid var(--ink)}
+.showcase .kicker{color:var(--orange)}
+.showcase h2{font-weight:900;font-size:clamp(44px,6vw,108px);letter-spacing:-.06em;line-height:.86;margin:16px 0 22px}
+.showcase h2 .o{color:var(--orange)}
+.showcase .lead{font-size:clamp(17px,1.35vw,20px);font-weight:500;max-width:44ch;color:#e9e9e9}
+.locked{list-style:none;padding:0;margin:28px 0 0;border-top:1px solid #555}
+.locked li{display:flex;gap:14px;align-items:center;padding:12px 0;border-bottom:1px solid #555;font-weight:600;font-size:15px}
+.locked svg{width:18px;height:18px;flex:none;color:var(--orange)}
+.unlock{background:var(--white);color:var(--ink);border:3px solid var(--orange);box-shadow:8px 8px 0 var(--orange);padding:clamp(22px,2.6vw,38px);align-self:start}
+.unlock h3{font-weight:900;font-size:clamp(26px,2.4vw,38px);letter-spacing:-.045em;margin-bottom:6px}
+.unlock fieldset{border:0;padding:0;margin:18px 0 0}
+.unlock legend{font-weight:800;font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:12px;padding:0}
+.picks{display:flex;flex-wrap:wrap;gap:10px}
+.pick input{position:absolute;opacity:0;width:1px;height:1px}
+.pick span{display:inline-flex;align-items:center;gap:8px;padding:11px 14px;border:3px solid var(--ink);border-radius:6px;font-weight:700;font-size:14px;cursor:pointer;background:var(--white)}
+.pick span::before{content:"";width:14px;height:14px;border:2px solid var(--ink);background:var(--white)}
+.pick input:checked + span{background:var(--orange)}
+.pick input:checked + span::before{background:var(--ink)}
+.pick input:focus-visible + span{outline:3px solid var(--orange);outline-offset:3px;box-shadow:0 0 0 6px var(--ink)}
+.field{display:flex;flex-direction:column;gap:6px;margin-top:16px}
+.field label{font-weight:800;font-size:13px;letter-spacing:.1em;text-transform:uppercase}
+.field input{font:600 16px "Montserrat";padding:14px;border:3px solid var(--ink);border-radius:6px;color:var(--ink);background:var(--white);width:100%}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.unlock .btn{margin-top:22px;width:100%;justify-content:center}
+.fine{font-size:13px;font-weight:500;margin:14px 0 0}
+.err{color:#1a1a1a;background:var(--orange);font-weight:700;font-size:14px;padding:8px 12px;margin-top:14px;border-radius:6px;display:none}
+.thanks{display:none}
+.thanks h3{margin-top:10px}
+
+/* ---------- FOOTER ---------- */
+.foot{padding:clamp(40px,5vw,80px) var(--pad) 28px;background:var(--white)}
+.foot-mast{font-weight:900;font-size:clamp(46px,12.2vw,260px);letter-spacing:-.065em;line-height:.84;white-space:nowrap;margin:0 0 0 -.04em}
+.foot-grid{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:clamp(20px,3vw,48px);border-top:3px solid var(--ink);margin-top:22px;padding-top:24px}
+.foot h4{font-size:12px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;margin-bottom:12px}
+.foot ul{list-style:none;margin:0;padding:0}
+.foot li{margin:0 0 8px}
+.foot li a{font-weight:700;text-decoration:none;border-bottom:2px solid transparent}
+.foot li a:hover{border-color:var(--orange)}
+.foot .tag{font-weight:900;font-size:clamp(20px,1.8vw,28px);letter-spacing:-.03em;line-height:1.15;max-width:22ch}
+.colophon{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;border-top:1px solid var(--ink);margin-top:32px;padding-top:16px;font-size:12px;font-weight:600;letter-spacing:.06em}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width:1180px){
+  .cover-grid{grid-template-columns:1fr 1.1fr}
+  .coverlines{grid-column:1/-1;order:3;display:grid;grid-template-columns:repeat(4,1fr);gap:0 20px;padding-bottom:20px}
+  .cl:first-child{border-top:0}
+  .coverlines .cl{border-top:3px solid var(--ink)}
+  .b-geek,.b-vegan,.b-os,.b-book{grid-column:1/-1}
+  .toc{grid-template-columns:repeat(2,1fr)}
+  .toc li:nth-child(3n){border-right:1px solid var(--ink)}
+  .toc li:nth-child(2n){border-right:0}
+  .clips{grid-template-columns:repeat(3,1fr)}
+}
+@media (max-width:900px){
+  .nav ul{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;background:var(--white);border-bottom:3px solid var(--ink);padding:8px var(--pad) 16px}
+  .nav ul.open{display:flex}
+  .nav ul a{display:block;padding:12px 0;border-bottom:1px solid var(--ink)}
+  .menu-btn{display:inline-block}
+  .nav .cta{display:none}
+  .contents,.feature-head,.spread,.record,.showcase,.archive-media{grid-template-columns:1fr}
+  .record-copy{border-right:0;border-bottom:3px solid var(--ink)}
+  .record-art{min-height:520px}
+  .ask-grid{grid-template-columns:1fr}
+  .foot-grid{grid-template-columns:1fr 1fr}
+  .foot-grid > div:first-child{grid-column:1/-1}
+  .spread figure img{aspect-ratio:4/3;object-position:50% 12%}
+}
+@media (max-width:700px){
+  body{font-size:16px}
+  .dateline span:nth-child(3){display:none}
+  .masthead h1,.foot-mast{white-space:normal;font-size:clamp(40px,23vw,140px);line-height:.82}
+  .masthead h1 > span,.foot-mast > span{display:block}
+  .cover-grid{grid-template-columns:1fr}
+  .cover-copy{order:1;padding-bottom:0}
+  .cover-photo{order:2}
+  .coverlines{order:3;grid-template-columns:1fr 1fr;gap:0 16px}
+  .cl b{font-size:44px}
+  .cover-foot{flex-direction:column;align-items:flex-start}
+  .barcode{align-self:flex-end}
+  .toc{grid-template-columns:1fr}
+  .toc li{border-right:0 !important}
+  .b-geek,.b-book{grid-template-columns:1fr}
+  .b-geek .art{border-left:0;border-top:3px solid var(--ink);min-height:420px}
+  .b-book .art{border-right:0;border-bottom:3px solid var(--ink);min-height:220px}
+  .clips{grid-template-columns:1fr 1fr}
+  .clip{padding:16px 14px 20px}
+  .record-cols{grid-template-columns:1fr}
+  .record-cols div{border-right:0;margin-right:0;border-bottom:1px solid var(--ink);padding:16px 0 4px}
+  .a3{grid-template-columns:1fr}
+  .two{grid-template-columns:1fr}
+  .pull{grid-template-columns:1fr;gap:10px}
+  .alongside span:not(.kicker){padding:0 12px}
+  .alongside .kicker{width:100%}
+  .foot-grid{grid-template-columns:1fr}
+  .cover-photo .tag{left:0}
+}
+@media (max-width:420px){
+  .clips{grid-template-columns:1fr}
+  .cover-copy .btns .btn{width:100%;justify-content:center}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .ticker-track{animation:none;flex-wrap:wrap;white-space:normal}
+  .btn{transition:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to the cover story</a>
+
+<div class="dateline" role="note">
+  <span>Vol. 30 &middot; No. 1</span>
+  <span>The Founder Issue</span>
+  <span>Thursday, November 12, 2026</span>
+</div>
+
+<header class="nav">
+  <a class="mini" href="index.html" aria-label="Sean A. Russell, home">Sean A. Russell<span class="dot">.</span></a>
+  <button class="menu-btn" aria-expanded="false" aria-controls="navlist">Menu</button>
+  <nav aria-label="Primary">
+    <ul id="navlist">
+      <li><a href="#feature">Cover Story</a></li>
+      <li><a href="#universe">The Universe</a></li>
+      <li><a href="#archive">The Archive</a></li>
+      <li><a href="representation.html">Representation</a></li>
+      <li><a href="#investors">Investors</a></li>
+      <li><a href="#showcase">Showcase</a></li>
+    </ul>
+  </nav>
+  <a class="btn cta" href="#showcase">Unlock the showcase</a>
+</header>
+
+
+<main id="main">
+<!-- ================= COVER ================= -->
+<section class="cover" aria-labelledby="cover-h">
+  <div class="masthead">
+    <h1><span>Sean A.</span> <span>Russell<span class="dot">.</span></span></h1>
+    <div class="mast-rule">
+      <span>Est. 1996</span>
+      <em>The vision was never too big. The box was.</em>
+      <span>Founder &middot; Producer &middot; Builder</span>
+    </div>
+  </div>
+
+  <div class="cover-grid">
+    <div class="coverlines" aria-label="Live proof">
+      <div class="cl"><b>121</b><span>GeekFon Society songs live, originals and remixes</span><i>p. 12 The Universe</i></div>
+      <div class="cl"><b>3</b><span>Sites launched in one day, this week</span><i>p. 16 The Tech</i></div>
+      <div class="cl"><b>1M<small>+</small></b><span>Anime 3000 podcast downloads</span><i>p. 20 The Archive</i></div>
+      <div class="cl"><b>30</b><span>Years building, since 1996</span><i>p. 04 Cover Story</i></div>
+    </div>
+
+    <figure class="cover-photo">
+      <img src="../assets/sean-photo.webp" alt="Sean A. Russell in a gray jacket, arms crossed, smiling at the camera" width="1835" height="2379">
+      <span class="tag">Cover subject</span>
+      <span class="stamp" aria-hidden="true"><span><b>30</b>years<br>in the<br>making</span></span>
+    </figure>
+
+    <div class="cover-copy">
+      <span class="kicker">Cover story</span>
+      <h2 id="cover-h">One person.<br>A universe of brands.<br><span class="hl">Built with AI.</span></h2>
+      <p class="dek">For thirty years Sean A. Russell built the capability first and let the business catch up. LESARUSS is the first time he is building both, with the community.</p>
+      <div class="btns">
+        <a class="btn" href="representation.html">Representation
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+        <a class="btn ghost" href="#investors">Investors</a>
+        <a class="btn dark" href="#showcase">Unlock the showcase</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="cover-foot">
+    <div>
+      <p>Exclusive</p>
+      <p class="exclusive">&ldquo;I wrote it. I produced it. I built it.&rdquo; <em>The authorship statement, p. 10</em></p>
+    </div>
+    <div class="barcode" aria-hidden="true">
+      <div>Issue 30<br>Nov 2026<br>Free to read</div>
+      <svg id="bars" viewBox="0 0 150 56" preserveAspectRatio="none"></svg>
+    </div>
+  </div>
+</section>
+
+<div class="ticker" aria-label="Live proof ticker">
+  <div class="ticker-track">
+    <span>121 GeekFon Society songs live</span><span>3 sites launched in one day this week</span><span>Over 1 million Anime 3000 podcast downloads</span><span>30 years building since 1996</span><span>Top Spot USA: 181 videos, 116 artists</span><span>Vegans Explore: 1,000 communities by 2030</span>
+    <span aria-hidden="true">121 GeekFon Society songs live</span><span aria-hidden="true">3 sites launched in one day this week</span><span aria-hidden="true">Over 1 million Anime 3000 podcast downloads</span><span aria-hidden="true">30 years building since 1996</span><span aria-hidden="true">Top Spot USA: 181 videos, 116 artists</span><span aria-hidden="true">Vegans Explore: 1,000 communities by 2030</span>
+  </div>
+</div>
+
+<!-- ================= CONTENTS ================= -->
+<section class="contents" aria-labelledby="toc-h">
+  <div>
+    <p class="kicker o">This issue</p>
+    <h2 id="toc-h">In&shy;side<span class="dot">.</span></h2>
+    <p>Who he is, what he built, and the three ways to work with him.</p>
+  </div>
+  <ol class="toc">
+    <li><a href="#feature"><span class="pg">04</span><span class="t">Cover Story</span><span class="d">Thirty years of building the thing before the business.</span></a></li>
+    <li><a href="#record"><span class="pg">10</span><span class="t">For the Record</span><span class="d">The authorship statement, for attorneys.</span></a></li>
+    <li><a href="#universe"><span class="pg">12</span><span class="t">The Universe</span><span class="d">GeekFon Society, Vegans Explore, LESARUSS, the book.</span></a></li>
+    <li><a href="#archive"><span class="pg">20</span><span class="t">The Archive</span><span class="d">The track record, 1996 to now.</span></a></li>
+    <li><a href="#investors"><span class="pg">28</span><span class="t">Three Ways In</span><span class="d">Representation, investors, the showcase.</span></a></li>
+    <li><a href="#showcase"><span class="pg">32</span><span class="t">Subscriber Edition</span><span class="d">Unlock the private showcase.</span></a></li>
+  </ol>
+</section>
+
+<!-- ================= FEATURE ================= -->
+<article class="feature" id="feature" aria-labelledby="feat-h">
+  <header class="feature-head">
+    <div>
+      <p class="kicker o">Cover story &middot; p. 04</p>
+      <h2 id="feat-h">The capability came first. Every time.</h2>
+    </div>
+    <p class="dek">Sean A. Russell has spent three decades building the thing before the business existed to hold it. With LESARUSS, he is finally building both at once, and he is doing it with the community.</p>
+  </header>
+  <div class="byline"><span>Feature</span><span>7 minute read</span><span>Subject: Sean A. Russell</span></div>
+
+  <div class="spread">
+    <aside>
+      <figure>
+        <img src="../assets/sean-studio-illustrated.webp" alt="Illustration of Sean seated in a studio, hands clasped, city skyline and blueprints behind him" width="1728" height="2304">
+        <figcaption><b>The studio</b>Blueprints on the wall, the city in the window. Where the LESARUSS operating system gets built.</figcaption>
+      </figure>
+      <blockquote class="side-quote">
+        <p>&ldquo;The vision was never too big. The box was.&rdquo;</p>
+        <cite>The LESARUSS tagline</cite>
+      </blockquote>
+    </aside>
+
+    <div class="article">
+      <p class="lede">At fourteen, in 1996, Sean A. Russell was already being paid to build websites for nonprofits, for family and for local businesses. A year later, in a 10th grade logo assignment, he named the company he would spend the next three decades growing into: LESARUSS. It launched in 2000 and was incorporated in 2007.</p>
+      <p>The pattern was set early. From about 1997 to 2002 he founded and ran the Ultimate Championship Federation, an online writing federation with two full shows a week and up to thirty writers under his judging. The TV production magnet at Hallandale High and an NBC Junior Broadcaster opportunity handed him the tools of broadcast. He put them to work immediately.</p>
+      <h3>The media years</h3>
+      <p>Anime 3000 came next, starting around 2003. It grew to about thirty writers, launched podcasts in 2007 and went on to pass one million podcast downloads, with sponsors and advertisers that included Sony, Nintendo, Viz Media and Funimation. It was invited to the first New York Anime Festival, and Crunchyroll asked him to join its first news team.</p>
+      <p>From 2007 to 2012, Top Spot USA covered independent music: 181 videos, 116 artists, 710,245 views, Warped Tour six or seven times, and the first outlet to interview Hey Monday. It produced its own shows. Along the way he worked with or alongside MTV, ABC, NBC, Nintendo, Crunchyroll, the Miami HEAT, the Miami Dolphins and the Miami Marlins.</p>
+
+      <div class="pull">
+        <svg viewBox="0 0 64 48" aria-hidden="true"><path fill="currentColor" stroke="#1a1a1a" stroke-width="3" d="M4 46V26C4 12 10 4 26 2v9c-7 2-10 6-10 13h10v22zm34 0V26c0-14 6-22 22-24v9c-7 2-10 6-10 13h10v22z"/></svg>
+        <div>
+          <p>I&rsquo;ve always been a Community Builder, even before having the language for what I was doing.</p>
+          <cite>Sean A. Russell</cite>
+        </div>
+      </div>
+
+      <h3>The classroom underneath it all</h3>
+      <p>Education has run beneath every project since 2003. Russell&rsquo;s Roving Reporters, from about 2007 to 2019, put elementary students in charge of full video production before the first bell. He served as District Webmaster for Broward County Public Schools from 2014 to 2017 and returned in 2024, where he is today, supporting district communications that included an $800M bond measure voters approved.</p>
+      <p>In 2017 he took The Leap and went full-time entrepreneur. SoFlo Vegans, about ten years of community and hundreds of interviews, grew into Vegans Explore and its goal of 1,000 communities by 2030. From 2017 to 2023 he chaired marketing for Seed Food and Wine.</p>
+      <h3>The order changes</h3>
+      <p>Every one of those projects proved the capability before a business model existed to hold it. The audience came, the work was real, and the business lagged behind. LESARUSS changes the order.</p>
+      <p>Sean built its operating system himself, with AI: HQ, the brand sites, an outreach engine, membership and payments. This week it launched three sites in a single day. Since March 2026, GeekFon Society, an animated music universe, has put 121 songs live across a roster of animated artists.</p>
+      <p>The difference this time is who builds with him. LESARUSS is the first time the business is being built with the community, not after it.<span class="endmark" aria-hidden="true"></span></p>
+    </div>
+  </div>
+</article>
+
+<!-- ================= FOR THE RECORD ================= -->
+<section class="record" id="record" aria-labelledby="rec-h">
+  <div class="record-copy">
+    <p class="kicker o">For the record &middot; p. 10 &middot; For attorneys</p>
+    <h2 id="rec-h"><span>I wrote it.</span><span>I produced it.</span><span><span class="hl">I built it.</span></span></h2>
+    <div class="record-cols">
+      <div><b>The words</b><p>Sean writes the lyrics. Every GeekFon Society song starts with his pen.</p></div>
+      <div><b>The beat</b><p>He beatboxes the beat himself, then produces the track.</p></div>
+      <div><b>The studio</b><p>AI tools are the studio, not the author. The authorship is his.</p></div>
+    </div>
+    <p class="record-note">The same is true of the tech: the LESARUSS operating system was built by Sean, with AI as the toolset.</p>
+  </div>
+  <div class="record-art">
+    <img src="../assets/sean-pose-speaker.webp" alt="Illustrated Sean holding a microphone, speaking" width="1500" height="2000">
+    <span class="label">On the record: Sean A. Russell</span>
+  </div>
+</section>
+
+<!-- ================= UNIVERSE ================= -->
+<section class="universe" id="universe" aria-labelledby="uni-h">
+  <div class="sec-head">
+    <div>
+      <p class="kicker o">The Universe &middot; p. 12</p>
+      <h2 id="uni-h">Four titles. One publisher<span class="dot">.</span></h2>
+    </div>
+    <p>One person runs the whole masthead. Here is what is on the newsstand, in the order it matters.</p>
+  </div>
+
+  <div class="brands">
+    <article class="brand b-geek">
+      <div class="top"><span class="chip"><i style="background:var(--purple)"></i>GeekFon Society</span><span>Lead story</span></div>
+      <div class="body">
+        <h3>An animated music universe.</h3>
+        <p class="big">121</p><span>Songs live since March 2026</span>
+        <p>Originals and remixes across a roster of animated artists and many genres. The story runs every day in the group chat. Members get the inside track, albums are $11, and the radio never stops.</p>
+        <ul class="facts">
+          <li>Began <b>March 2026</b></li>
+          <li>Albums <b>$11</b></li>
+          <li>Daily story <b>Group chat</b></li>
+          <li>Also <b>Membership, radio</b></li>
+        </ul>
+        <a class="more" href="#">Enter GeekFon Society <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+      </div>
+      <div class="art"><img src="../assets/sean-pose-producer.webp" alt="Illustrated Sean in headphones beside a purple waveform" width="1500" height="2000"></div>
+    </article>
+
+    <article class="brand b-vegan">
+      <div class="top"><span class="chip"><i style="background:var(--green)"></i>Vegans Explore</span><span>Community</span></div>
+      <div class="body">
+        <img class="logo" src="../assets/vegans-explore.webp" alt="Vegans Explore logo" width="600" height="600">
+        <h3>1,000 Vegan communities by 2030.</h3>
+        <p>Built on about ten years of SoFlo Vegans and hundreds of interviews. Vegans Explore takes that local playbook and opens it to communities everywhere.</p>
+        <ul class="facts">
+          <li>Roots <b>SoFlo Vegans</b></li>
+          <li>Interviews <b>Hundreds</b></li>
+          <li>Seed Food and Wine <b>Marketing chair</b></li>
+        </ul>
+        <a class="more" href="#">Explore Vegans Explore <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+      </div>
+    </article>
+
+    <article class="brand b-os" id="tech">
+      <div class="top"><span class="chip"><i style="background:var(--orange)"></i>LESARUSS</span><span>The operating system</span></div>
+      <div class="body">
+        <h3>The machine behind every brand.</h3>
+        <svg class="os-map" viewBox="0 0 520 190" role="img" aria-labelledby="osmap-t">
+          <title id="osmap-t">Diagram: LESARUSS HQ at the center, connected to brand sites, outreach engine, membership and payments</title>
+          <g stroke="#1a1a1a" stroke-width="3" fill="none"><path d="M260 95H130M260 95h130M260 95V35M260 95v60"/></g>
+          <rect x="200" y="70" width="120" height="50" fill="#F69820" stroke="#1a1a1a" stroke-width="3"/>
+          <text x="260" y="101" text-anchor="middle" font-family="Montserrat" font-weight="900" font-size="18" fill="#1a1a1a">HQ</text>
+          <g font-family="Montserrat" font-weight="800" font-size="13" fill="#1a1a1a" text-anchor="middle">
+            <rect x="20" y="75" width="110" height="40" fill="#fff" stroke="#1a1a1a" stroke-width="3"/><text x="75" y="100">Brand sites</text>
+            <rect x="390" y="75" width="110" height="40" fill="#fff" stroke="#1a1a1a" stroke-width="3"/><text x="445" y="100">Outreach</text>
+            <rect x="195" y="10" width="130" height="34" fill="#fff" stroke="#1a1a1a" stroke-width="3"/><text x="260" y="32">Membership</text>
+            <rect x="195" y="146" width="130" height="34" fill="#fff" stroke="#1a1a1a" stroke-width="3"/><text x="260" y="168">Payments</text>
+          </g>
+        </svg>
+        <p>Sean built the LESARUSS operating system himself, with AI: HQ, brand sites, an outreach engine, membership and payments. This week it launched three sites in one day.</p>
+        <ul class="facts">
+          <li>Named <b>1997</b></li>
+          <li>Launched <b>2000</b></li>
+          <li>Incorporated <b>2007</b></li>
+        </ul>
+        <a class="more" href="#">See the tech <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+      </div>
+    </article>
+
+    <article class="brand b-book">
+      <div class="top"><span class="chip"><i style="background:var(--ink)"></i>The book</span><span>Read</span></div>
+      <div class="art"><img src="../assets/blur-to-blueprint.webp" alt="Illustration of a student walking out of an old school building into a bright tech space" width="1920" height="1079"></div>
+      <div class="body">
+        <h3>From Blur to Blueprint.</h3>
+        <p>The book. How a blur of ideas becomes a blueprint you can build, from a kid making websites in 1996 to an operating system built with AI.</p>
+        <a class="more" href="#">Get the book <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ================= ARCHIVE ================= -->
+<section class="archive" id="archive" aria-labelledby="arc-h">
+  <div class="sec-head">
+    <div>
+      <p class="kicker o">The Archive &middot; p. 20</p>
+      <h2 id="arc-h">Back issues, 1996 to now<span class="dot">.</span></h2>
+    </div>
+    <p>Thirty years of the same move: build the capability, gather the people, then find the business.</p>
+  </div>
+
+  <ol class="clips" role="list">
+    <li class="clip"><span class="yr">1996</span><h3>Paid websites at 14</h3><p>Nonprofits, family and local businesses become the first clients.</p></li>
+    <li class="clip"><span class="yr">1997</span><h3>LESARUSS is named</h3><p>A 10th grade logo assignment names the company. It launches in 2000.</p></li>
+    <li class="clip"><span class="yr">1997</span><h3>Ultimate Championship Federation</h3><p>An online writing federation, two full shows a week, up to thirty writers judged. Runs to about 2002.</p></li>
+    <li class="clip"><span class="yr">2003</span><h3>Anime 3000 and the classroom</h3><p>About thirty writers. The same year, a career in education begins.</p></li>
+    <li class="clip dark"><span class="yr">2007</span><h3>Podcasts, festival, incorporation</h3><p>Anime 3000 podcasts launch, the first New York Anime Festival invites them, and LESARUSS incorporates.</p></li>
+    <li class="clip"><span class="yr">2007</span><h3>Top Spot USA</h3><p>Independent music media to 2012: 181 videos, 116 artists, 710,245 views. First to interview Hey Monday.</p></li>
+    <li class="clip"><span class="yr">2014</span><h3>District Webmaster</h3><p>Broward County Public Schools, 2014 to 2017. Returns in 2024 and serves today.</p></li>
+    <li class="clip"><span class="yr">2017</span><h3>The Leap</h3><p>Full-time entrepreneur. Marketing chair for Seed Food and Wine through 2023.</p></li>
+    <li class="clip"><span class="yr">2019</span><h3>Roving Reporters wrap</h3><p>From about 2007 to 2019, elementary students ran full video production before first bell.</p></li>
+    <li class="clip"><span class="yr">2024</span><h3>Back at the district</h3><p>District communications, including an $800M bond measure voters approved.</p></li>
+    <li class="clip hot"><span class="yr">2026</span><h3>GeekFon Society</h3><p>Begins in March. 121 songs live and counting.</p></li>
+    <li class="clip dark"><span class="yr">Now</span><h3>3 sites in one day</h3><p>The LESARUSS operating system ships three sites this week.</p></li>
+  </ol>
+
+  <div class="alongside" aria-label="Worked with or alongside">
+    <span class="kicker">Worked with or alongside</span>
+    <span>MTV</span><span>ABC</span><span>NBC</span><span>Nintendo</span><span>Crunchyroll</span><span>Miami HEAT</span><span>Miami Dolphins</span><span>Miami Marlins</span>
+  </div>
+
+  <div class="archive-media">
+    <figure>
+      <img src="../assets/timeline.webp" alt="Illustrated glowing orange timeline on black" width="1000" height="900">
+      <figcaption><b>Timeline</b>The long road, drawn as one line.</figcaption>
+    </figure>
+    <figure>
+      <div class="a3">
+        <img src="../assets/anime-3000.webp" alt="Anime 3000 logo" width="600" height="600">
+        <div>
+          <p class="kicker o">From the archive</p>
+          <p class="n">1M+ downloads</p>
+          <p>Anime 3000 podcasts, from 2007. Sponsors and advertisers included Sony, Nintendo, Viz Media and Funimation. Crunchyroll asked Sean to join its first news team.</p>
+        </div>
+      </div>
+      <figcaption><b>Anime 3000</b>About thirty writers, from about 2003.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ================= ASKS ================= -->
+<section class="asks" id="investors" aria-labelledby="ask-h">
+  <div class="sec-head">
+    <div>
+      <p class="kicker o">Three ways in &middot; p. 28</p>
+      <h2 id="ask-h">One ask for each reader<span class="dot">.</span></h2>
+    </div>
+    <p>Attorneys and managers, investors, and anyone curious. Pick the door that is yours.</p>
+  </div>
+  <div class="ask-grid">
+    <article class="ask feat">
+      <div class="no"><span>No. 1</span><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M6 27h20M9 27V13M16 27V13M23 27V13M4 13l12-8 12 8z"/></svg></div>
+      <p class="for">For entertainment attorneys and talent managers</p>
+      <h3>Representation.</h3>
+      <p>An AI-literate entertainment attorney open to a percentage of deals, and a manager to steer one career across many projects.</p>
+      <div class="btns"><a class="btn dark" href="representation.html">Read the brief
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a></div>
+    </article>
+    <article class="ask">
+      <div class="no"><span>No. 2</span><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M4 26l8-9 6 5 10-13M20 9h8v8"/></svg></div>
+      <p class="for">For investors</p>
+      <h3>One brand, or the whole universe.</h3>
+      <p>Back GeekFon Society, Vegans Explore or another single brand, or invest in LESARUSS and every brand it runs. Both paths are open.</p>
+      <div class="btns"><a class="btn" href="#">One brand</a><a class="btn ghost" href="#">The universe</a></div>
+    </article>
+    <article class="ask">
+      <div class="no"><span>No. 3</span><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><rect x="6" y="14" width="20" height="14"/><path d="M11 14V9a5 5 0 0 1 10 0"/></svg></div>
+      <p class="for">For everyone</p>
+      <h3>Unlock the showcase.</h3>
+      <p>The private showcase is always on. Pick what you care about, register once, and see the work up close.</p>
+      <div class="btns"><a class="btn dark" href="#showcase">Unlock the showcase</a></div>
+    </article>
+  </div>
+</section>
+
+<!-- ================= SHOWCASE ================= -->
+<section class="showcase" id="showcase" aria-labelledby="show-h">
+  <div>
+    <p class="kicker">Subscriber edition &middot; p. 32</p>
+    <h2 id="show-h">The private showcase<span class="o">.</span> Always on.</h2>
+    <p class="lead">Behind the cover is the full archive: songs, sites, systems and stages. Tell Sean what you care about and the showcase opens to you.</p>
+    <ul class="locked">
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><rect x="4" y="11" width="16" height="10"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>GeekFon Society: the catalog, the artists, the story</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><rect x="4" y="11" width="16" height="10"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Vegans Explore: the community playbook</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><rect x="4" y="11" width="16" height="10"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>The tech: the LESARUSS operating system</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><rect x="4" y="11" width="16" height="10"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Speaking: talks and sessions</li>
+    </ul>
+  </div>
+
+  <div class="unlock">
+    <form id="unlock-form" novalidate>
+      <h3>Unlock the showcase</h3>
+      <p class="fine" style="margin-top:0">Pick your interests, register once, and the showcase opens.</p>
+      <fieldset>
+        <legend>What do you care about?</legend>
+        <div class="picks">
+          <label class="pick"><input type="checkbox" name="i" value="GeekFon Society"><span>GeekFon Society</span></label>
+          <label class="pick"><input type="checkbox" name="i" value="Vegans Explore"><span>Vegans Explore</span></label>
+          <label class="pick"><input type="checkbox" name="i" value="The tech"><span>The tech</span></label>
+          <label class="pick"><input type="checkbox" name="i" value="Speaking"><span>Speaking</span></label>
+          <label class="pick"><input type="checkbox" name="i" value="Everything" id="pick-all"><span>Everything</span></label>
+        </div>
+      </fieldset>
+      <div class="two">
+        <div class="field"><label for="u-name">Name</label><input id="u-name" name="name" autocomplete="name" required></div>
+        <div class="field"><label for="u-email">Email</label><input id="u-email" name="email" type="email" autocomplete="email" required></div>
+      </div>
+      <p class="err" id="u-err" role="alert"></p>
+      <button class="btn" type="submit">Register and unlock
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></button>
+    </form>
+    <div class="thanks" id="u-thanks" tabindex="-1">
+      <p class="kicker o">You are on the list</p>
+      <h3>The showcase is open.</h3>
+      <p>Thank you. Your picks are saved and your access is on its way.</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="foot">
+  <p class="foot-mast" aria-hidden="true"><span>Sean A.</span> <span>Russell<span class="dot">.</span></span></p>
+  <div class="foot-grid">
+    <div>
+      <p class="tag">One person. A universe of brands. Built with AI.</p>
+    </div>
+    <div>
+      <h4>Work with Sean</h4>
+      <ul><li><a href="representation.html">Representation</a></li><li><a href="#investors">Investors</a></li><li><a href="#showcase">Unlock the showcase</a></li></ul>
+    </div>
+    <div>
+      <h4>The Universe</h4>
+      <ul><li><a href="#">GeekFon Society</a></li><li><a href="#">Vegans Explore</a></li><li><a href="#">LESARUSS</a></li><li><a href="#">From Blur to Blueprint</a></li></ul>
+    </div>
+    <div>
+      <h4>Media room</h4>
+      <ul><li><a href="#">Media kits</a></li><li><a href="#">Press</a></li><li><a href="#">Case studies</a></li><li><a href="#">Book Sean</a></li></ul>
+    </div>
+  </div>
+  <div class="colophon">
+    <span>&copy; 2026 Sean A. Russell &middot; LESARUSS</span>
+    <span>Colophon: set in Montserrat. Written, produced and built by Sean with AI.</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // barcode
+  var svg=document.getElementById('bars'),x=0,seq=[3,1,2,1,1,3,2,1,1,2,3,1,1,1,2,2,1,3,1,2,1,1,3,1,2,2,1,1,3,1,2,1,1,2,3,1,1,2,1,3,2,1,1,2,1,3];
+  var ns='http://www.w3.org/2000/svg';
+  seq.forEach(function(w,i){if(x>150)return;if(i%2===0){var r=document.createElementNS(ns,'rect');r.setAttribute('x',x);r.setAttribute('y',0);r.setAttribute('width',w*1.4);r.setAttribute('height',56);r.setAttribute('fill','#1a1a1a');svg.appendChild(r);}x+=w*1.6;});
+  // menu
+  var mb=document.querySelector('.menu-btn'),nl=document.getElementById('navlist');
+  mb.addEventListener('click',function(){var o=nl.classList.toggle('open');mb.setAttribute('aria-expanded',o);mb.textContent=o?'Close':'Menu';});
+  nl.addEventListener('click',function(e){if(e.target.tagName==='A'){nl.classList.remove('open');mb.setAttribute('aria-expanded','false');mb.textContent='Menu';}});
+  // showcase
+  var all=document.getElementById('pick-all'),boxes=[].slice.call(document.querySelectorAll('#unlock-form input[name=i]'));
+  all.addEventListener('change',function(){boxes.forEach(function(b){b.checked=all.checked;});});
+  boxes.forEach(function(b){if(b!==all)b.addEventListener('change',function(){if(!b.checked)all.checked=false;});});
+  var f=document.getElementById('unlock-form'),err=document.getElementById('u-err');
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    var picked=boxes.some(function(b){return b.checked;}),n=f.name.value.trim(),em=f.email.value.trim();
+    var msg=!picked?'Pick at least one thing you care about.':!n?'Add your name.':!/^\S+@\S+\.\S+$/.test(em)?'Add a valid email.':'';
+    if(msg){err.textContent=msg;err.style.display='block';return;}
+    f.style.display='none';var t=document.getElementById('u-thanks');t.style.display='block';t.focus();
+  });
+})();
+</script>
+</body>
+</html>

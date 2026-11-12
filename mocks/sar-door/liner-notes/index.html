@@ -1,0 +1,646 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sean A. Russell. Written, produced and built.</title>
+<meta name="description" content="Sean A. Russell: one person, a universe of brands, built with AI. GeekFon Society, Vegans Explore, LESARUSS and the book From Blur to Blueprint.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1a1a1a; --black:#0d0d0d; --white:#ffffff; --gray:#f5f5f5; --line:#d9d9d9;
+  --orange:#F69820; --orange-text:#7d4a00; --gfs:#7A2BF5; --ve:#0B6B33;
+  --mute:#4a4a4a; --mute-dark:#bdbdbd;
+  --gutter:clamp(16px,4vw,64px);
+  --shadow:6px 6px 0 var(--ink);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{margin:0;background:var(--white);color:var(--ink);font-family:"Montserrat",system-ui,sans-serif;font-size:17px;line-height:1.6;}
+html,body{overflow-x:clip}
+img{display:block;max-width:100%}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--ink);outline-offset:3px;box-shadow:0 0 0 6px var(--orange)}
+.on-ink :focus-visible,.on-ink:focus-visible{outline-color:var(--orange);box-shadow:0 0 0 6px var(--white)}
+.skip{position:absolute;left:-999px;top:8px;background:var(--orange);color:var(--ink);padding:10px 14px;border-radius:6px;font-weight:800;z-index:99}
+.skip:focus{left:8px}
+.sr{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* type */
+.mark-word{font-weight:900;letter-spacing:-.03em;text-decoration:none;white-space:nowrap}
+.mark-word .dot{color:var(--orange)}
+.eyebrow{font-size:12px;font-weight:800;letter-spacing:.18em;text-transform:uppercase}
+.h-poster{font-weight:900;letter-spacing:-.045em;line-height:.92;margin:0}
+.hl{display:inline-block;background:var(--orange);color:var(--ink);padding:.02em .18em .08em;transform:rotate(-2deg);margin-top:.08em;box-shadow:4px 4px 0 var(--ink)}
+.lede{font-size:clamp(18px,1.5vw,21px);line-height:1.55;max-width:38em}
+.read{max-width:40em}
+.o-text{color:var(--orange-text)}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:10px;font:800 15px/1 "Montserrat",sans-serif;letter-spacing:.01em;padding:15px 20px;border:3px solid var(--ink);border-radius:6px;text-decoration:none;cursor:pointer;background:var(--white);color:var(--ink);box-shadow:4px 4px 0 var(--ink);transition:transform .12s,box-shadow .12s}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+.btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+.btn-ink{background:var(--ink);color:var(--white)}
+.btn-orange{background:var(--orange);color:var(--ink)}
+.btn svg{width:18px;height:18px;flex:none}
+.on-ink .btn{border-color:var(--white);box-shadow:4px 4px 0 var(--orange)}
+.on-ink .btn:hover{box-shadow:6px 6px 0 var(--orange)}
+
+/* header */
+.site-head{position:sticky;top:0;z-index:50;background:var(--white);border-bottom:3px solid var(--ink)}
+.head-in{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:14px var(--gutter)}
+.head-in .mark-word{font-size:22px}
+.head-nav{display:flex;align-items:center;gap:6px}
+.head-nav a.nl{font-weight:700;font-size:14px;text-decoration:none;padding:9px 12px;border-radius:6px}
+.head-nav a.nl:hover{background:var(--gray)}
+.head-nav a.nl[aria-current]{background:var(--ink);color:var(--white)}
+.head-nav .btn{padding:11px 14px;font-size:14px;box-shadow:3px 3px 0 var(--ink);margin-left:8px}
+.cat{font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--mute)}
+@media (max-width:980px){.head-nav a.nl{display:none}.head-nav a.nl.keep{display:inline-block}}
+@media (max-width:480px){.head-in .mark-word{font-size:19px}.head-nav .btn{padding:10px 11px;font-size:13px;margin-left:2px}.head-nav a.nl.keep{display:none}}
+
+/* sections */
+.sec{padding:clamp(64px,9vw,128px) var(--gutter);position:relative}
+.sec-gray{background:var(--gray)}
+.sec-ink{background:var(--ink);color:var(--white)}
+.sec-black{background:var(--black);color:var(--white)}
+.side-tag{display:inline-flex;align-items:center;gap:10px;font-weight:900;font-size:13px;letter-spacing:.16em;text-transform:uppercase;border:3px solid currentColor;border-radius:6px;padding:7px 12px}
+.side-tag .disc{width:16px;height:16px}
+.sec-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,auto);gap:24px 48px;align-items:end;margin-bottom:clamp(36px,5vw,64px)}
+.sec-head h2{font-size:clamp(40px,6.2vw,96px);margin-top:18px}
+.sec-head p{margin:0;max-width:30em;color:var(--mute);font-weight:500}
+.sec-ink .sec-head p,.sec-black .sec-head p{color:var(--mute-dark)}
+@media (max-width:860px){.sec-head{grid-template-columns:1fr}}
+
+/* card */
+.card{background:var(--white);color:var(--ink);border:3px solid var(--ink);box-shadow:var(--shadow)}
+.on-ink .card{box-shadow:6px 6px 0 var(--orange)}
+
+/* chips */
+.chip{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;border:2px solid var(--ink);border-radius:6px;padding:4px 8px;white-space:nowrap}
+.chip i{width:10px;height:10px;border-radius:2px;display:inline-block}
+
+/* vinyl */
+.vinyl{aspect-ratio:1;border-radius:50%;position:relative;background:
+  radial-gradient(circle at 50% 50%,transparent 0 31%,rgba(255,255,255,.07) 31.5% 32%,transparent 32.5%),
+  conic-gradient(from 30deg,rgba(255,255,255,.0),rgba(255,255,255,.12) 8%,rgba(255,255,255,0) 18%,rgba(255,255,255,0) 50%,rgba(255,255,255,.10) 58%,rgba(255,255,255,0) 68%),
+  repeating-radial-gradient(circle at 50% 50%,#121212 0 1.5px,#202020 1.5px 3px);
+  box-shadow:0 0 0 3px var(--ink)}
+.vinyl .label{position:absolute;inset:32%;border-radius:50%;background:var(--orange);color:var(--ink);display:grid;place-items:center;text-align:center;font-weight:900;line-height:1.05}
+.vinyl .label::after{content:"";position:absolute;width:9%;height:9%;border-radius:50%;background:var(--white);border:2px solid var(--ink);left:50%;top:50%;transform:translate(-50%,-50%)}
+@media (prefers-reduced-motion:no-preference){.spin{animation:spin 14s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}}
+
+/* barcode */
+.barcode{height:56px;width:150px;background:repeating-linear-gradient(90deg,var(--ink) 0 2px,transparent 2px 4px,var(--ink) 4px 5px,transparent 5px 8px,var(--ink) 8px 11px,transparent 11px 12px,var(--ink) 12px 13px,transparent 13px 16px,var(--ink) 16px 17px,transparent 17px 19px);border:8px solid var(--white);outline:3px solid var(--ink);box-sizing:content-box}
+
+/* footer */
+.site-foot{background:var(--black);color:var(--white);padding:clamp(56px,7vw,96px) var(--gutter) 28px;border-top:3px solid var(--ink)}
+.foot-grid{display:grid;grid-template-columns:minmax(0,1.4fr) repeat(2,minmax(0,1fr)) minmax(0,auto);gap:40px}
+.foot-grid h3{font-size:12px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--orange);margin:0 0 14px}
+.foot-grid ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.foot-grid a{text-decoration:none;font-weight:600}
+.foot-grid a:hover{text-decoration:underline;text-decoration-color:var(--orange);text-decoration-thickness:3px}
+.foot-grid .mark-word{font-size:clamp(30px,3.4vw,48px)}
+.tagline{font-weight:800;font-size:19px;margin:14px 0 0;max-width:20em;line-height:1.3}
+.foot-bar{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;border-top:1px solid #333;margin-top:56px;padding-top:22px;font-size:13px;color:var(--mute-dark)}
+.foot-code{display:grid;gap:10px;justify-items:start}
+.foot-code .barcode{background-color:var(--white)}
+@media (max-width:900px){.foot-grid{grid-template-columns:1fr 1fr}.foot-grid>div:first-child{grid-column:1/-1}}
+
+/* forms */
+.field{display:grid;gap:8px;margin-bottom:18px}
+.field label,.legend{font-weight:800;font-size:14px}
+.field input,.field textarea,.field select{font:500 16px "Montserrat",sans-serif;border:3px solid var(--ink);border-radius:6px;padding:13px 14px;background:var(--white);color:var(--ink);width:100%}
+.field textarea{min-height:110px;resize:vertical}
+.opts{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr))}
+.opt{position:relative}
+.opt input{position:absolute;opacity:0;inset:0;width:100%;height:100%;margin:0;cursor:pointer}
+.opt span{display:flex;align-items:center;gap:12px;border:3px solid var(--ink);border-radius:6px;padding:13px 14px;font-weight:700;background:var(--white);min-height:56px}
+.opt span::before{content:"";width:18px;height:18px;border:3px solid var(--ink);border-radius:50%;flex:none;background:var(--white)}
+.opt input[type=checkbox]+span::before{border-radius:3px}
+.opt input:checked+span{background:var(--orange)}
+.opt input:checked+span::before{background:var(--ink);box-shadow:inset 0 0 0 3px var(--orange)}
+.opt input:focus-visible+span{outline:3px solid var(--ink);outline-offset:3px;box-shadow:0 0 0 6px var(--orange)}
+.err{color:var(--ink);background:var(--orange);font-weight:700;font-size:14px;padding:8px 12px;border-radius:6px;margin:0 0 14px}
+.err[hidden]{display:none}
+.steps-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:22px;flex-wrap:wrap}
+.step-count{font-weight:900;font-size:13px;letter-spacing:.16em;text-transform:uppercase}
+.step-pips{display:flex;gap:6px}
+.step-pips span{width:34px;height:8px;border:2px solid var(--ink);border-radius:2px}
+.step-pips span.on{background:var(--orange)}
+.form-nav{display:flex;justify-content:space-between;gap:12px;margin-top:26px;flex-wrap:wrap}
+fieldset{border:0;margin:0;padding:0;min-width:0}
+legend{padding:0}
+[hidden]{display:none!important}
+.side-tag svg{width:16px;height:16px;flex:none}
+.on-ink .card .btn{border-color:var(--ink);box-shadow:4px 4px 0 var(--ink)}
+.on-ink .card .btn:hover{box-shadow:6px 6px 0 var(--ink)}
+.foot-grid a.mark-word{font-weight:900}
+legend h3{line-height:1.1}
+.head-nav .btn{white-space:nowrap}
+@media (max-width:420px){.head-nav .btn svg{display:none}}
+.opts.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (max-width:520px){.opts.two{grid-template-columns:1fr}}
+
+/* ===== front door ===== */
+.hero{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:clamp(40px,5vw,88px);align-items:center;padding:clamp(40px,6vw,96px) var(--gutter) clamp(64px,7vw,112px);border-bottom:3px solid var(--ink)}
+.hero-meta{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;margin-bottom:26px}
+.hero h1{font-size:clamp(44px,5.7vw,100px)}
+.hero h1 .hl{font-size:.86em}
+.hero .lede{margin:34px 0 0}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:14px;margin-top:36px}
+.credit-line{margin-top:38px;padding-top:18px;border-top:3px solid var(--ink);display:flex;flex-wrap:wrap;gap:6px 22px;font-size:13px;font-weight:600;color:var(--mute)}
+.credit-line b{color:var(--ink);font-weight:900;text-transform:uppercase;letter-spacing:.08em}
+
+.package{position:relative;width:100%;max-width:720px;justify-self:end;aspect-ratio:1.24}
+.package .vinyl{position:absolute;width:76%;right:0;top:4%}
+.package .vinyl .label{font-size:clamp(9px,1vw,14px)}
+.package .vinyl .label small{display:block;font-size:.7em;letter-spacing:.14em;margin-top:.4em}
+.sleeve{position:absolute;left:0;top:0;width:80.6%;aspect-ratio:1;background:#fcfbfc;border:3px solid var(--ink);box-shadow:10px 10px 0 var(--ink);overflow:hidden}
+.sleeve img{position:absolute;left:15%;right:0;top:15%;width:85%;height:85%;object-fit:cover;object-position:50% 0}
+.obi{position:absolute;left:0;top:0;bottom:0;width:15%;background:var(--ink);color:var(--white);display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:14px 0;z-index:2}
+.obi span{writing-mode:vertical-rl;transform:rotate(180deg);font-weight:800;font-size:clamp(9px,.9vw,13px);letter-spacing:.2em;text-transform:uppercase;white-space:nowrap}
+.obi .o{color:var(--orange)}
+.sleeve-top{position:absolute;left:15%;right:0;top:0;display:flex;justify-content:space-between;align-items:flex-start;padding:4% 5%;z-index:2}
+.sleeve-top .mark-word{font-size:clamp(16px,2vw,30px);line-height:1}
+.sleeve-top .cat{color:var(--ink);font-size:clamp(8px,.8vw,11px)}
+.sleeve-title{position:absolute;left:15%;right:0;bottom:0;background:var(--ink);color:var(--white);padding:4% 5%;z-index:2}
+.sleeve-title strong{display:block;font-weight:900;letter-spacing:-.03em;font-size:clamp(17px,2.3vw,36px);line-height:1}
+.sleeve-title strong em{font-style:normal;color:var(--orange)}
+.sleeve-title span{display:block;font-size:clamp(8px,.8vw,11px);letter-spacing:.18em;text-transform:uppercase;font-weight:700;margin-top:6px;color:var(--mute-dark)}
+.sticker{position:absolute;z-index:3;right:1%;top:30%;width:27%;aspect-ratio:1;border-radius:50%;background:var(--orange);border:3px solid var(--ink);display:grid;place-items:center;text-align:center;transform:rotate(12deg);box-shadow:4px 4px 0 var(--ink);font-weight:900;line-height:1;padding:8%}
+.sticker b{display:block;font-size:clamp(22px,2.8vw,44px);letter-spacing:-.04em}
+.sticker span{display:block;font-size:clamp(7px,.75vw,11px);letter-spacing:.06em;text-transform:uppercase;margin-top:4px}
+@media (max-width:980px){.hero{grid-template-columns:1fr}.package{justify-self:center;max-width:620px}}
+@media (max-width:520px){.sticker span{font-size:7px}.obi{padding:8px 0}}
+
+/* pressing notes */
+.pressing{background:var(--ink);color:var(--white);display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-bottom:3px solid var(--ink)}
+.press{padding:clamp(28px,3.4vw,48px) var(--gutter) clamp(28px,3.4vw,48px) clamp(20px,2.4vw,40px);border-left:1px solid #3a3a3a;display:grid;gap:10px;align-content:start}
+.press:first-child{border-left:0;padding-left:var(--gutter)}
+.press .eyebrow{color:var(--mute-dark);display:flex;align-items:center;gap:8px}
+.press .eyebrow svg{width:14px;height:14px;color:var(--orange)}
+.press b{font-size:clamp(48px,5.6vw,92px);font-weight:900;letter-spacing:-.05em;line-height:.9;color:var(--orange)}
+.press p{margin:0;font-weight:600;font-size:15px;line-height:1.45;max-width:18em}
+@media (max-width:980px){.pressing{grid-template-columns:repeat(2,minmax(0,1fr))}.press:nth-child(3){border-left:0;padding-left:var(--gutter)}.press:nth-child(n+3){border-top:1px solid #3a3a3a}}
+@media (max-width:420px){.press{padding-left:var(--gutter)!important;padding-right:12px}.press b{font-size:44px}.press p{font-size:14px}}
+
+/* side A tracklist */
+.side-a{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,.42fr);gap:clamp(32px,5vw,80px);align-items:start}
+.tracks{list-style:none;margin:0;padding:0;border-bottom:3px solid var(--ink)}
+.track{border-top:3px solid var(--ink)}
+.track a{display:grid;grid-template-columns:90px minmax(0,1fr) auto 44px;gap:24px;align-items:center;padding:clamp(22px,2.6vw,36px) 0;text-decoration:none;transition:background .15s,padding .15s}
+.track a:hover{background:var(--gray);padding-left:14px;padding-right:14px}
+.track .no{font-weight:900;font-size:clamp(28px,3vw,44px);letter-spacing:-.04em;color:var(--orange-text)}
+.track h3{font-weight:900;font-size:clamp(26px,3.2vw,52px);letter-spacing:-.04em;line-height:1;margin:0}
+.track p{margin:10px 0 0;color:var(--mute);font-weight:500;max-width:40em;font-size:16px}
+.track .meta{display:flex;flex-direction:column;gap:8px;align-items:flex-end}
+.track .arrow{width:44px;height:44px;border:3px solid var(--ink);border-radius:6px;display:grid;place-items:center;background:var(--white)}
+.track a:hover .arrow{background:var(--orange)}
+.track .arrow svg{width:20px;height:20px}
+.track .logo-chip{width:46px;height:46px;border:2px solid var(--ink);border-radius:6px;object-fit:cover;background:var(--white)}
+.gfs-mark{width:46px;height:46px;border-radius:6px;background:var(--gfs);display:grid;place-items:center;border:2px solid var(--ink)}
+.gfs-mark svg{width:26px;height:26px;color:var(--white)}
+@media (max-width:760px){.track a{grid-template-columns:52px minmax(0,1fr) 40px;gap:14px;align-items:start}.track .meta{display:none}.track .arrow{width:40px;height:40px}}
+
+.label-card{position:sticky;top:110px;padding:28px}
+.label-card .vinyl{width:100%;max-width:340px;margin:0 auto 24px}
+.label-card .vinyl .label{font-size:13px}
+.label-card dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:10px 16px;font-size:14px;border-top:3px solid var(--ink);padding-top:18px}
+.label-card dt{font-weight:800;text-transform:uppercase;letter-spacing:.1em;font-size:11px;padding-top:3px}
+.label-card dd{margin:0;font-weight:600}
+@media (max-width:980px){.side-a{grid-template-columns:1fr}.label-card{position:static;display:grid;grid-template-columns:minmax(0,200px) 1fr;gap:24px;align-items:center}.label-card .vinyl{margin:0}}
+@media (max-width:520px){.label-card{grid-template-columns:1fr}.label-card .vinyl{max-width:220px;margin:0 auto}}
+
+/* credits */
+.credits{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(32px,5vw,96px);align-items:center}
+.credit-art{position:relative;background:var(--white);border:3px solid var(--ink);box-shadow:var(--shadow);aspect-ratio:4/5;overflow:hidden}
+.credit-art img{width:100%;height:100%;object-fit:cover;object-position:50% 8%}
+.credit-art .cat{position:absolute;left:16px;bottom:14px;background:var(--white);color:var(--ink);border:2px solid var(--ink);border-radius:6px;padding:6px 10px}
+.credits h2{font-size:clamp(44px,6.4vw,104px);margin:18px 0 0}
+.credits h2 span{display:block}
+.credit-table{margin:40px 0 0;border-top:3px solid var(--ink)}
+.credit-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:20px;padding:16px 0;border-bottom:1px solid #cfcfcf;align-items:baseline}
+.credit-row dt{font-weight:800;text-transform:uppercase;letter-spacing:.12em;font-size:12px;color:var(--mute)}
+.credit-row dd{margin:0;font-weight:800;font-size:18px}
+.credit-row dd small{display:block;font-weight:500;font-size:14px;color:var(--mute)}
+.credit-row.ai dd{font-weight:600}
+.credits .note{margin-top:26px;font-weight:600;max-width:34em}
+@media (max-width:900px){.credits{grid-template-columns:1fr}.credit-art{max-width:460px;aspect-ratio:1}}
+@media (max-width:480px){.credit-row{grid-template-columns:1fr;gap:4px}}
+
+/* liner notes booklet */
+.booklet{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);border:3px solid var(--ink);background:var(--white);box-shadow:10px 10px 0 var(--ink)}
+.page{padding:clamp(28px,4.4vw,72px);position:relative}
+.page+.page{border-left:3px dashed #9a9a9a}
+.page .folio{position:absolute;bottom:18px;font-size:11px;font-weight:800;letter-spacing:.16em;color:var(--mute)}
+.page:first-child .folio{left:clamp(28px,4.4vw,72px)}
+.page+.page .folio{right:clamp(28px,4.4vw,72px)}
+.page h2{font-size:clamp(36px,4.6vw,72px);margin:18px 0 28px}
+.page p{margin:0 0 18px;max-width:34em}
+.dropcap::first-letter{float:left;font-weight:900;font-size:4.6em;line-height:.8;padding:.08em .12em 0 0;color:var(--ink)}
+.pull{font-size:clamp(22px,2.2vw,32px);font-weight:900;letter-spacing:-.025em;line-height:1.15;margin:30px 0;padding-left:20px;border-left:8px solid var(--orange)}
+.pull cite{display:block;font-style:normal;font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;margin-top:14px;color:var(--orange-text)}
+.booklet-art{border:3px solid var(--ink);aspect-ratio:3/4;overflow:hidden;margin-bottom:24px;max-height:560px;width:100%}
+.booklet-art img{width:100%;height:100%;object-fit:cover;object-position:50% 20%}
+.shift{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center;margin:26px 0 30px;padding-bottom:40px}
+.shift div{border:3px solid var(--ink);border-radius:6px;padding:14px;font-weight:800;font-size:14px;line-height:1.35}
+.shift div small{display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin-bottom:6px}
+.shift div.now{background:var(--orange)}
+.shift div.now small{color:var(--ink)}
+.shift svg{width:26px;height:26px}
+@media (max-width:900px){.booklet{grid-template-columns:1fr}.page+.page{border-left:0;border-top:3px dashed #9a9a9a}}
+@media (max-width:480px){.shift{grid-template-columns:1fr}.shift svg{transform:rotate(90deg);justify-self:center}}
+
+/* side B discography */
+.side-b{display:grid;grid-template-columns:minmax(260px,.7fr) minmax(0,1.3fr);gap:clamp(32px,5vw,88px);align-items:start}
+.side-b-art{position:sticky;top:110px}
+.side-b-art figure{margin:0;border:3px solid var(--white);box-shadow:8px 8px 0 var(--orange);aspect-ratio:10/9;overflow:hidden;background:#000}
+.side-b-art img{width:100%;height:100%;object-fit:cover}
+.side-b-art figcaption{font-size:13px;color:var(--mute-dark);margin-top:18px;font-weight:600}
+.disco{list-style:none;margin:0;padding:0;counter-reset:b}
+.disco li{display:grid;grid-template-columns:64px 128px minmax(0,1fr);gap:20px;padding:22px 0;border-top:1px solid #3d3d3d;align-items:baseline}
+.disco li:last-child{border-bottom:1px solid #3d3d3d}
+.disco .bno{font-weight:900;color:var(--orange);font-size:15px;letter-spacing:.06em}
+.disco .yr{font-weight:900;font-size:22px;letter-spacing:-.02em}
+.disco h3{margin:0;font-size:20px;font-weight:800;letter-spacing:-.01em;line-height:1.25}
+.disco p{margin:6px 0 0;color:var(--mute-dark);font-size:15px;font-weight:500}
+.disco li.now h3::after{content:"Now playing";margin-left:10px;vertical-align:3px;font-size:10px;letter-spacing:.14em;text-transform:uppercase;background:var(--orange);color:var(--ink);border-radius:4px;padding:3px 7px;font-weight:900;white-space:nowrap}
+@media (max-width:980px){.side-b{grid-template-columns:1fr}.side-b-art{position:static;max-width:440px}}
+@media (max-width:600px){.disco li{grid-template-columns:48px minmax(0,1fr);gap:4px 14px}.disco .yr{grid-column:2}.disco li>div{grid-column:2}}
+
+/* thanks */
+.thanks{display:grid;grid-template-columns:minmax(0,.6fr) minmax(0,1.4fr);gap:clamp(24px,5vw,80px);align-items:start;padding-top:clamp(48px,6vw,88px);padding-bottom:clamp(48px,6vw,88px);border-bottom:3px solid var(--ink)}
+.thanks h2{font-size:clamp(28px,3vw,44px);margin:16px 0 0}
+.thanks-list{display:flex;flex-wrap:wrap;gap:8px 0;font-weight:900;font-size:clamp(22px,2.8vw,44px);letter-spacing:-.03em;line-height:1.15;margin:0;padding:0;list-style:none}
+.thanks-list li::after{content:"/";color:var(--orange-text);margin:0 .4em;font-weight:500}
+.thanks-list li:last-child::after{content:""}
+.thanks small{display:block;margin-top:18px;color:var(--mute);font-size:14px;font-weight:600}
+@media (max-width:800px){.thanks{grid-template-columns:1fr}}
+
+/* asks */
+.asks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(20px,2.4vw,36px)}
+.ask{padding:clamp(24px,2.6vw,40px);display:flex;flex-direction:column;gap:14px}
+.ask .ask-top{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.ask .ask-no{font-weight:900;font-size:56px;letter-spacing:-.05em;line-height:.8}
+.ask .ask-ico{width:52px;height:52px;border:3px solid var(--ink);border-radius:6px;display:grid;place-items:center}
+.ask .ask-ico svg{width:26px;height:26px}
+.ask h3{font-size:clamp(26px,2.4vw,36px);font-weight:900;letter-spacing:-.035em;line-height:1;margin:10px 0 0}
+.ask p{margin:0;color:var(--mute);font-weight:500}
+.ask .who{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--orange-text)}
+.ask .acts{margin-top:auto;padding-top:14px;display:flex;flex-wrap:wrap;gap:10px}
+.ask.feature{background:var(--orange)}
+.ask.feature p,.ask.feature .who{color:var(--ink)}
+.ask.feature .ask-ico{background:var(--white)}
+@media (max-width:980px){.asks{grid-template-columns:1fr}}
+
+/* showcase */
+.showcase{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(36px,5vw,88px);align-items:center}
+.showcase h2{font-size:clamp(44px,6.4vw,104px);margin:18px 0 26px}
+.showcase .lede{color:#e6e6e6}
+.hidden-track{display:flex;align-items:center;gap:16px;margin-top:30px;font-weight:700;color:var(--mute-dark);font-size:14px}
+.hidden-track .vinyl{width:72px;flex:none;box-shadow:0 0 0 2px var(--white)}
+.unlock{padding:clamp(24px,3vw,44px)}
+.unlock h3{margin:0 0 6px;font-size:26px;font-weight:900;letter-spacing:-.03em}
+.unlock .sub{margin:0 0 22px;color:var(--mute);font-weight:500;font-size:15px}
+.thanks-msg{text-align:left}
+.thanks-msg .big{font-size:clamp(30px,3vw,44px);font-weight:900;letter-spacing:-.04em;line-height:1;margin:10px 0 16px}
+@media (max-width:980px){.showcase{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="head-in">
+    <a class="mark-word" href="index.html" aria-label="Sean A. Russell, home">Sean A. Russell<span class="dot">.</span></a>
+    <nav class="head-nav" aria-label="Main">
+      <a class="nl" href="#side-a">Tracklist</a>
+      <a class="nl" href="#credits">Credits</a>
+      <a class="nl" href="#liner-notes">Liner notes</a>
+      <a class="nl" href="#side-b">Discography</a>
+      <a class="nl keep" href="representation.html">Representation</a>
+      <a class="btn btn-orange" href="#showcase"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Unlock the showcase</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<!-- COVER -->
+<section class="hero" aria-labelledby="hero-title">
+  <div>
+    <div class="hero-meta">
+      <span class="side-tag"><svg class="disc" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.5"/></svg>LRS-1996</span>
+      <span class="cat">The collected works &middot; 1996 to now</span>
+    </div>
+    <h1 id="hero-title" class="h-poster">One person. A universe of brands. <span class="hl">Built with AI.</span></h1>
+    <p class="lede">I'm Sean A. Russell. I write the songs, produce the shows and build the systems. Thirty years of making things, now pressed onto one record: GeekFon Society, Vegans Explore, LESARUSS and the book From Blur to Blueprint.</p>
+    <div class="hero-ctas">
+      <a class="btn btn-ink" href="representation.html">Representation <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+      <a class="btn" href="#asks">Invest in one brand or all</a>
+      <a class="btn btn-orange" href="#showcase"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Unlock the showcase</a>
+    </div>
+    <p class="credit-line"><span><b>Written</b> by Sean A. Russell</span><span><b>Produced</b> by Sean A. Russell</span><span><b>Built</b> by Sean A. Russell</span></p>
+  </div>
+
+  <div class="package" role="img" aria-label="Album packaging: a sleeve with Sean A. Russell's photo and a vinyl record sliding out of it">
+    <div class="vinyl" aria-hidden="true"><div class="label spin"><div>LESARUSS<small>SIDE A &middot; 33&#8531;</small></div></div></div>
+    <div class="sleeve" aria-hidden="true">
+      <img src="../assets/sean-photo.webp" alt="">
+      <div class="obi"><span class="o">LRS-1996</span><span>The collected works</span></div>
+      <div class="sleeve-top"><span class="mark-word">Sean A. Russell<span class="dot">.</span></span><span class="cat">Stereo</span></div>
+      <div class="sleeve-title"><strong>A universe <em>of brands.</em></strong><span>Written, produced and built by Sean A. Russell</span></div>
+    </div>
+    <div class="sticker" aria-hidden="true"><div><b>121</b><span>GeekFon Society songs live</span></div></div>
+  </div>
+</section>
+
+<!-- PRESSING NOTES -->
+<section class="pressing on-ink" aria-label="Live proof">
+  <div class="press"><span class="eyebrow"><svg class="disc" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.5"/></svg>Catalog</span><b>121</b><p>GeekFon Society songs live, originals and remixes</p></div>
+  <div class="press"><span class="eyebrow"><svg class="disc" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.5"/></svg>This week</span><b>3</b><p>sites launched in one day</p></div>
+  <div class="press"><span class="eyebrow"><svg class="disc" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.5"/></svg>Anime 3000</span><b>1M+</b><p>podcast downloads</p></div>
+  <div class="press"><span class="eyebrow"><svg class="disc" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.5"/></svg>Since 1996</span><b>30</b><p>years building, started at 14</p></div>
+</section>
+
+<!-- SIDE A -->
+<section class="sec" id="side-a" aria-labelledby="sa-title">
+  <div class="sec-head">
+    <div><span class="side-tag"><svg class="disc" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.5"/></svg>Side A</span><h2 id="sa-title" class="h-poster">The tracklist.</h2></div>
+    <p>Four ventures, one author. Each one stands on its own. Together they are one universe, and each is open to investment on its own or as a set.</p>
+  </div>
+  <div class="side-a">
+    <ol class="tracks">
+      <li class="track"><a href="#">
+        <span class="no">A1</span>
+        <div><h3>GeekFon Society</h3><p>An animated music universe that began in March 2026. A roster of animated artists across many genres, 121 songs live, a daily group-chat story, membership, $11 albums and radio.</p></div>
+        <div class="meta"><span class="gfs-mark" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg></span><span class="chip"><i style="background:#7A2BF5"></i>Lead single</span></div>
+        <span class="arrow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span></a></li>
+      <li class="track"><a href="#">
+        <span class="no">A2</span>
+        <div><h3>Vegans Explore</h3><p>Grown from about ten years of SoFlo Vegans and hundreds of interviews. The goal: 1,000 Vegan communities by 2030.</p></div>
+        <div class="meta"><img class="logo-chip" src="../assets/vegans-explore.webp" alt="Vegans Explore logo"><span class="chip"><i style="background:#0B6B33"></i>Community</span></div>
+        <span class="arrow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span></a></li>
+      <li class="track"><a href="#">
+        <span class="no">A3</span>
+        <div><h3>LESARUSS</h3><p>The operating system under everything. HQ, brand sites, outreach engine, membership and payments, built by Sean with AI. Named in 1997, launched 2000, incorporated 2007.</p></div>
+        <div class="meta"><span class="chip"><i style="background:#F69820"></i>The engine</span></div>
+        <span class="arrow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span></a></li>
+      <li class="track"><a href="#">
+        <span class="no">A4</span>
+        <div><h3>From Blur to Blueprint</h3><p>The book. How a community builder turns a blur of ideas into a working system.</p></div>
+        <div class="meta"><span class="chip"><i style="background:#1a1a1a"></i>The book</span></div>
+        <span class="arrow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span></a></li>
+    </ol>
+    <aside class="label-card card" aria-label="Release information">
+      <div class="vinyl" aria-hidden="true"><div class="label spin"><div>SIDE A<small style="display:block;font-size:.7em;letter-spacing:.14em;margin-top:.4em">4 TRACKS</small></div></div></div>
+      <dl>
+        <dt>Artist</dt><dd>Sean A. Russell</dd>
+        <dt>Label</dt><dd>LESARUSS</dd>
+        <dt>Cat. no.</dt><dd>LRS-1996</dd>
+        <dt>Studio</dt><dd>AI tools, played by hand</dd>
+        <dt>Format</dt><dd>Brands, songs, sites, a book</dd>
+      </dl>
+    </aside>
+  </div>
+</section>
+
+<!-- CREDITS -->
+<section class="sec sec-gray" id="credits" aria-labelledby="cr-title">
+  <div class="credits">
+    <figure class="credit-art" style="margin:0">
+      <img src="../assets/sean-pose-producer.webp" alt="Illustration of Sean A. Russell wearing studio headphones">
+      <figcaption class="cat">In the booth</figcaption>
+    </figure>
+    <div>
+      <span class="side-tag"><svg class="disc" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.5"/></svg>Credits</span>
+      <h2 id="cr-title" class="h-poster"><span>I wrote it.</span><span>I produced it.</span><span class="hl">I built it.</span></h2>
+      <dl class="credit-table">
+        <div class="credit-row"><dt>Lyrics</dt><dd>Sean A. Russell</dd></div>
+        <div class="credit-row"><dt>Beat</dt><dd>Sean A. Russell<small>Beatboxed, then built out</small></dd></div>
+        <div class="credit-row"><dt>Producer</dt><dd>Sean A. Russell</dd></div>
+        <div class="credit-row"><dt>Systems and sites</dt><dd>Sean A. Russell</dd></div>
+        <div class="credit-row ai"><dt>Studio</dt><dd>AI tools<small>The instruments in the room. Not the author.</small></dd></div>
+      </dl>
+      <p class="note">For attorneys: the authorship is human and documented. AI is the studio, the way a mixing desk is the studio. The words, the beat and the decisions are mine.</p>
+    </div>
+  </div>
+</section>
+
+<!-- LINER NOTES -->
+<section class="sec" id="liner-notes" aria-labelledby="ln-title">
+  <div class="booklet">
+    <article class="page">
+      <span class="side-tag"><svg class="disc" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.5"/></svg>Liner notes</span>
+      <h2 id="ln-title" class="h-poster">The capability always came first.</h2>
+      <p class="dropcap">At 14, in 1996, I started building paid websites for nonprofits, family and local businesses. By 1997 I was running an online writing federation with two full shows a week. In a 10th grade logo assignment that same year, I named a company LESARUSS.</p>
+      <p>That has been the pattern for thirty years. I built the capability first: the anime site and its podcasts, the music media outlet, the student newsroom, the district websites. The business always lagged behind the work.</p>
+      <blockquote class="pull">"I've always been a Community Builder, even before having the language for what I was doing."<cite>Sean A. Russell</cite></blockquote>
+      <span class="folio">PAGE 02</span>
+    </article>
+    <article class="page">
+      <figure class="booklet-art" style="margin:0 0 24px"><img src="../assets/sean-studio-illustrated.webp" alt="Illustration of Sean A. Russell seated in a studio in front of a city window"></figure>
+      <p><strong>LESARUSS is the first time I am building the business with the community,</strong> not after it. The tools finally caught up with the way I have always worked. One person can now write, produce and ship at the speed of an idea.</p>
+      <div class="shift" aria-label="The shift">
+        <div><small>Then</small>Capability first, business later</div>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+        <div class="now"><small>Now</small>The business, built with the community</div>
+      </div>
+      <span class="folio">PAGE 03</span>
+    </article>
+  </div>
+</section>
+
+<!-- SIDE B -->
+<section class="sec sec-ink on-ink" id="side-b" aria-labelledby="sb-title">
+  <div class="sec-head">
+    <div><span class="side-tag"><svg class="disc" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.5"/></svg>Side B</span><h2 id="sb-title" class="h-poster">The discography.</h2></div>
+    <p>Thirty years of releases. Every one of them a community, built before there was a business plan for it.</p>
+  </div>
+  <div class="side-b">
+    <div class="side-b-art">
+      <figure><img src="../assets/timeline.webp" alt="Illustrated glowing orange timeline on black"></figure>
+      <p class="tagline" style="margin-top:28px">"The vision was never too big. The box was."</p>
+      <p style="margin:8px 0 0;color:var(--mute-dark);font-size:14px;font-weight:600">The LESARUSS tagline</p>
+    </div>
+    <ol class="disco">
+      <li><span class="bno">B1</span><span class="yr">1996</span><div><h3>First paid websites, at 14</h3><p>Nonprofits, family and local businesses.</p></div></li>
+      <li><span class="bno">B2</span><span class="yr">1997</span><div><h3>Ultimate Championship Federation</h3><p>Founded and ran an online writing federation, about 1997 to 2002. Two full shows a week, up to thirty writers judged.</p></div></li>
+      <li><span class="bno">B3</span><span class="yr">1997</span><div><h3>LESARUSS is named</h3><p>A 10th grade logo assignment. Launched 2000, incorporated 2007. Same era: the Hallandale High TV production magnet and an NBC Junior Broadcaster opportunity.</p></div></li>
+      <li><span class="bno">B4</span><span class="yr">2003</span><div><h3>Anime 3000</h3><p>About thirty writers, podcasts from 2007, over one million downloads. Sponsors included Sony, Nintendo, Viz Media and Funimation. Invited to the first New York Anime Festival. Asked by Crunchyroll to join its first news team.</p></div></li>
+      <li><span class="bno">B5</span><span class="yr">2007</span><div><h3>Top Spot USA</h3><p>Independent music media, 2007 to 2012. 181 videos, 116 artists, 710,245 views. Covered Warped Tour six or seven times. First outlet to interview Hey Monday.</p></div></li>
+      <li><span class="bno">B6</span><span class="yr">2007</span><div><h3>Russell's Roving Reporters</h3><p>About 2007 to 2019. Elementary students running full video production before first bell. In education since 2003.</p></div></li>
+      <li><span class="bno">B7</span><span class="yr">2014</span><div><h3>Broward County Public Schools</h3><p>District Webmaster 2014 to 2017, returned 2024 and current. District communications for an $800M bond measure voters approved.</p></div></li>
+      <li><span class="bno">B8</span><span class="yr">2017</span><div><h3>The Leap</h3><p>Full-time entrepreneur. SoFlo Vegans, about ten years and hundreds of interviews. Seed Food and Wine marketing chair 2017 to 2023.</p></div></li>
+      <li class="now"><span class="bno">B9</span><span class="yr">2026</span><div><h3>GeekFon Society</h3><p>Began March 2026. 121 songs live. The LESARUSS operating system ships 3 sites in one day.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<!-- THANKS -->
+<section class="sec thanks" aria-labelledby="th-title">
+  <div><span class="side-tag"><svg class="disc" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.5"/></svg>Thank you</span><h2 id="th-title" class="h-poster">Worked with or alongside.</h2></div>
+  <div>
+    <ul class="thanks-list">
+      <li>MTV</li><li>ABC</li><li>NBC</li><li>Nintendo</li><li>Crunchyroll</li><li>Miami HEAT</li><li>Miami Dolphins</li><li>Miami Marlins</li>
+    </ul>
+    <small>Organizations Sean has worked with or alongside across thirty years of media, music and education.</small>
+  </div>
+</section>
+
+<!-- ASKS -->
+<section class="sec sec-gray" id="asks" aria-labelledby="ask-title">
+  <div class="sec-head">
+    <div><span class="side-tag"><svg class="disc" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.5"/></svg>Bonus tracks</span><h2 id="ask-title" class="h-poster">Three ways in.</h2></div>
+    <p>One ask for each of the people this record is for. Pick the one that sounds like you.</p>
+  </div>
+  <div class="asks">
+    <article class="ask card">
+      <div class="ask-top"><span class="ask-no">01</span><span class="ask-ico" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M4 20l4-1 11-11-3-3L5 16z"/><path d="M14 7l3 3"/></svg></span></div>
+      <span class="who">Attorneys and managers</span>
+      <h3>Representation</h3>
+      <p>An entertainment attorney who understands AI and is open to a percentage arrangement. A manager to steer one career across many projects.</p>
+      <div class="acts"><a class="btn btn-ink" href="representation.html">See what I have <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a></div>
+    </article>
+    <article class="ask card">
+      <div class="ask-top"><span class="ask-no">02</span><span class="ask-ico" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M4 20V4M4 20h16"/><path d="M8 16l4-5 3 3 5-7"/></svg></span></div>
+      <span class="who">Investors</span>
+      <h3>Back one brand, or the whole universe</h3>
+      <p>Invest in a single brand like GeekFon Society or Vegans Explore, or in LESARUSS, the operating system that runs all of them. Both paths are open.</p>
+      <div class="acts"><a class="btn" href="#">One brand</a><a class="btn btn-ink" href="#">The universe</a></div>
+    </article>
+    <article class="ask card feature">
+      <div class="ask-top"><span class="ask-no">03</span><span class="ask-ico" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></span></div>
+      <span class="who">Everyone curious</span>
+      <h3>Unlock the showcase</h3>
+      <p>A private, always-on showcase. Tell me what you care about and get the cuts that matter to you.</p>
+      <div class="acts"><a class="btn btn-ink" href="#showcase">Unlock it <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a></div>
+    </article>
+  </div>
+</section>
+
+<!-- SHOWCASE -->
+<section class="sec sec-black on-ink" id="showcase" aria-labelledby="sc-title">
+  <div class="showcase">
+    <div>
+      <span class="side-tag"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Hidden track</span>
+      <h2 id="sc-title" class="h-poster">Unlock the <span class="hl">showcase.</span></h2>
+      <p class="lede">The private showcase is always on. Pick what you care about, register once, and come back any time for the songs, sites and systems behind the record.</p>
+      <div class="hidden-track"><div class="vinyl" aria-hidden="true"><div class="label spin"></div></div><span>Pick GeekFon Society, Vegans Explore, the tech, speaking, or everything.</span></div>
+    </div>
+    <div class="unlock card">
+      <form id="unlock" novalidate>
+        <div class="steps-bar"><span class="step-count" id="u-count" aria-live="polite">Step 1 of 2</span><span class="step-pips" aria-hidden="true"><span class="on"></span><span></span></span></div>
+        <fieldset data-step="1">
+          <legend><h3>What do you care about?</h3></legend>
+          <p class="sub">Choose as many as you like.</p>
+          <p class="err" id="u-err1" role="alert" hidden>Pick at least one to continue.</p>
+          <div class="opts two">
+            <label class="opt"><input type="checkbox" name="interest" value="GeekFon Society"><span>GeekFon Society</span></label>
+            <label class="opt"><input type="checkbox" name="interest" value="Vegans Explore"><span>Vegans Explore</span></label>
+            <label class="opt"><input type="checkbox" name="interest" value="The tech"><span>The tech</span></label>
+            <label class="opt"><input type="checkbox" name="interest" value="Speaking"><span>Speaking</span></label>
+            <label class="opt" style="grid-column:1/-1"><input type="checkbox" name="interest" value="Everything" id="u-all"><span>Everything</span></label>
+          </div>
+        </fieldset>
+        <fieldset data-step="2" hidden>
+          <legend><h3>Register to unlock</h3></legend>
+          <p class="sub">One time. Your showcase stays open after this.</p>
+          <p class="err" id="u-err2" role="alert" hidden>Add your name and a valid email.</p>
+          <div class="field"><label for="u-name">Name</label><input id="u-name" name="name" autocomplete="name" required></div>
+          <div class="field"><label for="u-email">Email</label><input id="u-email" name="email" type="email" autocomplete="email" required></div>
+        </fieldset>
+        <div class="thanks-msg" data-step="3" hidden tabindex="-1">
+          <span class="side-tag"><svg class="disc" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg>Unlocked</span>
+          <p class="big">You're on the list.</p>
+          <p class="sub" id="u-summary">Your showcase is ready.</p>
+        </div>
+        <div class="form-nav" id="u-nav">
+          <button type="button" class="btn" id="u-back" hidden><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M20 12H5M11 6l-6 6 6 6"/></svg>Back</button>
+          <button type="button" class="btn btn-ink" id="u-next" style="margin-left:auto">Next <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="site-foot on-ink">
+  <div class="foot-grid">
+    <div>
+      <a class="mark-word" href="index.html">Sean A. Russell<span class="dot">.</span></a>
+      <p class="tagline">"The vision was never too big. The box was."</p>
+    </div>
+    <nav aria-label="Media and resources">
+      <h3>Back cover</h3>
+      <ul>
+        <li><a href="#">Media kits</a></li>
+        <li><a href="#">Press</a></li>
+        <li><a href="#">Case studies</a></li>
+        <li><a href="#">Book</a></li>
+      </ul>
+    </nav>
+    <nav aria-label="Work with Sean">
+      <h3>Work with Sean</h3>
+      <ul>
+        <li><a href="representation.html">Representation</a></li>
+        <li><a href="index.html#asks">Investors</a></li>
+        <li><a href="index.html#showcase">Unlock the showcase</a></li>
+        <li><a href="index.html#side-a">The tracklist</a></li>
+      </ul>
+    </nav>
+    <div class="foot-code">
+      <div class="barcode" role="img" aria-label="Decorative barcode"></div>
+      <span class="cat" style="color:var(--mute-dark)">LRS-1996 &middot; LESARUSS</span>
+    </div>
+  </div>
+  <div class="foot-bar">
+    <span>&copy; 2026 Sean A. Russell. A LESARUSS release.</span>
+    <span>Written, produced and built by Sean A. Russell.</span>
+  </div>
+</footer>
+
+
+<script>
+(function(){
+  var f=document.getElementById('unlock'),step=1,
+      back=document.getElementById('u-back'),next=document.getElementById('u-next'),
+      count=document.getElementById('u-count'),pips=f.querySelectorAll('.step-pips span');
+  var all=document.getElementById('u-all');
+  f.addEventListener('change',function(e){
+    if(e.target===all&&all.checked){f.querySelectorAll('input[name=interest]').forEach(function(i){i.checked=true})}
+    else if(e.target.name==='interest'&&!e.target.checked){all.checked=false}
+  });
+  function show(n){
+    step=n;
+    f.querySelectorAll('[data-step]').forEach(function(s){s.hidden=+s.dataset.step!==n});
+    back.hidden=n!==2;
+    if(n===3){document.getElementById('u-nav').hidden=true;count.textContent='Done';pips.forEach(function(p){p.classList.add('on')});f.querySelector('[data-step="3"]').focus();return}
+    count.textContent='Step '+n+' of 2';
+    pips.forEach(function(p,i){p.classList.toggle('on',i<n)});
+    next.innerHTML=n===2?'Unlock the showcase <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>':'Next <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg>';
+  }
+  next.addEventListener('click',function(){
+    if(step===1){
+      var picked=[].slice.call(f.querySelectorAll('input[name=interest]:checked')).map(function(i){return i.value});
+      var e1=document.getElementById('u-err1');e1.hidden=picked.length>0;
+      if(!picked.length)return;
+      show(2);document.getElementById('u-name').focus();
+    }else if(step===2){
+      var n=document.getElementById('u-name'),m=document.getElementById('u-email');
+      var ok=n.value.trim()&&/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(m.value.trim());
+      document.getElementById('u-err2').hidden=!!ok;
+      if(!ok)return;
+      var picked=[].slice.call(f.querySelectorAll('input[name=interest]:checked')).map(function(i){return i.value}).filter(function(v){return v!=='Everything'});
+      document.getElementById('u-summary').textContent='Thanks, '+n.value.trim().split(' ')[0]+'. Your showcase is set for: '+picked.join(', ')+'. This is a preview, so nothing was sent.';
+      show(3);
+    }
+  });
+  back.addEventListener('click',function(){show(1)});
+  f.addEventListener('submit',function(e){e.preventDefault();next.click()});
+})();
+</script>
+</body>
+</html>

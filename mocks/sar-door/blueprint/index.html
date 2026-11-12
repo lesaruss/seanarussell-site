@@ -1,0 +1,814 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sean A. Russell. One person. A universe of brands.</title>
+<meta name="description" content="Sean A. Russell built a universe of brands with AI: GeekFon Society, Vegans Explore, the LESARUSS operating system and the book From Blur to Blueprint.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1a1a1a; --black:#0d0d0d; --white:#ffffff; --paper:#f5f5f5;
+  --orange:#F69820; --orange-ink:#7d4a00;
+  --gf:#7A2BF5; --ve:#0B6B33;
+  --line:rgba(26,26,26,.08); --line-major:rgba(26,26,26,.16);
+  --gut:clamp(16px,4vw,64px);
+}
+*{box-sizing:border-box}
+[hidden]{display:none !important}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:Montserrat,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;font-size:17px;line-height:1.6;overflow-x:hidden}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--orange);outline-offset:3px;box-shadow:0 0 0 6px var(--ink)}
+.skip{position:absolute;left:-9999px;top:8px;background:var(--orange);color:var(--ink);padding:10px 16px;border:3px solid var(--ink);border-radius:6px;font-weight:800;z-index:100}
+.skip:focus{left:16px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* paper */
+.grid{background-color:var(--paper);background-image:
+  linear-gradient(var(--line-major) 1px,transparent 1px),
+  linear-gradient(90deg,var(--line-major) 1px,transparent 1px),
+  linear-gradient(var(--line) 1px,transparent 1px),
+  linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:96px 96px,96px 96px,16px 16px,16px 16px;background-position:-1px -1px}
+.grid-dark{background-color:var(--ink);color:var(--white);background-image:
+  linear-gradient(rgba(255,255,255,.09) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(255,255,255,.09) 1px,transparent 1px),
+  linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+  background-size:96px 96px,96px 96px,16px 16px,16px 16px;background-position:-1px -1px}
+.white{background:var(--white)}
+
+/* type */
+h1,h2,h3,h4{font-weight:900;letter-spacing:-.035em;line-height:1;margin:0}
+h2{font-size:clamp(36px,5.6vw,84px)}
+h3{font-size:clamp(22px,2vw,28px);letter-spacing:-.02em;line-height:1.1}
+p{margin:0 0 1em}
+.lede{font-size:clamp(18px,1.5vw,21px);max-width:62ch;font-weight:500}
+.mono{font-weight:700;font-size:12px;letter-spacing:.16em;text-transform:uppercase}
+.hl{display:inline-block;background:var(--orange);color:var(--ink);padding:.04em .18em .1em;transform:rotate(-2deg);box-shadow:5px 5px 0 var(--ink);border:3px solid var(--ink);margin-top:.12em}
+.o-ink{color:var(--orange-ink)}
+.grid-dark .o-txt{color:var(--orange)}
+
+/* header */
+.titlestrip{display:flex;gap:24px;justify-content:space-between;align-items:center;background:var(--ink);color:var(--white);padding:7px var(--gut);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase}
+.titlestrip span:nth-child(2){color:var(--orange)}
+.site-head{position:sticky;top:0;z-index:50;background:var(--white);border-bottom:3px solid var(--ink)}
+.site-head .in{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:14px var(--gut)}
+.wordmark{font-weight:900;font-size:clamp(20px,2vw,26px);letter-spacing:-.04em;text-decoration:none;white-space:nowrap}
+.wordmark b{color:var(--orange);-webkit-text-stroke:0}
+.wordmark .dot{color:var(--orange)}
+.nav{display:flex;align-items:center;gap:clamp(14px,2vw,30px)}
+.nav a{font-weight:700;font-size:14px;text-decoration:none;padding:6px 0;border-bottom:3px solid transparent}
+.nav a:hover,.nav a[aria-current]{border-bottom-color:var(--orange)}
+.site-head .menu-btn{display:none}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:10px;font:inherit;font-weight:800;font-size:15px;text-decoration:none;padding:13px 20px;border:3px solid var(--ink);border-radius:6px;background:var(--white);color:var(--ink);box-shadow:5px 5px 0 var(--ink);cursor:pointer;transition:transform .12s,box-shadow .12s;line-height:1.2}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--ink)}
+.btn:active{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--ink)}
+.btn-o{background:var(--orange)}
+.btn-ink{background:var(--ink);color:var(--white)}
+.grid-dark .btn{box-shadow:5px 5px 0 var(--orange);border-color:var(--white)}
+.grid-dark .btn-o{border-color:var(--ink)}
+.btn svg{width:18px;height:18px;flex:none}
+.nav .btn{padding:9px 14px;font-size:13px;box-shadow:3px 3px 0 var(--ink);border-bottom:3px solid var(--ink)}
+
+/* section scaffolding */
+.sec{padding:clamp(64px,9vw,128px) var(--gut);position:relative}
+.sheet-tag{display:flex;align-items:center;gap:12px;margin-bottom:22px;flex-wrap:wrap}
+.sheet-tag .no{display:inline-grid;place-items:center;min-width:46px;height:46px;padding:0 8px;border:3px solid currentColor;font-weight:900;font-size:15px;letter-spacing:0;background:var(--white);color:var(--ink)}
+.grid-dark .sheet-tag .no{background:var(--orange);border-color:var(--orange)}
+.sheet-tag .mono{opacity:.85}
+.sheet-tag::after{content:"";flex:1;min-width:40px;height:0;border-top:2px dashed currentColor;opacity:.35}
+.sec-head{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:clamp(24px,4vw,72px);align-items:end;margin-bottom:clamp(36px,5vw,64px)}
+.sec-head p{margin:0;max-width:52ch;font-weight:500}
+
+/* callout bubble */
+.cb{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--orange);color:var(--ink);border:3px solid var(--ink);font-weight:900;font-size:13px;flex:none;letter-spacing:0}
+
+/* cards */
+.card{background:var(--white);border:3px solid var(--ink);box-shadow:8px 8px 0 var(--ink);position:relative}
+.grid-dark .card{color:var(--ink);box-shadow:8px 8px 0 var(--orange)}
+.chip{display:inline-flex;align-items:center;gap:8px;font-weight:800;font-size:12px;letter-spacing:.08em;text-transform:uppercase;border:2px solid var(--ink);padding:4px 10px;border-radius:6px;background:var(--white)}
+.chip i{width:12px;height:12px;display:inline-block;border:2px solid var(--ink)}
+
+/* proof strip */
+.proof{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);background:var(--white)}
+.proof .m{padding:28px clamp(16px,2.4vw,36px) 26px;border-right:3px solid var(--ink);position:relative}
+.proof .m:last-child{border-right:0}
+.proof .tag{font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--orange-ink);display:flex;justify-content:space-between}
+.proof .n{font-size:clamp(48px,6vw,92px);font-weight:900;letter-spacing:-.05em;line-height:.95;margin:10px 0 8px}
+.proof .n small{font-size:.45em;letter-spacing:-.02em}
+.proof .d{font-weight:600;font-size:15px;line-height:1.4;max-width:24ch}
+.proof .dim{position:absolute;left:clamp(16px,2.4vw,36px);right:clamp(16px,2.4vw,36px);bottom:10px;height:8px;border-left:2px solid var(--ink);border-right:2px solid var(--ink)}
+.proof .dim::before{content:"";position:absolute;left:0;right:0;top:3px;border-top:2px solid var(--ink)}
+
+/* footer */
+.site-foot{background:var(--black);color:var(--white);padding:56px var(--gut) 28px}
+.foot-grid{display:grid;grid-template-columns:1.4fr repeat(3,minmax(0,1fr));gap:40px;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,.2)}
+.site-foot .wordmark{font-size:32px}
+.site-foot h4{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--orange);margin-bottom:14px;font-weight:800}
+.site-foot ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.site-foot li a{text-decoration:none;font-weight:600}
+.site-foot li a:hover{color:var(--orange);text-decoration:underline}
+.tblock{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border:2px solid rgba(255,255,255,.5);margin-top:28px}
+.tblock div{padding:10px 14px;border-right:2px solid rgba(255,255,255,.5);font-size:13px;font-weight:600}
+.tblock div:last-child{border-right:0}
+.tblock b{display:block;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.7);font-weight:700}
+.motto{font-size:clamp(20px,2vw,26px);font-weight:800;letter-spacing:-.02em;max-width:22ch;margin:18px 0 0}
+
+/* reveal */
+.draw{stroke-dasharray:1200;stroke-dashoffset:0;animation:draw 1.4s ease .1s both}
+@keyframes draw{from{stroke-dashoffset:1200}to{stroke-dashoffset:0}}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .draw{animation:none;stroke-dasharray:none}
+  .btn{transition:none}
+}
+
+@media (max-width:1100px){
+  .nav a:not(.btn){display:none}
+  .site-head .menu-btn{display:inline-flex}
+  .nav.open{position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;background:var(--white);border-bottom:3px solid var(--ink);padding:12px var(--gut) 20px;gap:4px}
+  .nav.open a:not(.btn){display:block;padding:10px 0;border-bottom:1px solid var(--line-major)}
+  .nav.open .btn{justify-content:center;margin-top:10px}
+}
+@media (max-width:900px){
+  .sec-head{grid-template-columns:minmax(0,1fr)}
+  .proof{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .proof .m:nth-child(2){border-right:0}
+  .proof .m:nth-child(-n+2){border-bottom:3px solid var(--ink)}
+  .foot-grid{grid-template-columns:1fr 1fr}
+  .foot-grid > div:first-child{grid-column:1/-1}
+  .tblock{grid-template-columns:1fr 1fr}
+  .tblock div{border-bottom:2px solid rgba(255,255,255,.5)}
+}
+@media (max-width:560px){
+  body{font-size:16px}
+  .titlestrip span:nth-child(3){display:none}
+  .proof .m{padding:20px 14px 24px}
+  .proof .d{font-size:13px}
+  .nav > .btn-o{display:none}
+  .nav.open > .btn-o{display:flex}
+}
+
+
+/* ---------- HERO ---------- */
+.hero{padding:clamp(40px,6vw,88px) var(--gut) clamp(56px,7vw,96px);display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(32px,5vw,80px);align-items:center;position:relative;overflow:hidden}
+.hero h1{font-size:clamp(46px,7.4vw,124px);letter-spacing:-.055em;line-height:.9}
+.hero h1 .l{display:block}
+.hero h1 .hl{font-size:.82em;margin-top:.18em}
+.hero .lede{margin:34px 0 0}
+.hero .lede strong{font-weight:800}
+.ctas{display:flex;flex-wrap:wrap;gap:16px;margin-top:34px}
+.ctas small{display:block;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;opacity:.75}
+.ctas .btn{flex-direction:column;align-items:flex-start;gap:2px;padding:12px 18px}
+.ctas .btn span{display:flex;align-items:center;gap:8px}
+.hero-meta{display:grid;grid-template-columns:repeat(4,minmax(0,auto));justify-content:start;margin-top:40px;border:3px solid var(--ink);background:var(--white);width:max-content;max-width:100%}
+.hero-meta div{padding:9px 16px;border-right:3px solid var(--ink);font-weight:700;font-size:14px;white-space:nowrap}
+.hero-meta div:last-child{border-right:0}
+.hero-meta b{display:block;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--orange-ink);font-weight:800}
+
+.fig{position:relative;margin:0 0 40px;aspect-ratio:1835/2379;max-height:80vh;justify-self:center;width:100%;max-width:600px}
+.fig .frame{position:absolute;inset:0;border:3px solid var(--ink);background:transparent}
+.fig img{width:100%;height:100%;object-fit:cover;object-position:50% 0;mix-blend-mode:multiply}
+.fig .corner{position:absolute;width:22px;height:22px;border:3px solid var(--orange)}
+.fig .c1{top:-12px;left:-12px;border-right:0;border-bottom:0}.fig .c2{top:-12px;right:-12px;border-left:0;border-bottom:0}
+.fig .c3{bottom:-12px;left:-12px;border-right:0;border-top:0}.fig .c4{bottom:-12px;right:-12px;border-left:0;border-top:0}
+.co{position:absolute;display:flex;align-items:center;z-index:2}
+.co .lab{display:flex;align-items:center;gap:8px;background:var(--white);border:3px solid var(--ink);padding:5px 12px 5px 5px;font-weight:800;font-size:13px;box-shadow:4px 4px 0 var(--ink);white-space:nowrap}
+.co .lab .cb{width:28px;height:28px;font-size:12px;border-width:2px}
+.co .lead{width:var(--w,56px);border-top:2px solid var(--ink)}
+.co .pt{width:12px;height:12px;border-radius:50%;background:var(--orange);border:2px solid var(--ink);margin-left:-2px}
+.co.r{flex-direction:row-reverse}.co.r .pt{margin-left:0;margin-right:-2px}
+.co1{top:9%;left:-6%;--w:84px}
+.co2{top:27%;right:-7%;--w:42px}
+.co3{top:47%;left:-8%;--w:58px}
+.co4{top:70%;right:-7%;--w:52px}
+.vdim{position:absolute;left:0;right:0;bottom:-38px;height:14px;border-left:2px solid var(--ink);border-right:2px solid var(--ink)}
+.vdim::before{content:"";position:absolute;left:0;right:0;top:6px;border-top:2px solid var(--ink)}
+.vdim span{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:var(--paper);padding:2px 10px;font-weight:800;font-size:11px;letter-spacing:.16em;text-transform:uppercase;white-space:nowrap}
+.north{position:absolute;right:var(--gut);top:24px;width:54px;opacity:.9}
+
+/* ---------- MAP ---------- */
+.map-wrap{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:clamp(28px,3vw,48px);align-items:start}
+.map{position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(28px,4vw,64px)}
+.map svg.wires{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+.node{position:relative;z-index:1;padding:22px 22px 20px;min-height:170px;display:flex;flex-direction:column}
+.node .k{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;gap:10px}
+.node .k .mono{font-size:10.5px}
+.node h3{margin-bottom:8px}
+.node p{font-size:14.5px;line-height:1.5;margin:0;font-weight:500}
+.node.brand{background:var(--white);color:var(--ink);border:3px solid var(--white);box-shadow:8px 8px 0 var(--orange)}
+.node.mod{background:var(--ink);color:var(--white);border:3px dashed rgba(255,255,255,.75)}
+.node.mod .mono{color:var(--orange)}
+.node.core{background:var(--orange);color:var(--ink);border:3px solid var(--white);box-shadow:8px 8px 0 var(--white);justify-content:center;text-align:center;align-items:center}
+.node.core h3{font-size:clamp(26px,2.4vw,36px);letter-spacing:-.04em}
+.node.core .cb{background:var(--ink);color:var(--orange);border-color:var(--ink);margin-bottom:12px}
+.node .stat{margin-top:auto;padding-top:12px;font-weight:900;font-size:22px;letter-spacing:-.03em}
+.legend{border:3px solid var(--white);padding:22px;background:rgba(13,13,13,.6)}
+.legend h3{font-size:14px;letter-spacing:.16em;text-transform:uppercase;color:var(--orange);margin-bottom:16px}
+.legend ul{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.legend li{display:grid;grid-template-columns:44px 1fr;gap:12px;align-items:center;font-size:14px;font-weight:600;line-height:1.35}
+.sw{height:26px;display:block}
+.sw.core{background:var(--orange);border:3px solid var(--white)}
+.sw.brand{background:var(--white);border:3px solid var(--white);box-shadow:4px 4px 0 var(--orange)}
+.sw.mod{border:3px dashed rgba(255,255,255,.75)}
+.sw.wire{height:0;border-top:3px solid var(--orange)}
+.sw.wire2{height:0;border-top:3px dashed rgba(255,255,255,.75)}
+.legend .note{margin:20px 0 0;padding-top:16px;border-top:1px solid rgba(255,255,255,.25);font-size:13px;font-weight:500;opacity:.85}
+
+/* ---------- AUTHORSHIP ---------- */
+.auth{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,.65fr);gap:clamp(32px,5vw,80px);align-items:center}
+.auth h2{font-size:clamp(44px,7vw,112px);letter-spacing:-.055em;line-height:.92;margin-bottom:36px}
+.auth h2 span{display:block}
+.auth h2 span.hl{display:inline-block}
+.spec{width:100%;border-collapse:collapse;background:var(--white);border:3px solid var(--ink);box-shadow:8px 8px 0 var(--ink);font-size:15px}
+.spec caption{text-align:left;font-weight:800;font-size:12px;letter-spacing:.16em;text-transform:uppercase;padding:0 0 12px;color:var(--orange-ink)}
+.spec th,.spec td{text-align:left;padding:13px 16px;border-bottom:2px solid var(--ink);vertical-align:top}
+.spec thead th{background:var(--ink);color:var(--white);font-size:11px;letter-spacing:.16em;text-transform:uppercase}
+.spec tbody th{font-weight:800}
+.spec td.who{font-weight:800}
+.spec tr.studio td,.spec tr.studio th{background:var(--paper)}
+.spec tr:last-child th,.spec tr:last-child td{border-bottom:0}
+.auth-fig{position:relative;margin:0}
+.auth-fig img{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:50% 0;border:3px solid var(--ink);background:var(--white);box-shadow:10px 10px 0 var(--orange)}
+.auth-fig figcaption{margin-top:20px;font-weight:600;font-size:14px;display:flex;gap:10px;align-items:flex-start}
+.stamp{position:absolute;bottom:90px;left:-22px;transform:rotate(-8deg);background:var(--orange);border:3px solid var(--ink);padding:8px 14px;font-weight:900;font-size:13px;letter-spacing:.1em;text-transform:uppercase;box-shadow:4px 4px 0 var(--ink)}
+
+/* ---------- PATTERN ---------- */
+.pattern{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:clamp(32px,5vw,80px);align-items:start}
+.diagram{background:var(--white);border:3px solid var(--ink);box-shadow:8px 8px 0 var(--ink);padding:18px 18px 10px}
+.diagram svg{width:100%;height:auto;display:block}
+.diagram .dk{display:flex;flex-wrap:wrap;gap:8px 22px;font-size:13px;font-weight:700;padding:12px 4px 6px;border-top:2px solid var(--ink);margin-top:6px}
+.diagram .dk span{display:inline-flex;align-items:center;gap:8px}
+.diagram .dk i{width:30px;display:inline-block}
+.revs{list-style:none;margin:0;padding:0;border-top:3px solid var(--ink)}
+.revs li{display:grid;grid-template-columns:44px 1fr;gap:14px;padding:16px 0;border-bottom:2px solid var(--ink);align-items:start}
+.revs li b{display:block;font-weight:800}
+.revs li span{font-size:15px;font-weight:500}
+.revs li.now{background:var(--orange);margin:0 -14px;padding:16px 14px;border:3px solid var(--ink);box-shadow:6px 6px 0 var(--ink)}
+.revs li.now .cb{background:var(--white)}
+.quote{margin:48px 0 0;padding:28px 0 0;border-top:3px solid var(--ink);position:relative}
+.quote p{font-size:clamp(24px,2.6vw,38px);font-weight:900;letter-spacing:-.035em;line-height:1.12;margin:0 0 14px;max-width:24ch}
+.quote cite{font-style:normal;font-weight:700;font-size:13px;letter-spacing:.14em;text-transform:uppercase}
+
+/* ---------- BRANDS ---------- */
+.elev{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:clamp(24px,3vw,44px)}
+.bcard{display:flex;flex-direction:column}
+.bcard.a{grid-column:span 7}.bcard.b{grid-column:span 5}.bcard.c{grid-column:span 5}.bcard.d{grid-column:span 7}
+.bcard .bar{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 18px;border-bottom:3px solid var(--ink);background:var(--paper)}
+.bcard .bar .mono{font-size:11px}
+.bcard .art{border-bottom:3px solid var(--ink);background:var(--white);position:relative;overflow:hidden}
+.bcard.a .art img{width:100%;height:340px;object-fit:cover;object-position:50% 20%}
+.bcard.d .art img{width:100%;height:300px;object-fit:cover;object-position:50% 50%}
+.bcard.b .art{display:grid;grid-template-columns:140px 1fr;align-items:stretch;height:200px}
+.bcard.b .art .logo{display:grid;place-items:center;border-right:3px solid var(--ink);padding:14px;background:var(--white)}
+.bcard.b .art .logo img{width:110px;height:110px;object-fit:contain}
+.bcard.b .art .wm{width:100%;height:100%;object-fit:cover}
+.bcard .body{padding:24px 24px 26px;display:flex;flex-direction:column;flex:1}
+.bcard h3{font-size:clamp(28px,2.6vw,40px);letter-spacing:-.04em;margin-bottom:12px}
+.bcard p{font-size:15.5px;font-weight:500;max-width:56ch}
+.bcard ul.facts{list-style:none;margin:4px 0 22px;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.bcard ul.facts li{border:2px solid var(--ink);padding:5px 10px;font-weight:700;font-size:13px;background:var(--white)}
+.bcard .go{margin-top:auto;align-self:flex-start}
+.bcard .art.schem{height:200px;background:var(--ink);display:grid;place-items:center;background:var(--ink)}
+.schem svg{width:min(88%,380px);height:auto}
+.pin{position:absolute;top:14px;left:14px}
+
+/* ---------- ENTRANCES ---------- */
+.doors{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(24px,3vw,44px)}
+.door{padding:0;display:flex;flex-direction:column;scroll-margin-top:110px}
+.door .plan{height:150px;border-bottom:3px solid var(--ink);display:grid;place-items:center;background:var(--paper)}
+.door .plan svg{width:190px;height:120px}
+.door .body{padding:24px;display:flex;flex-direction:column;flex:1}
+.door .who{font-weight:800;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--orange-ink);margin-bottom:10px}
+.door h3{font-size:clamp(28px,2.6vw,38px);letter-spacing:-.04em;margin-bottom:12px}
+.door p{font-size:15.5px;font-weight:500}
+.door .acts{margin-top:auto;display:flex;flex-wrap:wrap;gap:12px;padding-top:8px}
+.door.feature{background:var(--orange)}
+.door.feature .plan{background:var(--orange)}
+.door.feature .who{color:var(--ink)}
+
+/* ---------- SHOWCASE ---------- */
+.show{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,5vw,80px);align-items:start}
+.show h2 .o-txt{display:block}
+.steps{list-style:none;margin:36px 0 0;padding:0;display:grid;gap:18px}
+.steps li{display:grid;grid-template-columns:46px 1fr;gap:16px;align-items:start}
+.steps b{display:block;font-size:19px;font-weight:800}
+.steps span{opacity:.85;font-size:15px}
+.unlock{padding:clamp(22px,3vw,36px)}
+.unlock legend,.unlock .lbl{font-weight:800;font-size:12px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:12px;padding:0;display:block}
+.unlock fieldset{border:0;margin:0 0 22px;padding:0;min-width:0}
+.picks{display:flex;flex-wrap:wrap;gap:10px}
+.pick{font:inherit;font-weight:700;font-size:14px;border:3px solid var(--ink);border-radius:6px;background:var(--white);padding:9px 14px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;color:var(--ink)}
+.pick .bx{width:16px;height:16px;border:2px solid var(--ink);display:inline-grid;place-items:center}
+.pick[aria-pressed="true"]{background:var(--orange);box-shadow:3px 3px 0 var(--ink)}
+.pick[aria-pressed="true"] .bx::after{content:"";width:8px;height:8px;background:var(--ink)}
+.pick .dot{width:10px;height:10px;display:inline-block}
+.fld{display:grid;gap:6px;margin-bottom:16px}
+.fld label{font-weight:800;font-size:14px}
+.fld input{font:inherit;font-size:16px;padding:12px 14px;border:3px solid var(--ink);border-radius:6px;background:var(--white);color:var(--ink);width:100%}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.err{color:var(--ink);background:#fff3e0;border-left:6px solid var(--orange-ink);padding:8px 12px;font-weight:700;font-size:14px;margin:0 0 14px}
+.thanks{text-align:left}
+.thanks h3{font-size:34px;margin:14px 0 10px}
+
+/* ---------- RECORD ---------- */
+.log{list-style:none;margin:0;padding:0;position:relative;border-left:3px solid var(--ink);margin-left:clamp(0px,1vw,12px)}
+.log > li{display:grid;grid-template-columns:clamp(110px,14vw,200px) minmax(0,1fr) minmax(0,1.2fr);gap:clamp(16px,3vw,48px);padding:26px 0 26px clamp(20px,3vw,40px);border-bottom:2px solid var(--line-major);position:relative}
+.log > li::before{content:"";position:absolute;left:-11px;top:34px;width:16px;height:16px;background:var(--orange);border:3px solid var(--ink)}
+.log > li::after{content:"";position:absolute;left:0;top:41px;width:clamp(10px,2vw,28px);border-top:2px solid var(--ink)}
+.log .yr{font-size:clamp(34px,4vw,60px);font-weight:900;letter-spacing:-.05em;line-height:1}
+.log .yr small{display:block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--orange-ink);margin-top:6px}
+.log h3{font-size:clamp(20px,1.8vw,26px);margin-bottom:6px}
+.log .what p{margin:0;font-size:15.5px;font-weight:500}
+.log .det{font-size:15px;font-weight:500}
+.log .det ul{margin:0;padding:0;list-style:none;display:grid;gap:6px}
+.log .det li{padding-left:18px;position:relative}
+.log .det li::before{content:"";position:absolute;left:0;top:.62em;width:8px;height:2px;background:var(--ink)}
+.log .now .yr{background:var(--orange);justify-self:start;padding:2px 8px;border:3px solid var(--ink);align-self:start}
+.logo-mini{width:64px;height:64px;object-fit:contain;border:2px solid var(--ink);background:var(--white);margin-top:12px}
+.orgs{margin-top:clamp(48px,6vw,80px)}
+.orgs ul{list-style:none;margin:14px 0 0;padding:0;display:grid;grid-template-columns:repeat(8,minmax(0,1fr));border:3px solid var(--ink);background:var(--white)}
+.orgs li{padding:20px 10px;text-align:center;font-weight:900;font-size:clamp(14px,1.2vw,18px);letter-spacing:-.02em;border-right:3px solid var(--ink)}
+.orgs li:last-child{border-right:0}
+
+/* ---------- CLOSER ---------- */
+.closer{text-align:left;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);gap:clamp(32px,5vw,80px);align-items:end}
+.closer h2{font-size:clamp(44px,7vw,120px);letter-spacing:-.055em;line-height:.9}
+.closer img{width:100%;max-width:400px;aspect-ratio:3/4;object-fit:cover;object-position:50% 0;background:var(--white);border:3px solid var(--white);box-shadow:10px 10px 0 var(--orange);justify-self:end}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width:1100px){
+  .map-wrap{grid-template-columns:minmax(0,1fr)}
+  .legend ul{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+  .co1{left:-2%}.co3{left:-3%}.co2,.co4{right:-2%}
+}
+@media (max-width:900px){
+  .hero{grid-template-columns:minmax(0,1fr)}
+  .fig{max-width:460px;max-height:none;margin:12px auto 48px}
+  .auth,.pattern,.show,.closer{grid-template-columns:minmax(0,1fr)}
+  .auth-fig{max-width:420px}
+  .elev{grid-template-columns:minmax(0,1fr)}
+  .bcard.a,.bcard.b,.bcard.c,.bcard.d{grid-column:auto}
+  .doors{grid-template-columns:minmax(0,1fr)}
+  .map{grid-template-columns:1fr 1fr;gap:24px}
+  .map svg.wires{display:none}
+  .map .core{grid-column:1/-1;order:-1}
+  .log > li{grid-template-columns:1fr;gap:8px}
+  .orgs ul{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .orgs li:nth-child(4){border-right:0}
+  .orgs li:nth-child(-n+4){border-bottom:3px solid var(--ink)}
+  .north{display:none}
+}
+@media (max-width:560px){
+  .hero h1{font-size:clamp(40px,12.4vw,60px)}
+  .hero-meta{grid-template-columns:1fr 1fr;width:100%}
+  .hero-meta div{border-bottom:3px solid var(--ink);white-space:normal}
+  .hero-meta div:nth-child(2n){border-right:0}
+  .hero-meta div:nth-child(n+3){border-bottom:0}
+  .ctas .btn{width:100%}
+  .fig{margin-bottom:30px}
+  .co .lab{font-size:11px;padding:3px 8px 3px 3px;box-shadow:3px 3px 0 var(--ink)}
+  .co .lab .cb{width:22px;height:22px;font-size:10px}
+  .co1{top:7%;left:-4%;--w:34px}.co2{top:26%;right:-3%;--w:18px}.co3{top:47%;left:-5%;--w:22px}.co4{top:72%;right:-3%;--w:18px}
+  .map{grid-template-columns:minmax(0,1fr)}
+  .node{min-height:0}
+  .spec{font-size:14px}
+  .spec th,.spec td{padding:10px 10px}
+  .spec thead th:nth-child(3),.spec td.note{display:none}
+  .stamp{left:-6px}
+  .bcard .bar .mono{display:none}
+  .bcard .bar{justify-content:flex-start}
+  .bcard.a .art img{height:260px}
+  .bcard.d .art img{height:200px}
+  .bcard.b .art{grid-template-columns:110px 1fr;height:160px}
+  .bcard.b .art .logo img{width:84px;height:84px}
+  .two{grid-template-columns:minmax(0,1fr)}
+  .orgs ul{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .orgs li{border-bottom:3px solid var(--ink)}
+  .orgs li:nth-child(2n){border-right:0}
+  .orgs li:nth-child(4){border-right:0}
+  .orgs li:nth-child(odd){border-right:3px solid var(--ink)}
+  .orgs li:nth-last-child(-n+2){border-bottom:0}
+  .revs li.now{margin:0 -6px;padding:16px 10px}
+}
+</style>
+</head>
+<body class="no-js">
+<script>document.body.classList.remove('no-js')</script>
+<a class="skip" href="#main">Skip to content</a>
+<div class="titlestrip" aria-hidden="true"><span>seanarussell.com / Drawing set 2026</span><span>From blur to blueprint</span><span>Sheet A-001 / Rev. 2026.11</span></div>
+<header class="site-head">
+  <div class="in">
+    <a class="wordmark" href="index.html">Sean A. Russell<span class="dot">.</span></a>
+    <nav class="nav" id="nav" aria-label="Primary">
+      <a href="index.html#map">The universe</a>
+      <a href="index.html#brands">Brands</a>
+      <a href="index.html#record">Track record</a>
+      <a href="representation.html">Representation</a>
+      <a href="index.html#investors">Investors</a>
+      <a class="btn btn-o" href="index.html#showcase"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><rect x="4" y="10" width="16" height="11"/><path d="M8 10V7a4 4 0 0 1 8 0"/></svg>Unlock the showcase</a>
+    </nav>
+    <button class="btn menu-btn" type="button" aria-expanded="false" aria-controls="nav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>Menu</button>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- HERO -->
+<section class="hero grid" aria-labelledby="h-hero">
+  <svg class="north" viewBox="0 0 60 80" aria-hidden="true"><circle cx="30" cy="46" r="26" fill="none" stroke="#1a1a1a" stroke-width="3"/><path d="M30 14 L40 50 L30 44 L20 50 Z" fill="#F69820" stroke="#1a1a1a" stroke-width="3" stroke-linejoin="round"/><text x="30" y="11" text-anchor="middle" font-family="Montserrat,Arial" font-weight="900" font-size="12" fill="#1a1a1a">N</text></svg>
+  <div>
+    <div class="sheet-tag"><span class="no">01</span><span class="mono">Plan view / The architect</span></div>
+    <h1 id="h-hero"><span class="l">One person.</span><span class="l">A universe of brands.</span><span class="hl">Built with AI.</span></h1>
+    <p class="lede">I'm Sean A. Russell. For thirty years I have drawn the plans and then built the thing: websites at 14, media outlets, classrooms, communities. Today it is <strong>GeekFon Society, Vegans Explore and the LESARUSS operating system</strong>, all built by me, with AI as the studio.</p>
+    <div class="ctas" role="group" aria-label="Choose your entrance">
+      <a class="btn btn-ink" href="representation.html"><small>Attorneys and managers</small><span>Representation <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+      <a class="btn" href="#investors"><small>Investors</small><span>One brand or all <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+      <a class="btn btn-o" href="#showcase"><small>Everyone</small><span>Unlock the showcase <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><rect x="5" y="11" width="14" height="10"/><path d="M8 11V8a4 4 0 0 1 8 0"/></svg></span></a>
+    </div>
+    <div class="hero-meta">
+      <div><b>Architect</b>Sean A. Russell</div>
+      <div><b>Practice</b>LESARUSS</div>
+      <div><b>Building since</b>1996</div>
+      <div><b>Scale</b>1 person : 1 universe</div>
+    </div>
+  </div>
+  <figure class="fig">
+    <span class="vdim" aria-hidden="true"><span>30 years / since 1996</span></span>
+    <img src="../assets/sean-photo.webp" alt="Sean A. Russell in a gray jacket, arms crossed, smiling." width="1835" height="2379">
+    <span class="frame" aria-hidden="true"></span>
+    <span class="corner c1" aria-hidden="true"></span><span class="corner c2" aria-hidden="true"></span><span class="corner c3" aria-hidden="true"></span><span class="corner c4" aria-hidden="true"></span>
+    <span class="co co1" aria-hidden="true"><span class="lab"><span class="cb">01</span>Writes</span><span class="lead"></span><span class="pt"></span></span>
+    <span class="co co2 r" aria-hidden="true"><span class="lab"><span class="cb">02</span>Beatboxes</span><span class="lead"></span><span class="pt"></span></span>
+    <span class="co co3" aria-hidden="true"><span class="lab"><span class="cb">03</span>Produces</span><span class="lead"></span><span class="pt"></span></span>
+    <span class="co co4 r" aria-hidden="true"><span class="lab"><span class="cb">04</span>Builds</span><span class="lead"></span><span class="pt"></span></span>
+    <figcaption class="sr">Callouts: writes, beatboxes, produces, builds.</figcaption>
+  </figure>
+</section>
+
+<!-- PROOF -->
+<section class="proof" aria-label="Live proof">
+  <div class="m rv"><div class="tag"><span>M-01</span><span>Live</span></div><div class="n">121</div><div class="d">GeekFon Society songs live, originals and remixes</div><span class="dim" aria-hidden="true"></span></div>
+  <div class="m rv"><div class="tag"><span>M-02</span><span>This week</span></div><div class="n">3</div><div class="d">sites launched in one day, on the LESARUSS system</div><span class="dim" aria-hidden="true"></span></div>
+  <div class="m rv"><div class="tag"><span>M-03</span><span>Audience</span></div><div class="n">1M<small>+</small></div><div class="d">Anime 3000 podcast downloads</div><span class="dim" aria-hidden="true"></span></div>
+  <div class="m rv"><div class="tag"><span>M-04</span><span>Since 1996</span></div><div class="n">30</div><div class="d">years building, starting at age 14</div><span class="dim" aria-hidden="true"></span></div>
+</section>
+
+<!-- MAP -->
+<section class="sec grid-dark" id="map" aria-labelledby="h-map">
+  <div class="sheet-tag"><span class="no">02</span><span class="mono">Systems map / The universe</span></div>
+  <div class="sec-head">
+    <h2 id="h-map">The universe,<br><span class="o-txt">drawn to plan.</span></h2>
+    <p>Every brand runs on one operating system I built myself with AI. Read it like a floor plan: the core in the middle, the systems around it, the brands at the corners.</p>
+  </div>
+  <div class="map-wrap">
+    <div class="map draw-wrap">
+      <svg class="wires" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+        <g fill="none" stroke="#F69820" stroke-width="3" vector-effect="non-scaling-stroke">
+          <path class="draw" pathLength="1200" d="M50 50 V16" vector-effect="non-scaling-stroke"/>
+          <path class="draw" pathLength="1200" d="M50 50 V84" vector-effect="non-scaling-stroke"/>
+          <path class="draw" pathLength="1200" d="M50 50 H16" vector-effect="non-scaling-stroke"/>
+          <path class="draw" pathLength="1200" d="M50 50 H84" vector-effect="non-scaling-stroke"/>
+        </g>
+        <g fill="none" stroke="rgba(255,255,255,.75)" stroke-width="3" stroke-dasharray="8 7" vector-effect="non-scaling-stroke">
+          <path d="M50 16 H16 V50" vector-effect="non-scaling-stroke"/>
+          <path d="M50 16 H84 V50" vector-effect="non-scaling-stroke"/>
+          <path d="M16 50 V84 H50" vector-effect="non-scaling-stroke"/>
+          <path d="M84 50 V84 H50" vector-effect="non-scaling-stroke"/>
+        </g>
+      </svg>
+      <article class="node brand"><div class="k"><span class="mono o-ink">Brand A / Flagship</span><span class="chip"><i style="background:var(--gf)"></i>Music</span></div><h3>GeekFon Society</h3><p>An animated music universe. A roster of animated artists across many genres, a daily group-chat story, membership, $11 albums and radio.</p><div class="stat">121 songs live</div></article>
+      <article class="node mod"><div class="k"><span class="mono">System 01</span></div><h3>HQ</h3><p>The command center where every brand, task and decision is tracked.</p></article>
+      <article class="node brand"><div class="k"><span class="mono o-ink">Brand B / Community</span><span class="chip"><i style="background:var(--ve)"></i>Vegan</span></div><h3>Vegans Explore</h3><p>Grown from about ten years of SoFlo Vegans and hundreds of interviews.</p><div class="stat">Goal: 1000 communities by 2030</div></article>
+      <article class="node mod"><div class="k"><span class="mono">System 02</span></div><h3>Outreach engine</h3><p>How the universe finds its people, and how the people find it.</p></article>
+      <article class="node core"><span class="cb">00</span><h3>LESARUSS</h3><p><strong>The operating system.</strong> Built by Sean with AI. Named 1997, launched 2000, incorporated 2007.</p></article>
+      <article class="node mod"><div class="k"><span class="mono">System 03</span></div><h3>Membership and payments</h3><p>Members, albums and access, wired into every brand.</p></article>
+      <article class="node brand"><div class="k"><span class="mono o-ink">Brand C / Book</span><span class="chip"><i style="background:var(--orange)"></i>Book</span></div><h3>From Blur to Blueprint</h3><p>The book. How a builder turns a blur of ideas into a plan you can stand on.</p></article>
+      <article class="node mod"><div class="k"><span class="mono">System 04</span></div><h3>Brand sites</h3><p>Launch pads for every brand, shipped from the same kit.</p><div class="stat" style="color:var(--orange)">3 in one day</div></article>
+      <article class="node brand"><div class="k"><span class="mono o-ink">Brand D / Classroom</span><span class="chip"><i style="background:var(--ink)"></i>Education</span></div><h3>Education and speaking</h3><p>In education since 2003. Broward County Public Schools District Webmaster, back since 2024.</p></article>
+    </div>
+    <aside class="legend" aria-labelledby="h-legend">
+      <h3 id="h-legend">Legend</h3>
+      <ul>
+        <li><span class="sw core" aria-hidden="true"></span>Core: the LESARUSS operating system</li>
+        <li><span class="sw mod" aria-hidden="true"></span>System module, built by Sean with AI</li>
+        <li><span class="sw brand" aria-hidden="true"></span>Brand</li>
+        <li><span class="sw wire" aria-hidden="true"></span>Core connection</li>
+        <li><span class="sw wire2" aria-hidden="true"></span>Shared service line</li>
+      </ul>
+      <p class="note">Drawn by one person. Every box on this sheet is real and built. Diagram is a plan, not to scale.</p>
+    </aside>
+  </div>
+</section>
+
+<!-- AUTHORSHIP -->
+<section class="sec grid" id="authorship" aria-labelledby="h-auth">
+  <div class="sheet-tag"><span class="no">03</span><span class="mono">Specification / Authorship</span></div>
+  <div class="auth">
+    <div>
+      <h2 id="h-auth"><span>I wrote it.</span><span>I produced it.</span><span class="hl">I built it.</span></h2>
+      <table class="spec rv">
+        <caption>Spec sheet: who made what</caption>
+        <thead><tr><th scope="col">Component</th><th scope="col">Author</th><th scope="col">Notes</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Lyrics</th><td class="who">Sean A. Russell</td><td class="note">Written by Sean, every song.</td></tr>
+          <tr><th scope="row">The beat</th><td class="who">Sean A. Russell</td><td class="note">Beatboxed by Sean.</td></tr>
+          <tr><th scope="row">Production</th><td class="who">Sean A. Russell</td><td class="note">Produced by Sean.</td></tr>
+          <tr><th scope="row">Sites and systems</th><td class="who">Sean A. Russell</td><td class="note">The LESARUSS operating system, built by Sean.</td></tr>
+          <tr class="studio"><th scope="row">AI tools</th><td class="who">The studio</td><td class="note">Instruments, not the author.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <figure class="auth-fig rv">
+      <span class="stamp">Approved: author</span>
+      <img src="../assets/sean-pose-producer.webp" alt="Illustration of Sean in a gray tee with headphones around his neck." width="1500" height="2000">
+      <figcaption><span class="cb">AI</span><span>AI tools are the studio, not the author. The words, the beat and the build start with Sean.</span></figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- PATTERN -->
+<section class="sec white" id="pattern" aria-labelledby="h-pat">
+  <div class="sheet-tag"><span class="no">04</span><span class="mono">Revision history / The pattern</span></div>
+  <div class="sec-head">
+    <h2 id="h-pat">Capability first.<br><span class="o-ink">The business lagged.</span></h2>
+    <p>Told straight: every time, I built the capability before the business existed to carry it. LESARUSS is the first time I am building the business with the community, together, from day one.</p>
+  </div>
+  <div class="pattern">
+    <div>
+    <div class="diagram rv draw-wrap" role="img" aria-label="Diagram: a solid capability line climbs early through five points from 1996 to 2017. A dashed business line trails behind until both meet in 2026 at LESARUSS, built with the community.">
+      <svg viewBox="0 0 800 420" aria-hidden="true">
+        <defs><pattern id="g" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="rgba(26,26,26,.08)" stroke-width="1"/></pattern></defs>
+        <rect width="800" height="420" fill="url(#g)"/>
+        <path d="M40 380 H770 M40 380 V20" stroke="#1a1a1a" stroke-width="3" fill="none"/>
+        <path class="draw" pathLength="1200" d="M40 360 C120 300 150 240 210 210 S330 140 400 120 S540 90 610 80 S700 70 720 60" stroke="#F69820" stroke-width="7" fill="none" stroke-linecap="round"/>
+        <path d="M40 375 C160 372 260 360 360 340 S520 300 600 250 S690 120 720 60" stroke="#1a1a1a" stroke-width="4" stroke-dasharray="12 9" fill="none"/>
+        <g font-family="Montserrat,Arial" font-weight="900" font-size="18" text-anchor="middle">
+          <circle cx="70" cy="335" r="17" fill="#fff" stroke="#1a1a1a" stroke-width="3"/><text x="70" y="341">1</text>
+          <circle cx="210" cy="210" r="17" fill="#fff" stroke="#1a1a1a" stroke-width="3"/><text x="210" y="216">2</text>
+          <circle cx="400" cy="120" r="17" fill="#fff" stroke="#1a1a1a" stroke-width="3"/><text x="400" y="126">3</text>
+          <circle cx="560" cy="88" r="17" fill="#fff" stroke="#1a1a1a" stroke-width="3"/><text x="560" y="94">4</text>
+          <circle cx="720" cy="60" r="22" fill="#F69820" stroke="#1a1a1a" stroke-width="3"/><text x="720" y="66">5</text>
+        </g>
+        <g font-family="Montserrat,Arial" font-weight="800" font-size="15" fill="#1a1a1a">
+          <text x="40" y="408">1996</text><text x="770" y="408" text-anchor="end">2026</text>
+          <text x="548" y="215" text-anchor="end" font-size="14">GAP: BUSINESS LAGS</text>
+          <path d="M560 112 V280" stroke="#1a1a1a" stroke-width="2" stroke-dasharray="3 5"/>
+        </g>
+      </svg>
+      <div class="dk"><span><i style="border-top:6px solid var(--orange)"></i>Capability</span><span><i style="border-top:3px dashed var(--ink)"></i>Business</span><span>Diagram, not to scale</span></div>
+    </div>
+      <blockquote class="quote rv">
+        <p>"I've always been a Community Builder, even before having the language for what I was doing."</p>
+        <cite>Sean A. Russell</cite>
+      </blockquote>
+    </div>
+
+    <div>
+      <ol class="revs">
+        <li class="rv"><span class="cb">1</span><div><b>Rev A, 1996</b><span>Paid websites at 14. The skills arrived years before the company did.</span></div></li>
+        <li class="rv"><span class="cb">2</span><div><b>Rev B, 1997 to 2002</b><span>Ultimate Championship Federation: two full shows a week, up to thirty writers judged.</span></div></li>
+        <li class="rv"><span class="cb">3</span><div><b>Rev C, 2003 to 2012</b><span>Anime 3000 and Top Spot USA. Real audiences, real sponsors, built ahead of the business model.</span></div></li>
+        <li class="rv"><span class="cb">4</span><div><b>Rev D, 2017</b><span>The Leap. Full-time entrepreneur.</span></div></li>
+        <li class="rv now"><span class="cb">5</span><div><b>Rev E, now: LESARUSS</b><span>The capability and the business, built together, with the community.</span></div></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- BRANDS -->
+<section class="sec grid" id="brands" aria-labelledby="h-brands">
+  <div class="sheet-tag"><span class="no">05</span><span class="mono">Elevations / The brands</span></div>
+  <div class="sec-head">
+    <h2 id="h-brands">Four elevations.<br>One architect.</h2>
+    <p>Each brand stands on its own, and each one runs on the same foundation. GeekFon Society leads.</p>
+  </div>
+  <div class="elev">
+    <article class="card bcard a rv">
+      <div class="bar"><span class="mono">Elev. A / Flagship</span><span class="chip"><i style="background:var(--gf)"></i>GeekFon Society</span></div>
+      <div class="art"><img src="../assets/sean-studio-illustrated.webp" alt="Illustrated Sean seated in a music studio with a city window behind him." width="1728" height="2304"></div>
+      <div class="body">
+        <h3>GeekFon Society</h3>
+        <p>An animated music universe that began in March 2026. A roster of animated artists, many genres, a story that unfolds daily in the group chat. I write the lyrics, beatbox the beat and produce.</p>
+        <ul class="facts"><li>121 songs live</li><li>Originals and remixes</li><li>Membership</li><li>$11 albums</li><li>Radio</li></ul>
+        <a class="btn go" href="#">Enter GeekFon Society</a>
+      </div>
+    </article>
+    <article class="card bcard b rv">
+      <div class="bar"><span class="mono">Elev. B / Community</span><span class="chip"><i style="background:var(--ve)"></i>Vegans Explore</span></div>
+      <div class="art"><div class="logo"><img src="../assets/vegans-explore.webp" alt="Vegans Explore logo" width="600" height="600"></div><img class="wm" src="../assets/world-map.webp" alt="Illustrated world map with pins and routes." width="1920" height="1079"></div>
+      <div class="body">
+        <h3>Vegans Explore</h3>
+        <p>About ten years of SoFlo Vegans, hundreds of interviews, and six years as marketing chair of Seed Food and Wine, now pointed at the world.</p>
+        <ul class="facts"><li>Goal: 1000 communities by 2030</li><li>SoFlo Vegans, about ten years</li><li>Hundreds of interviews</li><li>Seed Food and Wine, 2017 to 2023</li></ul>
+        <a class="btn go" href="#">Explore the map</a>
+      </div>
+    </article>
+    <article class="card bcard c rv">
+      <div class="bar"><span class="mono">Elev. C / Foundation</span><span class="chip"><i style="background:var(--orange)"></i>LESARUSS</span></div>
+      <div class="art schem" aria-hidden="true">
+        <svg viewBox="0 0 380 150"><g fill="none" stroke="#fff" stroke-width="3"><rect x="150" y="45" width="80" height="60" fill="#F69820" stroke="#F69820"/><rect x="10" y="10" width="90" height="40" stroke-dasharray="7 6"/><rect x="280" y="10" width="90" height="40" stroke-dasharray="7 6"/><rect x="10" y="100" width="90" height="40" stroke-dasharray="7 6"/><rect x="280" y="100" width="90" height="40" stroke-dasharray="7 6"/><path d="M100 30 H125 V60 H150 M280 30 H255 V60 H230 M100 120 H125 V90 H150 M280 120 H255 V90 H230" stroke="#F69820"/></g><g font-family="Montserrat,Arial" font-weight="800" font-size="12" fill="#fff" text-anchor="middle"><text x="55" y="35">HQ</text><text x="325" y="35">SITES</text><text x="55" y="125">OUTREACH</text><text x="325" y="125">PAYMENTS</text><text x="190" y="80" fill="#1a1a1a" font-weight="900" font-size="13">OS</text></g></svg>
+      </div>
+      <div class="body">
+        <h3>LESARUSS</h3>
+        <p>The operating system under everything: HQ, brand sites, outreach engine, membership and payments. Named in a 10th grade logo assignment in 1997, launched 2000, incorporated 2007.</p>
+        <ul class="facts"><li>Built by Sean with AI</li><li>3 sites in one day</li></ul>
+        <a class="btn go" href="#">See the system</a>
+      </div>
+    </article>
+    <article class="card bcard d rv">
+      <div class="bar"><span class="mono">Elev. D / The book</span><span class="chip"><i style="background:var(--ink)"></i>Book</span></div>
+      <div class="art"><img src="../assets/blur-to-blueprint.webp" alt="Illustration of a student walking from an old school building into a bright tech space." width="1920" height="1079"></div>
+      <div class="body">
+        <h3>From Blur to Blueprint</h3>
+        <p>The book behind the method. The road from a classroom to a universe of brands, and the plans that made it buildable.</p>
+        <a class="btn btn-o go" href="#">Read about the book</a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ENTRANCES -->
+<section class="sec white" id="work" aria-labelledby="h-doors">
+  <div class="sheet-tag"><span class="no">06</span><span class="mono">Entrances / Work with Sean</span></div>
+  <div class="sec-head">
+    <h2 id="h-doors">Three doors.<br>One ask each.</h2>
+    <p>Pick the door that fits who you are. Each one leads to one clear next step.</p>
+  </div>
+  <div class="doors">
+    <article class="card door rv">
+      <div class="plan" aria-hidden="true"><svg viewBox="0 0 190 120"><path d="M0 100 H60 M130 100 H190" stroke="#1a1a1a" stroke-width="6"/><path d="M60 100 V30" stroke="#1a1a1a" stroke-width="4"/><path d="M60 30 A70 70 0 0 1 130 100" fill="none" stroke="#1a1a1a" stroke-width="2" stroke-dasharray="5 5"/><text x="95" y="80" text-anchor="middle" font-family="Montserrat,Arial" font-weight="900" font-size="22" fill="#1a1a1a">A</text></svg></div>
+      <div class="body">
+        <span class="who">Entertainment attorneys and talent managers</span>
+        <h3>Representation</h3>
+        <p>I'm looking for an AI-literate attorney open to a percentage arrangement, and a manager to steer one career across many projects.</p>
+        <div class="acts"><a class="btn btn-ink" href="representation.html">Read the brief <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+      </div>
+    </article>
+    <article class="card door rv" id="investors">
+      <div class="plan" aria-hidden="true"><svg viewBox="0 0 190 120"><path d="M0 100 H40 M150 100 H190" stroke="#1a1a1a" stroke-width="6"/><path d="M40 100 V45 M150 100 V45" stroke="#1a1a1a" stroke-width="4"/><path d="M40 45 A55 55 0 0 1 95 100 M150 45 A55 55 0 0 0 95 100" fill="none" stroke="#1a1a1a" stroke-width="2" stroke-dasharray="5 5"/><text x="95" y="38" text-anchor="middle" font-family="Montserrat,Arial" font-weight="900" font-size="22" fill="#1a1a1a">B</text></svg></div>
+      <div class="body">
+        <span class="who">Investors</span>
+        <h3>Invest in one brand, or all of it</h3>
+        <p>Back a single brand like GeekFon Society, or the whole LESARUSS universe. Both paths are open.</p>
+        <div class="acts"><a class="btn" href="#">One brand</a><a class="btn btn-ink" href="#">The whole universe</a></div>
+      </div>
+    </article>
+    <article class="card door feature rv">
+      <div class="plan" aria-hidden="true"><svg viewBox="0 0 190 120"><path d="M0 100 H60 M130 100 H190" stroke="#1a1a1a" stroke-width="6"/><rect x="72" y="40" width="46" height="40" fill="#fff" stroke="#1a1a1a" stroke-width="4"/><path d="M82 40 V30 a13 13 0 0 1 26 0 V40" fill="none" stroke="#1a1a1a" stroke-width="4"/><text x="95" y="68" text-anchor="middle" font-family="Montserrat,Arial" font-weight="900" font-size="18" fill="#1a1a1a">C</text></svg></div>
+      <div class="body">
+        <span class="who">Everyone curious</span>
+        <h3>Unlock the showcase</h3>
+        <p>A private, always-on tour of the work. Tell me what you care about and walk straight in.</p>
+        <div class="acts"><a class="btn btn-ink" href="#showcase">Unlock the showcase</a></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- SHOWCASE -->
+<section class="sec grid-dark" id="showcase" aria-labelledby="h-show">
+  <div class="sheet-tag"><span class="no">07</span><span class="mono">Private room / The showcase</span></div>
+  <div class="show">
+    <div>
+      <h2 id="h-show">The private showcase.<span class="o-txt">Always on.</span></h2>
+      <p class="lede" style="margin-top:28px">The full set of drawings, open to the people who ask. Pick your interests, register once, and the showcase is tailored to you.</p>
+      <ol class="steps">
+        <li><span class="cb">1</span><div><b>Pick what you care about</b><span>GeekFon Society, Vegans Explore, the tech, speaking, or everything.</span></div></li>
+        <li><span class="cb">2</span><div><b>Register</b><span>Your name and email. That is it.</span></div></li>
+        <li><span class="cb">3</span><div><b>Walk through</b><span>Your showcase stays open. Come back any time.</span></div></li>
+      </ol>
+    </div>
+    <div class="card unlock" id="unlock">
+      <form id="unlock-form" novalidate>
+        <fieldset>
+          <legend>Step 1: I care about</legend>
+          <div class="picks" id="picks">
+            <button type="button" class="pick" aria-pressed="false" data-v="GeekFon Society"><span class="bx" aria-hidden="true"></span>GeekFon Society</button>
+            <button type="button" class="pick" aria-pressed="false" data-v="Vegans Explore"><span class="bx" aria-hidden="true"></span>Vegans Explore</button>
+            <button type="button" class="pick" aria-pressed="false" data-v="The tech"><span class="bx" aria-hidden="true"></span>The tech</button>
+            <button type="button" class="pick" aria-pressed="false" data-v="Speaking"><span class="bx" aria-hidden="true"></span>Speaking</button>
+            <button type="button" class="pick" aria-pressed="false" data-v="Everything" data-all="1"><span class="bx" aria-hidden="true"></span>Everything</button>
+          </div>
+        </fieldset>
+        <span class="lbl">Step 2: Register</span>
+        <div id="u-err" class="err" role="alert" hidden></div>
+        <div class="two">
+          <div class="fld"><label for="u-name">Name</label><input id="u-name" name="name" autocomplete="name" required></div>
+          <div class="fld"><label for="u-email">Email</label><input id="u-email" name="email" type="email" autocomplete="email" required></div>
+        </div>
+        <button class="btn btn-o" type="submit" style="width:100%;justify-content:center;margin-top:6px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><rect x="4" y="10" width="16" height="11"/><path d="M8 10V7a4 4 0 0 1 8 0"/></svg>Unlock the showcase</button>
+      </form>
+      <div class="thanks" id="u-thanks" hidden tabindex="-1" aria-live="polite">
+        <span class="cb">OK</span>
+        <h3>You're in.</h3>
+        <p id="u-msg">Your showcase is unlocked. Watch your inbox for the key.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RECORD -->
+<section class="sec grid" id="record" aria-labelledby="h-rec">
+  <div class="sheet-tag"><span class="no">08</span><span class="mono">Construction log / Track record</span></div>
+  <div class="sec-head">
+    <h2 id="h-rec">Thirty years of<br>construction log.</h2>
+    <p>From building paid websites at 14 to running a universe of brands. Every entry below happened.</p>
+  </div>
+  <ol class="log">
+    <li class="rv"><div class="yr">1996<small>Age 14</small></div><div class="what"><h3>The first paid websites</h3><p>Built for nonprofits, family and local businesses.</p></div><div class="det"><ul><li>Hallandale High TV production magnet</li><li>NBC Junior Broadcaster opportunity</li></ul></div></li>
+    <li class="rv"><div class="yr">1997<small>to 2002</small></div><div class="what"><h3>LESARUSS named. A federation runs.</h3><p>LESARUSS was named in a 10th grade logo assignment.</p></div><div class="det"><ul><li>Founded and ran the Ultimate Championship Federation, an online writing federation</li><li>Two full shows a week, judged up to thirty writers</li></ul></div></li>
+    <li class="rv"><div class="yr">2000<small>Launch</small></div><div class="what"><h3>LESARUSS launches</h3><p>"The vision was never too big. The box was."</p></div><div class="det"><ul><li>Incorporated in 2007</li></ul></div></li>
+    <li class="rv"><div class="yr">2003<small>Onward</small></div><div class="what"><h3>Anime 3000 and the classroom</h3><p>About thirty writers. Education work begins the same year.</p><img class="logo-mini" src="../assets/anime-3000.webp" alt="Anime 3000 logo" width="600" height="600"></div><div class="det"><ul><li>Podcasts from 2007, over one million downloads</li><li>Sponsors and advertisers included Sony, Nintendo, Viz Media and Funimation</li><li>Invited to the first New York Anime Festival (2007)</li><li>Asked by Crunchyroll to join its first news team</li></ul></div></li>
+    <li class="rv"><div class="yr">2007<small>to 2012</small></div><div class="what"><h3>Top Spot USA</h3><p>Independent music media that produced its own shows.</p></div><div class="det"><ul><li>181 videos, 116 artists, 710,245 views</li><li>Covered Warped Tour 6 or 7 times</li><li>First outlet to interview Hey Monday</li><li>Russell's Roving Reporters (about 2007 to 2019): elementary students running full video production before first bell</li></ul></div></li>
+    <li class="rv"><div class="yr">2014<small>to 2017</small></div><div class="what"><h3>District Webmaster</h3><p>Broward County Public Schools.</p></div><div class="det"><ul><li>Returned in 2024, current</li><li>District communications for an $800M bond measure voters approved</li></ul></div></li>
+    <li class="rv"><div class="yr">2017<small>The Leap</small></div><div class="what"><h3>Full-time entrepreneur</h3><p>The Leap.</p></div><div class="det"><ul><li>SoFlo Vegans, about ten years, hundreds of interviews</li><li>Seed Food and Wine marketing chair, 2017 to 2023</li></ul></div></li>
+    <li class="rv now"><div class="yr">2026</div><div class="what"><h3>GeekFon Society and the system</h3><p>GeekFon Society began in March. The LESARUSS operating system runs it all.</p></div><div class="det"><ul><li>121 songs live</li><li>3 sites launched in one day this week</li><li>Vegans Explore: 1000 communities by 2030</li></ul></div></li>
+  </ol>
+  <div class="orgs rv">
+    <span class="mono o-ink">Worked with or alongside</span>
+    <ul>
+      <li>MTV</li><li>ABC</li><li>NBC</li><li>Nintendo</li><li>Crunchyroll</li><li>Miami HEAT</li><li>Miami Dolphins</li><li>Miami Marlins</li>
+    </ul>
+  </div>
+</section>
+
+<!-- CLOSER -->
+<section class="sec grid-dark" aria-labelledby="h-close">
+  <div class="closer">
+    <div>
+      <div class="sheet-tag"><span class="no">09</span><span class="mono">Sign-off / Next sheet</span></div>
+      <h2 id="h-close">From blur<br>to <span class="hl">blueprint.</span></h2>
+      <p class="lede" style="margin-top:32px">The plans are drawn and the building is live. The next rooms get built with the people who walk in.</p>
+      <div class="ctas"><a class="btn btn-o" href="representation.html">Start a conversation</a><a class="btn" href="#showcase">Unlock the showcase</a></div>
+    </div>
+    <img src="../assets/sean-pose-standing.webp" alt="Illustration of Sean standing, ready to build." width="1500" height="2000">
+  </div>
+</section>
+
+</main>
+<footer class="site-foot">
+  <div class="foot-grid">
+    <div>
+      <a class="wordmark" href="index.html">Sean A. Russell<span class="dot">.</span></a>
+      <p class="motto">The vision was never too big. The box was.</p>
+    </div>
+    <div>
+      <h4>Work with Sean</h4>
+      <ul><li><a href="representation.html">Representation</a></li><li><a href="index.html#investors">Investors</a></li><li><a href="index.html#showcase">Unlock the showcase</a></li></ul>
+    </div>
+    <div>
+      <h4>Library</h4>
+      <ul><li><a href="#">Media kits</a></li><li><a href="#">Press</a></li><li><a href="#">Case studies</a></li><li><a href="#">Book</a></li></ul>
+    </div>
+    <div>
+      <h4>The universe</h4>
+      <ul><li><a href="#">GeekFon Society</a></li><li><a href="#">Vegans Explore</a></li><li><a href="#">LESARUSS</a></li><li><a href="#">From Blur to Blueprint</a></li></ul>
+    </div>
+  </div>
+  <div class="tblock" role="presentation">
+    <div><b>Project</b>A universe of brands</div>
+    <div><b>Architect</b>Sean A. Russell</div>
+    <div><b>Practice</b>LESARUSS, est. 2000</div>
+    <div><b>Sheet</b>Sheet A-001</div>
+    <div><b>Status</b>Under construction, live</div>
+  </div>
+  <p class="mono" style="margin:22px 0 0;opacity:.7">&copy; 2026 Sean A. Russell. All plans subject to revision.</p>
+</footer>
+
+<script>
+(function(){
+  var b=document.querySelector('.menu-btn'),n=document.getElementById('nav');
+  if(b&&n){b.addEventListener('click',function(){var o=n.classList.toggle('open');b.setAttribute('aria-expanded',o)});
+    n.addEventListener('click',function(e){if(e.target.closest('a')){n.classList.remove('open');b.setAttribute('aria-expanded','false')}});}
+})();
+
+(function(){
+  var picks=[].slice.call(document.querySelectorAll('.pick'));
+  picks.forEach(function(p){p.addEventListener('click',function(){
+    var on=p.getAttribute('aria-pressed')!=='true';
+    if(p.dataset.all){picks.forEach(function(q){q.setAttribute('aria-pressed',on?'true':'false')});}
+    else{p.setAttribute('aria-pressed',on);var all=picks.filter(function(q){return !q.dataset.all});
+      var every=all.every(function(q){return q.getAttribute('aria-pressed')==='true'});
+      picks.filter(function(q){return q.dataset.all})[0].setAttribute('aria-pressed',every);}
+  })});
+  var f=document.getElementById('unlock-form'),err=document.getElementById('u-err');
+  f.addEventListener('submit',function(e){e.preventDefault();
+    var n=f.elements['name'].value.trim(),m=f.elements['email'].value.trim(),sel=picks.filter(function(q){return q.getAttribute('aria-pressed')==='true'&&!q.dataset.all}).map(function(q){return q.dataset.v});
+    var msg=!sel.length?'Pick at least one thing you care about.':!n?'Add your name.':!/^\S+@\S+\.\S+$/.test(m)?'Add a valid email address.':'';
+    if(msg){err.textContent=msg;err.hidden=false;(!sel.length?picks[0]:!n?f.elements['name']:f.elements['email']).focus();return}
+    err.hidden=true;f.hidden=true;var t=document.getElementById('u-thanks');
+    document.getElementById('u-msg').textContent='Thanks, '+n+'. Your showcase is unlocked for: '+sel.join(', ')+'. Watch your inbox for the key.';
+    t.hidden=false;t.focus();
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,581 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Representation. Sean A. Russell.</title>
+<meta name="description" content="For entertainment attorneys and talent managers: what Sean A. Russell has built, what he is looking for, and how to start a conversation.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1a1a1a; --black:#0d0d0d; --white:#ffffff; --gray:#f5f5f5; --line:#d9d9d9;
+  --orange:#F69820; --orange-text:#7d4a00; --gfs:#7A2BF5; --ve:#0B6B33;
+  --mute:#4a4a4a; --mute-dark:#bdbdbd;
+  --gutter:clamp(16px,4vw,64px);
+  --shadow:6px 6px 0 var(--ink);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{margin:0;background:var(--white);color:var(--ink);font-family:"Montserrat",system-ui,sans-serif;font-size:17px;line-height:1.6;}
+html,body{overflow-x:clip}
+img{display:block;max-width:100%}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--ink);outline-offset:3px;box-shadow:0 0 0 6px var(--orange)}
+.on-ink :focus-visible,.on-ink:focus-visible{outline-color:var(--orange);box-shadow:0 0 0 6px var(--white)}
+.skip{position:absolute;left:-999px;top:8px;background:var(--orange);color:var(--ink);padding:10px 14px;border-radius:6px;font-weight:800;z-index:99}
+.skip:focus{left:8px}
+.sr{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* type */
+.mark-word{font-weight:900;letter-spacing:-.03em;text-decoration:none;white-space:nowrap}
+.mark-word .dot{color:var(--orange)}
+.eyebrow{font-size:12px;font-weight:800;letter-spacing:.18em;text-transform:uppercase}
+.h-poster{font-weight:900;letter-spacing:-.045em;line-height:.92;margin:0}
+.hl{display:inline-block;background:var(--orange);color:var(--ink);padding:.02em .18em .08em;transform:rotate(-2deg);margin-top:.08em;box-shadow:4px 4px 0 var(--ink)}
+.lede{font-size:clamp(18px,1.5vw,21px);line-height:1.55;max-width:38em}
+.read{max-width:40em}
+.o-text{color:var(--orange-text)}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:10px;font:800 15px/1 "Montserrat",sans-serif;letter-spacing:.01em;padding:15px 20px;border:3px solid var(--ink);border-radius:6px;text-decoration:none;cursor:pointer;background:var(--white);color:var(--ink);box-shadow:4px 4px 0 var(--ink);transition:transform .12s,box-shadow .12s}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+.btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+.btn-ink{background:var(--ink);color:var(--white)}
+.btn-orange{background:var(--orange);color:var(--ink)}
+.btn svg{width:18px;height:18px;flex:none}
+.on-ink .btn{border-color:var(--white);box-shadow:4px 4px 0 var(--orange)}
+.on-ink .btn:hover{box-shadow:6px 6px 0 var(--orange)}
+
+/* header */
+.site-head{position:sticky;top:0;z-index:50;background:var(--white);border-bottom:3px solid var(--ink)}
+.head-in{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:14px var(--gutter)}
+.head-in .mark-word{font-size:22px}
+.head-nav{display:flex;align-items:center;gap:6px}
+.head-nav a.nl{font-weight:700;font-size:14px;text-decoration:none;padding:9px 12px;border-radius:6px}
+.head-nav a.nl:hover{background:var(--gray)}
+.head-nav a.nl[aria-current]{background:var(--ink);color:var(--white)}
+.head-nav .btn{padding:11px 14px;font-size:14px;box-shadow:3px 3px 0 var(--ink);margin-left:8px}
+.cat{font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--mute)}
+@media (max-width:980px){.head-nav a.nl{display:none}.head-nav a.nl.keep{display:inline-block}}
+@media (max-width:480px){.head-in .mark-word{font-size:19px}.head-nav .btn{padding:10px 11px;font-size:13px;margin-left:2px}.head-nav a.nl.keep{display:none}}
+
+/* sections */
+.sec{padding:clamp(64px,9vw,128px) var(--gutter);position:relative}
+.sec-gray{background:var(--gray)}
+.sec-ink{background:var(--ink);color:var(--white)}
+.sec-black{background:var(--black);color:var(--white)}
+.side-tag{display:inline-flex;align-items:center;gap:10px;font-weight:900;font-size:13px;letter-spacing:.16em;text-transform:uppercase;border:3px solid currentColor;border-radius:6px;padding:7px 12px}
+.side-tag .disc{width:16px;height:16px}
+.sec-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,auto);gap:24px 48px;align-items:end;margin-bottom:clamp(36px,5vw,64px)}
+.sec-head h2{font-size:clamp(40px,6.2vw,96px);margin-top:18px}
+.sec-head p{margin:0;max-width:30em;color:var(--mute);font-weight:500}
+.sec-ink .sec-head p,.sec-black .sec-head p{color:var(--mute-dark)}
+@media (max-width:860px){.sec-head{grid-template-columns:1fr}}
+
+/* card */
+.card{background:var(--white);color:var(--ink);border:3px solid var(--ink);box-shadow:var(--shadow)}
+.on-ink .card{box-shadow:6px 6px 0 var(--orange)}
+
+/* chips */
+.chip{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;border:2px solid var(--ink);border-radius:6px;padding:4px 8px;white-space:nowrap}
+.chip i{width:10px;height:10px;border-radius:2px;display:inline-block}
+
+/* vinyl */
+.vinyl{aspect-ratio:1;border-radius:50%;position:relative;background:
+  radial-gradient(circle at 50% 50%,transparent 0 31%,rgba(255,255,255,.07) 31.5% 32%,transparent 32.5%),
+  conic-gradient(from 30deg,rgba(255,255,255,.0),rgba(255,255,255,.12) 8%,rgba(255,255,255,0) 18%,rgba(255,255,255,0) 50%,rgba(255,255,255,.10) 58%,rgba(255,255,255,0) 68%),
+  repeating-radial-gradient(circle at 50% 50%,#121212 0 1.5px,#202020 1.5px 3px);
+  box-shadow:0 0 0 3px var(--ink)}
+.vinyl .label{position:absolute;inset:32%;border-radius:50%;background:var(--orange);color:var(--ink);display:grid;place-items:center;text-align:center;font-weight:900;line-height:1.05}
+.vinyl .label::after{content:"";position:absolute;width:9%;height:9%;border-radius:50%;background:var(--white);border:2px solid var(--ink);left:50%;top:50%;transform:translate(-50%,-50%)}
+@media (prefers-reduced-motion:no-preference){.spin{animation:spin 14s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}}
+
+/* barcode */
+.barcode{height:56px;width:150px;background:repeating-linear-gradient(90deg,var(--ink) 0 2px,transparent 2px 4px,var(--ink) 4px 5px,transparent 5px 8px,var(--ink) 8px 11px,transparent 11px 12px,var(--ink) 12px 13px,transparent 13px 16px,var(--ink) 16px 17px,transparent 17px 19px);border:8px solid var(--white);outline:3px solid var(--ink);box-sizing:content-box}
+
+/* footer */
+.site-foot{background:var(--black);color:var(--white);padding:clamp(56px,7vw,96px) var(--gutter) 28px;border-top:3px solid var(--ink)}
+.foot-grid{display:grid;grid-template-columns:minmax(0,1.4fr) repeat(2,minmax(0,1fr)) minmax(0,auto);gap:40px}
+.foot-grid h3{font-size:12px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--orange);margin:0 0 14px}
+.foot-grid ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.foot-grid a{text-decoration:none;font-weight:600}
+.foot-grid a:hover{text-decoration:underline;text-decoration-color:var(--orange);text-decoration-thickness:3px}
+.foot-grid .mark-word{font-size:clamp(30px,3.4vw,48px)}
+.tagline{font-weight:800;font-size:19px;margin:14px 0 0;max-width:20em;line-height:1.3}
+.foot-bar{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;border-top:1px solid #333;margin-top:56px;padding-top:22px;font-size:13px;color:var(--mute-dark)}
+.foot-code{display:grid;gap:10px;justify-items:start}
+.foot-code .barcode{background-color:var(--white)}
+@media (max-width:900px){.foot-grid{grid-template-columns:1fr 1fr}.foot-grid>div:first-child{grid-column:1/-1}}
+
+/* forms */
+.field{display:grid;gap:8px;margin-bottom:18px}
+.field label,.legend{font-weight:800;font-size:14px}
+.field input,.field textarea,.field select{font:500 16px "Montserrat",sans-serif;border:3px solid var(--ink);border-radius:6px;padding:13px 14px;background:var(--white);color:var(--ink);width:100%}
+.field textarea{min-height:110px;resize:vertical}
+.opts{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr))}
+.opt{position:relative}
+.opt input{position:absolute;opacity:0;inset:0;width:100%;height:100%;margin:0;cursor:pointer}
+.opt span{display:flex;align-items:center;gap:12px;border:3px solid var(--ink);border-radius:6px;padding:13px 14px;font-weight:700;background:var(--white);min-height:56px}
+.opt span::before{content:"";width:18px;height:18px;border:3px solid var(--ink);border-radius:50%;flex:none;background:var(--white)}
+.opt input[type=checkbox]+span::before{border-radius:3px}
+.opt input:checked+span{background:var(--orange)}
+.opt input:checked+span::before{background:var(--ink);box-shadow:inset 0 0 0 3px var(--orange)}
+.opt input:focus-visible+span{outline:3px solid var(--ink);outline-offset:3px;box-shadow:0 0 0 6px var(--orange)}
+.err{color:var(--ink);background:var(--orange);font-weight:700;font-size:14px;padding:8px 12px;border-radius:6px;margin:0 0 14px}
+.err[hidden]{display:none}
+.steps-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:22px;flex-wrap:wrap}
+.step-count{font-weight:900;font-size:13px;letter-spacing:.16em;text-transform:uppercase}
+.step-pips{display:flex;gap:6px}
+.step-pips span{width:34px;height:8px;border:2px solid var(--ink);border-radius:2px}
+.step-pips span.on{background:var(--orange)}
+.form-nav{display:flex;justify-content:space-between;gap:12px;margin-top:26px;flex-wrap:wrap}
+fieldset{border:0;margin:0;padding:0;min-width:0}
+legend{padding:0}
+[hidden]{display:none!important}
+.side-tag svg{width:16px;height:16px;flex:none}
+.on-ink .card .btn{border-color:var(--ink);box-shadow:4px 4px 0 var(--ink)}
+.on-ink .card .btn:hover{box-shadow:6px 6px 0 var(--ink)}
+.foot-grid a.mark-word{font-weight:900}
+legend h3{line-height:1.1}
+.head-nav .btn{white-space:nowrap}
+@media (max-width:420px){.head-nav .btn svg{display:none}}
+.opts.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (max-width:520px){.opts.two{grid-template-columns:1fr}}
+
+/* ===== representation: the inner sleeve ===== */
+.r-hero{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:clamp(40px,5vw,96px);align-items:center;padding:clamp(40px,6vw,96px) var(--gutter) clamp(64px,7vw,112px);background:var(--gray);border-bottom:3px solid var(--ink)}
+.crumbs{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:13px;font-weight:700;margin-bottom:26px}
+.crumbs a{text-decoration:none;border-bottom:3px solid var(--orange)}
+.crumbs span[aria-hidden]{color:var(--mute)}
+.r-hero h1{font-size:clamp(42px,5.4vw,92px)}
+.r-hero h1 .hl{font-size:.82em}
+.r-hero .lede{margin:32px 0 0}
+.r-ctas{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px}
+.memo{margin-top:40px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:3px solid var(--ink);background:var(--white)}
+.memo div{padding:16px 18px;border-left:3px solid var(--ink)}
+.memo div:first-child{border-left:0}
+.memo dt{font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--mute)}
+.memo dd{margin:6px 0 0;font-weight:800;font-size:15px;line-height:1.3}
+@media (max-width:640px){.memo{grid-template-columns:1fr}.memo div{border-left:0;border-top:3px solid var(--ink)}.memo div:first-child{border-top:0}}
+
+/* jewel case */
+.jewel{position:relative;width:100%;max-width:600px;justify-self:center;aspect-ratio:1.18}
+.disc-cd{position:absolute;right:0;top:9%;width:72%;aspect-ratio:1;border-radius:50%;border:3px solid var(--ink);background:
+  radial-gradient(circle,var(--white) 0 6%,var(--ink) 6% 7%,#e9e9e9 7% 15%,var(--ink) 15% 15.6%,transparent 15.6%),
+  conic-gradient(from 0deg,#d8d8d8,#ffffff 12%,#bdbdbd 25%,#f2f2f2 38%,#cfcfcf 50%,#ffffff 62%,#b8b8b8 75%,#efefef 88%,#d8d8d8);box-shadow:6px 6px 0 var(--ink)}
+.disc-cd .ring{position:absolute;inset:22%;border-radius:50%;background:var(--orange);border:3px solid var(--ink);display:grid;place-items:center;text-align:center;font-weight:900;font-size:clamp(10px,1.1vw,15px);line-height:1.1}
+.disc-cd .ring::before{content:"";position:absolute;inset:34%;border-radius:50%;background:var(--white);border:3px solid var(--ink)}
+.disc-cd .ring span{position:absolute;top:12%;left:0;right:0}
+.disc-cd .ring small{position:absolute;bottom:13%;left:0;right:0;font-size:.72em;letter-spacing:.14em}
+.case{position:absolute;left:0;top:0;width:78%;aspect-ratio:1;border:3px solid var(--ink);background:var(--white);box-shadow:10px 10px 0 var(--ink);overflow:hidden;display:grid;grid-template-columns:9% 1fr}
+.hinge{background:repeating-linear-gradient(180deg,#2b2b2b 0 6px,#1a1a1a 6px 12px);border-right:3px solid var(--ink)}
+.insert{position:relative;overflow:hidden;background:#fcfbfc}
+.insert img{position:absolute;left:0;right:0;top:16%;width:100%;height:84%;object-fit:cover;object-position:50% 0}
+.insert .tag-top{position:absolute;left:5%;top:5%;right:5%;display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.insert .tag-top .mark-word{font-size:clamp(15px,1.9vw,28px);line-height:1}
+.insert .tag-bot{position:absolute;left:0;right:0;bottom:0;background:var(--orange);border-top:3px solid var(--ink);padding:4% 5%;font-weight:900;letter-spacing:-.02em;font-size:clamp(15px,2vw,30px);line-height:1}
+.insert .tag-bot small{display:block;font-size:clamp(8px,.75vw,11px);letter-spacing:.16em;text-transform:uppercase;margin-top:6px}
+.shine{position:absolute;inset:0;background:linear-gradient(125deg,transparent 0 58%,rgba(255,255,255,.28) 58% 66%,transparent 66%);pointer-events:none}
+@media (max-width:980px){.r-hero{grid-template-columns:1fr}}
+
+/* what I have: tracklist */
+.have{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;border-top:3px solid var(--ink);border-left:3px solid var(--ink)}
+.have article{border-right:3px solid var(--ink);border-bottom:3px solid var(--ink);padding:clamp(24px,3vw,44px);display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px 22px;align-content:start;background:var(--white);transition:background .15s}
+.have article:hover{background:var(--gray)}
+.have .tno{font-weight:900;font-size:clamp(30px,3vw,48px);letter-spacing:-.04em;line-height:1;color:var(--orange-text);grid-row:span 3}
+.have h3{margin:0;font-weight:900;font-size:clamp(24px,2.4vw,36px);letter-spacing:-.035em;line-height:1.05}
+.have p{margin:0;color:var(--mute);font-weight:500;font-size:16px}
+.have ul{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.have ul li{font-size:12px;font-weight:800;border:2px solid var(--ink);border-radius:6px;padding:5px 9px}
+.have article.wide{grid-column:1/-1;background:var(--ink);color:var(--white)}
+.have article.wide:hover{background:#222}
+.have article.wide .tno{color:var(--orange)}
+.have article.wide p{color:var(--mute-dark)}
+.have article.wide ul li{border-color:var(--white)}
+@media (max-width:820px){.have{grid-template-columns:1fr}}
+
+/* split sheet */
+.split{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(32px,5vw,88px);align-items:start}
+.split h2{font-size:clamp(40px,4.6vw,76px);margin:18px 0 26px}
+.sheet{padding:0;overflow:hidden}
+.sheet-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:18px 24px;border-bottom:3px solid var(--ink);background:var(--orange)}
+.sheet-head b{font-weight:900;font-size:18px;letter-spacing:-.01em}
+.sheet table{width:100%;border-collapse:collapse;font-size:15px}
+.sheet th,.sheet td{text-align:left;padding:16px 24px;border-bottom:1px solid #d0d0d0;vertical-align:top}
+.sheet thead th{font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);background:var(--gray);border-bottom:3px solid var(--ink)}
+.sheet tbody th{font-weight:800}
+.sheet td.who{font-weight:800;white-space:nowrap}
+.sheet tr.tool td,.sheet tr.tool th{background:var(--gray)}
+.sheet .sign{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;padding:22px 24px;font-size:13px;font-weight:700}
+.sheet .sign span{flex:1 1 180px;border-top:3px solid var(--ink);padding-top:8px}
+.sheet .sign em{font-style:normal;font-weight:900;font-size:22px;letter-spacing:-.03em;display:block;margin-bottom:6px}
+@media (max-width:900px){.split{grid-template-columns:1fr}}
+@media (max-width:560px){.sheet th,.sheet td{padding:12px 14px}.sheet table{font-size:14px}.sheet thead{display:none}.sheet tr{display:grid;grid-template-columns:1fr;border-bottom:1px solid #d0d0d0}.sheet tbody th,.sheet td{border:0;padding:4px 14px}.sheet tbody th{padding-top:14px}.sheet td:last-child{padding-bottom:14px;color:var(--mute)}}
+
+/* open credits: what I want */
+.wants{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(20px,2.4vw,36px)}
+.want{padding:clamp(24px,2.6vw,40px);display:flex;flex-direction:column;gap:14px}
+.want .slot{display:flex;justify-content:space-between;align-items:center;gap:10px;border-bottom:3px dashed var(--ink);padding-bottom:16px}
+.want .slot span{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+.want .slot b{background:var(--orange);color:var(--ink);font-size:11px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;padding:5px 9px;border-radius:6px;border:2px solid var(--ink)}
+.want .ico{width:52px;height:52px;border:3px solid var(--ink);border-radius:6px;display:grid;place-items:center;margin-top:6px}
+.want .ico svg{width:26px;height:26px}
+.want h3{margin:0;font-size:clamp(24px,2.3vw,34px);font-weight:900;letter-spacing:-.035em;line-height:1.05}
+.want p{margin:0;color:var(--mute);font-weight:500}
+.want ul{margin:4px 0 0;padding:0;list-style:none;display:grid;gap:8px;font-weight:700;font-size:15px}
+.want ul li{display:flex;gap:10px;align-items:flex-start}
+.want ul li svg{width:18px;height:18px;flex:none;margin-top:3px}
+@media (max-width:980px){.wants{grid-template-columns:1fr}}
+
+/* why now */
+.why{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,5vw,88px);align-items:start}
+.why h2{font-size:clamp(38px,4.4vw,70px);margin:18px 0 0}
+.why p{margin:0 0 18px}
+.why .pull{font-size:clamp(22px,2.2vw,32px);font-weight:900;letter-spacing:-.025em;line-height:1.15;margin:28px 0 0;padding-left:20px;border-left:8px solid var(--orange)}
+.why .pull cite{display:block;font-style:normal;font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;margin-top:12px;color:var(--orange)}
+.proof-strip{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:3px;background:var(--white);border:3px solid var(--white);margin-top:34px}
+.proof-strip div{background:var(--ink);padding:20px}
+.proof-strip b{display:block;font-size:clamp(34px,3.6vw,56px);font-weight:900;letter-spacing:-.05em;line-height:.95;color:var(--orange)}
+.proof-strip span{font-size:14px;font-weight:600;color:#e6e6e6}
+@media (max-width:900px){.why{grid-template-columns:1fr}}
+
+/* conversation form */
+.talk{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:clamp(32px,5vw,88px);align-items:start}
+.talk h2{font-size:clamp(44px,6vw,96px);margin:18px 0 24px}
+.talk-side ol{list-style:none;margin:30px 0 0;padding:0;border-top:3px solid var(--ink)}
+.talk-side ol li{display:grid;grid-template-columns:56px 1fr;gap:12px;padding:16px 0;border-bottom:1px solid #cfcfcf;font-weight:700;align-items:baseline}
+.talk-side ol li b{font-weight:900;color:var(--orange-text);font-size:20px}
+.talk-side ol li.on b{color:var(--ink)}
+.talk-side ol li.on{background:var(--white);box-shadow:inset 6px 0 0 var(--orange);padding-left:14px}
+.form-card{padding:clamp(24px,3.2vw,48px)}
+.form-card h3{margin:0 0 6px;font-size:clamp(24px,2.2vw,32px);font-weight:900;letter-spacing:-.03em;line-height:1.1}
+.form-card .sub{margin:0 0 22px;color:var(--mute);font-weight:500;font-size:15px}
+.done{padding:6px 0}
+.done .big{font-size:clamp(32px,3.4vw,52px);font-weight:900;letter-spacing:-.045em;line-height:1;margin:16px 0}
+.done .vinyl{width:120px;margin-bottom:6px}
+@media (max-width:900px){.talk{grid-template-columns:1fr}.talk-side ol{display:none}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="head-in">
+    <a class="mark-word" href="index.html" aria-label="Sean A. Russell, home">Sean A. Russell<span class="dot">.</span></a>
+    <nav class="head-nav" aria-label="Main">
+      <a class="nl" href="index.html#side-a">Tracklist</a>
+      <a class="nl" href="index.html#credits">Credits</a>
+      <a class="nl" href="index.html#side-b">Discography</a>
+      <a class="nl keep" href="representation.html" aria-current="page">Representation</a>
+      <a class="btn btn-ink" href="#talk">Start a conversation</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<section class="r-hero" aria-labelledby="r-title">
+  <div>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span><span>Representation</span></nav>
+    <span class="side-tag"><svg class="disc" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.5"/></svg>Inner sleeve &middot; For attorneys and managers</span>
+    <h1 id="r-title" class="h-poster" style="margin-top:22px">The record is made. <span class="hl">I need the team.</span></h1>
+    <p class="lede">I have thirty years of building, a live catalog and an operating system that ships. I'm looking for an entertainment attorney and a manager who can open the doors I have been building toward.</p>
+    <div class="r-ctas">
+      <a class="btn btn-ink" href="#talk">Start a conversation <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+      <a class="btn" href="#have">See what I have</a>
+    </div>
+    <dl class="memo">
+      <div><dt>Seeking</dt><dd>Entertainment attorney and talent manager</dd></div>
+      <div><dt>Open to</dt><dd>A percentage arrangement</dd></div>
+      <div><dt>Prefers</dt><dd>Introductions over cold outreach</dd></div>
+    </dl>
+  </div>
+  <div class="jewel" role="img" aria-label="A CD jewel case with Sean A. Russell's photo on the insert and a disc sliding out">
+    <div class="disc-cd" aria-hidden="true"><div class="ring"><span>LESARUSS</span><small>DISC 2</small></div></div>
+    <div class="case" aria-hidden="true">
+      <div class="hinge"></div>
+      <div class="insert">
+        <img src="../assets/sean-photo.webp" alt="">
+        <div class="tag-top"><span class="mark-word">Sean A. Russell<span class="dot">.</span></span></div>
+        <div class="tag-bot">Representation<small>Inner sleeve &middot; LRS-1996</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT I HAVE -->
+<section class="sec" id="have" aria-labelledby="have-title">
+  <div class="sec-head">
+    <div><span class="side-tag"><svg class="disc" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.5"/></svg>What I have</span><h2 id="have-title" class="h-poster">The catalog.</h2></div>
+    <p>Everything below is live. One author across music, community, technology and publishing.</p>
+  </div>
+  <div class="have">
+    <article>
+      <span class="tno">01</span>
+      <h3>GeekFon Society</h3>
+      <p>An animated music universe, begun March 2026. A roster of animated artists across many genres with a daily group-chat story.</p>
+      <ul><li>121 songs live</li><li>Membership</li><li>$11 albums</li><li>Radio</li></ul>
+    </article>
+    <article>
+      <span class="tno">02</span>
+      <h3>Vegans Explore</h3>
+      <p>Built on about ten years of SoFlo Vegans and hundreds of interviews. Marketing chair for Seed Food and Wine, 2017 to 2023.</p>
+      <ul><li>Goal: 1,000 communities by 2030</li></ul>
+    </article>
+    <article>
+      <span class="tno">03</span>
+      <h3>LESARUSS</h3>
+      <p>The operating system I built myself with AI. It runs every brand in the universe.</p>
+      <ul><li>HQ</li><li>Brand sites</li><li>Outreach engine</li><li>Membership and payments</li><li>3 sites in one day</li></ul>
+    </article>
+    <article>
+      <span class="tno">04</span>
+      <h3>From Blur to Blueprint</h3>
+      <p>The book. The method behind the catalog, from a blur of ideas to a working system.</p>
+      <ul><li>Book</li><li>Speaking</li></ul>
+    </article>
+    <article class="wide">
+      <span class="tno">05</span>
+      <h3>A thirty-year track record with audiences</h3>
+      <p>Anime 3000: over one million podcast downloads, sponsors including Sony, Nintendo, Viz Media and Funimation, invited to the first New York Anime Festival. Top Spot USA: 181 videos, 116 artists, 710,245 views, Warped Tour six or seven times, first outlet to interview Hey Monday.</p>
+      <ul><li>Since 1996</li><li>MTV, ABC, NBC</li><li>Nintendo, Crunchyroll</li><li>Miami HEAT, Dolphins, Marlins</li></ul>
+    </article>
+  </div>
+</section>
+
+<!-- SPLIT SHEET -->
+<section class="sec sec-gray" aria-labelledby="split-title">
+  <div class="split">
+    <div>
+      <span class="side-tag"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M4 20l4-1 11-11-3-3L5 16z"/><path d="M14 7l3 3"/></svg>Authorship</span>
+      <h2 id="split-title" class="h-poster"><span style="display:block">I wrote it.</span><span style="display:block">I produced it.</span><span class="hl">I built it.</span></h2>
+      <p class="lede">You will want to know who the author is before anything gets signed. Here it is, the way a split sheet would show it. AI tools are the studio, not the author.</p>
+    </div>
+    <div class="card sheet">
+      <div class="sheet-head"><b>Split sheet: GeekFon Society catalog</b><span class="cat" style="color:var(--ink)">121 songs live</span></div>
+      <table>
+        <caption class="sr">Who contributes what to the GeekFon Society songs</caption>
+        <thead><tr><th scope="col">Element</th><th scope="col">Credit</th><th scope="col">How</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Lyrics</th><td class="who">Sean A. Russell</td><td>Written by Sean</td></tr>
+          <tr><th scope="row">Beat</th><td class="who">Sean A. Russell</td><td>Beatboxed by Sean, then built out</td></tr>
+          <tr><th scope="row">Production</th><td class="who">Sean A. Russell</td><td>Produced by Sean</td></tr>
+          <tr class="tool"><th scope="row">Studio</th><td class="who">AI tools</td><td>Instruments in the room, played by Sean. Not an author.</td></tr>
+        </tbody>
+      </table>
+      <div class="sign"><span><em>Sean A. Russell</em>Writer, producer, builder</span><span><em>&nbsp;</em>Your name here, counsel</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT I WANT -->
+<section class="sec" aria-labelledby="want-title">
+  <div class="sec-head">
+    <div><span class="side-tag"><svg class="disc" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.5"/></svg>What I want</span><h2 id="want-title" class="h-poster">Open credits.</h2></div>
+    <p>Three names still missing from the back of the sleeve.</p>
+  </div>
+  <div class="wants">
+    <article class="want card">
+      <div class="slot"><span>Credit 01</span><b>Open</b></div>
+      <span class="ico" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M4 20l4-1 11-11-3-3L5 16z"/><path d="M14 7l3 3"/></svg></span>
+      <h3>Entertainment attorney</h3>
+      <p>Someone who works deals and opens doors.</p>
+      <ul>
+        <li><svg class="disc" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg>Understands AI and authorship</li>
+        <li><svg class="disc" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg>Open to a percentage arrangement</li>
+        <li><svg class="disc" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg>Opens doors, not just reviews paper</li>
+      </ul>
+    </article>
+    <article class="want card">
+      <div class="slot"><span>Credit 02</span><b>Open</b></div>
+      <span class="ico" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></span>
+      <h3>Talent manager</h3>
+      <p>One career, many projects, steered in one direction.</p>
+      <ul>
+        <li><svg class="disc" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg>Music, media, speaking and the book</li>
+        <li><svg class="disc" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg>Sees the universe as one career</li>
+        <li><svg class="disc" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg>Helps choose what comes first</li>
+      </ul>
+    </article>
+    <article class="want card">
+      <div class="slot"><span>Credit 03</span><b>Open</b></div>
+      <span class="ico" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M5 21V3h11v18M3 21h18"/><path d="M13 12h.01"/></svg></span>
+      <h3>Introductions</h3>
+      <p>Warm introductions instead of cold outreach.</p>
+      <ul>
+        <li><svg class="disc" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg>To the right rooms and people</li>
+        <li><svg class="disc" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg>For any of the four brands</li>
+        <li><svg class="disc" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg>Or for the whole universe</li>
+      </ul>
+    </article>
+  </div>
+</section>
+
+<!-- WHY NOW -->
+<section class="sec sec-ink on-ink" aria-labelledby="why-title">
+  <div class="why">
+    <div>
+      <span class="side-tag"><svg class="disc" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.5"/></svg>Why now</span>
+      <h2 id="why-title" class="h-poster">The business finally gets built with the work.</h2>
+    </div>
+    <div>
+      <p>For thirty years I built the capability first and the business lagged. A writing federation, an anime site with a million podcast downloads, a music outlet, a student newsroom, district websites.</p>
+      <p>LESARUSS is the first time I am building the business with the community. That is the moment to bring in representation.</p>
+      <blockquote class="pull">"I've always been a Community Builder, even before having the language for what I was doing."<cite>Sean A. Russell</cite></blockquote>
+      <div class="proof-strip">
+        <div><b>121</b><span>GeekFon Society songs live</span></div>
+        <div><b>3</b><span>sites launched in one day this week</span></div>
+        <div><b>1M+</b><span>Anime 3000 podcast downloads</span></div>
+        <div><b>30</b><span>years building, since 1996</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FORM -->
+<section class="sec sec-gray" id="talk" aria-labelledby="talk-title">
+  <div class="talk">
+    <div class="talk-side">
+      <span class="side-tag"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M4 20l4-1 11-11-3-3L5 16z"/><path d="M14 7l3 3"/></svg>Session booking</span>
+      <h2 id="talk-title" class="h-poster">Start a conversation.</h2>
+      <p class="lede">Three short steps. No calls scheduled, no pitch deck. Just enough for me to come back to you with the right thing.</p>
+      <ol id="talk-steps" aria-hidden="true">
+        <li class="on"><b>01</b>Your role</li>
+        <li><b>02</b>You and your firm</li>
+        <li><b>03</b>What interests you</li>
+      </ol>
+    </div>
+    <div class="card form-card">
+      <form id="talk-form" novalidate>
+        <div class="steps-bar"><span class="step-count" id="t-count" aria-live="polite">Step 1 of 3</span><span class="step-pips" aria-hidden="true"><span class="on"></span><span></span><span></span></span></div>
+
+        <fieldset data-step="1">
+          <legend><h3>What is your role?</h3></legend>
+          <p class="sub">Pick the one that fits best.</p>
+          <p class="err" id="t-err1" role="alert" hidden>Choose a role to continue.</p>
+          <div class="opts two">
+            <label class="opt"><input type="radio" name="role" value="Entertainment attorney"><span>Entertainment attorney</span></label>
+            <label class="opt"><input type="radio" name="role" value="Talent manager"><span>Talent manager</span></label>
+            <label class="opt"><input type="radio" name="role" value="Investor"><span>Investor</span></label>
+            <label class="opt"><input type="radio" name="role" value="Making an introduction"><span>Making an introduction</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset data-step="2" hidden>
+          <legend><h3>You and your firm</h3></legend>
+          <p class="sub">So I know who I am talking to.</p>
+          <p class="err" id="t-err2" role="alert" hidden>Add your name, firm and a valid email.</p>
+          <div class="field"><label for="t-name">Your name</label><input id="t-name" autocomplete="name" required></div>
+          <div class="field"><label for="t-firm">Firm or company</label><input id="t-firm" autocomplete="organization" required></div>
+          <div class="field"><label for="t-email">Email</label><input id="t-email" type="email" autocomplete="email" required></div>
+        </fieldset>
+
+        <fieldset data-step="3" hidden>
+          <legend><h3>What interests you?</h3></legend>
+          <p class="sub">Choose any. Add a note if you like.</p>
+          <p class="err" id="t-err3" role="alert" hidden>Pick at least one.</p>
+          <div class="opts two">
+            <label class="opt"><input type="checkbox" name="int" value="GeekFon Society"><span>GeekFon Society</span></label>
+            <label class="opt"><input type="checkbox" name="int" value="Vegans Explore"><span>Vegans Explore</span></label>
+            <label class="opt"><input type="checkbox" name="int" value="LESARUSS, the tech"><span>LESARUSS, the tech</span></label>
+            <label class="opt"><input type="checkbox" name="int" value="The book and speaking"><span>The book and speaking</span></label>
+            <label class="opt" style="grid-column:1/-1"><input type="checkbox" name="int" value="The whole career"><span>The whole career</span></label>
+          </div>
+          <div class="field" style="margin-top:18px"><label for="t-note">A note (optional)</label><textarea id="t-note"></textarea></div>
+        </fieldset>
+
+        <div class="done" data-step="4" hidden tabindex="-1">
+          <div class="vinyl" aria-hidden="true"><div class="label spin"></div></div>
+          <span class="side-tag"><svg class="disc" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg>Received</span>
+          <p class="big">Thank you. That's a wrap.</p>
+          <p class="sub" id="t-summary">I will be in touch.</p>
+          <a class="btn" href="index.html"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M20 12H5M11 6l-6 6 6 6"/></svg>Back to the front door</a>
+        </div>
+
+        <div class="form-nav" id="t-nav">
+          <button type="button" class="btn" id="t-back" hidden><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M20 12H5M11 6l-6 6 6 6"/></svg>Back</button>
+          <button type="button" class="btn btn-ink" id="t-next" style="margin-left:auto">Next <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="site-foot on-ink">
+  <div class="foot-grid">
+    <div>
+      <a class="mark-word" href="index.html">Sean A. Russell<span class="dot">.</span></a>
+      <p class="tagline">"The vision was never too big. The box was."</p>
+    </div>
+    <nav aria-label="Media and resources">
+      <h3>Back cover</h3>
+      <ul>
+        <li><a href="#">Media kits</a></li>
+        <li><a href="#">Press</a></li>
+        <li><a href="#">Case studies</a></li>
+        <li><a href="#">Book</a></li>
+      </ul>
+    </nav>
+    <nav aria-label="Work with Sean">
+      <h3>Work with Sean</h3>
+      <ul>
+        <li><a href="representation.html">Representation</a></li>
+        <li><a href="index.html#asks">Investors</a></li>
+        <li><a href="index.html#showcase">Unlock the showcase</a></li>
+        <li><a href="index.html#side-a">The tracklist</a></li>
+      </ul>
+    </nav>
+    <div class="foot-code">
+      <div class="barcode" role="img" aria-label="Decorative barcode"></div>
+      <span class="cat" style="color:var(--mute-dark)">LRS-1996 &middot; LESARUSS</span>
+    </div>
+  </div>
+  <div class="foot-bar">
+    <span>&copy; 2026 Sean A. Russell. A LESARUSS release.</span>
+    <span>Written, produced and built by Sean A. Russell.</span>
+  </div>
+</footer>
+
+
+<script>
+(function(){
+  var f=document.getElementById('talk-form'),step=1,N=3,
+      back=document.getElementById('t-back'),next=document.getElementById('t-next'),
+      count=document.getElementById('t-count'),pips=f.querySelectorAll('.step-pips span'),
+      side=document.querySelectorAll('#talk-steps li');
+  var ARROW='<svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg>';
+  function vals(sel){return [].slice.call(f.querySelectorAll(sel)).map(function(i){return i.value})}
+  function show(n,focus){
+    step=n;
+    f.querySelectorAll('[data-step]').forEach(function(s){s.hidden=+s.dataset.step!==n});
+    side.forEach(function(li,i){li.classList.toggle('on',i===n-1)});
+    if(n>N){document.getElementById('t-nav').hidden=true;count.textContent='Sent';pips.forEach(function(p){p.classList.add('on')});f.querySelector('[data-step="4"]').focus();return}
+    back.hidden=n===1;
+    count.textContent='Step '+n+' of '+N;
+    pips.forEach(function(p,i){p.classList.toggle('on',i<n)});
+    next.innerHTML=(n===N?'Send ':'Next ')+ARROW;
+    if(focus){var first=f.querySelector('[data-step="'+n+'"] input');if(first)first.focus()}
+  }
+  function check(n){
+    if(n===1){var ok=vals('input[name=role]:checked').length>0;document.getElementById('t-err1').hidden=ok;return ok}
+    if(n===2){var a=document.getElementById('t-name').value.trim(),b=document.getElementById('t-firm').value.trim(),c=document.getElementById('t-email').value.trim();
+      var ok2=a&&b&&/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(c);document.getElementById('t-err2').hidden=!!ok2;return ok2}
+    if(n===3){var ok3=vals('input[name=int]:checked').length>0;document.getElementById('t-err3').hidden=ok3;return ok3}
+  }
+  next.addEventListener('click',function(){
+    if(!check(step))return;
+    if(step===N){
+      var name=document.getElementById('t-name').value.trim().split(' ')[0];
+      document.getElementById('t-summary').textContent='Thanks, '+name+'. Noted: '+vals('input[name=role]:checked')[0]+' at '+document.getElementById('t-firm').value.trim()+', interested in '+vals('input[name=int]:checked').join(', ')+'. This is a preview, so nothing was sent.';
+      show(N+1);return;
+    }
+    show(step+1,true);
+  });
+  back.addEventListener('click',function(){show(step-1,true)});
+  f.addEventListener('submit',function(e){e.preventDefault();next.click()});
+})();
+</script>
+</body>
+</html>
