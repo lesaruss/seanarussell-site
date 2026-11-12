@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How it&rsquo;s made | Sean A. Russell</title>
+<meta property="og:title" content="How it&rsquo;s made | Sean A. Russell">
+<meta property="og:description" content="I wrote it. I produced it. I built it. AI tools are the studio, not the author.">
+<meta property="og:image" content="https://www.seanarussell.com/assets/poses/lesaruss-hero.png">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.seanarussell.com/how-its-made">
+<script src="/analytics.js" defer></script>
+<link rel="canonical" href="https://www.seanarussell.com/how-its-made">
+<meta name="description" content="I wrote it. I produced it. I built it. Who writes, beatboxes and produces the GeekFon Society catalog, and where AI tools fit.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0d0d0d; --ink2:#1a1a1a; --ink3:#262626; --line:#3a3a3a;
+  --white:#ffffff; --gray:#f5f5f5; --mute:#b8b8b8; --mute-l:#4d4d4d;
+  --or:#F69820; --or-t:#7d4a00;
+  --gf:#7A2BF5; --ve:#0B6B33;
+  --pad:clamp(16px,4vw,64px);
+  --r:6px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:'Montserrat',system-ui,sans-serif;color:var(--ink2);background:var(--white);line-height:1.55;font-size:17px;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit}
+h1,h2,h3,h4{margin:0;line-height:1;letter-spacing:-.03em;font-weight:900}
+p{margin:0 0 1em}
+.tc,.num{font-variant-numeric:tabular-nums}
+:focus-visible{outline:3px solid var(--or);outline-offset:3px}
+.light :focus-visible,.light:focus-visible{outline-color:var(--ink)}
+.skip{position:absolute;left:-9999px;top:8px;background:var(--or);color:var(--ink);padding:10px 14px;border-radius:var(--r);font-weight:800;z-index:100}
+.skip:focus{left:8px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- control bar ---------- */
+.cbar{position:sticky;top:0;z-index:50;background:var(--ink);color:var(--white);border-bottom:3px solid var(--or)}
+.cbar-in{display:flex;align-items:center;gap:20px;padding:12px var(--pad);min-height:64px}
+.mark{font-weight:900;font-size:22px;letter-spacing:-.04em;text-decoration:none;white-space:nowrap;color:var(--white)}
+.mark b{color:var(--or)}
+.cnav{display:flex;gap:4px;margin-left:auto;flex-wrap:wrap}
+.cnav a{font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;text-decoration:none;padding:8px 12px;border-radius:var(--r);color:#e6e6e6}
+.cnav a:hover{background:var(--ink3);color:var(--white)}
+.cnav a[aria-current]{background:var(--or);color:var(--ink)}
+.tally{display:flex;align-items:center;gap:10px;font-weight:800;font-size:12px;letter-spacing:.12em;white-space:nowrap}
+.onair{display:inline-flex;align-items:center;gap:7px;background:var(--or);color:var(--ink);padding:6px 10px;border-radius:var(--r);font-weight:900}
+.onair i{width:8px;height:8px;border-radius:50%;background:var(--ink);display:block;animation:blink 1.6s steps(1) infinite}
+@keyframes blink{50%{opacity:.2}}
+.tcode{font-size:15px;color:var(--or);letter-spacing:.06em;font-weight:800}
+.menu-btn{display:none}
+@media (max-width:1200px){
+  .cnav{display:none;position:absolute;left:0;right:0;top:100%;background:var(--ink);flex-direction:column;padding:8px var(--pad) 16px;border-bottom:3px solid var(--or)}
+  .cnav.open{display:flex}
+  .cnav a{font-size:15px;padding:12px}
+  .menu-btn{display:inline-flex;margin-left:auto;align-items:center;gap:8px;background:transparent;border:2px solid #555;color:var(--white);font:800 12px 'Montserrat';letter-spacing:.1em;padding:9px 12px;border-radius:var(--r);cursor:pointer}
+  .tally .tcode{display:none}
+}
+@media (max-width:420px){.mark{font-size:19px}.tally .lbl{display:none}}
+
+/* ---------- shared bits ---------- */
+.slate{display:flex;flex-wrap:wrap;border:2px solid var(--line);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+.slate>span{padding:8px 12px;border-right:2px solid var(--line)}
+.slate>span:last-child{border-right:0}
+.slate b{color:var(--white);font-weight:800;margin-left:6px}
+.slate.l{border-color:var(--ink);color:var(--mute-l)}
+.slate.l>span{border-color:var(--ink)}
+.slate.l b{color:var(--ink)}
+.clap{height:22px;background:repeating-linear-gradient(-45deg,var(--ink) 0 18px,var(--white) 18px 36px);border:2px solid var(--ink)}
+.dark .clap{border-color:var(--white);background:repeating-linear-gradient(-45deg,var(--white) 0 18px,var(--ink) 18px 36px)}
+.hl{display:inline-block;background:var(--or);color:var(--ink);padding:.02em .18em .08em;transform:rotate(-2deg);box-shadow:6px 6px 0 var(--ink)}
+.dark .hl{box-shadow:6px 6px 0 #000}
+.btn{display:inline-flex;align-items:center;gap:10px;font:800 15px/1 'Montserrat';letter-spacing:.02em;text-decoration:none;padding:16px 20px;border-radius:var(--r);border:3px solid var(--ink);cursor:pointer;transition:transform .12s,box-shadow .12s}
+.btn svg{width:18px;height:18px;flex:none}
+.btn-or{background:var(--or);color:var(--ink);box-shadow:5px 5px 0 var(--ink)}
+.btn-w{background:var(--white);color:var(--ink);box-shadow:5px 5px 0 var(--ink)}
+.btn-k{background:var(--ink);color:var(--white);box-shadow:5px 5px 0 var(--or)}
+.dark .btn-or,.dark .btn-w{border-color:var(--white);box-shadow:5px 5px 0 var(--white)}
+.dark .btn-or{border-color:var(--or);box-shadow:5px 5px 0 #000}
+.dark .btn-w{border-color:var(--white);box-shadow:5px 5px 0 var(--or)}
+.btn:hover{transform:translate(-2px,-2px)}
+.btn:active{transform:translate(3px,3px);box-shadow:0 0 0 var(--ink)}
+.sec{padding:clamp(64px,9vw,128px) var(--pad);position:relative}
+.dark{background:var(--ink);color:var(--white)}
+.gray{background:var(--gray)}
+.seg{display:flex;align-items:center;gap:12px;font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;margin-bottom:22px;flex-wrap:wrap}
+.seg .id{background:var(--ink);color:var(--white);padding:5px 9px;border-radius:4px}
+.dark .seg .id{background:var(--or);color:var(--ink)}
+.seg .st{border:2px solid currentColor;padding:3px 8px;border-radius:4px;font-size:12px}
+.seg .tcs{color:var(--or-t)}
+.dark .seg .tcs{color:var(--or)}
+.h2{font-size:clamp(40px,6.4vw,96px)}
+.lede{font-size:clamp(18px,1.6vw,22px);max-width:62ch;font-weight:500}
+.read{max-width:64ch}
+.card{border:3px solid var(--ink);background:var(--white);box-shadow:8px 8px 0 var(--ink)}
+.dark .card{border-color:var(--white);background:var(--ink2);box-shadow:8px 8px 0 var(--or)}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:5px 9px;border-radius:4px;color:var(--white)}
+.otxt{color:var(--or-t)}
+.dark .otxt{color:var(--or)}
+
+/* lower third */
+.l3{display:flex;flex-direction:column;align-items:flex-start}
+.l3 .top{background:var(--or);color:var(--ink);font-weight:900;font-size:clamp(18px,2vw,26px);letter-spacing:-.02em;padding:8px 16px 6px;text-transform:uppercase}
+.l3 .bot{background:var(--white);color:var(--ink);font-weight:700;font-size:clamp(12px,1.05vw,14px);padding:7px 16px;letter-spacing:.04em;border-left:6px solid var(--ink)}
+
+/* ticker */
+.ticker{background:var(--or);color:var(--ink);border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);overflow:hidden;display:flex;align-items:stretch}
+.ticker .tag{flex:none;background:var(--ink);color:var(--or);font-weight:900;font-size:13px;letter-spacing:.14em;padding:12px 16px;display:flex;align-items:center;z-index:1}
+.ticker .run{display:flex;white-space:nowrap;animation:crawl 48s linear infinite}
+.ticker .run span{font-weight:800;font-size:15px;padding:12px 26px;display:flex;align-items:center;gap:26px}
+.ticker .run span::after{content:"";width:8px;height:8px;background:var(--ink);transform:rotate(45deg)}
+@keyframes crawl{to{transform:translateX(-50%)}}
+.ticker:hover .run{animation-play-state:paused}
+
+/* end credits footer */
+.foot{background:var(--ink);color:var(--white);padding:72px var(--pad) 28px;border-top:6px solid var(--or)}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px}
+.foot h3{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--or);font-weight:800;margin-bottom:16px}
+.foot ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.foot a{text-decoration:none;font-weight:600;color:#e6e6e6}
+.foot a:hover{color:var(--or);text-decoration:underline}
+.foot .big{font-size:clamp(34px,4vw,56px);font-weight:900;letter-spacing:-.045em;line-height:.95}
+.foot .big b{color:var(--or)}
+.foot .tag{font-weight:600;color:var(--mute);margin-top:16px;max-width:34ch}
+.foot-base{margin-top:56px;padding-top:20px;border-top:2px solid var(--line);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--mute);font-weight:600}
+@media (max-width:900px){.foot-grid{grid-template-columns:1fr 1fr}.foot-grid>div:first-child{grid-column:1/-1}}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .ticker .run{flex-wrap:wrap;white-space:normal}
+  .ticker .run span.dup{display:none}
+}
+.foot .big{margin:0}
+[id]{scroll-margin-top:84px}
+@media (max-width:1380px){.cbar .tally .tcode{display:none}.cnav a{padding-left:9px;padding-right:9px}}
+.st{font-size:11px;font-weight:800;letter-spacing:.14em;padding:5px 8px;border-radius:4px;border:2px solid var(--ink);display:inline-block}
+.st.live{background:var(--or)}
+.st.rdy{background:var(--ink);color:var(--white)}
+/* ---------- page intro ---------- */
+.intro{padding:28px var(--pad) clamp(56px,7vw,104px);position:relative;overflow:hidden}
+.intro.dark::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.025) 0 1px,transparent 1px 4px);pointer-events:none}
+.crumb{position:relative;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center;margin-bottom:clamp(28px,4vw,56px)}
+.crumb a{font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;color:var(--or);display:inline-flex;gap:8px;align-items:center}
+.crumb a svg{width:14px;height:14px;transform:rotate(180deg)}
+.crumb a:hover{text-decoration:underline}
+.light .crumb a{color:var(--or-t)}
+.kick{font-size:13px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--or);margin-bottom:20px;display:flex;align-items:center;gap:12px}
+.kick::before{content:"";width:36px;height:3px;background:var(--or)}
+.light .kick{color:var(--or-t)}
+.light .kick::before{background:var(--or-t)}
+.intro h1{position:relative;font-size:clamp(46px,7vw,112px);line-height:.92;letter-spacing:-.055em}
+.intro .lede{position:relative;margin:28px 0 0}
+.intro.dark .lede{color:#dcdcdc}
+@media (max-width:600px){.crumb .slate{display:none}}
+/* ---------- next cue ---------- */
+.nextcue .acts{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px}
+/* ---------- authorship ---------- */
+.auth{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:clamp(32px,5vw,88px);align-items:center}
+.credits h2{font-size:clamp(46px,7vw,112px);line-height:.92}
+.credits h2 span{display:block}
+.credits h2 .hl{margin-top:.1em}
+.roll{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;margin-top:44px;border-top:2px solid var(--line)}
+.roll div{padding:18px 18px 18px 0;border-bottom:2px solid var(--line)}
+.roll dt{font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--or)}
+.roll dd{margin:6px 0 0;font-weight:700;font-size:18px}
+.roll div:nth-child(odd){border-right:2px solid var(--line)}
+.roll div:nth-child(even){padding-left:18px}
+.studio-note{margin-top:32px;font-size:clamp(20px,2vw,26px);font-weight:800;letter-spacing:-.02em;max-width:30ch}
+.mon2{position:relative;border:3px solid var(--white);background:var(--white);box-shadow:12px 12px 0 var(--or)}
+.mon2 img{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:50% 0}
+.mon2 .ov{position:absolute;top:10px;left:10px;background:var(--ink);color:var(--white);font-size:11px;font-weight:800;letter-spacing:.14em;padding:5px 8px;border-radius:3px}
+.mon2 .l3{position:absolute;left:-3px;bottom:20px}
+.mon2 .l3 .bot{border:3px solid var(--ink);border-left-width:6px}
+@media (max-width:900px){.auth{grid-template-columns:1fr}.mon2{max-width:420px}}
+@media (max-width:480px){.roll{grid-template-columns:1fr}.roll div:nth-child(odd){border-right:0}.roll div:nth-child(even){padding-left:0}}
+.credits h2 .hl{width:fit-content}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" fill="currentColor"/><path d="M8 10V7a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="3"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18" fill="none" stroke="currentColor" stroke-width="3"/></symbol>
+</svg>
+
+<header class="cbar">
+  <div class="cbar-in">
+    <a class="mark" href="/" aria-label="Sean A. Russell, home">Sean A. Russell<b>.</b></a>
+    <button class="menu-btn" aria-expanded="false" aria-controls="cnav"><svg width="16" height="16" aria-hidden="true"><use href="#i-menu"/></svg>RUNDOWN</button>
+    <nav class="cnav" id="cnav" aria-label="Main">
+      <a href="/#programming">Brands</a>
+      <a href="/representation">Representation</a>
+      <a href="/#cues">Investors</a>
+      <a href="/showcase">Showcase</a>
+      <a href="/kits">Media kits</a>
+      <a href="/press">Press</a>
+      <a href="/booking">Book Sean</a>
+    </nav>
+    <div class="tally" aria-hidden="true"><span class="onair"><i></i><span class="lbl">ON AIR</span></span><span class="tcode tc" data-tc>00:00:00:00</span></div>
+  </div>
+</header>
+
+<main id="main">
+  <!-- INTRO -->
+  <section class="intro gray light" aria-labelledby="h-page">
+    <div class="crumb">
+      <a href="/"><svg aria-hidden="true"><use href="#i-arrow"/></svg>Back to the front door</a>
+      <div class="slate l" aria-hidden="true"><span>Segment<b>HOW IT&rsquo;S MADE</b></span><span>Status<b>READY</b></span></div>
+    </div>
+    <p class="kick">For attorneys, and anyone asking who made it</p>
+    <h1 id="h-page">How it&rsquo;s made.</h1>
+    <p class="lede">The first question about AI-assisted work is who the author is. Here is the credit block for the GeekFon Society catalog. Sean writes the lyrics, beatboxes the beat and produces.</p>
+  </section>
+
+  <!-- AUTHORSHIP -->
+  <section class="sec dark" id="authorship" aria-labelledby="h-auth">
+    <div class="seg"><span class="id">B1</span><span>Authorship</span><span class="tcs tc">00:02:30:00</span><span class="st">FOR ATTORNEYS</span></div>
+    <div class="auth">
+      <div class="credits">
+        <h2 id="h-auth"><span>I wrote it.</span><span>I produced it.</span><span class="hl">I built it.</span></h2>
+        <dl class="roll">
+          <div><dt>Lyrics</dt><dd>Written by Sean A. Russell</dd></div>
+          <div><dt>Beat</dt><dd>Beatboxed by Sean A. Russell</dd></div>
+          <div><dt>Production</dt><dd>Produced by Sean A. Russell</dd></div>
+          <div><dt>Studio</dt><dd>AI tools</dd></div>
+        </dl>
+        <p class="studio-note">AI tools are the studio, <span class="otxt">not the author.</span> The authorship is his.</p>
+      </div>
+      <figure class="mon2" style="margin:0">
+        <img src="/assets/photos/2026-05-20_seanarussell-Hero_v01.webp" alt="Illustrated Sean A. Russell seated in his studio, a city window and plans pinned on the wall behind him" width="1728" height="2304">
+        <span class="ov" aria-hidden="true">CAM 2 &middot; STUDIO</span>
+        <figcaption class="l3"><span class="top">Writer &middot; Producer</span><span class="bot">GeekFon Society, since March 2026</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- NEXT CUE -->
+  <section class="sec light nextcue" aria-labelledby="h-next">
+    <div class="seg"><span class="id">E1</span><span>Next cue</span><span class="tcs tc">00:04:00:00</span></div>
+    <h2 class="h2" id="h-next">Your cue.</h2>
+    <p class="lede" style="margin-top:20px">See what Sean has and who he is looking for, or open the private showcase.</p>
+    <div class="acts">
+      <a class="btn btn-or" href="/representation">Representation <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a class="btn btn-k" href="/showcase">Unlock the showcase <svg aria-hidden="true"><use href="#i-lock"/></svg></a>
+      <a class="btn btn-w" href="/track-record">Track record <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    </div>
+  </section>
+</main>
+<footer class="foot">
+  <div class="foot-grid">
+    <div>
+      <p class="big">Sean A. Russell<b>.</b></p>
+      <p class="tag">"The vision was never too big. The box was." LESARUSS, since 2000.</p>
+    </div>
+    <div>
+      <h3>The work</h3>
+      <ul><li><a href="/kits">Media kits</a></li><li><a href="/media">Media</a></li><li><a href="/directory">Directory</a></li><li><a href="/case-studies">Case studies</a></li><li><a href="/press">Press</a></li><li><a href="/people">People</a></li><li><a href="/booking">Book Sean</a></li><li><a href="/dashboard">Log in</a></li></ul>
+    </div>
+    <div>
+      <h3>Work with Sean</h3>
+      <ul><li><a href="/representation">Representation</a></li><li><a href="/#cues">Investors</a></li><li><a href="/showcase">Unlock the showcase</a></li></ul>
+    </div>
+    <div>
+      <h3>The universe</h3>
+      <ul><li><a href="https://geekfon.ai">GeekFon Society</a></li><li><a href="https://vegansexplore.com">Vegans Explore</a></li><li><a href="https://lesaruss.com">LESARUSS</a></li><li><a href="/blur-to-blueprint">From Blur to Blueprint</a></li></ul>
+    </div>
+  </div>
+  <div class="foot-base"><span>&copy; 2026 LESARUSS. Written, produced and built by Sean A. Russell.</span><span class="tc">END OF PROGRAM &middot; <span data-tc>00:00:00:00</span></span></div>
+</footer>
+<script>
+(function(){
+  var rm=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var els=document.querySelectorAll('[data-tc]'), t0=Date.now();
+  function pad(n){return (n<10?'0':'')+n}
+  function tick(){var ms=Date.now()-t0, s=Math.floor(ms/1000), f=rm?0:Math.floor((ms%1000)/1000*30);
+    var str=pad(Math.floor(s/3600))+':'+pad(Math.floor(s/60)%60)+':'+pad(s%60)+':'+pad(f);
+    for(var i=0;i<els.length;i++)els[i].textContent=str;}
+  tick(); setInterval(tick, rm?1000:1000/30);
+  var mb=document.querySelector('.menu-btn'), nav=document.getElementById('cnav');
+  if(mb){mb.addEventListener('click',function(){var o=nav.classList.toggle('open');mb.setAttribute('aria-expanded',o)});
+    nav.addEventListener('click',function(e){if(e.target.tagName==='A'){nav.classList.remove('open');mb.setAttribute('aria-expanded','false')}});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape'&&nav.classList.contains('open')){nav.classList.remove('open');mb.setAttribute('aria-expanded','false');mb.focus()}});}
+})();
+</script>
+</body>
+</html>

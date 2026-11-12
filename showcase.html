@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Showcase | Sean A. Russell</title>
+<meta property="og:title" content="Showcase | Sean A. Russell">
+<meta property="og:description" content="A private showcase of the work, built around what you care about.">
+<meta property="og:image" content="https://www.seanarussell.com/assets/poses/lesaruss-hero.png">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.seanarussell.com/showcase">
+<script src="/analytics.js" defer></script>
+<link rel="canonical" href="https://www.seanarussell.com/showcase">
+<meta name="description" content="The private Sean A. Russell showcase. Pick what you care about, register once, and it opens on GeekFon Society, Vegans Explore, the LESARUSS tech and speaking.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0d0d0d; --ink2:#1a1a1a; --ink3:#262626; --line:#3a3a3a;
+  --white:#ffffff; --gray:#f5f5f5; --mute:#b8b8b8; --mute-l:#4d4d4d;
+  --or:#F69820; --or-t:#7d4a00;
+  --gf:#7A2BF5; --ve:#0B6B33;
+  --pad:clamp(16px,4vw,64px);
+  --r:6px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:'Montserrat',system-ui,sans-serif;color:var(--ink2);background:var(--white);line-height:1.55;font-size:17px;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit}
+h1,h2,h3,h4{margin:0;line-height:1;letter-spacing:-.03em;font-weight:900}
+p{margin:0 0 1em}
+.tc,.num{font-variant-numeric:tabular-nums}
+:focus-visible{outline:3px solid var(--or);outline-offset:3px}
+.light :focus-visible,.light:focus-visible{outline-color:var(--ink)}
+.skip{position:absolute;left:-9999px;top:8px;background:var(--or);color:var(--ink);padding:10px 14px;border-radius:var(--r);font-weight:800;z-index:100}
+.skip:focus{left:8px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- control bar ---------- */
+.cbar{position:sticky;top:0;z-index:50;background:var(--ink);color:var(--white);border-bottom:3px solid var(--or)}
+.cbar-in{display:flex;align-items:center;gap:20px;padding:12px var(--pad);min-height:64px}
+.mark{font-weight:900;font-size:22px;letter-spacing:-.04em;text-decoration:none;white-space:nowrap;color:var(--white)}
+.mark b{color:var(--or)}
+.cnav{display:flex;gap:4px;margin-left:auto;flex-wrap:wrap}
+.cnav a{font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;text-decoration:none;padding:8px 12px;border-radius:var(--r);color:#e6e6e6}
+.cnav a:hover{background:var(--ink3);color:var(--white)}
+.cnav a[aria-current]{background:var(--or);color:var(--ink)}
+.tally{display:flex;align-items:center;gap:10px;font-weight:800;font-size:12px;letter-spacing:.12em;white-space:nowrap}
+.onair{display:inline-flex;align-items:center;gap:7px;background:var(--or);color:var(--ink);padding:6px 10px;border-radius:var(--r);font-weight:900}
+.onair i{width:8px;height:8px;border-radius:50%;background:var(--ink);display:block;animation:blink 1.6s steps(1) infinite}
+@keyframes blink{50%{opacity:.2}}
+.tcode{font-size:15px;color:var(--or);letter-spacing:.06em;font-weight:800}
+.menu-btn{display:none}
+@media (max-width:1200px){
+  .cnav{display:none;position:absolute;left:0;right:0;top:100%;background:var(--ink);flex-direction:column;padding:8px var(--pad) 16px;border-bottom:3px solid var(--or)}
+  .cnav.open{display:flex}
+  .cnav a{font-size:15px;padding:12px}
+  .menu-btn{display:inline-flex;margin-left:auto;align-items:center;gap:8px;background:transparent;border:2px solid #555;color:var(--white);font:800 12px 'Montserrat';letter-spacing:.1em;padding:9px 12px;border-radius:var(--r);cursor:pointer}
+  .tally .tcode{display:none}
+}
+@media (max-width:420px){.mark{font-size:19px}.tally .lbl{display:none}}
+
+/* ---------- shared bits ---------- */
+.slate{display:flex;flex-wrap:wrap;border:2px solid var(--line);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+.slate>span{padding:8px 12px;border-right:2px solid var(--line)}
+.slate>span:last-child{border-right:0}
+.slate b{color:var(--white);font-weight:800;margin-left:6px}
+.slate.l{border-color:var(--ink);color:var(--mute-l)}
+.slate.l>span{border-color:var(--ink)}
+.slate.l b{color:var(--ink)}
+.clap{height:22px;background:repeating-linear-gradient(-45deg,var(--ink) 0 18px,var(--white) 18px 36px);border:2px solid var(--ink)}
+.dark .clap{border-color:var(--white);background:repeating-linear-gradient(-45deg,var(--white) 0 18px,var(--ink) 18px 36px)}
+.hl{display:inline-block;background:var(--or);color:var(--ink);padding:.02em .18em .08em;transform:rotate(-2deg);box-shadow:6px 6px 0 var(--ink)}
+.dark .hl{box-shadow:6px 6px 0 #000}
+.btn{display:inline-flex;align-items:center;gap:10px;font:800 15px/1 'Montserrat';letter-spacing:.02em;text-decoration:none;padding:16px 20px;border-radius:var(--r);border:3px solid var(--ink);cursor:pointer;transition:transform .12s,box-shadow .12s}
+.btn svg{width:18px;height:18px;flex:none}
+.btn-or{background:var(--or);color:var(--ink);box-shadow:5px 5px 0 var(--ink)}
+.btn-w{background:var(--white);color:var(--ink);box-shadow:5px 5px 0 var(--ink)}
+.btn-k{background:var(--ink);color:var(--white);box-shadow:5px 5px 0 var(--or)}
+.dark .btn-or,.dark .btn-w{border-color:var(--white);box-shadow:5px 5px 0 var(--white)}
+.dark .btn-or{border-color:var(--or);box-shadow:5px 5px 0 #000}
+.dark .btn-w{border-color:var(--white);box-shadow:5px 5px 0 var(--or)}
+.btn:hover{transform:translate(-2px,-2px)}
+.btn:active{transform:translate(3px,3px);box-shadow:0 0 0 var(--ink)}
+.sec{padding:clamp(64px,9vw,128px) var(--pad);position:relative}
+.dark{background:var(--ink);color:var(--white)}
+.gray{background:var(--gray)}
+.seg{display:flex;align-items:center;gap:12px;font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;margin-bottom:22px;flex-wrap:wrap}
+.seg .id{background:var(--ink);color:var(--white);padding:5px 9px;border-radius:4px}
+.dark .seg .id{background:var(--or);color:var(--ink)}
+.seg .st{border:2px solid currentColor;padding:3px 8px;border-radius:4px;font-size:12px}
+.seg .tcs{color:var(--or-t)}
+.dark .seg .tcs{color:var(--or)}
+.h2{font-size:clamp(40px,6.4vw,96px)}
+.lede{font-size:clamp(18px,1.6vw,22px);max-width:62ch;font-weight:500}
+.read{max-width:64ch}
+.card{border:3px solid var(--ink);background:var(--white);box-shadow:8px 8px 0 var(--ink)}
+.dark .card{border-color:var(--white);background:var(--ink2);box-shadow:8px 8px 0 var(--or)}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:5px 9px;border-radius:4px;color:var(--white)}
+.otxt{color:var(--or-t)}
+.dark .otxt{color:var(--or)}
+
+/* lower third */
+.l3{display:flex;flex-direction:column;align-items:flex-start}
+.l3 .top{background:var(--or);color:var(--ink);font-weight:900;font-size:clamp(18px,2vw,26px);letter-spacing:-.02em;padding:8px 16px 6px;text-transform:uppercase}
+.l3 .bot{background:var(--white);color:var(--ink);font-weight:700;font-size:clamp(12px,1.05vw,14px);padding:7px 16px;letter-spacing:.04em;border-left:6px solid var(--ink)}
+
+/* ticker */
+.ticker{background:var(--or);color:var(--ink);border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);overflow:hidden;display:flex;align-items:stretch}
+.ticker .tag{flex:none;background:var(--ink);color:var(--or);font-weight:900;font-size:13px;letter-spacing:.14em;padding:12px 16px;display:flex;align-items:center;z-index:1}
+.ticker .run{display:flex;white-space:nowrap;animation:crawl 48s linear infinite}
+.ticker .run span{font-weight:800;font-size:15px;padding:12px 26px;display:flex;align-items:center;gap:26px}
+.ticker .run span::after{content:"";width:8px;height:8px;background:var(--ink);transform:rotate(45deg)}
+@keyframes crawl{to{transform:translateX(-50%)}}
+.ticker:hover .run{animation-play-state:paused}
+
+/* end credits footer */
+.foot{background:var(--ink);color:var(--white);padding:72px var(--pad) 28px;border-top:6px solid var(--or)}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px}
+.foot h3{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--or);font-weight:800;margin-bottom:16px}
+.foot ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.foot a{text-decoration:none;font-weight:600;color:#e6e6e6}
+.foot a:hover{color:var(--or);text-decoration:underline}
+.foot .big{font-size:clamp(34px,4vw,56px);font-weight:900;letter-spacing:-.045em;line-height:.95}
+.foot .big b{color:var(--or)}
+.foot .tag{font-weight:600;color:var(--mute);margin-top:16px;max-width:34ch}
+.foot-base{margin-top:56px;padding-top:20px;border-top:2px solid var(--line);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--mute);font-weight:600}
+@media (max-width:900px){.foot-grid{grid-template-columns:1fr 1fr}.foot-grid>div:first-child{grid-column:1/-1}}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .ticker .run{flex-wrap:wrap;white-space:normal}
+  .ticker .run span.dup{display:none}
+}
+.foot .big{margin:0}
+[id]{scroll-margin-top:84px}
+@media (max-width:1380px){.cbar .tally .tcode{display:none}.cnav a{padding-left:9px;padding-right:9px}}
+.st{font-size:11px;font-weight:800;letter-spacing:.14em;padding:5px 8px;border-radius:4px;border:2px solid var(--ink);display:inline-block}
+.st.live{background:var(--or)}
+.st.rdy{background:var(--ink);color:var(--white)}
+/* ---------- page intro ---------- */
+.intro{padding:28px var(--pad) clamp(56px,7vw,104px);position:relative;overflow:hidden}
+.intro.dark::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.025) 0 1px,transparent 1px 4px);pointer-events:none}
+.crumb{position:relative;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center;margin-bottom:clamp(28px,4vw,56px)}
+.crumb a{font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;color:var(--or);display:inline-flex;gap:8px;align-items:center}
+.crumb a svg{width:14px;height:14px;transform:rotate(180deg)}
+.crumb a:hover{text-decoration:underline}
+.light .crumb a{color:var(--or-t)}
+.kick{font-size:13px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--or);margin-bottom:20px;display:flex;align-items:center;gap:12px}
+.kick::before{content:"";width:36px;height:3px;background:var(--or)}
+.light .kick{color:var(--or-t)}
+.light .kick::before{background:var(--or-t)}
+.intro h1{position:relative;font-size:clamp(46px,7vw,112px);line-height:.92;letter-spacing:-.055em}
+.intro .lede{position:relative;margin:28px 0 0}
+.intro.dark .lede{color:#dcdcdc}
+@media (max-width:600px){.crumb .slate{display:none}}
+/* ---------- next cue ---------- */
+.nextcue .acts{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px}
+/* ---------- showcase ---------- */
+.show{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,5vw,88px);align-items:center}
+.bars{border:3px solid var(--white);box-shadow:12px 12px 0 var(--or);position:relative;aspect-ratio:16/10;display:grid;grid-template-rows:68% 8% 24%}
+.bars .r1{display:grid;grid-template-columns:repeat(7,1fr)}
+.bars .r1 i:nth-child(1){background:#f2f2f2}.bars .r1 i:nth-child(2){background:#d0d0d0}.bars .r1 i:nth-child(3){background:#ababab}.bars .r1 i:nth-child(4){background:var(--or)}.bars .r1 i:nth-child(5){background:#6e6e6e}.bars .r1 i:nth-child(6){background:#4a4a4a}.bars .r1 i:nth-child(7){background:#2a2a2a}
+.bars .r2{display:grid;grid-template-columns:repeat(7,1fr)}
+.bars .r2 i:nth-child(odd){background:var(--ink)}.bars .r2 i:nth-child(even){background:#8a8a8a}
+.bars .r3{display:grid;grid-template-columns:2fr 1fr 2fr 2fr;background:var(--ink)}
+.bars .r3 i:nth-child(1){background:#151515}.bars .r3 i:nth-child(2){background:var(--white)}.bars .r3 i:nth-child(3){background:#151515}
+.bars .lockcard{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:var(--ink);border:3px solid var(--or);padding:18px 22px;text-align:center;min-width:min(78%,300px)}
+.bars .lockcard svg{width:30px;height:30px;color:var(--or);margin:0 auto 8px}
+.bars .lockcard b{display:block;font-size:clamp(16px,1.8vw,22px);letter-spacing:.06em}
+.bars .lockcard span{font-size:11px;font-weight:800;letter-spacing:.16em;color:var(--or)}
+.picks{border:0;padding:0;margin:28px 0 0}
+.picks legend{font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--or);margin-bottom:14px;padding:0}
+.picks .opts{display:flex;flex-wrap:wrap;gap:10px}
+.pick{position:relative}
+.pick input{position:absolute;opacity:0;width:1px;height:1px}
+.pick span{display:inline-flex;align-items:center;gap:8px;border:2px solid var(--white);border-radius:var(--r);padding:11px 14px;font-weight:700;font-size:15px;cursor:pointer;user-select:none}
+.pick span::before{content:"";width:12px;height:12px;border:2px solid currentColor;border-radius:2px}
+.pick input:checked+span{background:var(--or);color:var(--ink);border-color:var(--or)}
+.pick input:checked+span::before{background:var(--ink);border-color:var(--ink)}
+.pick input:focus-visible+span{outline:3px solid var(--or);outline-offset:3px}
+.reg{display:flex;gap:12px;margin-top:22px;flex-wrap:wrap}
+.reg label{flex:1 1 240px;display:flex;flex-direction:column;gap:6px;font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.reg input{font:600 16px 'Montserrat';padding:14px;border:3px solid var(--white);border-radius:var(--r);background:var(--ink2);color:var(--white);width:100%}
+.reg input:focus-visible{outline:3px solid var(--or);outline-offset:2px}
+.reg .btn{align-self:flex-end}
+.thanks{display:none;margin-top:24px;border:3px solid var(--or);padding:20px;font-weight:700}
+.thanks.on{display:block}
+.thanks b{color:var(--or)}
+@media (max-width:900px){.show{grid-template-columns:1fr}}
+.showtop{padding-top:28px}
+.notyou{margin:16px 0 0}
+.notyou button{background:none;border:0;padding:4px 0;font:700 15px 'Montserrat';color:var(--or);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.notyou button:hover{color:var(--white)}
+/* ---------- feed ---------- */
+.groups{display:grid;gap:44px;margin-top:48px}
+.grp[hidden]{display:none}
+.grp{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:clamp(20px,3vw,48px);align-items:start;padding-top:28px;border-top:3px solid var(--ink)}
+.grp-h .chip{margin-bottom:12px}
+.grp-h h3{font-size:clamp(26px,2.6vw,38px);margin-bottom:12px}
+.grp-h p{font-size:16px;color:var(--mute-l);margin:0;max-width:44ch}
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.sc{display:flex;flex-direction:column;gap:6px;min-height:132px;border:3px solid var(--ink);background:var(--white);color:var(--ink);text-decoration:none;padding:18px;box-shadow:6px 6px 0 var(--ink);min-width:0;transition:transform .12s}
+.sc small{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--or-t);overflow-wrap:anywhere}
+.sc b{font-size:20px;font-weight:900;letter-spacing:-.02em;line-height:1.15}
+.sc .go{margin-top:auto;width:30px;height:30px;border:2px solid var(--ink);border-radius:var(--r);display:grid;place-items:center}
+.sc .go svg{width:14px;height:14px}
+.sc:hover{transform:translate(-2px,-2px);box-shadow:8px 8px 0 var(--or)}
+.sc:hover .go{background:var(--or)}
+@media (max-width:1000px){.grp{grid-template-columns:1fr}}
+@media (max-width:640px){.cards{grid-template-columns:1fr}.sc{min-height:0}}
+@media (prefers-reduced-motion:reduce){.sc:hover{transform:none}}
+
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" fill="currentColor"/><path d="M8 10V7a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="3"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18" fill="none" stroke="currentColor" stroke-width="3"/></symbol>
+</svg>
+
+<header class="cbar">
+  <div class="cbar-in">
+    <a class="mark" href="/" aria-label="Sean A. Russell, home">Sean A. Russell<b>.</b></a>
+    <button class="menu-btn" aria-expanded="false" aria-controls="cnav"><svg width="16" height="16" aria-hidden="true"><use href="#i-menu"/></svg>RUNDOWN</button>
+    <nav class="cnav" id="cnav" aria-label="Main">
+      <a href="/#programming">Brands</a>
+      <a href="/representation">Representation</a>
+      <a href="/#cues">Investors</a>
+      <a href="/showcase" aria-current="page">Showcase</a>
+      <a href="/kits">Media kits</a>
+      <a href="/press">Press</a>
+      <a href="/booking">Book Sean</a>
+    </nav>
+    <div class="tally" aria-hidden="true"><span class="onair"><i></i><span class="lbl">ON AIR</span></span><span class="tcode tc" data-tc>00:00:00:00</span></div>
+  </div>
+</header>
+
+<main id="main">
+  <section class="sec dark showtop" id="showcase" aria-labelledby="h-show">
+    <div class="crumb">
+      <a href="/"><svg aria-hidden="true"><use href="#i-arrow"/></svg>Back to the front door</a>
+      <div class="slate" aria-hidden="true"><span>Segment<b>SHOWCASE</b></span><span>Status<b>READY</b></span></div>
+    </div>
+    <div class="seg"><span class="id">E2</span><span>Private feed</span><span class="tcs tc">00:11:00:00</span><span class="st" id="showState">STANDBY</span></div>
+    <div class="show">
+      <div class="bars" aria-hidden="true">
+        <div class="r1"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="r2"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="r3"><i></i><i></i><i></i><i></i></div>
+        <div class="lockcard"><svg aria-hidden="true"><use href="#i-lock"/></svg><b>PRIVATE SHOWCASE</b><span id="lockState">FEED LOCKED</span></div>
+      </div>
+      <div>
+        <h1 class="h2" id="h-show">Unlock the showcase.</h1>
+        <p class="lede" style="margin-top:20px;color:#dcdcdc">A private showcase of the work. Pick what you care about, register once, and it opens right here on this page. New work comes to your inbox.</p>
+        <div id="gate">
+        <form id="showForm" novalidate>
+          <fieldset class="picks">
+            <legend>What do you want to see?</legend>
+            <div class="opts">
+              <label class="pick"><input type="checkbox" name="i" value="GeekFon Society"><span>GeekFon Society</span></label>
+              <label class="pick"><input type="checkbox" name="i" value="Vegans Explore"><span>Vegans Explore</span></label>
+              <label class="pick"><input type="checkbox" name="i" value="The tech"><span>The tech</span></label>
+              <label class="pick"><input type="checkbox" name="i" value="Speaking"><span>Speaking</span></label>
+              <label class="pick"><input type="checkbox" name="i" value="Everything"><span>Everything</span></label>
+            </div>
+          </fieldset>
+          <div class="reg">
+            <label>Email<input type="email" name="email" autocomplete="email" required placeholder="you@company.com"></label>
+            <button class="btn btn-or" type="submit">Unlock the showcase <svg aria-hidden="true"><use href="#i-lock"/></svg></button>
+          </div>
+        </form>
+        </div>
+        <div class="thanks" id="showThanks" role="status" aria-live="polite"></div>
+        <p class="notyou" id="notYou" hidden><button type="button" id="again">Not you? Register again</button></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEED -->
+  <section class="sec gray light" id="feed" aria-labelledby="h-feed" hidden>
+    <div class="seg"><span class="id">F1</span><span>Your showcase</span><span class="tcs tc">00:11:30:00</span><span class="st live">OPEN</span></div>
+    <h2 class="h2" id="h-feed" tabindex="-1">Your showcase.</h2>
+    <p class="lede" style="margin-top:20px">Picked from what you told us you care about. Want different picks? Register again above.</p>
+    <div class="groups">
+    <div class="grp" data-g="GeekFon Society">
+      <div class="grp-h"><h3>GeekFon Society</h3><p>An animated music universe. 121 songs live across a roster of animated artists.</p></div>
+      <div class="cards">
+        <a class="sc" href="https://geekfon.ai"><small>geekfon.ai</small><b>Enter GeekFon Society</b><span class="go"><svg aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+        <a class="sc" href="https://geekfon.ai/radio"><small>geekfon.ai/radio</small><b>Listen to GeekFon Radio</b><span class="go"><svg aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+      </div>
+    </div>
+    <div class="grp" data-g="Vegans Explore">
+      <div class="grp-h"><h3>Vegans Explore</h3><p>The evolution of SoFlo Vegans, built toward 1000 communities by 2030.</p></div>
+      <div class="cards">
+        <a class="sc" href="https://vegansexplore.com"><small>vegansexplore.com</small><b>Visit Vegans Explore</b><span class="go"><svg aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+      </div>
+    </div>
+    <div class="grp" data-g="The tech">
+      <div class="grp-h"><h3>The tech</h3><p>The LESARUSS operating system Sean built himself with AI: HQ, brand sites, outreach, membership and payments. Three sites launched in one day this week.</p></div>
+      <div class="cards">
+        <a class="sc" href="https://lesaruss.com"><small>lesaruss.com</small><b>LESARUSS</b><span class="go"><svg aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+        <a class="sc" href="https://lesaruss.ai"><small>lesaruss.ai</small><b>LESARUSS.ai</b><span class="go"><svg aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+        <a class="sc" href="https://k12unlocked.com"><small>k12unlocked.com</small><b>K12 Unlocked</b><span class="go"><svg aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+      </div>
+    </div>
+    <div class="grp" data-g="Speaking">
+      <div class="grp-h"><h3>Speaking</h3><p>Keynotes, panels and hosting.</p></div>
+      <div class="cards">
+        <a class="sc" href="/kits/speaker"><small>Media kit</small><b>Speaker media kit</b><span class="go"><svg aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+        <a class="sc" href="/booking"><small>Booking</small><b>Book Sean</b><span class="go"><svg aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+      </div>
+    </div>
+    <div class="grp" data-g="story">
+      <div class="grp-h"><h3>The full story</h3><p>The pages behind the front door.</p></div>
+      <div class="cards">
+        <a class="sc" href="/blur-to-blueprint"><small>The book</small><b>From Blur to Blueprint</b><span class="go"><svg aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+        <a class="sc" href="/track-record"><small>Thirty years</small><b>Track record</b><span class="go"><svg aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+        <a class="sc" href="/how-its-made"><small>Authorship</small><b>How it&rsquo;s made</b><span class="go"><svg aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+      </div>
+    </div>
+    </div>
+  </section>
+</main>
+<footer class="foot">
+  <div class="foot-grid">
+    <div>
+      <p class="big">Sean A. Russell<b>.</b></p>
+      <p class="tag">"The vision was never too big. The box was." LESARUSS, since 2000.</p>
+    </div>
+    <div>
+      <h3>The work</h3>
+      <ul><li><a href="/kits">Media kits</a></li><li><a href="/media">Media</a></li><li><a href="/directory">Directory</a></li><li><a href="/case-studies">Case studies</a></li><li><a href="/press">Press</a></li><li><a href="/people">People</a></li><li><a href="/booking">Book Sean</a></li><li><a href="/dashboard">Log in</a></li></ul>
+    </div>
+    <div>
+      <h3>Work with Sean</h3>
+      <ul><li><a href="/representation">Representation</a></li><li><a href="/#cues">Investors</a></li><li><a href="/showcase">Unlock the showcase</a></li></ul>
+    </div>
+    <div>
+      <h3>The universe</h3>
+      <ul><li><a href="https://geekfon.ai">GeekFon Society</a></li><li><a href="https://vegansexplore.com">Vegans Explore</a></li><li><a href="https://lesaruss.com">LESARUSS</a></li><li><a href="/blur-to-blueprint">From Blur to Blueprint</a></li></ul>
+    </div>
+  </div>
+  <div class="foot-base"><span>&copy; 2026 LESARUSS. Written, produced and built by Sean A. Russell.</span><span class="tc">END OF PROGRAM &middot; <span data-tc>00:00:00:00</span></span></div>
+</footer>
+<script>
+(function(){
+  var rm=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var els=document.querySelectorAll('[data-tc]'), t0=Date.now();
+  function pad(n){return (n<10?'0':'')+n}
+  function tick(){var ms=Date.now()-t0, s=Math.floor(ms/1000), f=rm?0:Math.floor((ms%1000)/1000*30);
+    var str=pad(Math.floor(s/3600))+':'+pad(Math.floor(s/60)%60)+':'+pad(s%60)+':'+pad(f);
+    for(var i=0;i<els.length;i++)els[i].textContent=str;}
+  tick(); setInterval(tick, rm?1000:1000/30);
+  var mb=document.querySelector('.menu-btn'), nav=document.getElementById('cnav');
+  if(mb){mb.addEventListener('click',function(){var o=nav.classList.toggle('open');mb.setAttribute('aria-expanded',o)});
+    nav.addEventListener('click',function(e){if(e.target.tagName==='A'){nav.classList.remove('open');mb.setAttribute('aria-expanded','false')}});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape'&&nav.classList.contains('open')){nav.classList.remove('open');mb.setAttribute('aria-expanded','false');mb.focus()}});}
+})();
+(function(){
+  var KEY='sar_showcase';
+  var f=document.getElementById('showForm'), th=document.getElementById('showThanks'), gate=document.getElementById('gate');
+  var notYou=document.getElementById('notYou'), again=document.getElementById('again');
+  var feed=document.getElementById('feed'), feedH=document.getElementById('h-feed');
+  var groups=[].slice.call(document.querySelectorAll('.grp'));
+  var showState=document.getElementById('showState'), lockState=document.getElementById('lockState');
+  function load(){try{var v=localStorage.getItem(KEY);if(!v)return null;var o=JSON.parse(v);return o&&Array.isArray(o.picks)?o:{picks:[]};}catch(e){return null}}
+  function save(p){try{localStorage.setItem(KEY,JSON.stringify({picks:p,at:Date.now()}))}catch(e){}}
+  function clear(){try{localStorage.removeItem(KEY)}catch(e){}}
+  function openShow(picks,msg,focus){
+    var all=!picks.length||picks.indexOf('Everything')>-1;
+    groups.forEach(function(g){var k=g.getAttribute('data-g');g.hidden=!(k==='story'||all||picks.indexOf(k)>-1)});
+    gate.hidden=true; notYou.hidden=false; feed.hidden=false;
+    th.className='thanks on'; th.innerHTML=msg;
+    showState.textContent='OPEN'; lockState.textContent='FEED OPEN';
+    if(focus)feedH.focus();
+  }
+  function lock(){
+    clear(); feed.hidden=true; gate.hidden=false; notYou.hidden=true;
+    th.className='thanks'; th.innerHTML=''; f.reset();
+    showState.textContent='STANDBY'; lockState.textContent='FEED LOCKED';
+    f.email.focus();
+  }
+  again.addEventListener('click',lock);
+  var saved=load();
+  if(saved)openShow(saved.picks,'<b>Welcome back.</b> Your showcase is open below.',false);
+  f.addEventListener('submit',function(e){e.preventDefault();
+    var em=f.email.value.trim(), picks=[].map.call(f.querySelectorAll('input[name=i]:checked'),function(i){return i.value});
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)){th.className='thanks on';th.innerHTML='<b>Check your email address.</b> We need a working email to open the showcase.';f.email.setAttribute('aria-invalid','true');f.email.focus();return}
+    f.email.removeAttribute('aria-invalid');
+    var btn=f.querySelector('button[type=submit]');btn.disabled=true;
+    fetch('/api/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:em,source:'sar-showcase',types:picks,message:picks.length?'Showcase interests: '+picks.join(', '):'Showcase registration'})})
+      .then(function(r){if(!r.ok)throw 0;save(picks);openShow(picks,'<b>The showcase is open below.</b> New work will come to your inbox.',true);})
+      .catch(function(){th.className='thanks on';th.innerHTML='<b>That did not go through.</b> Try again in a moment.';})
+      .then(function(){btn.disabled=false;});});
+})();
+</script>
+</body>
+</html>
