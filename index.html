@@ -33,6 +33,7 @@ p{margin:0 0 1em}
 .tc,.num{font-variant-numeric:tabular-nums}
 :focus-visible{outline:3px solid var(--or);outline-offset:3px}
 .light :focus-visible,.light:focus-visible{outline-color:var(--ink)}
+.vh{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 .skip{position:absolute;left:-9999px;top:8px;background:var(--or);color:var(--ink);padding:10px 14px;border-radius:var(--r);font-weight:800;z-index:100}
 .skip:focus{left:8px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
@@ -493,7 +494,7 @@ a.rd-row:hover .go,a.rd-row:focus-visible .go{background:var(--or)}
           <span class="chip" style="background:var(--ink);border:2px solid var(--white)">Book</span>
           <h3>From Blur to Blueprint</h3>
           <p>The book. How a vision that was never too big finally got a box that fit.</p>
-          <a class="more" href="/blur-to-blueprint">Read more <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          <a class="more" href="/blur-to-blueprint">Read more<span class="vh"> about From Blur to Blueprint</span> <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
         </div>
       </article>
       <article class="ch">
